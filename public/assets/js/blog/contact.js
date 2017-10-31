@@ -22,7 +22,7 @@ var Contact = (function(){
                     }
                 },
                 method: "POST",
-                url: that.GetBaseUrl() + "contact/add",
+                url: App.GetBaseUrl() + "contact/add",
                 data: { 'name': name, 'email': email, 'sujet': sujet, 'message': msg },
                 dataType: 'json',
                 cache: false,

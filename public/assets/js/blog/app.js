@@ -1,10 +1,23 @@
-var App = {
-    research: function() {
+var App = (function(){
+
+    var that = {};
+
+    that.GetBaseUrl = function () {
+        return window.location.protocol + "//" + window.location.host + "/";
+    };
+
+    that.init = function() {
+        that.research();
+        that.avert_cookies();
+        that.scroll_top();
+    };
+
+    that.research = function() {
         $(".click_search").click(function(e) {
             e.preventDefault();
             $(".recherche_modal").fadeIn("slow", function() {
                 $(".modal").slideDown("slow");
-                $(".del_modal").click(function(ev) {
+                $(".del_modal").click(function() {
                     $(".modal").slideUp("slow", function() {
                         $(".recherche_modal").fadeOut("slow");
                     });
@@ -20,7 +33,7 @@ var App = {
             return false;
         });
 
-        $(".tablinks").click(function(e) {
+        $(".tablinks").click(function() {
             var link = $(this).data("tabsnav");
             $(".tabsnavtitle > .active").removeClass("active");
             $(this).addClass("active");
@@ -28,8 +41,9 @@ var App = {
             $(".tabsnavcontent > #" + link).addClass("show")
         });
 
-    },
-    avert_cookies: function() {
+    };
+
+    that.avert_cookies = function() {
         if (!Cookies.get('cookie_ok')) {
             $(".eupopup-container").css("display", "block");
             $(".eupopup-button_1").click(function() {
@@ -38,8 +52,9 @@ var App = {
                 });
             });
         }
-    },
-    scroll_top: function() {
+    };
+
+    that.scroll_top = function() {
         $(document).on( 'scroll', function(){
             if ($(window).scrollTop() > 100) {
                 $('.scroll-top-wrapper').addClass('show');
@@ -56,10 +71,12 @@ var App = {
             offsetTop = offset.top;
             $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
         }
-    },
-    init: function() {
-        this.research();
-        this.avert_cookies();
-        this.scroll_top();
-    }
-};
+    };
+
+    return that;
+
+})();
+
+$(document).ready(function () {
+    App.init();
+});

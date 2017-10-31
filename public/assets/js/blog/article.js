@@ -7,10 +7,6 @@ var Article = (function(){
         that.bloc_share();
     };
 
-    that.GetBaseUrl = function () {
-        return window.location.protocol + "//" + window.location.host + "/";
-    };
-
     that.AddComments = function() {
 
         $.ajaxSetup({
@@ -50,7 +46,7 @@ var Article = (function(){
                         }
                     },
                     method: "POST",
-                    url: that.GetBaseUrl() + "comments/add",
+                    url: App.GetBaseUrl() + "comments/add",
                     data: { 'post_id' : post,'name': name.val(), 'email': email.val(), 'message': message.val() },
                     dataType: 'json',
                     cache: false,

@@ -109,10 +109,5 @@
         {% for data in js %}
             <script type="text/javascript" src="{{ data.file }}"></script>
         {% endfor %}
-        <script>
-            $(document).ready(function () {
-                App.init();
-            });
-        </script>
     </body>
 </html>
