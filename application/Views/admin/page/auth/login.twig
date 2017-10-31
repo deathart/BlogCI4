@@ -1,0 +1,14 @@
+{% extends "template_login.twig" %}
+{% block content %}
+<div class="content">
+    <div class="title">Connexion</div>
+    <form class="login_form">
+        <input class="mail" type="text" placeholder="E-mail" />
+        <input class="password" type="password" placeholder="Mot de passe" />
+        <input class="remember" type="checkbox" id="rememberMe" checked />
+        <label for="rememberMe"></label><span>Se souvenir de moi</span>
+		{{ csrf_field }}
+        <button type="submit">Connexion</button>
+    </form>
+</div>
+{% endblock %}

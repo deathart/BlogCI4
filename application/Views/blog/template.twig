@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        {% autoescape false %}
+        {{  meta }}
+        {% endautoescape %}
+        {% for data in css %}
+                <link rel="stylesheet" type="text/css" href="{{ data.file }}" />
+        {% endfor %}
+        {% if 'analytics_active'|config == 1 %}
+            {{ 'analytics_code'|config }}
+        {% endif %}
+    </head>
+    <body>
+        <div id="voile" class="recherche_modal">
+            <div class="modal">
+                <h2 class="titre">Recherche</h2>
+                <div class="content">
+                    <form  method="post" action="{{ 'search'|base_url }}">
+                    <div class="group-inline">
+                        <label for="rech_val">Mots clef à rechercher : </label>
+                        <input type="text" class="rech_val" name="mc_key" />
+                    </div>
+                    <div class="group-inline btn_act">
+                        <button type="submit" class="btn">Rechercher</button>
+                        <span class="del_modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></span>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="wrapper">
+            <header>
+                <div id="prem">
+                    <div class="titre">
+                        <a href="{{ '/'|base_url }}">{{ 'site_title'|config }}</a>
+                    </div>
+                    <div class="button">
+                        <!--<a href="#" target="_blank" class="facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                        <a href="#" target="_blank" class="twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                        <a href="#" target="_blank" class="github"><i class="fa fa-github-square" aria-hidden="true"></i></a>
+                        <a href="#" target="_blank" class="bitbucket"><i class="fa fa-bitbucket-square" aria-hidden="true"></i></a>
+                        <a href="#" target="_blank" class="linkedin"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                        -->
+                    </div>
+                </div>
+                <div id="menu">
+                    <div class="mobile_menu">
+                        Menu mobile
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>Accueil</a>
+                        </li>
+                        <li class="cat">
+                            <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>Catégories</a>
+                            <div class="dropdown-content">
+                                <ul>
+                                    {% for data in general('GetCat') %}
+                                        <li><a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="cat">
+                            <a href="{{ 'outils'|base_url }}" {% if '1'|uri_segment == "outils" %}class="active"{% endif %}>Outils</a>
+                            <div class="dropdown-content">
+                                <ul>
+                                    <li><a href="{{ 'outils/'|base_url }}">Border Radius</a></li>
+                                    <li><a href="{{ 'outils/'|base_url }}">Box Shadow</a></li>
+                                    <li><a href="{{ 'outils/'|base_url }}">Text Shadow</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>Contact</a>
+                        </li>
+                        <li>
+                            <a href="{{ 'about'|base_url }}" {% if '1'|uri_segment == "about" %}class="active"{% endif %}>Informations</a>
+                        </li>
+                    </ul>
+                    <div class="search">
+                        <span class="click_search"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+            </header>
+            <div id="content">
+                <div class="annonce">
+                    {{ 'annonce_general'|config }}
+                </div>
+                {% block content %}{% endblock %}
+            </div>
+            <footer>
+                Copyright © 2017 {{ 'site_title'|config }}, All Rights Reserved. Page chargée en 0.7196 secondes. Version : 1.0.0 / CI : 4.0-dev
+            </footer>
+            <div class="scroll-top-wrapper ">
+				<span class="scroll-top-inner">
+					<i class="fa fa-2x fa-arrow-circle-up"></i>
+				</span>
+            </div>
+        </div>
+        <div class="eupopup-container eupopup-container-bottom eupopup-color-default" style="display: none;">
+            <div class="eupopup-head">
+                Notre site utilise des cookies.
+            </div>
+            <div class="eupopup-body">
+                Certains cookies sont nécessaires au fonctionnement du site, tandis que d'autres nous aident à améliorer l'expérience utilisateur. En utilisant le site, vous acceptez l'utilisation des cookies.
+            </div>
+            <div class="eupopup-buttons">
+                <span class="eupopup-button eupopup-button_1">
+                    Fermer
+                </span>
+                <a href="{{ 'cookies'|base_url }}" class="eupopup-button eupopup-button_2">
+                En savoir plus
+                </a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        {% for data in js %}
+            <script type="text/javascript" src="{{ data.file }}"></script>
+        {% endfor %}
+        <script>
+            $(document).ready(function () {
+                App.init();
+            });
+        </script>
+    </body>
+</html>

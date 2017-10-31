@@ -1,0 +1,91 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="menu_right">
+        {% if related_article %}
+            <div class="bloc">
+                <h1>Article similaire</h1>
+                {% for data in related_article %}
+                    {% if data.id != get_info_article.id and data.published == 1%}
+                        <a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a><br />
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if 'pub_active'|config == 1 %}
+            <div class="bloc" id="pub">
+                <h1>Publicité</h1>
+                <p></p>
+            </div>
+        {% endif %}
+        <div class="bloc" id="share">
+            <h1>Partages</h1>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="btn-social btn-facebook">
+                <i class="fa fa-facebook"></i> Partager sur facebook
+            </a>
+            <a href="https://twitter.com/home?status=" target="_blank" class="btn-social btn-twitter">
+                <i class="fa fa-twitter"></i> Partager sur twitter
+            </a>
+            <a href="https://plus.google.com/share?url=" target="_blank" class="btn-social btn-google">
+                <i class="fa fa-google-plus"></i> Partager sur google+
+            </a>
+            <a href="http://www.reddit.com/submit?url=" target="_blank" class="btn-social btn-reddit">
+                <i class="fa fa-reddit-alien"></i> Partager sur reddit
+            </a>
+        </div>
+    </div>
+    <div id="article">
+        <div class="title">
+            <h2>{{ get_info_article.title }}</h2>
+            <ul>
+                <li><strong>Publié :</strong> {{ get_info_article.date_created }}</li>
+                {% if get_info_article.date_update %}
+                    <li><strong>Mise à jours :</strong>{{ get_info_article.date_update }}</li>
+                {% endif %}
+                <li><strong>Catégories :</strong> {{ general('TradCat', get_info_article.cat) }}</li>
+                <li><strong><i class="fa fa-eye"></i> vues</strong> {{ PostView }}</li>
+            </ul>
+        </div>
+        <div class="image">
+            <img src="{{ get_info_article.picture_one|base_url }}" />
+        </div>
+        <div class="content">
+            {{ parse(get_info_article.content) }}
+        </div>
+        <div class="tags">
+
+        </div>
+    </div>
+    <div class="commentaire">
+        <h1>Commentaire(s)</h1>
+        {% for data in get_coms %}
+            <div class="comment">
+                <div class="inf">
+                    <span class="name">{{ data.author_name }}</span>
+                    <span class="date"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ data.created_date }}</span>
+                </div>
+                <div class="cont">
+                    {{ data.content }}
+                </div>
+            </div>
+        {% endfor %}
+        <h1>Ajouter un commentaire</h1>
+        <div class="message_add_coms"></div>
+        <form class="add_com" data-post="{{ get_info_article.id }}">
+            <div class="group-inline">
+                <label for="name">Nom : </label>
+                <input type="text" id="name" />
+            </div>
+            <div class="group-inline">
+                <label for="email">Email : </label>
+                <input type="email" id="email" />
+            </div>
+            <div class="group-inline">
+                <label for="com">Commentaire : </label>
+                <textarea id="com"></textarea>
+            </div>
+            {{ csrf_field }}
+            <button type="submit" class="btn">Envoyer le commentaire</button>
+            <div style="clear:both;"></div>
+        </form>
+    </div>
+{% endblock %}

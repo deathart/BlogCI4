@@ -1,0 +1,31 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 mb-3 p-0">
+        <div class="col-md-12">
+            <div id="pan_cont">
+                <div class="title">
+                    <h2>Liste des commentaires</h2>
+                </div>
+                <div class="fin">
+                    {% if comments %}
+                        <ul class="list-unstyled list-group">
+                            {% for data in comments %}
+                                <li data-comments="{{ data.id }}">
+                                    Commentaire de <strong>{{ data.author_name }}</strong> (Email : <strong>{{ data.author_email }}</strong>) (IP : <strong>{{ data.author_ip }}</strong>)
+                                    <hr />
+                                    {{ data.content }}
+                                    <hr />
+                                    Posté le {{ data.created_date }} | Article : <a href="{{ ('article/' ~ data.post_slug)|base_url }}"><strong>{{ data.post_title }}</strong></a>
+                                    <hr />
+                                    <span class="btn btn-group btn-success comments-valide">Validés</span><span class="btn btn-group btn-danger comments-refuse">Refusé</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div style="text-align: center;">Aucun commentaire en attente de validation</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

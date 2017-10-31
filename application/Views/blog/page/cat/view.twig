@@ -1,0 +1,44 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="menu_right">
+        <div class="bloc">
+            <h1>{{ info_cat.title }}</h1>
+            <p>{{ info_cat.description }}</p>
+        </div>
+        <div class="bloc" id="pub">
+            <h1>Publicité</h1>
+        </div>
+        {{ pager }}
+    </div>
+    <div class="article_list">
+        {% for data in get_all %}
+            <div class="article_bloc">
+                <div class="images">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 250px;" src="{{ data.picture_one|base_url }}" /></a>
+                    <div class="tags">
+                        {{ general('TradCat', data.cat) }}
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="publish_date">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                    </div>
+                    <div class="coms">
+                        <span>{{ general('CountCom', data.id) }}</span> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>
+                <div class="content">
+                    {{ data.content|slice(0, 500) ~ '...' }}
+                </div>
+                <div class="read_more">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="nopost">
+                Aucun article
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

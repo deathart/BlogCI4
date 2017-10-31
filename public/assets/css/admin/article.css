@@ -1,0 +1,53 @@
+.edit_article {
+  cursor: pointer;
+  background: orange;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 5px;
+}
+
+.edit_article:hover {
+  -webkit-box-shadow: 0 0 3px black;
+  box-shadow: 0 0 3px black;
+}
+
+.desactive_article {
+  cursor: pointer;
+  background: #d9ff00;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 5px;
+  margin-left: 4px;
+}
+
+.desactive_article:hover {
+  -webkit-box-shadow: 0 0 3px black;
+  box-shadow: 0 0 3px black;
+}
+
+.delete_article {
+  cursor: pointer;
+  background: red;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 5px;
+  margin-left: 4px;
+}
+
+.delete_article:hover {
+  -webkit-box-shadow: 0 0 3px black;
+  box-shadow: 0 0 3px black;
+}
+
+.add_article {
+  text-decoration: none;
+}
+
+#art_home {
+  margin: 15px;
+}
+
+/*# sourceMappingURL=../maps/admin/article.css.map */

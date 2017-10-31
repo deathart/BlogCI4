@@ -1,0 +1,81 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="menu_right">
+        <div class="bloc">
+            <h1>Présentation</h1>
+            <p>{{ 'presentation'|config }}</p>
+        </div>
+        {% if 'pub_active'|config == 1 %}
+            <div class="bloc" id="pub">
+                <h1>Publicité</h1>
+                <p></p>
+            </div>
+        {% endif %}
+        <!--<div class="bloc" id="pub">
+            <h1>Publicité</h1>
+            <p></p>
+        </div>-->
+    </div>
+    <div class="article_list">
+        <h1>Articles les plus luts</h1>
+        {% for data in last_important %}
+            <div class="article_bloc">
+                <div class="images">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 130px;" src="{{ data.picture_one|base_url }}" /></a>
+                    <div class="tags">
+                        {{ general('TradCat', data.cat) }}
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="publish_date">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                    </div>
+                    <div class="coms">
+                        <span>{{ general('CountCom', data.id) }}</span> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>
+                <!--<div class="content">
+                    {{ data.content|slice(0, 500) ~ '...' }}
+                </div>-->
+                <div class="read_more">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if 'home_annonce_1'|config %}
+        <div class="annonce">{{ 'home_annonce_1'|config }}</div>
+    {% endif %}
+    <div class="article_last">
+        <h1>Les derniers articles</h1>
+        {% for data in last_article %}
+            <div class="article_bloc">
+                <div class="images">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 250px;" src="{{ data.picture_one|base_url }}" /></a>
+                    <div class="tags">
+                        {{ general('TradCat', data.cat) }}
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="publish_date">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                    </div>
+                    <div class="coms">
+                        <span>{{ general('CountCom', data.id) }}</span> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>
+                <div class="content">
+                    {{ data.content|slice(0, 500) ~ '...' }}
+                </div>
+                <div class="read_more">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if 'home_annonce_2'|config %}
+        <div class="annonce">{{ 'home_annonce_2'|config }}</div>
+    {% endif %}
+{% endblock %}

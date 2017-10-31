@@ -1,0 +1,13 @@
+User-Agent: *
+Disallow: /wp-login.php
+Disallow: /lostpassword/
+Disallow: ?
+Sitemap: https://www.zone-actu.com/post-sitemap1.xml
+Sitemap: https://www.zone-actu.com/post-sitemap2.xml
+Sitemap: https://www.zone-actu.com/post-sitemap3.xml
+Sitemap: https://www.zone-actu.com/post-sitemap4.xml
+Sitemap: https://www.zone-actu.com/page-sitemap.xml
+Sitemap: https://www.zone-actu.com/category-sitemap.xml
+Sitemap: https://www.zone-actu.com/post_tag-sitemap.xml
+Sitemap: https://www.zone-actu.com/post_format-sitemap.xml
+Sitemap: https://www.zone-actu.com/news-sitemap.xml

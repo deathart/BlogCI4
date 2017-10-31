@@ -1,0 +1,30 @@
+{% extends "template.twig" %}
+{% block content %}
+	<div class="page_content">
+	    <h2>Contact</h2>
+        <div class="message_contact"></div>
+        {% if check %}
+            Vous avez déjà réssament fait une prise de contact
+        {% else %}
+        <form class="contact">
+            <div class="group-inline">
+                <label for="name">Nom : </label>
+                <input type="text" id="name" placeholder="Nom"/>
+            </div>
+            <div class="group-inline">
+                <label for="email">Email : </label>
+                <input type="email" id="email" placeholder="Email"/>
+            </div>
+            <div class="group-inline">
+                <label for="email">Sujet : </label>
+                <input type="text" id="sujet" placeholder="Sujet"/>
+            </div>
+            <div class="group-inline">
+                <label for="msg">Message : </label>
+                <textarea id="msg"></textarea>
+            </div>
+            <button type="submit" class="btn">Envoyer le commentaire</button>
+        </form>
+        {% endif %}
+	</div>
+{% endblock %}

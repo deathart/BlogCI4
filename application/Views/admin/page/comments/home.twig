@@ -1,0 +1,29 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 p-0">
+        <div class="col-md-4">
+            <div class="card text-white bg-info">
+                <div class="card-header">Commentaire en attente de validation</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre de commentaire : </strong> <a href="{{ 'admin/comments/wait'|base_url }}">{{ count_wait }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-header">Commentaires validés</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre de commentaire : </strong> <a href="{{ 'admin/comments/ok'|base_url }}">{{ count_ok }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger">
+                <div class="card-header">Commentaire non validés</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre de commentaire : </strong> <a href="{{ 'admin/comments/no'|base_url }}">{{ count_no }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

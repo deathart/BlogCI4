@@ -10,8 +10,14 @@ user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 
-#codeigniter 3
-application/logs/*
-!application/logs/index.html
-!application/logs/.htaccess
 /vendor/
+.idea
+node_modules
+vendor
+writable/cache
+writable/logs
+writable/session
+writable/uploads
+public/uploads
+composer.lock
+package-lock.json

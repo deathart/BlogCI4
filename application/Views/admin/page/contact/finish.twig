@@ -1,0 +1,33 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 mb-3 p-0">
+        <div class="col-md-12">
+            <div id="pan_cont">
+                <div class="title">
+                    <h2>Liste des contact</h2>
+                </div>
+                <div class="fin">
+                    {% if get_list %}
+                        <ul class="list-unstyled list-group">
+                            {% for data in get_list %}
+                                <li data-contact="{{ data.id }}">
+                                    Commentaire de <strong>{{ data.name }}</strong> (Email : <strong>{{ data.email }}</strong>) (IP : <strong>{{ data.ip }}</strong>)
+                                    <hr />
+                                    Sujet : <strong>{{ data.sujet }}</strong>
+                                    <hr />
+                                    {{ data.message }}
+                                    <hr />
+                                    Envoyé le {{ data.date_created }}
+                                    <hr />
+                                    <span class="btn btn-group btn-danger del-contact">supprimer</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div style="text-align: center;">Aucun ancien contact</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

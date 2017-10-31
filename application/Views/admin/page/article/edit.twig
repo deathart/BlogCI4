@@ -1,0 +1,101 @@
+{% extends "template.twig" %}
+{% block content %}
+    <form class="edit_article_form" data-postid="{{ get_article.id }}">
+        <div class="row m-0 p-0">
+            <div class="col-md-8">
+                <div id="pan_cont">
+                    <div class="title">
+                        <h2>Information principal</h2>
+                    </div>
+                    <div class="fin">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-froup">
+                                    <label for="title">Titre :</label>
+                                    <input type="text" class="form-control" id="title" value="{{ get_article.title }}" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-froup">
+                                    <label for="link">Lien :</label>
+                                    <input type="text" class="form-control" id="link" value="{{ get_article.link }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-froup">
+                            <label for="content">Text :</label>
+                            <textarea class="form-control" id="content" rows="30">{{ get_article.content }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="pan_cont">
+                    <div class="title">
+                        <h2>Publication</h2>
+                    </div>
+                    <div class="fin">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        {% if type == 1 %}
+                            <button class="submit btn btn-outline-success" data-type="0">Sauvegarde et laisser l'article en ligne</button><br />
+                            <button class="submit btn btn-outline-danger" data-type="2">Réenvoyer à la correction</button>
+                        {% elseif type == 2 %}
+                            <button class="submit btn btn-outline-success" data-type="3">Envoyez en attente de publication</button><br />
+                            <button class="submit btn btn-outline-primary" data-type="0">Sauvegarder et reprendre plus tard</button>
+                        {% elseif type == 3 %}
+                            <button class="submit btn btn-outline-success" data-type="1">Publiée</button><br />
+                            <button class="submit btn btn-outline-primary" data-type="0">Sauvegarder et reprendre plus tard</button>
+                        {% elseif type == 4 %}
+                            <button class="submit btn btn-outline-success" data-type="2">Envoyer à la correction</button><br />
+                            <button class="submit btn btn-outline-primary" data-type="0">Sauvegarder et reprendre plus tard</button>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div id="pan_cont">
+                    <div class="title">
+                        <h2>Information Secondaire</h2>
+                    </div>
+                    <div class="fin">
+                        <div class="form-group row">
+                            <label for="options" class="col-sm-3 col-form-label">Important</label>
+                            <div class="col-sm-9">
+                                <label class="btn btn-danger">
+                                    <input type="radio" id="options" name="options" value="0" autocomplete="off" {% if get_article.important == 0 %}checked{% endif %}> Non
+                                </label>
+                                <label class="btn btn-success">
+                                    <input type="radio" id="options" name="options" value="1" autocomplete="off" {% if get_article.important == 1 %}checked{% endif %}> Oui
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="wordkey" class="col-sm-3 col-form-label">Mots clefs</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="wordkey" placeholder="Mots clefs" value="{{ get_article.keyword }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cat" class="col-sm-3 col-form-label">Catégorie</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="cat" multiple>
+                                    {% for data in getcat %}
+                                        <option value="{{ data.id }}" {% if  ';' ~ data.id in get_article.cat or data.id ~ ';' in get_article.cat or get_article.cat == data.id %}selected{% endif %}>{{ data.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pic2" class="col-sm-3 col-form-label">Image à la une (lien)</label>
+                            <div class="col-sm-9">
+                                {% if get_article.picture_one %}
+                                    <img data-slug="{{ get_article.picture_one }}" src="{{ get_article.picture_one|base_url }}" class="sl_pic_on rounded mb-2 col-sm-12" />
+                                {% endif %}
+                                <input type="file" name="pictures" class="form-control" id="pic2" placeholder="Image à la une" data-url=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
