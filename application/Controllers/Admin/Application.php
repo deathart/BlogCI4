@@ -86,8 +86,9 @@ class Application extends Controller
         // Prevent google
         $this->response->setHeader('X-robots-tag', 'noindex');
 
-        if (!$this->isConnected() && uri_string() != 'admin/auth/login' && uri_string() != 'admin/auth/login_ajax') {
-            redirect('admin/auth/login');
+        if (!$this->isConnected() && $this->request->uri->getSegment(2) != 'auth' && ($this->request->uri->getSegment(3) != 'login' || $this->request->uri->getSegment(3) != 'login_ajax')) {
+            header('Location: ' . base_url('admin/auth/login'));
+            exit();
         }
     }
 
