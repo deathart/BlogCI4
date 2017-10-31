@@ -8,12 +8,7 @@ var Article = (function(){
     };
 
     that.GetBaseUrl = function () {
-        if(window.location.host == "deathart.dev") {
-            return window.location.protocol + "//" + window.location.host + "/";
-        }
-        else {
-            return "https://www.deathart.fr/";
-        }
+        return window.location.protocol + "//" + window.location.host + "/";
     };
 
     that.AddComments = function() {
