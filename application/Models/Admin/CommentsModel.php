@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 use Config\Database;
 
 /**
- * Class PostModel
+ * Class CommentsModel
  *
  * @package App\Models
  */
@@ -37,9 +37,9 @@ class CommentsModel extends Model
 
     public function GetComments(string $type)
     {
-        $this->comments_table->select("comments.*, post.title AS post_title, post.link AS post_slug, DATE_FORMAT(`created_date`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `created_date`");
+        $this->comments_table->select("comments.*, article.title AS article_title, article.link AS article_slug, DATE_FORMAT(`created_date`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `created_date`");
         $this->comments_table->where('verified', $type);
-        $this->comments_table->join('post', 'post.id = comments.post_id', 'left');
+        $this->comments_table->join('article', 'article.id = comments.post_id', 'left');
         return $this->comments_table->get()->getResult();
     }
 
