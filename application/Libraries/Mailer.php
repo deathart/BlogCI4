@@ -11,7 +11,7 @@ class Mailer
     /**
      * @var \Swift_Mailer
      */
-    protected $mailp;
+    protected $mail;
     /**
      * @var \App\Models\Admin\ConfigModel
      */
@@ -23,10 +23,21 @@ class Mailer
     public function __construct()
     {
         $this->config_model = new ConfigModel();
-        $transport = (new Swift_SmtpTransport($this->config_model->GetConfig('mail_host'), $this->config_model->GetConfig('mail_port'), $this->config_model->GetConfig('mail_security')))
-            ->setUsername($this->config_model->GetConfig('mail_username'))
-            ->setPassword($this->config_model->GetConfig('mail_password'));
-        $this->mailp = new Swift_Mailer($transport);
+        $transport = new Swift_SmtpTransport($this->config_model->GetConfig('mail_host'), $this->config_model->GetConfig('mail_port'));
+
+        if ($this->config_model->GetConfig('mail_security') != null) {
+            $transport->setEncryption($this->config_model->GetConfig('mail_security'));
+        }
+
+        if ($this->config_model->GetConfig('mail_username') != null) {
+            $transport->setUsername($this->config_model->GetConfig('mail_username'));
+        }
+
+        if ($this->config_model->GetConfig('mail_password') != null) {
+            $transport->setPassword($this->config_model->GetConfig('mail_password'));
+        }
+
+        $this->mail = new Swift_Mailer($transport);
     }
 
     /**
@@ -40,10 +51,10 @@ class Mailer
     {
         $message = (new Swift_Message($sujet))
             ->setFrom([$this->config_model->GetConfig('mail_from_adress') => $this->config_model->GetConfig('mail_from_name')])
-            ->setTo([$to])
+            ->setTo($to)
             ->setBody($body);
 
-        $this->mailp->send($message);
+        $this->mail->send($message);
         return true;
     }
 }
