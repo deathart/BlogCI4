@@ -3,6 +3,9 @@
 use App\Models\Blog\CatModel;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\ArticleModel;
+use App\Models\Admin\AuthModel;
+use Config\App;
+use Config\Services;
 
 /**
  * Class General
@@ -13,9 +16,20 @@ class General
 {
 
     /**
+     * @var \Config\App
+     */
+    private $config;
+
+    /**
+     * @var \CodeIgniter\Session\Session
+     */
+    private $session;
+
+    /**
      * @var \App\Models\Blog\CatModel
      */
     private $cat_model;
+
     /**
      * @var \App\Models\Blog\ArticleModel
      */
@@ -27,13 +41,21 @@ class General
     private $comments_model;
 
     /**
+     * @var \App\Models\Admin\AuthModel
+     */
+    private $Auth_model;
+
+    /**
      * General constructor.
      */
     public function __construct()
     {
+        $this->config       = new App();
+        $this->session      = Services::session($this->config);
         $this->cat_model = new CatModel();
         $this->article_model = new ArticleModel();
         $this->comments_model = new CommentsModel();
+        $this->Auth_model   = new AuthModel();
     }
 
     /**
@@ -86,5 +108,10 @@ class General
     public function CountView(int $post): int
     {
         return $this->article_model->nb_PostView($post);
+    }
+
+    public function getusername(): string {
+
+        return $this->Auth_model->GetUsername($this->session->get('Account_id'));
     }
 }

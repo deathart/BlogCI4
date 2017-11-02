@@ -15,7 +15,7 @@
 							<img class="avatar" src="{{ 'assets/images/user.png'|base_url }}" />
 							<div class="infos">
 								<ul class="list-unstyled">
-									<li>Bonjour Admin</li>
+									<li>Bonjour {{ general('getusername') }}</li>
 									<li><a href="{{ 'admin/auth/logout'|base_url }}">Déconnexion</a></li>
 								</ul>
 							</div>
