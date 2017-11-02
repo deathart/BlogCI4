@@ -235,7 +235,6 @@ class Application extends Controller
             if (get_cookie('remember_me', true) != null) {
                 $this->session->set('Account_ip', $this->request->getIPAddress());
                 $this->session->set('Account_id', get_cookie('remember_me', true));
-                //$this->session->set ('Account_name', $this->general->Get_display_name(get_cookie("remember_me", TRUE)));
                 $this->session->set('logged_in', true);
                 delete_cookie('remember_me');
                 set_cookie(['name' => 'remember_me', 'value' =>  get_cookie('remember_me', true), 'expire' => '32140800'], true);
@@ -248,7 +247,6 @@ class Application extends Controller
             if (get_cookie('remember_me', true) != null) {
                 $this->session->set('Account_ip', $this->request->getIPAddress());
                 $this->session->set('Account_id', get_cookie('remember_me', true));
-                //$this->session->set ('Account_name', $this->general->Get_display_name(get_cookie("remember_me", TRUE)));
                 $this->session->set('logged_in', true);
                 delete_cookie('remember_me');
                 set_cookie(['name' => 'remember_me', 'value' =>  get_cookie('remember_me', true), 'expire' => '32140800'], true);
