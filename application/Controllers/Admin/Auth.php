@@ -49,6 +49,14 @@ class Auth extends Application
         return $this->render('auth/login', 'Connexion');
     }
 
+    public function Logout(): self
+    {
+        $this->session->destroy();
+        delete_cookie('remember_me');
+        delete_cookie('relog');
+        return $this->render('auth/logout', 'Déconnexion');
+    }
+
     /**
      *
      */

@@ -113,7 +113,7 @@ class Application extends Controller
         $this->set_js(base_url('assets/js/jquery.toast.js'));
 
         //Set by page
-        if ($this->request->uri->getSegment(2) == 'auth' && $this->request->uri->getSegment(3) == 'login') {
+        if ($this->request->uri->getSegment(2) == 'auth') {
             $this->set_css(base_url('assets/css/admin/auth.css'));
             $this->set_js(base_url('assets/js/admin/auth.js'));
         } else {
