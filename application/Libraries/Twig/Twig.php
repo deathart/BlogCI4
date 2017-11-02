@@ -11,7 +11,14 @@ use Twig_Loader_Filesystem;
  */
 class Twig
 {
+
+    /**
+     * @var \Twig_Environment
+     */
     private $environment;
+    /**
+     * @var
+     */
     private $templateFolder;
 
     /**
@@ -24,7 +31,7 @@ class Twig
         $config_model = new ConfigModel();
         $loader = new Twig_Loader_Filesystem(APPPATH . 'Views/' . $templateFolder);
 
-        if ($config_model->GetConfig('cache') == "on") {
+        if ($config_model->GetConfig('cache') == 'on') {
             $dataconfig = [
                 'cache' => WRITEPATH . 'cache',
                 'auto_reload' => true,

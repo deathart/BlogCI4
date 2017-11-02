@@ -7,9 +7,19 @@ use Swift_Message;
 
 class Mailer
 {
+
+    /**
+     * @var \Swift_Mailer
+     */
     protected $mailp;
+    /**
+     * @var \App\Models\Admin\ConfigModel
+     */
     protected $config_model;
 
+    /**
+     * Mailer constructor.
+     */
     public function __construct()
     {
         $this->config_model = new ConfigModel();
@@ -19,7 +29,14 @@ class Mailer
         $this->mailp = new Swift_Mailer($transport);
     }
 
-    public function sendmail(string $sujet, string $to, string $body)
+    /**
+     * @param string $sujet
+     * @param string $to
+     * @param string $body
+     *
+     * @return bool
+     */
+    public function sendmail(string $sujet, string $to, string $body): bool
     {
         $message = (new Swift_Message($sujet))
             ->setFrom([$this->config_model->GetConfig('mail_from_adress') => $this->config_model->GetConfig('mail_from_name')])

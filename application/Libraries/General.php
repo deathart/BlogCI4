@@ -69,12 +69,15 @@ class General
         $piece = explode(';', $json);
         foreach ($piece as $data) {
             $tt = $this->cat_model->GetCatNameAndLink($data);
-            $arr .= "<a href='".base_url('cat/' . $tt->slug)."'>".$tt->title. '</a> ';
+            $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a> ';
         }
 
         return $arr;
     }
 
+    /**
+     * @return array|mixed
+     */
     public function GetCat()
     {
         return $this->cat_model->GetCat();
@@ -110,8 +113,11 @@ class General
         return $this->article_model->nb_PostView($post);
     }
 
-    public function getusername(): string {
-
+    /**
+     * @return string
+     */
+    public function getusername(): string
+    {
         return $this->Auth_model->GetUsername($this->session->get('Account_id'));
     }
 }

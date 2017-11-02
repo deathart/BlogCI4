@@ -17,20 +17,10 @@ class TwigExtentions extends Twig_Extension
      * @var \Config\App
      */
     private $config;
-
     /**
      * @var \CodeIgniter\Session\Session
      */
     private $session;
-    /**
-     * @var \App\Libraries\General
-     */
-    private $general;
-    /**
-     * @var \App\Models\Blog\ConfigModel
-     */
-    private $Config_model;
-
     /**
      * @var \CodeIgniter\HTTP\IncomingRequest
      */
@@ -39,6 +29,14 @@ class TwigExtentions extends Twig_Extension
      * @var \CodeIgniter\HTTP\Response
      */
     private $response;
+    /**
+     * @var \App\Libraries\General
+     */
+    private $general;
+    /**
+     * @var \App\Models\Blog\ConfigModel
+     */
+    private $Config_model;
 
     /**
      * TwigExtentions constructor.
