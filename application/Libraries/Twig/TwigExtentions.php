@@ -14,6 +14,11 @@ class TwigExtentions extends Twig_Extension
 {
 
     /**
+     * @var \Config\App
+     */
+    private $config;
+
+    /**
      * @var \CodeIgniter\Session\Session
      */
     private $session;
@@ -26,8 +31,13 @@ class TwigExtentions extends Twig_Extension
      */
     private $Config_model;
 
-    private $config;
+    /**
+     * @var \CodeIgniter\HTTP\IncomingRequest
+     */
     private $request;
+    /**
+     * @var \CodeIgniter\HTTP\Response
+     */
     private $response;
 
     /**
@@ -38,7 +48,7 @@ class TwigExtentions extends Twig_Extension
         $this->config       = new App();
         $this->session      = Services::session($this->config);
         $this->request      = Services::request();
-        $this->response        = new Response($this->config);
+        $this->response     = new Response($this->config);
         $this->Config_model = new ConfigModel();
         $this->general      = new General();
     }
