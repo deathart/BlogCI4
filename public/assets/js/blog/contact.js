@@ -11,7 +11,7 @@ var Contact = (function(){
         var name = $("#name").val();
         var email = $("#email").val();
         var sujet = $("#sujet").val();
-        var msg = $("#msg").val();
+        var msg = $("#msg").val().replace(/\r\n|\r|\n/g,"<br />");
 
         if(name && email && sujet && msg) {
 
