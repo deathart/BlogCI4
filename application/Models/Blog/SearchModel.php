@@ -24,6 +24,12 @@ class SearchModel extends Model
         $this->comments_table = $this->db->table('comments');
     }
 
+    /**
+     * @param string $valeur
+     * @param int $type
+     *
+     * @return array
+     */
     public function bytype(string $valeur, int $type):array
     {
         $key_delimiter = explode(',', $valeur);

@@ -17,6 +17,11 @@ class MediaModel extends Model
         $this->medias_table = $this->db->table('medias');
     }
 
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     */
     public function get_link(int $id)
     {
         $this->medias_table->select('*');

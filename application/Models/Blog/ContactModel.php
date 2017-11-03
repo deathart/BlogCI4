@@ -28,6 +28,11 @@ class ContactModel extends Model
         $this->contact_table = $this->db->table('contact');
     }
 
+    /**
+     * @param string $ip
+     *
+     * @return bool
+     */
     public function Check(string $ip)
     {
         $this->contact_table->select('COUNT(id) as id');
@@ -41,6 +46,15 @@ class ContactModel extends Model
         }
     }
 
+    /**
+     * @param string $name
+     * @param string $email
+     * @param string $sujet
+     * @param string $message
+     * @param string $ip
+     *
+     * @return bool
+     */
     public function Add(string $name, string $email, string $sujet, string $message, string $ip)
     {
         $data = [

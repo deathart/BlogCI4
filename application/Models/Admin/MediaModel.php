@@ -17,6 +17,12 @@ class MediaModel extends Model
         $this->medias_table = $this->db->table('medias');
     }
 
+    /**
+     * @param string $slug
+     * @param string $name
+     *
+     * @return int
+     */
     public function Add(string $slug, string $name)
     {
         $data = [

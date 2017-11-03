@@ -17,7 +17,7 @@ class ArticleModel extends Model
     private $article_table;
 
     /**
-     * Site constructor.
+     * ArticleModel constructor.
      *
      * @param array ...$params
      */
@@ -28,6 +28,12 @@ class ArticleModel extends Model
         $this->article_table = $this->db->table('article');
     }
 
+    /**
+     * @param string $column
+     * @param string $data
+     *
+     * @return mixed
+     */
     public function GetArticle(string $column, string $data)
     {
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y &agrave; %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y &agrave; %H:%i:%s') AS `date_update`");

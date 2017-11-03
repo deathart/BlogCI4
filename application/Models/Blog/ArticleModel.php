@@ -33,6 +33,12 @@ class ArticleModel extends Model
         $this->article_view_table = $this->db->table('article_view');
     }
 
+    /**
+     * @param string $column
+     * @param string $data
+     *
+     * @return mixed
+     */
     public function GetArticle(string $column, string $data)
     {
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
@@ -40,6 +46,12 @@ class ArticleModel extends Model
         return $this->article_table->get()->getRow();
     }
 
+    /**
+     * @param int|NULL $limit
+     * @param bool $important
+     *
+     * @return array
+     */
     public function GetLastArticle(int $limit = null, bool $important = false): array
     {
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
@@ -54,6 +66,13 @@ class ArticleModel extends Model
         return $this->article_table->get()->getResult('array');
     }
 
+    /**
+     * @param int $cat_id
+     * @param int $per_page
+     * @param int $page
+     *
+     * @return array
+     */
     public function GetArticleByCat(int $cat_id, int $per_page, int $page): array
     {
         $offset = ($page-1)*$per_page;

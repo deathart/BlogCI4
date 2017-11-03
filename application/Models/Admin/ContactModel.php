@@ -28,6 +28,11 @@ class ContactModel extends Model
         $this->contact_table = $this->db->table('contact');
     }
 
+    /**
+     * @param int $etat
+     *
+     * @return array|mixed
+     */
     public function getList(int $etat)
     {
         $this->contact_table->select("*, DATE_FORMAT(`date_created`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `date_created`");
@@ -36,6 +41,11 @@ class ContactModel extends Model
         return $this->contact_table->get()->getResult();
     }
 
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
     public function markedview(int $id)
     {
         $data = [
@@ -46,12 +56,22 @@ class ContactModel extends Model
         return true;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
     public function del(int $id)
     {
         $this->contact_table->delete(['id' => $id]);
         return true;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return mixed
+     */
     public function getContact(int $id)
     {
         $this->contact_table->select("*, DATE_FORMAT(`date_created`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `date_created`");

@@ -28,12 +28,22 @@ class ConfigModel extends Model
         $this->config_table = $this->db->table('config');
     }
 
+    /**
+     * @return array|mixed
+     */
     public function GetConfigAll()
     {
         $this->config_table->select('*');
         return $this->config_table->get()->getResult();
     }
 
+    /**
+     * @param int $id
+     * @param string $key
+     * @param string $data
+     *
+     * @return bool
+     */
     public function UpdateConfig(int $id, string $key, string $data)
     {
         $this->config_table->where('id', $id);
@@ -44,6 +54,11 @@ class ConfigModel extends Model
         return true;
     }
 
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
     public function DelConfig(int $id)
     {
         $this->config_table->where('id', $id);
