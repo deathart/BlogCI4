@@ -17,15 +17,12 @@
 	},
 	"require": {
 		"php": ">=7.0",
-		"zendframework/zend-escaper": "^2.5",
-		"paragonie/sodium_compat": "^1.1",
-		"kint-php/kint": "^2.1",
-		"twig/twig": "^2.4",
+		"zendframework/zend-escaper": "2.5.2",
+		"paragonie/sodium_compat": "1.1.0",
+		"kint-php/kint": "2.2",
+		"twig/twig": "2.4.4",
 		"samayo/bulletproof": "3.2.0",
 		"swiftmailer/swiftmailer": "v6.0.2"
-	},
-	"require-dev": {
-		"mikey179/vfsStream": "1.6.5"
 	},
 	"scripts": {
 		"post-update-cmd": [
