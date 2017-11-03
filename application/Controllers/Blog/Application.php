@@ -3,7 +3,6 @@
 use App\Models\Blog\ConfigModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
-use App\Helpers;
 use Config\App;
 use Config\Services;
 use App\Libraries\Twig\Twig;
@@ -15,6 +14,18 @@ use App\Libraries\CSRFToken;
 class Application extends Controller
 {
 
+    /**
+     * @var \CodeIgniter\Session\Session
+     */
+    protected $session;
+    /**
+     * @var \CodeIgniter\HTTP\IncomingRequest
+     */
+    protected $request;
+    /**
+     * @var \CodeIgniter\HTTP\Response
+     */
+    protected $response;
     /**
      * @var array
      */
@@ -32,23 +43,11 @@ class Application extends Controller
      */
     protected $js = [];
     /**
-     * @var \CodeIgniter\Session\Session
-     */
-    protected $session;
-    /**
-     * @var \CodeIgniter\HTTP\IncomingRequest
-     */
-    protected $request;
-    /**
-     * @var \CodeIgniter\HTTP\Response
-     */
-    protected $response;
-    /**
-     * @var string
+     * @var
      */
     protected $stitle;
     /**
-     * @var string
+     * @var
      */
     protected $tpage;
     /**
@@ -73,10 +72,10 @@ class Application extends Controller
     {
         parent::__construct(...$params);
         //Declare class
-        $this->config       = new App();
-        $this->session      = Services::session($this->config);
+        $config       = new App();
+        $this->session      = Services::session($config);
         $this->request      = Services::request();
-        $this->response     = new Response($this->config);
+        $this->response     = new Response($config);
         $this->twig         = new Twig('blog');
         $this->csrf         = new CSRFToken();
         $this->config_model = new ConfigModel();

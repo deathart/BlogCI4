@@ -21,7 +21,7 @@ class App extends BaseConfig
     | environments.
     |
     */
-    public $baseURL = 'http://blog.dev/';
+    public $baseURL = '';
 
     /*
     |--------------------------------------------------------------------------

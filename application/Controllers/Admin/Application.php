@@ -4,7 +4,6 @@ use App\Libraries\CSRFToken;
 use App\Libraries\Twig\Twig;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
-use App\Helpers;
 use Config\App;
 use Config\Services;
 use App\Models\Admin\ConfigModel;
@@ -15,6 +14,18 @@ use App\Models\Admin\ConfigModel;
 class Application extends Controller
 {
 
+    /**
+     * @var \CodeIgniter\Session\Session
+     */
+    protected $session;
+    /**
+     * @var \CodeIgniter\HTTP\IncomingRequest
+     */
+    protected $request;
+    /**
+     * @var \CodeIgniter\HTTP\Response
+     */
+    protected $response;
     /**
      * @var array
      */
@@ -32,10 +43,6 @@ class Application extends Controller
      */
     protected $js = [];
     /**
-     * @var \CodeIgniter\Session\Session
-     */
-    protected $session;
-    /**
      * @var
      */
     protected $stitle;
@@ -47,9 +54,12 @@ class Application extends Controller
      * @var \App\Libraries\Twig\Twig
      */
     protected $twig;
-
     /**
-     * @var \App\Controllers\Admin\ConfigModel
+     * @var \App\Libraries\CSRFToken
+     */
+    protected $csrf;
+    /**
+     * @var \App\Models\Admin\ConfigModel
      */
     protected $config_model;
 
@@ -64,10 +74,10 @@ class Application extends Controller
     {
         parent::__construct(...$params);
         //Declare class
-        $this->config        = new App();
-        $this->session        = Services::session($this->config);
+        $config        = new App();
+        $this->session        = Services::session($config);
         $this->request        = Services::request();
-        $this->response    = new Response($this->config);
+        $this->response    = new Response($config);
         $this->twig            = new Twig('admin');
         $this->csrf         = new CSRFToken();
         $this->config_model = new ConfigModel();
@@ -160,7 +170,6 @@ class Application extends Controller
 
     /**
      * @param string $title set title page
-     * @param string $ype set if type is website or article
      *
      * @return string $h return all meta
      */
@@ -212,9 +221,9 @@ class Application extends Controller
     {
         $bread = '<div class="bread">';
         if ($this->request->uri->getTotalSegments() >= 2) {
-            $bread .= "<a href='".base_url('admin')."'>Accueil</a>";
+            $bread .= "<a href='" . base_url('admin') . "'>Accueil</a>";
             if ($this->request->uri->getTotalSegments() >= 3) {
-                $bread .= '<a href="'.base_url($this->request->uri->getSegment(2)).'">'.$this->stitle.'</a>';
+                $bread .= '<a href="' . base_url($this->request->uri->getSegment(2)) . '">' . $this->stitle . '</a>';
                 $bread .= '<span class="active">' . $this->tpage . '</span>';
             } else {
                 $bread .= '<span class="active">' . $this->stitle . '</span>';
@@ -240,9 +249,9 @@ class Application extends Controller
                 set_cookie(['name' => 'remember_me', 'value' =>  get_cookie('remember_me', true), 'expire' => '32140800'], true);
                 header('Location: ' . $_SERVER['REQUEST_URI']);
                 exit();
-            } else {
-                return false;
             }
+
+            return false;
         } else {
             if (get_cookie('remember_me', true) != null) {
                 $this->session->set('Account_ip', $this->request->getIPAddress());

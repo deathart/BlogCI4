@@ -2,9 +2,7 @@
 
 use App\Libraries\General;
 use App\Libraries\ParseArticle;
-use CodeIgniter\HTTP\Response;
 use App\Models\Blog\ConfigModel;
-use Config\App;
 use Config\Services;
 use Twig_Extension;
 use Twig_Filter;
@@ -14,21 +12,9 @@ class TwigExtentions extends Twig_Extension
 {
 
     /**
-     * @var \Config\App
-     */
-    private $config;
-    /**
-     * @var \CodeIgniter\Session\Session
-     */
-    private $session;
-    /**
      * @var \CodeIgniter\HTTP\IncomingRequest
      */
     private $request;
-    /**
-     * @var \CodeIgniter\HTTP\Response
-     */
-    private $response;
     /**
      * @var \App\Libraries\General
      */
@@ -43,10 +29,7 @@ class TwigExtentions extends Twig_Extension
      */
     public function __construct()
     {
-        $this->config       = new App();
-        $this->session      = Services::session($this->config);
         $this->request      = Services::request();
-        $this->response     = new Response($this->config);
         $this->Config_model = new ConfigModel();
         $this->general      = new General();
     }
