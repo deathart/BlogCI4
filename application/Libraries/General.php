@@ -120,4 +120,12 @@ class General
     {
         return $this->Auth_model->GetUsername($this->session->get('Account_id'));
     }
+
+    /**
+     * @return string
+     */
+    public function getavatar():string
+    {
+        return $this->Auth_model->GetAvatar($this->session->get('Account_id'));
+    }
 }

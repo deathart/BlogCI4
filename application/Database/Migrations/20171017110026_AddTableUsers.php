@@ -10,7 +10,8 @@ class Migration_AddTableUsers extends Migration
             'id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'username' => ['type' => 'VARCHAR', 'constraint' => 250],
             'password' => ['type' => 'VARCHAR', 'constraint' => 250],
-            'email' => ['type' => 'TEXT']
+            'email' => ['type' => 'TEXT'],
+            'avatar' => ['type' => 'VARCHAR', 'constraint' => 250, 'default' => 'user.png']
         ]);
 
         $this->forge->addKey('id', true);

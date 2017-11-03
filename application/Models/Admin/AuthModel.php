@@ -76,4 +76,20 @@ class AuthModel extends Model
         $this->user_table->where('id', $account);
         return $this->user_table->get()->getRow()->username;
     }
+
+    /**
+     * @param $account
+     *
+     * @return mixed
+     */
+    public function GetAvatar($account)
+    {
+        $this->user_table->select('avatar');
+        $this->user_table->where('id', $account);
+        if ($this->user_table->get()->getRow()->avatar == 'user.png') {
+            return 'assets/images/user.png';
+        } else {
+            return 'uploads/avatar/' . $this->user_table->get()->getRow()->avatar;
+        }
+    }
 }
