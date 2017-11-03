@@ -19,16 +19,16 @@
         {% endif %}
         <div class="bloc" id="share">
             <h1>Partages</h1>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" class="btn-social btn-facebook">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
                 <i class="fa fa-facebook"></i> Partager sur facebook
             </a>
-            <a href="https://twitter.com/home?status=" target="_blank" class="btn-social btn-twitter">
+            <a href="https://twitter.com/home?status={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-twitter">
                 <i class="fa fa-twitter"></i> Partager sur twitter
             </a>
-            <a href="https://plus.google.com/share?url=" target="_blank" class="btn-social btn-google">
+            <a href="https://plus.google.com/share?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-google">
                 <i class="fa fa-google-plus"></i> Partager sur google+
             </a>
-            <a href="http://www.reddit.com/submit?url=" target="_blank" class="btn-social btn-reddit">
+            <a href="http://www.reddit.com/submit?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-reddit">
                 <i class="fa fa-reddit-alien"></i> Partager sur reddit
             </a>
         </div>
