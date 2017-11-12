@@ -49,6 +49,9 @@ class Auth extends Application
         return $this->render('auth/login', 'Connexion');
     }
 
+    /**
+     * @return string render
+     */
     public function Logout(): self
     {
         $this->session->destroy();
