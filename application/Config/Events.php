@@ -29,4 +29,5 @@ use CodeIgniter\Events\Events;
  */
 if (ENVIRONMENT != 'production') {
     Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
+    Events::on('pre_system', 'CodeIgniter\Debug\Toolbar::eventHandler');
 }
