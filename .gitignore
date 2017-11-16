@@ -12,8 +12,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 /vendor/
 .idea
-node_modules
-vendor
 writable/cache
 writable/logs
 writable/session
