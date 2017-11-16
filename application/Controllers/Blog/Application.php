@@ -107,15 +107,16 @@ class Application extends Controller
         $this->set_css('//fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:100,300');
 
         //Set JS
-        $this->set_js('//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-        $this->set_js(base_url('assets/js/cookie.js'));
+
+        $this->set_js(base_url('assets/js/vendor/jquery.min.js'));
+        $this->set_js(base_url('assets/js/vendor/cookie.min.js'));
         $this->set_js(base_url('assets/js/blog/app.js'));
 
         //Set by page
         if ($this->request->uri->getSegment(1) == 'article') {
             $this->set_js(base_url('assets/js/blog/article.js'));
             $this->set_css(base_url('assets/css/prism.css'));
-            $this->set_js(base_url('assets/js/prism.js'));
+            $this->set_js(base_url('assets/js/vendor/prism.min.js'));
         } elseif ($this->request->uri->getSegment(1) == 'contact') {
             $this->set_js(base_url('assets/js/blog/contact.js'));
         }

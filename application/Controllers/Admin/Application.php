@@ -116,11 +116,11 @@ class Application extends Controller
         $this->set_css(base_url('assets/css/admin/bootstrap.css'));
 
         //Set JS
-        $this->set_js('//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-        $this->set_js(base_url('assets/js/cookie.js'));
-        $this->set_js('//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js');
-        $this->set_js('//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js');
-        $this->set_js(base_url('assets/js/jquery.toast.js'));
+        $this->set_js(base_url('assets/js/vendor/jquery.min.js'));
+        $this->set_js(base_url('assets/js/vendor/popper.min.js'));
+        $this->set_js(base_url('assets/js/vendor/bootstrap.min.js'));
+        $this->set_js(base_url('assets/js/vendor/cookie.min.js'));
+        $this->set_js(base_url('assets/js/vendor/jquery.toast.js'));
 
         //Set by page
         if ($this->request->uri->getSegment(2) == 'auth') {
