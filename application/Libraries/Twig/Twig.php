@@ -41,7 +41,7 @@ class Twig
 
         $this->environment = new Twig_Environment($loader, $dataconfig);
 
-        $this->environment->addExtension(new TwigExtentions());
+        $this->environment->addExtension(new TwigExtentions($templateFolder));
     }
 
     /**

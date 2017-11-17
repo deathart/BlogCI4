@@ -22,7 +22,8 @@
 		"kint-php/kint": "2.2",
 		"twig/twig": "2.4.4",
 		"samayo/bulletproof": "3.2.0",
-		"swiftmailer/swiftmailer": "v6.0.2"
+		"swiftmailer/swiftmailer": "v6.0.2",
+		"illuminate/translation": "^5.5"
 	},
 	"scripts": {
 		"post-update-cmd": [
