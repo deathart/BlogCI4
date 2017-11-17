@@ -8,6 +8,11 @@ use Twig_Extension;
 use Twig_Filter;
 use Twig_Function;
 
+/**
+ * Class TwigExtentions
+ *
+ * @package App\Libraries\Twig
+ */
 class TwigExtentions extends Twig_Extension
 {
 
@@ -92,6 +97,11 @@ class TwigExtentions extends Twig_Extension
         return $this->general->$func();
     }
 
+    /**
+     * @param $content
+     *
+     * @return mixed|string
+     */
     public function parseBbcode($content)
     {
         $parse = new ParseArticle();
