@@ -13,6 +13,15 @@ class Cat extends Application
 {
 
     /**
+     * @var \App\Models\Blog\ArticleModel
+     */
+    protected $article_model;
+    /**
+     * @var \App\Models\Blog\CatModel
+     */
+    protected $cat_model;
+
+    /**
      * Cat constructor.
      *
      * @param array ...$params
@@ -21,12 +30,12 @@ class Cat extends Application
     {
         parent::__construct(...$params);
         $this->stitle = 'Article';
-        $this->post_model = new ArticleModel();
+        $this->article_model = new ArticleModel();
         $this->cat_model  = new CatModel();
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Cat
      */
     public function index(): self
     {
@@ -37,7 +46,7 @@ class Cat extends Application
     /**
      * @param string $link
      *
-     * @return string
+     * @return \App\Controllers\Blog\Cat
      */
     public function View(string $link): self
     {
@@ -45,13 +54,13 @@ class Cat extends Application
         $CatID = $this->cat_model->GetCatByLink($link);
         $this->data['info_cat'] = $CatID;
 
-        $total_row = $this->post_model->nb_articleByCat($CatID->id);
+        $total_row = $this->article_model->nb_articleByCat($CatID->id);
 
         $perPage = 8;
 
         $page = (!empty($_GET['page']) ? $_GET['page'] : 1);
 
-        $this->data['get_all'] = $this->post_model->GetArticleByCat($CatID->id, $perPage, $page);
+        $this->data['get_all'] = $this->article_model->GetArticleByCat($CatID->id, $perPage, $page);
 
         $this->data['pager'] = $pager->makeLinks($page, $perPage, $total_row, 'cat');
 
