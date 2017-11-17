@@ -16,10 +16,6 @@ class Twig
      * @var \Twig_Environment
      */
     private $environment;
-    /**
-     * @var
-     */
-    private $templateFolder;
 
     /**
      * Twig constructor.
@@ -46,8 +42,6 @@ class Twig
         $this->environment = new Twig_Environment($loader, $dataconfig);
 
         $this->environment->addExtension(new TwigExtentions());
-
-        $this->templateFolder = $templateFolder;
     }
 
     /**
