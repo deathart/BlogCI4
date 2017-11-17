@@ -5,9 +5,12 @@
             <h1>{{ info_cat.title }}</h1>
             <p>{{ info_cat.description }}</p>
         </div>
-        <div class="bloc" id="pub">
-            <h1>Publicité</h1>
-        </div>
+        {% if 'pub_active'|config == 1 %}
+            <div class="bloc" id="pub">
+                <h1>Publicité</h1>
+                <p></p>
+            </div>
+        {% endif %}
         {{ pager }}
     </div>
     <div class="article_list">
