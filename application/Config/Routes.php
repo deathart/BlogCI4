@@ -106,6 +106,11 @@ $routes->add('comments/add', 'Comments::AddComments', ['namespace' => 'App\Contr
 $routes->add('comments/checkcaptcha', 'Comments::checkcaptcha', ['namespace' => 'App\Controllers\Blog\Ajax']);
 
 /*
+ * Route for tags
+ */
+$routes->add('tags/(:any)', 'Tags::index/$1', ['namespace' => 'App\Controllers\Blog']);
+
+/*
  * Route for research
  */
 $routes->group('search', function ($routes) {

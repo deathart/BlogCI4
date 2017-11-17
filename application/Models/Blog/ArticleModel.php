@@ -159,4 +159,32 @@ class ArticleModel extends Model
 
         return $this->article_table->get()->getResult('array');
     }
+
+    /**
+     * @param string $keyword
+     * @param int $per_page
+     * @param int|NULL $page
+     *
+     * @return array|mixed
+     */
+    public function GetArticleByTags(string $keyword, int $per_page = 8, int $page = null)
+    {
+        if ($page == null) {
+            $this->article_table->select('COUNT(id) as id');
+            $this->article_table->where('published', '1');
+            $this->article_table->like('keyword', $keyword);
+
+            return $this->article_table->get()->getRow()->id;
+        } else {
+            $offset = ($page-1)*$per_page;
+
+            $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
+            $this->article_table->where('published', '1');
+            $this->article_table->like('keyword', $keyword);
+            $this->article_table->orderBy('id', 'DESC');
+            $this->article_table->limit($per_page, $offset);
+
+            return $this->article_table->get()->getResult('array');
+        }
+    }
 }
