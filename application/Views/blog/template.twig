@@ -14,15 +14,15 @@
     <body>
         <div id="voile" class="recherche_modal">
             <div class="modal">
-                <h2 class="titre">Recherche</h2>
+                <h2 class="titre">{{ trans('layout.search') }}</h2>
                 <div class="content">
                     <form  method="post" action="{{ 'search'|base_url }}">
                     <div class="group-inline">
-                        <label for="rech_val">Mots clef à rechercher : </label>
+                        <label for="rech_val">{{ trans('layout.search_label') }} : </label>
                         <input type="text" class="rech_val" name="mc_key" />
                     </div>
                     <div class="group-inline btn_act">
-                        <button type="submit" class="btn">Rechercher</button>
+                        <button type="submit" class="btn">{{ trans('layout.search_btn') }}</button>
                         <span class="del_modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></span>
                     </div>
                     </form>
@@ -50,10 +50,10 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>Accueil</a>
+                            <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
                         </li>
                         <li class="cat">
-                            <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>Catégories</a>
+                            <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
                             <div class="dropdown-content">
                                 <ul>
                                     {% for data in general('GetCat') %}
@@ -63,10 +63,10 @@
                             </div>
                         </li>
                         <li>
-                            <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>Contact</a>
+                            <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
                         </li>
                         <li>
-                            <a href="{{ 'about'|base_url }}" {% if '1'|uri_segment == "about" %}class="active"{% endif %}>Informations</a>
+                            <a href="{{ 'about'|base_url }}" {% if '1'|uri_segment == "about" %}class="active"{% endif %}>{{ trans('layout.menu_about') }}</a>
                         </li>
                     </ul>
                     <div class="search">
@@ -81,7 +81,7 @@
                 {% block content %}{% endblock %}
             </div>
             <footer>
-                Copyright © 2017 {{ 'site_title'|config }}, All Rights Reserved. Page chargée en 0.7196 secondes. Version : <a href="https://github.com/deathart/BlogCI4" target="_blank">1.0.0</a> / CI : <a href="https://github.com/bcit-ci/CodeIgniter4" target="_blank">4.0-dev</a>
+                {{ trans('layout.footer_copy', {'name': 'site_title'|config}) }}
             </footer>
             <div class="scroll-top-wrapper ">
 				<span class="scroll-top-inner">
@@ -91,17 +91,17 @@
         </div>
         <div class="eupopup-container eupopup-container-bottom eupopup-color-default" style="display: none;">
             <div class="eupopup-head">
-                Notre site utilise des cookies.
+                {{ trans('layout.eupopup_title') }}
             </div>
             <div class="eupopup-body">
-                Certains cookies sont nécessaires au fonctionnement du site, tandis que d'autres nous aident à améliorer l'expérience utilisateur. En utilisant le site, vous acceptez l'utilisation des cookies.
+                {{ trans('layout.eupopup_body') }}
             </div>
             <div class="eupopup-buttons">
                 <span class="eupopup-button eupopup-button_1">
-                    Fermer
+                    {{ trans('layout.eupopup_close') }}
                 </span>
                 <a href="{{ 'cookies'|base_url }}" class="eupopup-button eupopup-button_2">
-                En savoir plus
+                    {{ trans('layout.eupopup_more') }}
                 </a>
                 <div class="clearfix"></div>
             </div>
