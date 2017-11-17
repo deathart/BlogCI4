@@ -295,7 +295,3 @@
 
         <?= \CodeIgniter\Debug\Toolbar\Collectors\Config::display() ?>
     </div>
-
-    <script>
-        ciDebugBar.init();
-    </script>
