@@ -1148,6 +1148,14 @@ a:hover, a:active {
   }
 }
 
+#wrapper > footer > a {
+  color: #d6d6d6;
+}
+
+#wrapper > footer > a:hover {
+  color: #707070;
+}
+
 #wrapper > .scroll-top-wrapper {
   position: fixed;
   opacity: 0;
