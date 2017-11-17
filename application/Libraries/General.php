@@ -59,17 +59,34 @@ class General
     }
 
     /**
-     * @param string $json
+     * @param string $cat
      *
      * @return string
      */
-    public function TradCat(string $json): string
+    public function TradCat(string $cat): string
     {
         $arr = '';
-        $piece = explode(';', $json);
+        $piece = explode(';', $cat);
         foreach ($piece as $data) {
             $tt = $this->cat_model->GetCatNameAndLink($data);
-            $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a> ';
+            $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a>';
+        }
+
+        return $arr;
+    }
+
+    /**
+     * @param string $tags
+     *
+     * @return string
+     */
+    public function TradTags(string $tags): string
+    {
+        $tags = preg_replace('/\s+/', '', $tags);
+        $arr = '';
+        $piece = explode(',', $tags);
+        foreach ($piece as $data) {
+            $arr .= "<a href='" . base_url('tags/' . $data) . "'>" . $data . '</a>';
         }
 
         return $arr;

@@ -875,6 +875,53 @@ a:hover, a:active {
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+#wrapper > #content > .tags {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+@media only screen and (max-width: 40rem) {
+  #wrapper > #content > .tags {
+    float: left;
+    width: calc(100% - 20px);
+    margin: 0 10px 10px;
+  }
+}
+
+@media only screen and (min-width: 40rem) {
+  #wrapper > #content > .tags {
+    float: left;
+    width: calc(75% - 25px);
+    margin: 0 0 20px 10px;
+  }
+}
+
+#wrapper > #content > .tags > a {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  background-color: #1a9da7;
+  border-color: #13747b;
+  padding: .5em;
+  margin-bottom: 1em;
+  color: white;
+  -webkit-transition: background .15s;
+  transition: background .15s;
+}
+
+#wrapper > #content > .tags > a:hover, #wrapper > #content > .tags > a:active {
+  background: #21c6d3;
+}
+
+#wrapper > #content > .tags > a:nth-child(n + 1) {
+  margin-left: 5px;
+}
+
 #wrapper > #content > .commentaire {
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);

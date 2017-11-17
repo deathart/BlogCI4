@@ -51,9 +51,10 @@
         <div class="content">
             {{ parse(get_info_article.content) }}
         </div>
-        <div class="tags">
-
-        </div>
+    </div>
+    <div class="tags">
+        <h1>Tags</h1>
+        {{ general('TradTags', get_info_article.keyword) }}
     </div>
     <div class="commentaire">
         <h1>Commentaire(s)</h1>
