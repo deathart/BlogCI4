@@ -83,6 +83,10 @@
                 <label for="com">Commentaire : </label>
                 <textarea id="com"></textarea>
             </div>
+            <div class="group-inline">
+                <label for="captcha">Anti-robot : {{ captcha }} = </label>
+                <input type="text" id="captcha" />
+            </div>
             {{ csrf_field }}
             <button type="submit" class="btn">Envoyer le commentaire</button>
             <div style="clear:both;"></div>

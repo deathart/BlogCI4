@@ -103,6 +103,7 @@ $routes->add('article/(:any)', 'Article::View/$1', ['namespace' => 'App\Controll
  * Route for comments
  */
 $routes->add('comments/add', 'Comments::AddComments', ['namespace' => 'App\Controllers\Blog\Ajax']);
+$routes->add('comments/checkcaptcha', 'Comments::checkcaptcha', ['namespace' => 'App\Controllers\Blog\Ajax']);
 
 /*
  * Route for research

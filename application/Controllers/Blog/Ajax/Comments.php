@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Blog\Ajax;
 
 use App\Models\Blog\CommentsModel;
+use App\Libraries\Captcha;
 
 /**
  * Class Comments
@@ -16,6 +17,11 @@ class Comments extends Ajax
     private $comments_model;
 
     /**
+     * @var \App\Libraries\Captcha
+     */
+    protected $captcha;
+
+    /**
      * Comments constructor.
      *
      * @param array ...$params
@@ -24,12 +30,13 @@ class Comments extends Ajax
     {
         parent::__construct(...$params);
         $this->comments_model = new CommentsModel();
+        $this->captcha = new Captcha();
     }
 
     /**
      * @return bool
      */
-    public function AddComments()
+    public function AddComments(): bool
     {
         if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
             if ($this->request->isValidIP($this->request->getIPAddress())) {
@@ -37,11 +44,36 @@ class Comments extends Ajax
                 $this->Render(["message" => "Le commentaire à été envoyez à la modération, Rechargement de la page", "code" => 1]);
                 return true;
             } else {
-                $this->Render(["message" => "Error : yout IP is bizzar ?"], true);
+                $this->Render(["message" => "Error : your IP is bizzar ?", "code" => 2]);
                 return false;
             }
         } else {
-            $this->Render(["message" => "Error CSRF, You are HACKER ?"], true);
+            $this->Render(["message" => "Error CSRF, You are HACKER ?", "code" => 2]);
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkcaptcha(): bool
+    {
+        if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
+            if ($this->request->isValidIP($this->request->getIPAddress())) {
+                if ($this->captcha->Check($_POST['captcha'])) {
+                    $this->captcha->Remove();
+                    $this->Render(["message" => "Le commentaire à été envoyez à la modération, Rechargement de la page", "code" => 1]);
+                    return true;
+                } else {
+                    $this->Render(["message" => "Error : Captcha is incorrect", "code" => 2]);
+                    return false;
+                }
+            } else {
+                $this->Render(["message" => "Error : your IP is bizzar ?", "code" => 2]);
+                return false;
+            }
+        } else {
+            $this->Render(["message" => "Error CSRF, You are HACKER ?", "code" => 2]);
             return false;
         }
     }

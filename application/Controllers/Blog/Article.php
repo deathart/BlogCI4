@@ -1,5 +1,6 @@
 <?php namespace App\Controllers\Blog;
 
+use App\Libraries\Captcha;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\ArticleModel;
 
@@ -17,6 +18,16 @@ class Article extends Application
     protected $article_model;
 
     /**
+     * @var \App\Models\Blog\CommentsModel
+     */
+    protected $comments_model;
+
+    /**
+     * @var \App\Libraries\Captcha
+     */
+    protected $captcha;
+
+    /**
      * Article constructor.
      *
      * @param array ...$params
@@ -27,6 +38,7 @@ class Article extends Application
         $this->stitle = 'Article';
         $this->article_model = new ArticleModel();
         $this->comments_model = new CommentsModel();
+        $this->captcha = new Captcha();
     }
 
     /**
@@ -54,6 +66,7 @@ class Article extends Application
         $this->data['get_coms'] = $this->comments_model->GetComs($info->id);
         $this->data['PostView'] = $this->article_model->nb_PostView($info->id);
         $this->data['related_article'] = $this->article_model->GetRelated($info->keyword);
+        $this->data['captcha'] = $this->captcha->Create();
 
         return $this->render('article/view', $info->title, $info->keyword);
     }
