@@ -5,16 +5,19 @@
             <h1>Présentation</h1>
             <p>{{ 'presentation'|config }}</p>
         </div>
+        <div class="bloc">
+            <h1>Newsletter</h1>
+            <form class="add_email_news">
+                <input type="email" placeholder="Votre adresse email"/>
+                <button type="submit" class="btn">Envoyez</button>
+            </form>
+        </div>
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
                 <h1>Publicité</h1>
                 <p></p>
             </div>
         {% endif %}
-        <!--<div class="bloc" id="pub">
-            <h1>Publicité</h1>
-            <p></p>
-        </div>-->
     </div>
     <div class="article_list">
         <h1>Articles les plus luts</h1>

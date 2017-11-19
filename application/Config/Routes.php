@@ -121,6 +121,11 @@ $routes->add('search', 'Search::index', ['namespace' => 'App\Controllers\Blog'])
 $routes->add('cookies', 'Cookies::index', ['namespace' => 'App\Controllers\Blog']);
 
 /*
+ * Route for newsletter
+ */
+$routes->add('newsletter', 'Newsletter::index', ['namespace' => 'App\Controllers\Blog\Ajax']);
+
+/*
  * Route for Admin (group)
  */
 $routes->group('admin', function ($routes) {

@@ -17,6 +17,13 @@
                 <p></p>
             </div>
         {% endif %}
+        <div class="bloc">
+            <h1>Newsletter</h1>
+            <form class="add_email_news">
+                <input type="email" placeholder="Votre adresse email"/>
+                <button type="submit" class="btn">Envoyez</button>
+            </form>
+        </div>
         <div class="bloc" id="share">
             <h1>Partages</h1>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
@@ -88,7 +95,6 @@
                 <label for="captcha">Anti-robot : {{ captcha }} = </label>
                 <input type="text" id="captcha" />
             </div>
-            {{ csrf_field }}
             <button type="submit" class="btn">Envoyer le commentaire</button>
             <div style="clear:both;"></div>
         </form>

@@ -645,6 +645,41 @@ a:hover, a:active {
   }
 }
 
+#wrapper > #content > .menu_right > .bloc > .add_email_news > .message {
+  margin-left: 2%;
+  width: 96%;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+#wrapper > #content > .menu_right > .bloc > .add_email_news > .message.success {
+  background: #029c1f;
+  color: #00ff7c;
+  padding: 10px;
+  border: 1px solid darkgreen;
+}
+
+#wrapper > #content > .menu_right > .bloc > .add_email_news > .message.error {
+  background: #c80013;
+  color: #ff7a6e;
+  padding: 10px;
+  border: 1px solid darkred;
+}
+
+#wrapper > #content > .menu_right > .bloc > .add_email_news > input {
+  margin-left: 2%;
+  width: 80%;
+  float: left;
+}
+
+#wrapper > #content > .menu_right > .bloc > .add_email_news > button {
+  height: 41px;
+  width: 16%;
+}
+
 #wrapper > #content > .article_list {
   float: left;
   width: calc(75% - 10px);

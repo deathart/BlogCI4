@@ -10,6 +10,11 @@ var App = (function(){
         that.research();
         that.avert_cookies();
         that.scroll_top();
+        $(".add_email_news").submit(function(e) {
+            e.preventDefault();
+            that.newsletter($(this));
+            return false;
+        });
     };
 
     that.research = function() {
@@ -70,6 +75,38 @@ var App = (function(){
             offset = element.offset();
             offsetTop = offset.top;
             $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+        }
+    };
+
+    that.newsletter = function(form_data) {
+        var email = form_data.children("input").val();
+        if(email) {
+            $.ajax({
+                beforeSend: function (xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                        xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
+                    }
+                },
+                method: "POST",
+                url: that.GetBaseUrl() + "newsletter",
+                data: {'email': email},
+                dataType: 'json',
+                cache: false,
+                success: function (data_cap) {
+                    if (data_cap.code == 1) {
+                        form_data.html('<div class="message success">' + data_cap.message + '</div>');
+                    }
+                    else if (data_cap.code == 2) {
+                        form_data.prepend('<div class="message error">' + data_cap.message + '</div>');
+                        setTimeout(function() {
+                            $(".message").hide();
+                        }, 3000);
+                    }
+                },
+                error: function (data_cap) {
+                    console.log(data_cap.responseText);
+                }
+            });
         }
     };
 
