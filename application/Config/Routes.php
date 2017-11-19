@@ -111,11 +111,9 @@ $routes->add('comments/checkcaptcha', 'Comments::checkcaptcha', ['namespace' => 
 $routes->add('tags/(:any)', 'Tags::index/$1', ['namespace' => 'App\Controllers\Blog']);
 
 /*
- * Route for research
+ * Route for search
  */
-$routes->group('search', function ($routes) {
-    $routes->add('/', 'Search::index', ['namespace' => 'App\Controllers\Blog']);
-});
+$routes->add('search', 'Search::index', ['namespace' => 'App\Controllers\Blog']);
 
 /*
  * Route for cookies
