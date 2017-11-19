@@ -37,11 +37,11 @@ class Contact extends Ajax
                 $this->Render(["message" => "La prise de contact à bien été envoyez, vous receverez une réponse d'ici 24h à 48h", "code" => 1]);
                 return true;
             } else {
-                $this->Render(["message" => "Error : yout IP is bizzar ?", "code" => 2], true);
+                $this->Render(["message" => "Error : yout IP is bizzar ?", "code" => 2]);
                 return false;
             }
         } else {
-            $this->Render(["message" => "Error CSRF, You are HACKER ?", "code" => 2], true);
+            $this->Render(["message" => "Error CSRF, You are HACKER ?", "code" => 2]);
             return false;
         }
     }
