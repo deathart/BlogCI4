@@ -1,18 +1,18 @@
 {% extends "template.twig" %}
 {% block content %}
     <div class="page_content">
-        <h2>Recherche</h2>
+        <h2>{{ trans('search.title') }}</h2>
         <hr />
         <form  method="post" action="{{ 'search'|base_url }}">
-            <label for="mc">Mots clefs</label>
+            <label for="mc">{{ trans('search.form_label') }}</label>
             <input type="text" id="mc" name="mc_key" value="{{ val_mc }}" />
-            <button type="submit" class="btn">Rechercher</button>
+            <button type="submit" class="btn">{{ trans('search.form_btn') }}</button>
         </form>
         {% if val_mc %}
             <hr />
             <div class="tabsnavtitle">
-                <button class="tablinks active" data-tabsnav="art">Articles</button>
-                <button class="tablinks" data-tabsnav="com">Commentaires</button>
+                <button class="tablinks active" data-tabsnav="art">{{ trans('search.tabs_title_art') }}</button>
+                <button class="tablinks" data-tabsnav="com">{{ trans('search.tabs_title_com') }}</button>
             </div>
             <div class="tabsnavcontent">
                 <div id="art" class="tabsc show">
@@ -21,7 +21,7 @@
                             {{ data.title }}
                         {% endfor %}
                     {% else %}
-                        Aucun article correspondant à votre recherche à été trouvé
+                        {{ trans('search.tabs_content_art') }}
                     {% endif %}
                 </div>
                 <div id="com" class="tabsc">
@@ -30,7 +30,7 @@
                             {{ data.content }}
                         {% endfor %}
                     {% else %}
-                        Aucun commentaires correspondant à votre recherche à été trouvé
+                        {{ trans('search.tabs_content_com') }}
                     {% endif %}
                 </div>
             </div>
