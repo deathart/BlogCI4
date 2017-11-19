@@ -3,7 +3,7 @@
 use App\Models\Blog\ContactModel;
 
 /**
- * Class Comments
+ * Class Contact
  *
  * @package App\Controllers\Blog\Ajax
  */
