@@ -33,7 +33,7 @@ class ContactModel extends Model
      *
      * @return bool
      */
-    public function Check(string $ip)
+    public function Check(string $ip): bool
     {
         $this->contact_table->select('COUNT(id) as id');
         $this->contact_table->where('ip', $ip);
