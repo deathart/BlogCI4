@@ -12,6 +12,15 @@ class SearchModel extends Model
 {
 
     /**
+     * @var \CodeIgniter\Database\BaseBuilder
+     */
+    protected $article_table;
+
+    /**
+     * @var \CodeIgniter\Database\BaseBuilder
+     */
+    protected $comments_table;
+    /**
      * Site constructor.
      *
      * @param array ...$params
@@ -20,7 +29,7 @@ class SearchModel extends Model
     {
         parent::__construct(...$params);
         $this->db = Database::connect();
-        $this->post_table = $this->db->table('post');
+        $this->article_table = $this->db->table('article');
         $this->comments_table = $this->db->table('comments');
     }
 
@@ -35,16 +44,16 @@ class SearchModel extends Model
         $key_delimiter = explode(',', $valeur);
 
         if ($type == 1) {
-            $this->post_table->select('*');
-            $this->post_table->like('content', $key_delimiter[0]);
+            $this->article_table->select('*');
+            $this->article_table->like('content', $key_delimiter[0]);
 
             foreach ($key_delimiter as $key=>$key_data) {
                 if ($key != 0) {
-                    $this->post_table->orLike('content', $key_data);
+                    $this->article_table->orLike('content', $key_data);
                 }
             }
-            $this->post_table->orderBy('id', 'DESC');
-            return $this->post_table->get()->getResult('array');
+            $this->article_table->orderBy('id', 'DESC');
+            return $this->article_table->get()->getResult('array');
         } elseif ($type == 2) {
             $this->comments_table->select('*');
             $this->comments_table->like('content', $key_delimiter[0]);
