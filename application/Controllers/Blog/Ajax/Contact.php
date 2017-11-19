@@ -11,7 +11,7 @@ class Contact extends Ajax
 {
 
     /**
-     * @var \App\Models\Blog\CommentsModel
+     * @var \App\Models\Blog\ContactModel
      */
     private $contact_model;
 
