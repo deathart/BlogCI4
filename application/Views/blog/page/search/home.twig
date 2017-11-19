@@ -17,18 +17,22 @@
             <div class="tabsnavcontent">
                 <div id="art" class="tabsc show">
                     {% if search_article %}
+                        <ul>
                         {% for data in search_article %}
-                            {{ data.title }}
+                            <li><a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a></li>
                         {% endfor %}
+                        </ul>
                     {% else %}
                         {{ trans('search.tabs_content_art') }}
                     {% endif %}
                 </div>
                 <div id="com" class="tabsc">
                     {% if search_com %}
+                        <ul>
                         {% for data in search_com %}
-                            {{ data.content }}
+                            <li><a href="{{ ('article/' ~ data.post_id)|base_url }}">{{ data.content }}</a></li>
                         {% endfor %}
+                        </ul>
                     {% else %}
                         {{ trans('search.tabs_content_com') }}
                     {% endif %}
