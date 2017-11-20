@@ -1,5 +1,5 @@
 # BlogCI4
-Blog write with Codeigniter v4dev
+I created this blog system with the help of codeigniter v4, thank you for being lenient I'm not a professional developer, this system just helps me to learn more deeply codeigniter but also are style, feel free to help me in this project and tell me what goes and what doesn't go well.
 
 # Installation
 Configure the `.env` file and `application/config/*.php`
