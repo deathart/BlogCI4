@@ -3,7 +3,7 @@
     <div class="menu_right">
         {% if related_article %}
             <div class="bloc">
-                <h1>Article similaire</h1>
+                <h1>{{ trans('article.menu_right_similarpost') }}</h1>
                 {% for data in related_article %}
                     {% if data.id != get_info_article.id and data.published == 1%}
                         <a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a><br />
@@ -13,30 +13,30 @@
         {% endif %}
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
-                <h1>Publicité</h1>
+                <h1>{{ trans('article.menu_right_pub') }}</h1>
                 <p></p>
             </div>
         {% endif %}
         <div class="bloc">
-            <h1>Newsletter</h1>
+            <h1>{{ trans('article.menu_right_newsletter') }}</h1>
             <form class="add_email_news">
-                <input type="email" placeholder="Votre adresse email"/>
-                <button type="submit" class="btn">Envoyez</button>
+                <input type="email" placeholder="{{ trans('article.menu_right_newsletter_form_input') }}"/>
+                <button type="submit" class="btn">{{ trans('article.menu_right_newsletter_form_btn') }}</button>
             </form>
         </div>
         <div class="bloc" id="share">
-            <h1>Partages</h1>
+            <h1>{{ trans('article.menu_right_share') }}</h1>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
-                <i class="fa fa-facebook"></i> Partager sur facebook
+                <i class="fa fa-facebook"></i> {{ trans('article.menu_right_share_on') }} facebook
             </a>
             <a href="https://twitter.com/home?status={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-twitter">
-                <i class="fa fa-twitter"></i> Partager sur twitter
+                <i class="fa fa-twitter"></i> {{ trans('article.menu_right_share_on') }} twitter
             </a>
             <a href="https://plus.google.com/share?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-google">
-                <i class="fa fa-google-plus"></i> Partager sur google+
+                <i class="fa fa-google-plus"></i> {{ trans('article.menu_right_share_on') }} google+
             </a>
             <a href="http://www.reddit.com/submit?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-reddit">
-                <i class="fa fa-reddit-alien"></i> Partager sur reddit
+                <i class="fa fa-reddit-alien"></i> {{ trans('article.menu_right_share_on') }} reddit
             </a>
         </div>
     </div>
@@ -44,12 +44,12 @@
         <div class="title">
             <h2>{{ get_info_article.title }}</h2>
             <ul>
-                <li><strong>Publié :</strong> {{ get_info_article.date_created }}</li>
+                <li><strong>{{ trans('article.article_info_publi') }} :</strong> {{ get_info_article.date_created }}</li>
                 {% if get_info_article.date_update %}
-                    <li><strong>Mise à jours :</strong>{{ get_info_article.date_update }}</li>
+                    <li><strong>{{ trans('article.article_info_update') }} :</strong>{{ get_info_article.date_update }}</li>
                 {% endif %}
-                <li><strong>Catégories :</strong> {{ general('TradCat', get_info_article.cat) }}</li>
-                <li><strong><i class="fa fa-eye"></i> vues</strong> {{ PostView }}</li>
+                <li><strong>{{ trans('article.article_info_cat') }}:</strong> {{ general('TradCat', get_info_article.cat) }}</li>
+                <li><strong><i class="fa fa-eye"></i> {{ trans('article.article_info_view') }}</strong> {{ PostView }}</li>
             </ul>
         </div>
         <div class="image">
@@ -60,11 +60,11 @@
         </div>
     </div>
     <div class="tags">
-        <h1>Tags</h1>
+        <h1>{{ trans('article.article_tags') }}</h1>
         {{ general('TradTags', get_info_article.keyword) }}
     </div>
     <div class="commentaire">
-        <h1>Commentaire(s)</h1>
+        <h1>{{ trans('article.article_com') }}</h1>
         {% for data in get_coms %}
             <div class="comment">
                 <div class="inf">
@@ -76,26 +76,26 @@
                 </div>
             </div>
         {% endfor %}
-        <h1>Ajouter un commentaire</h1>
+        <h1>{{ trans('article.article_add_com') }}</h1>
         <div class="message_add_coms"></div>
         <form class="add_com" data-post="{{ get_info_article.id }}">
             <div class="group-inline">
-                <label for="name">Nom : </label>
+                <label for="name">{{ trans('article.article_add_com_name') }} : </label>
                 <input type="text" id="name" />
             </div>
             <div class="group-inline">
-                <label for="email">Email : </label>
+                <label for="email">{{ trans('article.article_add_com_email') }} : </label>
                 <input type="email" id="email" />
             </div>
             <div class="group-inline">
-                <label for="com">Commentaire : </label>
+                <label for="com">{{ trans('article.article_add_com_content') }} : </label>
                 <textarea id="com"></textarea>
             </div>
             <div class="group-inline">
-                <label for="captcha">Anti-robot : {{ captcha }} = </label>
+                <label for="captcha">{{ trans('article.article_add_com_captcha') }} : {{ captcha }} = </label>
                 <input type="text" id="captcha" />
             </div>
-            <button type="submit" class="btn">Envoyer le commentaire</button>
+            <button type="submit" class="btn">{{ trans('article.article_add_com_send') }}</button>
             <div style="clear:both;"></div>
         </form>
     </div>

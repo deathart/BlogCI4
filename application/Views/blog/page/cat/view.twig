@@ -7,7 +7,7 @@
         </div>
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
-                <h1>Publicité</h1>
+                <h1>{{ trans('cat.menu_right_pub') }}</h1>
                 <p></p>
             </div>
         {% endif %}
@@ -35,12 +35,12 @@
                     {{ data.content|slice(0, 500) ~ '...' }}
                 </div>
                 <div class="read_more">
-                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('cat.view_more') }}</a>
                 </div>
             </div>
         {% else %}
             <div class="nopost">
-                Aucun article
+                {{ trans('cat.no_article') }}
             </div>
         {% endfor %}
     </div>

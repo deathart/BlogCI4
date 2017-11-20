@@ -16,7 +16,7 @@
             <div class="description">
                 {{ data.description }}
                 <div class="explore">
-                    <a href="{{ ('cat/' ~ data.slug)|base_url }}">Voir les {{ general('CountArticle', data.id) }} articles</a>
+                    <a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ trans('cat.home_view_all', {'count': general('CountArticle', data.id)}) }}</a>
                 </div>
             </div>
         </div>

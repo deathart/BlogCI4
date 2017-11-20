@@ -2,12 +2,12 @@
 {% block content %}
     <div class="menu_right">
         <div class="bloc">
-            <h1>Article avec le tag</h1>
+            <h1>{{ trans('tags.menu_right_title') }}</h1>
             <p>{{ tags_name }}</p>
         </div>
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
-                <h1>Publicité</h1>
+                <h1>{{ trans('tags.menu_right_pub') }}</h1>
                 <p></p>
             </div>
         {% endif %}
@@ -35,12 +35,12 @@
                     {{ data.content|slice(0, 500) ~ '...' }}
                 </div>
                 <div class="read_more">
-                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('tags.view_more') }}</a>
                 </div>
             </div>
         {% else %}
             <div class="nopost">
-                Aucun article
+                {{ trans('tags.no_article') }} {{ tags_name }}
             </div>
         {% endfor %}
     </div>

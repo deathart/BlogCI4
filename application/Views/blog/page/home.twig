@@ -2,25 +2,25 @@
 {% block content %}
     <div class="menu_right">
         <div class="bloc">
-            <h1>Présentation</h1>
+            <h1>{{ trans('home.menu_right_pres') }}</h1>
             <p>{{ 'presentation'|config }}</p>
         </div>
         <div class="bloc">
-            <h1>Newsletter</h1>
+            <h1>{{ trans('home.menu_right_newsletter') }}</h1>
             <form class="add_email_news">
-                <input type="email" placeholder="Votre adresse email"/>
-                <button type="submit" class="btn">Envoyez</button>
+                <input type="email" placeholder="{{ trans('home.menu_right_newsletter_form_input') }}"/>
+                <button type="submit" class="btn">{{ trans('home.menu_right_newsletter_form_btn') }}</button>
             </form>
         </div>
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
-                <h1>Publicité</h1>
+                <h1>{{ trans('home.menu_right_pub') }}</h1>
                 <p></p>
             </div>
         {% endif %}
     </div>
     <div class="article_list">
-        <h1>Articles les plus luts</h1>
+        <h1>{{ trans('home.best_article_title') }}</h1>
         {% for data in last_important %}
             <div class="article_bloc">
                 <div class="images">
@@ -42,7 +42,7 @@
                     {{ data.content|slice(0, 500) ~ '...' }}
                 </div>-->
                 <div class="read_more">
-                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
                 </div>
             </div>
         {% endfor %}
@@ -51,7 +51,7 @@
         <div class="annonce">{{ 'home_annonce_1'|config }}</div>
     {% endif %}
     <div class="article_last">
-        <h1>Les derniers articles</h1>
+        <h1>{{ trans('home.last_article') }}</h1>
         {% for data in last_article %}
             <div class="article_bloc">
                 <div class="images">
@@ -73,7 +73,7 @@
                     {{ data.content|slice(0, 500) ~ '...' }}
                 </div>
                 <div class="read_more">
-                    <a href="{{ ('article/' ~ data.link)|base_url }}">Voir la suite</a>
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
                 </div>
             </div>
         {% endfor %}
