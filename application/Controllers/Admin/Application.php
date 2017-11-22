@@ -29,7 +29,7 @@ class Application extends Controller
     /**
      * @var array
      */
-    protected $helpers = ['cookie', 'text'];
+    protected $helpers = ['text'];
     /**
      * @var array
      */
@@ -95,11 +95,6 @@ class Application extends Controller
         $this->response->setHeader('X-Content-Type-Options', 'nosniff');
         // Prevent google
         $this->response->setHeader('X-robots-tag', 'noindex');
-
-        if (!$this->isConnected() &&  uri_string() != 'admin/auth/login' && uri_string() != 'admin/auth/login_ajax') {
-            header('Location: ' . base_url('admin/auth/login'));
-            exit();
-        }
     }
 
     /**
@@ -233,34 +228,5 @@ class Application extends Controller
         }
         $bread .= '</div>';
         return $bread;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isConnected()
-    {
-        if (!$this->session->has('logged_in')) {
-            if (get_cookie('remember_me', true) != null) {
-                $this->session->set('Account_ip', $this->request->getIPAddress());
-                $this->session->set('Account_id', get_cookie('remember_me', true));
-                $this->session->set('logged_in', true);
-                delete_cookie('remember_me');
-                set_cookie(['name' => 'remember_me', 'value' =>  get_cookie('remember_me', true), 'expire' => '32140800'], true);
-                header('Location: ' . $_SERVER['REQUEST_URI']);
-                exit();
-            }
-
-            return false;
-        } else {
-            if (get_cookie('remember_me', true) != null) {
-                $this->session->set('Account_ip', $this->request->getIPAddress());
-                $this->session->set('Account_id', get_cookie('remember_me', true));
-                $this->session->set('logged_in', true);
-                delete_cookie('remember_me');
-                set_cookie(['name' => 'remember_me', 'value' =>  get_cookie('remember_me', true), 'expire' => '32140800'], true);
-            }
-            return true;
-        }
     }
 }

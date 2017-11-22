@@ -16,6 +16,10 @@ class Auth extends Application
      * @var \App\Models\Admin\AuthModel
      */
     protected $auth_model;
+    /**
+     * @var array
+     */
+    protected $helpers = ['cookie'];
 
     /**
      * Auth constructor.
