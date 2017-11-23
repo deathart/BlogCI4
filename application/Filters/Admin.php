@@ -3,7 +3,7 @@
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Services\Auth;
+use App\Libraries\Auth;
 
 class Admin implements FilterInterface
 {
