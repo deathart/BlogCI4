@@ -86,10 +86,9 @@ class AuthModel extends Model
     {
         $this->user_table->select('avatar');
         $this->user_table->where('id', $account);
-        if ($this->user_table->get()->getRow()->avatar == 'user.png') {
-            return 'assets/images/user.png';
-        } else {
+        if ($this->user_table->get()->getRow()->avatar != 'user.png') {
             return 'uploads/avatar/' . $this->user_table->get()->getRow()->avatar;
         }
+        return 'assets/images/user.png';
     }
 }
