@@ -4,9 +4,17 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\Auth;
+use Config\App;
+use Config\Services;
 
 class Admin implements FilterInterface
 {
+    public function __construct()
+    {
+        $config        = new App();
+        $session = Services::session($config);
+        $session->start();
+    }
 
     /**
      * We don't need to do anything here.

@@ -4,6 +4,8 @@ use App\Libraries\CSRFToken;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
 use App\Helpers;
+use Config\App;
+use Config\Services;
 
 /**
  * Class Ajax
@@ -30,6 +32,10 @@ class Ajax extends Controller
     public function __construct(...$params)
     {
         parent::__construct(...$params);
+
+        $config  = new App();
+        $session = Services::session($config);
+        $session->start();
 
         $this->csrf = new CSRFToken();
 

@@ -75,11 +75,13 @@ class Application extends Controller
         $config       = new App();
         $this->session      = Services::session($config);
         $this->request      = Services::request();
+
+        $this->session->start();
+
         $this->response     = new Response($config);
         $this->twig         = new Twig('blog');
         $this->csrf         = new CSRFToken();
         $this->config_model = new ConfigModel();
-
         //Set header
         $this->response->setStatusCode(200);
         $this->response->setHeader('Content-type', 'text/html');

@@ -3,6 +3,11 @@
 use Config\App;
 use Config\Services;
 
+/**
+ * Class CSRFToken
+ *
+ * @package App\Libraries
+ */
 class CSRFToken
 {
     /**
@@ -18,16 +23,19 @@ class CSRFToken
      */
     private $session_name;
     /**
+     * @var \CodeIgniter\Session\Session
+     */
+    private $session;
+    /**
      * Constructor
      *
      * @param string $session_name Name of the session (default: 'csrf_token')
      */
     public function __construct($session_name = 'csrf_token')
     {
-        $this->config       = new App();
-        $this->session      = Services::session($this->config);
+        $config       = new App();
+        $this->session      = Services::session($config);
         $this->session_name = $session_name;
-        $this->session->start();
     }
     /**
      * Getting a token
