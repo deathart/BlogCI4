@@ -23,6 +23,9 @@ class DatabaseSeeder extends \CodeIgniter\Database\Seeder
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('mail_from_name', '')");
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('cache', 'off')");
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('lang', 'en')");
+        $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('btn_facebook_link', '')");
+        $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('btn_twitter_link', '')");
+        $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('btn_googleplus_link', '')");
 
         $this->db->query('INSERT INTO `users` (`username`, `password`, `email`) VALUES (\'admin\', \'$2y$10$YFeHHk2cC1GFPWhw2yQMSeY9DFiFNjsOu3/jGnLzyGBqVqG5sOUDO\', \'contact@blog.dev\')');
 
