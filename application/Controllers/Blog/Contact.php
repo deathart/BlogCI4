@@ -32,6 +32,9 @@ class Contact extends Application
      */
     public function index(): self
     {
+        if ($this->config_model->GetConfig('contact_active') == 0) {
+            return redirect(base_url('errors/404'));
+        }
         $this->data['check'] = $this->contact_model->Check($this->request->getIPAddress());
         return $this->render('contact/home');
     }
