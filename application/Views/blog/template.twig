@@ -65,9 +65,11 @@
                                 </ul>
                             </div>
                         </li>
+                        {% if 'contact_active'|config == 1 %}
                         <li>
                             <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
                         </li>
+                        {% endif %}
                     </ul>
                     <div class="search">
                         <span class="click_search"><i class="fa fa-search" aria-hidden="true"></i></span>
