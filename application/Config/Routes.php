@@ -89,11 +89,6 @@ $routes->add('contact', 'Contact::index', ['namespace' => 'App\Controllers\Blog'
 $routes->add('contact/add', 'Contact::addContact', ['namespace' => 'App\Controllers\Blog\Ajax']);
 
 /*
- * Route for about
- */
-$routes->add('about', 'About::index', ['namespace' => 'App\Controllers\Blog']);
-
-/*
  * Route for article
  */
 $routes->add('article', 'Article::index', ['namespace' => 'App\Controllers\Blog']);
