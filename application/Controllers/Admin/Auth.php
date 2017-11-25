@@ -20,6 +20,18 @@ class Auth extends Application
      * @var array
      */
     protected $helpers = ['cookie'];
+    /**
+     * @var \CodeIgniter\Session\Session
+     */
+    protected $session;
+    /**
+     * @var \CodeIgniter\HTTP\IncomingRequest
+     */
+    protected $request;
+    /**
+     * @var \CodeIgniter\HTTP\Response
+     */
+    protected $response;
 
     /**
      * Auth constructor.
@@ -29,10 +41,10 @@ class Auth extends Application
     public function __construct(...$params)
     {
         parent::__construct(...$params);
-        $this->config        = new App();
-        $this->session      = Services::session($this->config);
+        $config        = new App();
+        $this->session      = Services::session($config);
         $this->request      = Services::request();
-        $this->response     = new Response($this->config);
+        $this->response     = new Response($config);
         $this->auth_model   = new AuthModel();
         $this->stitle       = 'Auth';
     }
@@ -46,7 +58,7 @@ class Auth extends Application
     }
 
     /**
-     * @return string render
+     * @return \App\Controllers\Admin\Auth
      */
     public function Login(): self
     {
@@ -54,7 +66,7 @@ class Auth extends Application
     }
 
     /**
-     * @return string render
+     * @return \App\Controllers\Admin\Auth
      */
     public function Logout(): self
     {

@@ -2,6 +2,11 @@
 
 use App\Models\Admin\CatModel;
 
+/**
+ * Class Cat
+ *
+ * @package App\Controllers\Admin
+ */
 class Cat extends Application
 {
 
@@ -22,6 +27,9 @@ class Cat extends Application
         $this->stitle = 'Catgories';
     }
 
+    /**
+     * @return \App\Controllers\Admin\Cat
+     */
     public function index(): self
     {
         $this->tpage = 'Liste des categories';

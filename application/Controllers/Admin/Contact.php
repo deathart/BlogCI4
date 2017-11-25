@@ -2,6 +2,11 @@
 
 use App\Models\Admin\ContactModel;
 
+/**
+ * Class Contact
+ *
+ * @package App\Controllers\Admin
+ */
 class Contact extends Application
 {
 
@@ -22,12 +27,18 @@ class Contact extends Application
         $this->stitle = 'Contact';
     }
 
+    /**
+     * @return \App\Controllers\Admin\Contact
+     */
     public function index(): self
     {
         $this->tpage = 'Liste des contacts';
         return $this->render('contact/home');
     }
 
+    /**
+     * @return \App\Controllers\Admin\Contact
+     */
     public function new(): self
     {
         $this->tpage = 'Liste des contacts nouveau';
@@ -35,6 +46,9 @@ class Contact extends Application
         return $this->render('contact/new');
     }
 
+    /**
+     * @return \App\Controllers\Admin\Contact
+     */
     public function finish(): self
     {
         $this->tpage = 'Liste des contacts fini';
@@ -42,6 +56,11 @@ class Contact extends Application
         return $this->render('contact/finish');
     }
 
+    /**
+     * @param int $id
+     *
+     * @return \App\Controllers\Admin\Contact
+     */
     public function rep(int $id): self
     {
         $this->tpage = 'Envoyez une réponse';

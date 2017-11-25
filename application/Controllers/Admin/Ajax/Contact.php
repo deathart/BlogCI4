@@ -28,7 +28,7 @@ class Contact extends Ajax
                 $this->contact_model->markedview($_POST['id']);
                 $infocontact = $this->contact_model->getContact($_POST['id']);
                 $this->mailer->sendmail($_POST['sujet'], $infocontact->email, $_POST['message']);
-                return $this->responded(["code" => 1, "title" => "Contact", "message" => 'Le message à bien été envoyé']);
+                return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'Le message à bien été envoyé']);
             }
         } else {
             return $this->responded([]);
@@ -40,7 +40,7 @@ class Contact extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->contact_model->markedview($_POST['id']);
-                return $this->responded(["code" => 1, "title" => "Contact", "message" => "La prise de contact à été marqué comme vue"]);
+                return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'La prise de contact à été marqué comme vue']);
             }
         } else {
             return $this->responded([]);
@@ -52,7 +52,7 @@ class Contact extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->contact_model->del($_POST['id']);
-                return $this->responded(["code" => 1, "title" => "Contact", "message" => "La prise de contact à été supprimé"]);
+                return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'La prise de contact à été supprimé']);
             }
         } else {
             return $this->responded([]);

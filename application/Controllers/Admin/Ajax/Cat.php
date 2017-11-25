@@ -26,9 +26,9 @@ class Cat extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->cat_model->UpdateCat($_POST['id'], 'title', $_POST['title']);
-                return $this->responded(["code" => 1, "title" => "Catégorie modifier", "message" => "La catégories à bien été modifier"]);
+                return $this->responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
             } else {
-                return $this->responded(["code" => 0, "message" => "Erreurs..."]);
+                return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
             }
         } else {
             return $this->responded([]);
@@ -40,9 +40,9 @@ class Cat extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->cat_model->UpdateCat($_POST['id'], 'description', $_POST['content']);
-                return $this->responded(["code" => 1, "title" => "Catégorie modifier", "message" => "La catégories à bien été modifier"]);
+                return $this->responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
             } else {
-                return $this->responded(["code" => 0, "message" => "Erreurs..."]);
+                return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
             }
         } else {
             return $this->responded([]);
@@ -54,9 +54,9 @@ class Cat extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->cat_model->AddCat($_POST['title'], $_POST['content'], $_POST['slug'], $_POST['icon']);
-                return $this->responded(["code" => 1, "title" => "Ajout d'une catégorie", "message" => "La catégories à bien été ajouter, rechargemen tde la page"]);
+                return $this->responded(['code' => 1, 'title' => "Ajout d'une catégorie", 'message' => 'La catégories à bien été ajouter, rechargemen tde la page']);
             } else {
-                return $this->responded(["code" => 0, "message" => "Erreurs..."]);
+                return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
             }
         } else {
             return $this->responded([]);

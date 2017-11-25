@@ -35,18 +35,18 @@ class Newsletter extends Ajax
             if ($this->request->isValidIP($this->request->getIPAddress())) {
                 if (!$this->newsletter_model->Check($this->request->getIPAddress(), $_POST['email'])) {
                     $this->newsletter_model->Add($this->request->getIPAddress(), $_POST['email']);
-                    $this->Render(["message" => "Success : Votre email à bien été enregistré", "code" => 1]);
+                    $this->Render(['message' => 'Success : Votre email à bien été enregistré', 'code' => 1]);
                     return true;
                 } else {
-                    $this->Render(["message" => "Erreur : Votre email à déjà été enregistré", "code" => 2]);
+                    $this->Render(['message' => 'Erreur : Votre email à déjà été enregistré', 'code' => 2]);
                     return false;
                 }
             } else {
-                $this->Render(["message" => "Error : yout IP is bizzar ?", "code" => 2]);
+                $this->Render(['message' => 'Error : yout IP is bizzar ?', 'code' => 2]);
                 return false;
             }
         } else {
-            $this->Render(["message" => "Error CSRF, You are HACKER ?", "code" => 2]);
+            $this->Render(['message' => 'Error CSRF, You are HACKER ?', 'code' => 2]);
             return false;
         }
     }

@@ -11,6 +11,11 @@ class Search extends Application
 {
 
     /**
+     * @var \App\Models\Blog\SearchModel
+     */
+    protected $search_model;
+
+    /**
      * Search constructor.
      *
      * @param array ...$params

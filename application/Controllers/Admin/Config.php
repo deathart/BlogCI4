@@ -1,7 +1,10 @@
 <?php namespace App\Controllers\Admin;
 
-use App\Models\Admin\ConfigModel;
-
+/**
+ * Class Config
+ *
+ * @package App\Controllers\Admin
+ */
 class Config extends Application
 {
 
@@ -16,11 +19,17 @@ class Config extends Application
         $this->stitle = 'Config';
     }
 
+    /**
+     * @return \App\Controllers\Admin\Config
+     */
     public function index(): self
     {
         return $this->render('config/home');
     }
 
+    /**
+     * @return \App\Controllers\Admin\Config
+     */
     public function params(): self
     {
         $this->tpage = 'Paramêtres';
