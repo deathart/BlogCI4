@@ -326,7 +326,7 @@ a:hover, a:active {
   padding: 10px;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content {
   display: none;
   position: absolute;
   background-color: #1a9da7;
@@ -335,9 +335,15 @@ a:hover, a:active {
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
+  border-bottom-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a {
   color: white !important;
   text-decoration: none;
   display: inline-block;
@@ -345,7 +351,7 @@ a:hover, a:active {
   padding-bottom: 3px;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a.active:after {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a.active:after {
   height: 3px;
   display: block;
   width: 100%;
@@ -353,7 +359,7 @@ a:hover, a:active {
   content: '';
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a.active:before {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a.active:before {
   display: block;
   content: '';
   background: silver;
@@ -361,7 +367,7 @@ a:hover, a:active {
   margin-top: -20px;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a:before {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a:before {
   content: '';
   display: block;
   position: absolute;
@@ -373,7 +379,7 @@ a:hover, a:active {
   transition: width 0s ease, background 0.5s ease;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a:after {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a:after {
   content: '';
   display: block;
   position: absolute;
@@ -386,25 +392,25 @@ a:hover, a:active {
   transition: width 0.5s ease;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a:hover {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a:hover {
   color: white;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a:hover:before {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a:hover:before {
   width: 100%;
   background: white;
   -webkit-transition: width 0.5s ease;
   transition: width 0.5s ease;
 }
 
-#wrapper > header > #menu > ul > li.cat .dropdown-content a:hover:after {
+#wrapper > header > #menu > ul > li.dropdown .dropdown-content a:hover:after {
   width: 100%;
   background: transparent;
   -webkit-transition: all 0s ease;
   transition: all 0s ease;
 }
 
-#wrapper > header > #menu > ul > li.cat:hover .dropdown-content {
+#wrapper > header > #menu > ul > li.dropdown:hover .dropdown-content {
   display: block;
 }
 

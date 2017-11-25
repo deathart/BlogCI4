@@ -55,7 +55,7 @@
                         <li>
                             <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
                         </li>
-                        <li class="cat">
+                        <li class="dropdown">
                             <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
                             <div class="dropdown-content">
                                 <ul>
