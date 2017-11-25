@@ -6,7 +6,7 @@ use Config\Database;
 /**
  * Class CommentsModel
  *
- * @package App\Models
+ * @package App\Models\Blog
  */
 class CommentsModel extends Model
 {
@@ -17,9 +17,9 @@ class CommentsModel extends Model
     private $comments_table;
 
     /**
-     * Site constructor.
+     * CommentsModel constructor.
      *
-     * @param array $params
+     * @param array ...$params
      */
     public function __construct(...$params)
     {

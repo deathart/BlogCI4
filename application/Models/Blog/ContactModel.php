@@ -6,7 +6,7 @@ use Config\Database;
 /**
  * Class ContactModel
  *
- * @package App\Models
+ * @package App\Models\Blog
  */
 class ContactModel extends Model
 {
@@ -17,7 +17,7 @@ class ContactModel extends Model
     private $contact_table;
 
     /**
-     * Site constructor.
+     * Contact constructor.
      *
      * @param array $params
      */
@@ -39,11 +39,8 @@ class ContactModel extends Model
         $this->contact_table->where('ip', $ip);
         $this->contact_table->where('date_created >', date('Y-m-d H:i:s', strtotime('-1 day')));
         $result = $this->contact_table->get()->getRow()->id;
-        if ($result == 0) {
-            return false;
-        } else {
-            return true;
-        }
+
+        return !($result == 0);
     }
 
     /**

@@ -6,7 +6,7 @@ use Config\Database;
 /**
  * Class ConfigModel
  *
- * @package App\Models
+ * @package App\Models\Blog
  */
 class ConfigModel extends Model
 {
@@ -17,7 +17,7 @@ class ConfigModel extends Model
     private $config_table;
 
     /**
-     * Site constructor.
+     * Config constructor.
      *
      * @param array ...$params
      */

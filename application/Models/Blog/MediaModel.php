@@ -3,8 +3,19 @@
 use CodeIgniter\Model;
 use Config\Database;
 
+/**
+ * Class MediaModel
+ *
+ * @package App\Models\Blog
+ */
 class MediaModel extends Model
 {
+
+    /**
+     * @var \CodeIgniter\Database\BaseBuilder
+     */
+    protected $medias_table;
+
     /**
      * MediaModel constructor.
      *
@@ -24,7 +35,7 @@ class MediaModel extends Model
      */
     public function get_link(int $id)
     {
-        $this->medias_table->select('*');
+        $this->medias_table->select();
         $this->medias_table->where('id', $id);
         return $this->medias_table->get()->getRow();
     }

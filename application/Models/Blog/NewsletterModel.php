@@ -28,19 +28,28 @@ class NewsletterModel extends Model
         $this->newsletter_table = $this->db->table('newsletter');
     }
 
+    /**
+     * @param string $ip
+     * @param string $email
+     *
+     * @return bool
+     */
     public function Check(string $ip, string $email): bool
     {
         $this->newsletter_table->select('COUNT(id) as id');
         $this->newsletter_table->where('ip', $ip);
         $this->newsletter_table->orWhere('email', $email);
         $result = $this->newsletter_table->get()->getRow()->id;
-        if ($result == 0) {
-            return false;
-        } else {
-            return true;
-        }
+
+        return !($result == 0);
     }
 
+    /**
+     * @param string $ip
+     * @param string $email
+     *
+     * @return bool
+     */
     public function Add(string $ip, string $email)
     {
         $data = [

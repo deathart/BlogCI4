@@ -6,7 +6,7 @@ use Config\Database;
 /**
  * Class CatModel
  *
- * @package App\Models
+ * @package App\Models\Blog
  */
 class CatModel extends Model
 {
@@ -17,7 +17,7 @@ class CatModel extends Model
     private $cat_table;
 
     /**
-     * Site constructor.
+     * CatModel constructor.
      *
      * @param array ...$params
      */
@@ -35,7 +35,7 @@ class CatModel extends Model
      */
     public function GetCatNameAndLink(int $id)
     {
-        $this->cat_table->select('*');
+        $this->cat_table->select();
         $this->cat_table->where('id', $id);
         return $this->cat_table->get()->getRow();
     }
@@ -47,7 +47,7 @@ class CatModel extends Model
      */
     public function GetCatByID(int $id)
     {
-        $this->cat_table->select('*');
+        $this->cat_table->select();
         $this->cat_table->where('id', $id);
         return $this->cat_table->get()->getRow();
     }
@@ -60,7 +60,7 @@ class CatModel extends Model
      */
     public function GetCatByLink(string $slug)
     {
-        $this->cat_table->select('*');
+        $this->cat_table->select();
         $this->cat_table->where('slug', $slug);
         return $this->cat_table->get()->getRow();
     }
@@ -70,7 +70,7 @@ class CatModel extends Model
      */
     public function GetCat():array
     {
-        $this->cat_table->select('*');
+        $this->cat_table->select();
         $this->cat_table->where('parent', '0');
         $this->cat_table->orderBy('id', 'DESC');
         return $this->cat_table->get()->getResult('array');

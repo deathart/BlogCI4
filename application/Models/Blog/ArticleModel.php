@@ -6,7 +6,7 @@ use Config\Database;
 /**
  * Class ArticleModel
  *
- * @package App\Models
+ * @package App\Models\Blog
  */
 class ArticleModel extends Model
 {
@@ -15,15 +15,16 @@ class ArticleModel extends Model
      * @var \CodeIgniter\Database\BaseBuilder
      */
     private $article_table;
+
     /**
      * @var \CodeIgniter\Database\BaseBuilder
      */
     private $article_view_table;
 
     /**
-     * Site constructor.
+     * ArticleModel constructor.
      *
-     * @param array $params
+     * @param array ...$params
      */
     public function __construct(...$params)
     {
@@ -108,7 +109,7 @@ class ArticleModel extends Model
      */
     public function add_view(int $id, string $ip):bool
     {
-        $this->article_view_table->select('*');
+        $this->article_view_table->select();
         $this->article_view_table->where('post_id', $id);
         $this->article_view_table->where('ip', $ip);
         $verify = $this->article_view_table->get()->getRow();
@@ -145,7 +146,7 @@ class ArticleModel extends Model
     {
         $keys = explode(',', $keyword);
 
-        $this->article_table->select('*');
+        $this->article_table->select();
         $this->article_table->like('keyword', $keys[0]);
 
         foreach ($keys as $key=>$key_data) {

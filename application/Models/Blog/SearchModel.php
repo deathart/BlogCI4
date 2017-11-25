@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 use Config\Database;
 
 /**
- * Class ProjectModel
+ * Class SearchModel
  *
  * @package App\Models
  */
@@ -20,8 +20,9 @@ class SearchModel extends Model
      * @var \CodeIgniter\Database\BaseBuilder
      */
     protected $comments_table;
+
     /**
-     * Site constructor.
+     * SearchModel constructor.
      *
      * @param array ...$params
      */
@@ -44,7 +45,7 @@ class SearchModel extends Model
         $key_delimiter = explode(',', $valeur);
 
         if ($type == 1) {
-            $this->article_table->select('*');
+            $this->article_table->select();
             $this->article_table->like('content', $key_delimiter[0]);
 
             foreach ($key_delimiter as $key=>$key_data) {
@@ -55,7 +56,7 @@ class SearchModel extends Model
             $this->article_table->orderBy('id', 'DESC');
             return $this->article_table->get()->getResult('array');
         } elseif ($type == 2) {
-            $this->comments_table->select('*');
+            $this->comments_table->select();
             $this->comments_table->like('content', $key_delimiter[0]);
 
             foreach ($key_delimiter as $key=>$key_data) {
