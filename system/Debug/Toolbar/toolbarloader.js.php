@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', loadDoc, false );
 
 function loadDoc() {
@@ -7,9 +8,9 @@ function loadDoc() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var toolbar = document.createElement( 'div' );
-            toolbar.setAttribute( 'id', 'toolbarContainer' );
-            toolbar.innerHTML = this.responseText;
+        	var toolbar = document.createElement( 'div' );
+        	toolbar.setAttribute( 'id', 'toolbarContainer' );
+        	toolbar.innerHTML = this.responseText;
             document.body.appendChild( toolbar );
             eval(document.getElementById("toolbar_js").innerHTML);
             if (typeof ciDebugBar === 'object') {
