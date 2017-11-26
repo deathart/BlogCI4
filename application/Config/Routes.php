@@ -83,6 +83,12 @@ $routes->add('cat', 'Cat::index', ['namespace' => 'App\Controllers\Blog']);
 $routes->add('cat/(:any)', 'Cat::View/$1', ['namespace' => 'App\Controllers\Blog']);
 
 /*
+ * Route for Pages
+ */
+$routes->add('page', 'Pages::index', ['namespace' => 'App\Controllers\Blog']);
+$routes->add('page/(:any)', 'Pages::view/$1', ['namespace' => 'App\Controllers\Blog']);
+
+/*
  * Route for Contact
  */
 $routes->add('contact', 'Contact::index', ['namespace' => 'App\Controllers\Blog']);

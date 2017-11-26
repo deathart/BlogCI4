@@ -3,6 +3,7 @@
 use App\Models\Blog\CatModel;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\ArticleModel;
+use App\Models\Blog\PagesModel;
 use App\Models\Admin\AuthModel;
 use Config\App;
 use Config\Services;
@@ -41,6 +42,11 @@ class General
     private $comments_model;
 
     /**
+     * @var \App\Models\Blog\PagesModel
+     */
+    private $pages_model;
+
+    /**
      * @var \App\Models\Admin\AuthModel
      */
     private $Auth_model;
@@ -55,6 +61,7 @@ class General
         $this->cat_model = new CatModel();
         $this->article_model = new ArticleModel();
         $this->comments_model = new CommentsModel();
+        $this->pages_model = new PagesModel();
         $this->Auth_model   = new AuthModel();
     }
 
@@ -98,6 +105,14 @@ class General
     public function GetCat()
     {
         return $this->cat_model->GetCat();
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function GetPages()
+    {
+        return $this->pages_model->GetPages();
     }
 
     /**
