@@ -44,14 +44,14 @@ class Cat extends Application
     }
 
     /**
-     * @param string $link
+     * @param string $slug
      *
      * @return \App\Controllers\Blog\Cat
      */
-    public function View(string $link): self
+    public function View(string $slug): self
     {
         $pager = Services::pager();
-        $CatID = $this->cat_model->GetCatByLink($link);
+        $CatID = $this->cat_model->GetCatByLink($slug);
         $this->data['info_cat'] = $CatID;
 
         $total_row = $this->article_model->nb_articleByCat($CatID->id);
