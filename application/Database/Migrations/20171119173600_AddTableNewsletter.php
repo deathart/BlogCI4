@@ -12,7 +12,7 @@ class Migration_AddTableNewsletter extends Migration
             'ip' => ['type' => 'VARCHAR', 'constraint' => 250]
         ]);
 
-        $this->forge->addField("date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        $this->forge->addField('date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
         $this->forge->addKey('id', true);
 

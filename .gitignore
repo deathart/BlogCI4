@@ -7,4 +7,3 @@ writable/uploads
 writable/debugbar
 public/uploads
 composer.lock
-php_cs.dist

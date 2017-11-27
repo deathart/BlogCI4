@@ -43,11 +43,11 @@ class Application extends Controller
      */
     protected $js = [];
     /**
-     * @var
+     * @var string
      */
     protected $stitle;
     /**
-     * @var
+     * @var string
      */
     protected $tpage;
     /**
@@ -72,9 +72,9 @@ class Application extends Controller
     {
         parent::__construct(...$params);
         //Declare class
-        $config       = new App();
-        $this->session      = Services::session($config);
-        $this->request      = Services::request();
+        $config        = new App();
+        $this->session = Services::session($config);
+        $this->request = Services::request();
 
         $this->session->start();
 

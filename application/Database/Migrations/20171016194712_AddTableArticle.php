@@ -13,19 +13,19 @@ class Migration_AddTableArticle extends Migration
                 'author_created' => ['type' => 'INT', 'constraint' => 11],
         ]);
 
-        $this->forge->addField("date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        $this->forge->addField('date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
         $this->forge->addField([
                 'author_update' => ['type' => 'INT', 'constraint' => 11, 'null' => true],
                 'date_update' => ['type' => 'DATETIME', 'null' => true],
-                'important' => ['type' => 'INT', 'constraint' => 11, 'default' => "0"],
+                'important' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
                 'link' => ['type' => 'TEXT'],
                 'picture_one' => ['type' => 'TEXT'],
                 'cat' => ['type' => 'CHAR', 'constraint' => 50],
-                'published' => ['type' => 'INT', 'constraint' => 11, 'default' => "0"],
-                'corriged' => ['type' => 'INT', 'constraint' => 11, 'default' => "0"],
+                'published' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
+                'corriged' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
                 'keyword' => ['type' => 'TEXT'],
-                'brouillon' => ['type' => 'INT', 'constraint' => 11, 'default' => "0"]
+                'brouillon' => ['type' => 'INT', 'constraint' => 11, 'default' => '0']
         ]);
 
         $this->forge->addKey('id', true);

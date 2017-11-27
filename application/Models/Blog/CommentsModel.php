@@ -66,13 +66,13 @@ class CommentsModel extends Model
      */
     public function AddComments(int $id, string $name, string $email, string $content, string $ip)
     {
-        $data = array(
+        $data = [
             'post_id' => $id,
             'author_name' => $name,
             'author_email' => $email,
             'author_ip' => $ip,
             'content' => $content
-        );
+        ];
 
         return $this->comments_table->insert($data);
     }

@@ -12,7 +12,7 @@ class Migration_AddTableMedias extends Migration
             'name' => ['type' => 'VARCHAR', 'constraint' => 250]
         ]);
 
-        $this->forge->addField("date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        $this->forge->addField('date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
         $this->forge->addKey('id', true);
 

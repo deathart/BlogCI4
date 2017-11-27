@@ -14,10 +14,10 @@ class Migration_AddTableComments extends Migration
             'author_ip' => ['type' => 'VARCHAR', 'constraint' => 250]
         ]);
 
-        $this->forge->addField("created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        $this->forge->addField('created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
         $this->forge->addField([
-            'verified' => ['type' => 'INT', 'constraint' => 11, 'default' => "0"],
+            'verified' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
             'content' => ['type' => 'LONGTEXT'],
         ]);
 

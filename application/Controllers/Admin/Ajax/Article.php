@@ -29,7 +29,7 @@ class Article extends Ajax
     {
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $picture_one = str_replace("C:\\fakepath\\", 'uploads/', $_POST['pic']);
+                $picture_one = str_replace('C:\\fakepath\\', 'uploads/', $_POST['pic']);
                 $article_id = $this->article_model->Add($_POST['title'], $_POST['link'], $_POST['content'], $_POST['wordkey'], $_POST['cat'], $picture_one, $_POST['important']);
                 return $this->responded(['code' => 1, 'title' => "Création d'article", 'message' => 'Article en attente de correction, redirection en cours', 'article_id' => $article_id]);
             } else {

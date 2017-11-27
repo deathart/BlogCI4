@@ -16,7 +16,7 @@ class Migration_AddTableContact extends Migration
             'etat' => ['type' => 'INT', 'constraint' => 11, 'default' => '0']
         ]);
 
-        $this->forge->addField("date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
+        $this->forge->addField('date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
         $this->forge->addKey('id', true);
 

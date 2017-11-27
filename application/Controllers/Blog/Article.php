@@ -35,10 +35,10 @@ class Article extends Application
     public function __construct(...$params)
     {
         parent::__construct(...$params);
-        $this->stitle = 'Article';
-        $this->article_model = new ArticleModel();
+        $this->stitle         = 'Article';
+        $this->article_model  = new ArticleModel();
         $this->comments_model = new CommentsModel();
-        $this->captcha = new Captcha();
+        $this->captcha        = new Captcha();
     }
 
     /**

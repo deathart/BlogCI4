@@ -12,7 +12,7 @@ class Migration_AddTableCat extends Migration
             'description' => ['type' => 'TEXT'],
             'slug' => ['type' => 'VARCHAR', 'constraint' => 250],
             'icon' => ['type' => 'VARCHAR', 'constraint' => 250],
-            'parent' => ['type' => 'INT', 'constraint' => 11, 'default' => "0"],
+            'parent' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
         ]);
 
         $this->forge->addKey('id', true);

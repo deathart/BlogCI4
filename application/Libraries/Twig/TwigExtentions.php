@@ -35,7 +35,7 @@ class TwigExtentions extends Twig_Extension
     /**
      * @var string
      */
-    private $langPath = APPPATH . "Language";
+    private $langPath = APPPATH . 'Language';
     /**
      * @var \Illuminate\Translation\Translator|null
      */
@@ -55,10 +55,10 @@ class TwigExtentions extends Twig_Extension
                 new Filesystem(),
                 $this->langPath
             ),
-            $this->Config_model->GetConfig("lang") . '/' . $templateFolder . '/'
+            $this->Config_model->GetConfig('lang') . '/' . $templateFolder . '/'
         );
 
-        $this->translator->setFallback($this->Config_model->GetConfig("lang") . '/' . $templateFolder);
+        $this->translator->setFallback($this->Config_model->GetConfig('lang') . '/' . $templateFolder);
     }
 
     /**
