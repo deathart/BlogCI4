@@ -1,11 +1,4 @@
-*/config/development
-*/logs/log-*.php
-!*/logs/index.html
-*/cache/*
-!*/cache/index.html
-!*/cache/.htaccess
-
-/vendor/
+vendor/
 .idea
 writable/cache
 writable/logs
@@ -14,4 +7,4 @@ writable/uploads
 writable/debugbar
 public/uploads
 composer.lock
-package-lock.json
+php_cs.dist
