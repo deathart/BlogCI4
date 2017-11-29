@@ -6,4 +6,3 @@ writable/session
 writable/uploads
 writable/debugbar
 public/uploads
-composer.lock
