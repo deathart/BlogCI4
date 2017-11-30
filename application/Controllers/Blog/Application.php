@@ -76,7 +76,9 @@ class Application extends Controller
         $this->session = Services::session($config);
         $this->request = Services::request();
 
-        $this->session->start();
+        if ($this->request->uri->getSegment(1) != 'admin') {
+            $this->session->start();
+        }
 
         $this->response     = new Response($config);
         $this->twig         = new Twig('blog');
