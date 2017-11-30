@@ -26,10 +26,10 @@
 							</div>
 							<div id="exampleAccordion" class="link" data-children=".item">
 								<div class="item {% if '2'|uri_segment == "article" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="{% if '2'|uri_segment == "article" %}true{% endif %}" aria-controls="exampleAccordion1">
+									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionArticle" aria-expanded="{% if '2'|uri_segment == "article" %}true{% endif %}" aria-controls="AccordionArticle">
 										Articles
 									</a>
-									<div id="exampleAccordion1" class="collapse cont {% if '2'|uri_segment == "article" %}show{% endif %}" role="tabpanel">
+									<div id="AccordionArticle" class="collapse cont {% if '2'|uri_segment == "article" %}show{% endif %}" role="tabpanel">
 										<ul class="list-unstyled">
 											<li><a href="{{ 'admin/article'|base_url }}">Liste des articles</a></li>
 											<li><a href="{{ 'admin/article/list/2'|base_url }}">Articles en attente de correction</a></li>
@@ -44,10 +44,10 @@
 									</a>
 								</div>
 								<div class="item {% if '2'|uri_segment == "comments" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion3" aria-expanded="{% if '2'|uri_segment == "comments" %}true{% endif %}" aria-controls="exampleAccordion3">
+									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionComments" aria-expanded="{% if '2'|uri_segment == "comments" %}true{% endif %}" aria-controls="AccordionComments">
 										Commentaires
 									</a>
-									<div id="exampleAccordion3" class="collapse cont {% if '2'|uri_segment == "comments" %}show{% endif %}" role="tabpanel">
+									<div id="AccordionComments" class="collapse cont {% if '2'|uri_segment == "comments" %}show{% endif %}" role="tabpanel">
 										<ul class="list-unstyled">
                                             <li><a href="{{ 'admin/comments'|base_url }}">Liste de toute les commentaires</a></li>
                                             <li><a href="{{ 'admin/comments/wait'|base_url }}">Commentaires en attentes de validation</a></li>
@@ -57,10 +57,10 @@
 									</div>
 								</div>
 								<div class="item {% if '2'|uri_segment == "media" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion4" aria-expanded="{% if '2'|uri_segment == "media" %}true{% endif %}" aria-controls="exampleAccordion4">
+									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionMedia" aria-expanded="{% if '2'|uri_segment == "media" %}true{% endif %}" aria-controls="AccordionMedia">
 										Médias
 									</a>
-									<div id="exampleAccordion4" class="collapse cont {% if '2'|uri_segment == "media" %}show{% endif %}" role="tabpanel">
+									<div id="AccordionMedia" class="collapse cont {% if '2'|uri_segment == "media" %}show{% endif %}" role="tabpanel">
 										<ul class="list-unstyled">
 											<li><a href="{{ 'admin/media'|base_url }}">Liste des médias</a></li>
 											<li><a href="{{ 'admin/media/add'|base_url }}">Ajouter un media</a></li>
@@ -68,10 +68,10 @@
 									</div>
 								</div>
 								<div class="item {% if '2'|uri_segment == "users" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion6" aria-expanded="{% if '2'|uri_segment == "users" %}true{% endif %}" aria-controls="exampleAccordion6">
+									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionUser" aria-expanded="{% if '2'|uri_segment == "users" %}true{% endif %}" aria-controls="AccordionUser">
 										Utilisateurs
 									</a>
-									<div id="exampleAccordion6" class="collapse cont {% if '2'|uri_segment == "users" %}show{% endif %}" role="tabpanel">
+									<div id="AccordionUser" class="collapse cont {% if '2'|uri_segment == "users" %}show{% endif %}" role="tabpanel">
 										<ul class="list-unstyled">
 											<li><a href="{{ 'admin/users/liste'|base_url }}">Liste</a></li>
 											<li><a href="{{ 'admin/users/add'|base_url }}">Créer un utilisateur</a></li>
@@ -80,10 +80,10 @@
 									</div>
 								</div>
 								<div class="item {% if '2'|uri_segment == "contact" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion7" aria-expanded="{% if '2'|uri_segment == "contact" %}true{% endif %}" aria-controls="exampleAccordion7">
+									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionContact" aria-expanded="{% if '2'|uri_segment == "contact" %}true{% endif %}" aria-controls="AccordionContact">
 										Contact
 									</a>
-									<div id="exampleAccordion7" class="collapse cont {% if '2'|uri_segment == "contact" %}show{% endif %}" role="tabpanel">
+									<div id="AccordionContact" class="collapse cont {% if '2'|uri_segment == "contact" %}show{% endif %}" role="tabpanel">
 										<ul class="list-unstyled">
 											<li><a href="{{ 'admin/contact/new'|base_url }}">Nouveaux</a></li>
 											<li><a href="{{ 'admin/contact/finish'|base_url }}">Fini</a></li>
@@ -91,10 +91,10 @@
 									</div>
 								</div>
 								<div class="item {% if '2'|uri_segment == "config" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion8" aria-expanded="{% if '2'|uri_segment == "config" %}true{% endif %}" aria-controls="exampleAccordion8">
+									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionConfig" aria-expanded="{% if '2'|uri_segment == "config" %}true{% endif %}" aria-controls="AccordionConfig">
 										Configuration
 									</a>
-									<div id="exampleAccordion8" class="collapse cont {% if '2'|uri_segment == "config" %}show{% endif %}" role="tabpanel">
+									<div id="AccordionConfig" class="collapse cont {% if '2'|uri_segment == "config" %}show{% endif %}" role="tabpanel">
 										<ul class="list-unstyled">
 											<li><a href="{{ 'admin/config/params'|base_url }}">Paramêtres</a></li>
 											<li><a href="{{ 'admin/config/task'|base_url }}">Tâche</a></li>
