@@ -16,7 +16,7 @@ class Cat extends Application
     private $cat_model;
 
     /**
-     * Article constructor.
+     * Cat constructor.
      *
      * @param array ...$params
      */
@@ -24,7 +24,7 @@ class Cat extends Application
     {
         parent::__construct(...$params);
         $this->cat_model = new CatModel();
-        $this->stitle = 'Catgories';
+        $this->stitle = 'Categories';
     }
 
     /**
