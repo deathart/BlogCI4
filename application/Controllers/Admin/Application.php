@@ -136,6 +136,8 @@ class Application extends Controller
                 $this->set_js(base_url('assets/js/admin/cat.js'));
             } elseif ($this->request->uri->getSegment(2) == 'contact') {
                 $this->set_js(base_url('assets/js/admin/contact.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'page') {
+                $this->set_js(base_url('assets/js/admin/page.js'));
             }
         }
 

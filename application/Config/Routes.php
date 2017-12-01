@@ -150,6 +150,12 @@ $routes->group('admin', function ($routes) {
         $routes->add('/', 'Cat::index', ['namespace' => 'App\Controllers\Admin']);
     });
 
+    $routes->group('page', function ($routes) {
+        $routes->add('/', 'Pages::index', ['namespace' => 'App\Controllers\Admin']);
+        $routes->add('edit/(:any)', 'Pages::edit/$1', ['namespace' => 'App\Controllers\Admin']);
+        $routes->add('add', 'Pages::add', ['namespace' => 'App\Controllers\Admin']);
+    });
+
     $routes->group('comments', function ($routes) {
         $routes->add('/', 'Comments::index', ['namespace' => 'App\Controllers\Admin']);
         $routes->add('wait', 'Comments::wait', ['namespace' => 'App\Controllers\Admin']);
@@ -197,6 +203,9 @@ $routes->group('admin', function ($routes) {
             $routes->post('add', 'Cat::Add', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
+        $routes->group('page', function ($routes) {
+            $routes->post('edit', 'Pages::edit', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('add', 'Pages::add', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
         $routes->group('comments', function ($routes) {

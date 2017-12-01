@@ -43,6 +43,17 @@
 										Catégories
 									</a>
 								</div>
+                                <div class="item {% if '2'|uri_segment == "page" %}active{% endif %}">
+                                    <a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionPages" aria-expanded="{% if '2'|uri_segment == "page" %}true{% endif %}" aria-controls="AccordionPages">
+                                        Pages
+                                    </a>
+                                    <div id="AccordionPages" class="collapse cont {% if '2'|uri_segment == "page" %}show{% endif %}" role="tabpanel">
+                                        <ul class="list-unstyled">
+                                            <li><a href="{{ 'admin/page'|base_url }}">Liste des pages</a></li>
+                                            <li><a href="{{ 'admin/page/add'|base_url }}">Ajouter une page</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
 								<div class="item {% if '2'|uri_segment == "comments" %}active{% endif %}">
 									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionComments" aria-expanded="{% if '2'|uri_segment == "comments" %}true{% endif %}" aria-controls="AccordionComments">
 										Commentaires
