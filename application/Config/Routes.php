@@ -187,32 +187,34 @@ $routes->group('admin', function ($routes) {
 
     $routes->group('ajax', function ($routes) {
         $routes->group('article', function ($routes) {
-            $routes->add('add', 'Article::add', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('edit', 'Article::edit', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('add', 'Article::add', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('edit', 'Article::edit', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
         $routes->group('cat', function ($routes) {
-            $routes->add('updatetitle', 'Cat::UpdateTitle', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('updatecontent', 'Cat::UpdateContent', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('add', 'Cat::Add', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('updatetitle', 'Cat::UpdateTitle', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('updatecontent', 'Cat::UpdateContent', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('add', 'Cat::Add', ['namespace' => 'App\Controllers\Admin\Ajax']);
+        });
+
         });
 
         $routes->group('comments', function ($routes) {
-            $routes->add('valide', 'Comments::valide', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('refuse', 'Comments::refuse', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('valide', 'Comments::valide', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('refuse', 'Comments::refuse', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
-        $routes->add('upload', 'Upload::index', ['namespace' => 'App\Controllers\Admin\Ajax']);
+        $routes->post('upload', 'Upload::index', ['namespace' => 'App\Controllers\Admin\Ajax']);
 
         $routes->group('contact', function ($routes) {
-            $routes->add('rep', 'Contact::rep', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('markedview', 'Contact::markedview', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('del', 'Contact::del', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('rep', 'Contact::rep', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('markedview', 'Contact::markedview', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('del', 'Contact::del', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
         $routes->group('config', function ($routes) {
-            $routes->add('updateparams', 'Config::UpdateParams', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->add('delparams', 'Config::DelParams', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('updateparams', 'Config::UpdateParams', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('delparams', 'Config::DelParams', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
     });
 });
