@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c7c97d833cc476ac771f1011337afc7",
+    "content-hash": "7c67e8717d5155516b526982b08a322b",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -541,16 +541,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.1.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "91537490fe720e058cf864f773501e0d9969b75e"
+                "reference": "9bfa05311d1851db0bbc2ad453c7083b9996b5b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/91537490fe720e058cf864f773501e0d9969b75e",
-                "reference": "91537490fe720e058cf864f773501e0d9969b75e",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/9bfa05311d1851db0bbc2ad453c7083b9996b5b4",
+                "reference": "9bfa05311d1851db0bbc2ad453c7083b9996b5b4",
                 "shasum": ""
             },
             "require": {
@@ -561,7 +561,8 @@
                 "phpunit/phpunit": "^3|^4|^5"
             },
             "suggest": {
-                "ext-libsodium": "Better performance, password hashing (Argon2i), secure memory management (memzero), and better security."
+                "ext-libsodium": "PHP < 7.0: Better performance, password hashing (Argon2i), secure memory management (memzero), and better security.",
+                "ext-sodium": "PHP >= 7.0: Better performance, password hashing (Argon2i), secure memory management (memzero), and better security."
             },
             "type": "library",
             "autoload": {
@@ -618,7 +619,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2017-07-05T18:15:41+00:00"
+            "time": "2017-11-28T15:55:13+00:00"
         },
         {
             "name": "psr/container",
@@ -820,16 +821,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.3.13",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "138af5ec075d4b1d1bd19de08c38a34bb2d7d880"
+                "reference": "dac8d7db537bac7ad8143eb11360a8c2231f251a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/138af5ec075d4b1d1bd19de08c38a34bb2d7d880",
-                "reference": "138af5ec075d4b1d1bd19de08c38a34bb2d7d880",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/dac8d7db537bac7ad8143eb11360a8c2231f251a",
+                "reference": "dac8d7db537bac7ad8143eb11360a8c2231f251a",
                 "shasum": ""
             },
             "require": {
@@ -838,7 +839,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -865,7 +866,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-05T15:47:03+00:00"
+            "time": "2017-11-05T16:10:10+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -928,16 +929,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v3.3.13",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "373e553477e55cd08f8b86b74db766c75b987fdb"
+                "reference": "e05b0a5996ad7a35ba3a19ffad8b72c9daa64dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/373e553477e55cd08f8b86b74db766c75b987fdb",
-                "reference": "373e553477e55cd08f8b86b74db766c75b987fdb",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/e05b0a5996ad7a35ba3a19ffad8b72c9daa64dfa",
+                "reference": "e05b0a5996ad7a35ba3a19ffad8b72c9daa64dfa",
                 "shasum": ""
             },
             "require": {
@@ -946,13 +947,16 @@
             },
             "conflict": {
                 "symfony/config": "<2.8",
-                "symfony/yaml": "<3.3"
+                "symfony/dependency-injection": "<3.4",
+                "symfony/yaml": "<3.4"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~2.8|~3.0",
-                "symfony/intl": "^2.8.18|^3.2.5",
-                "symfony/yaml": "~3.3"
+                "symfony/config": "~2.8|~3.0|~4.0",
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/finder": "~2.8|~3.0|~4.0",
+                "symfony/intl": "^2.8.18|^3.2.5|~4.0",
+                "symfony/yaml": "~3.4|~4.0"
             },
             "suggest": {
                 "psr/log": "To use logging capability in translator",
@@ -962,7 +966,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -989,7 +993,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:12:55+00:00"
+            "time": "2017-11-27T14:23:00+00:00"
         },
         {
             "name": "twig/twig",
