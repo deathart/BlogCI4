@@ -38,7 +38,7 @@ class ParseArticle
      *
      * @return mixed|string
      */
-    public function rendered(string $content)
+    public function rendered(string $content): string
     {
         $content = $this->parse_code($content);
         $content = $this->parse_htmlbasic($content);
@@ -55,7 +55,7 @@ class ParseArticle
      *
      * @return mixed
      */
-    protected function parse_img(string $content)
+    protected function parse_img(string $content): string
     {
         return preg_replace_callback(
             '`\[img id="(.+)"\]`isU',
@@ -72,7 +72,7 @@ class ParseArticle
      *
      * @return mixed
      */
-    protected function parse_href(string $content)
+    protected function parse_href(string $content): string
     {
         return preg_replace('/<a href="(.*?)">/', '<a href="$1" target="_blank" rel="nofollow">', $content);
     }
@@ -82,7 +82,7 @@ class ParseArticle
      *
      * @return null|string|string[]
      */
-    protected function parse_htmlbasic(string $content)
+    protected function parse_htmlbasic(string $content): string
     {
         return preg_replace($this->search, $this->replace, $content);
     }
@@ -92,7 +92,7 @@ class ParseArticle
      *
      * @return null|string|string[]
      */
-    protected function parse_code(string $content)
+    protected function parse_code(string $content): string
     {
         $content = str_replace('<', '&lt;', $content);
 
@@ -110,7 +110,7 @@ class ParseArticle
      *
      * @return null|string|string[]
      */
-    protected function parse_header(string $content)
+    protected function parse_header(string $content): string
     {
         return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $content);
     }
@@ -120,7 +120,7 @@ class ParseArticle
      *
      * @return null|string|string[]
      */
-    protected function parse_align(string $content)
+    protected function parse_align(string $content): string
     {
         return preg_replace_callback('#\[align="(.*)"\](.*)\[/align\]#siU', function ($matchs) {
             $cont = '';
@@ -144,7 +144,7 @@ class ParseArticle
      *
      * @return null|string|string[]
      */
-    protected function parse_color(string $content)
+    protected function parse_color(string $content): string
     {
         return preg_replace('#\[color="(.*)"\](.*)\[/color\]#siU', '<span style="color: $1;">$2</span>', $content);
     }
