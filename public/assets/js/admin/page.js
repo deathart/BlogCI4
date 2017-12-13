@@ -190,6 +190,7 @@ var Page = (function(){
     };
 
     that.init = function() {
+        BBCode.init();
         that.TitleToLink();
         that.AddPage();
         that.EditPage();

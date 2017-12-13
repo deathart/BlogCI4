@@ -123,6 +123,9 @@ class Application extends Controller
             $this->set_js(base_url('assets/js/vendor/prism.min.js'));
         } elseif ($this->request->uri->getSegment(1) == 'contact') {
             $this->set_js(base_url('assets/js/blog/contact.js'));
+        } elseif ($this->request->uri->getSegment(1) == 'page') {
+            $this->set_css(base_url('assets/css/prism.css'));
+            $this->set_js(base_url('assets/js/vendor/prism.min.js'));
         }
 
         return $this;

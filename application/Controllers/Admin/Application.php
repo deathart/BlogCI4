@@ -127,6 +127,8 @@ class Application extends Controller
 
             if ($this->request->uri->getSegment(2) == 'article') {
                 $this->set_css(base_url('assets/css/admin/article.css'));
+                $this->set_js(base_url('assets/js/vendor/spectrum.js'));
+                $this->set_js(base_url('assets/js/admin/bbcode.js'));
                 $this->set_js(base_url('assets/js/admin/article.js'));
             } elseif ($this->request->uri->getSegment(2) == 'comments') {
                 $this->set_js(base_url('assets/js/admin/comments.js'));
@@ -137,6 +139,8 @@ class Application extends Controller
             } elseif ($this->request->uri->getSegment(2) == 'contact') {
                 $this->set_js(base_url('assets/js/admin/contact.js'));
             } elseif ($this->request->uri->getSegment(2) == 'page') {
+                $this->set_js(base_url('assets/js/vendor/spectrum.js'));
+                $this->set_js(base_url('assets/js/admin/bbcode.js'));
                 $this->set_js(base_url('assets/js/admin/page.js'));
             }
         }

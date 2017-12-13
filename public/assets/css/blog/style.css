@@ -335,12 +335,12 @@ a:hover, a:active {
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
-  border-bottom-right-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px "";
+  -webkit-border-bottom-right-radius: 5px "";
+  -moz-border-radius-bottomright: 5px "";
+  border-bottom-left-radius: 5px "";
+  -moz-border-radius-bottomright: 5px "";
+  -moz-border-radius-bottomleft: 5px "";
 }
 
 #wrapper > header > #menu > ul > li.dropdown .dropdown-content a {
@@ -760,12 +760,12 @@ a:hover, a:active {
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  border-top-left-radius: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -moz-border-radius-topleft: 5px;
-  border-top-right-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px "";
+  -webkit-border-top-left-radius: 5px "";
+  -moz-border-radius-topleft: 5px "";
+  border-top-right-radius: 5px "";
+  -webkit-border-top-right-radius: 5px "";
+  -moz-border-radius-topright: 5px "";
 }
 
 #wrapper > #content > .list-cat > .cat_info > .header > .icon {
@@ -810,12 +810,12 @@ a:hover, a:active {
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  border-bottom-right-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px "";
+  -webkit-border-bottom-right-radius: 5px "";
+  -moz-border-radius-bottomright: 5px "";
+  border-bottom-left-radius: 5px "";
+  -moz-border-radius-bottomright: 5px "";
+  -moz-border-radius-bottomleft: 5px "";
 }
 
 #wrapper > #content > .list-cat > .cat_info > .description > .explore {
@@ -851,12 +851,12 @@ a:hover, a:active {
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  border-top-left-radius: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -moz-border-radius-topleft: 5px;
-  border-top-right-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px "";
+  -webkit-border-top-left-radius: 5px "";
+  -moz-border-radius-topleft: 5px "";
+  border-top-right-radius: 5px "";
+  -webkit-border-top-right-radius: 5px "";
+  -moz-border-radius-topright: 5px "";
 }
 
 #wrapper > #content > #article > .title > h2 {
@@ -903,12 +903,12 @@ a:hover, a:active {
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  border-bottom-right-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px "";
+  -webkit-border-bottom-right-radius: 5px "";
+  -moz-border-radius-bottomright: 5px "";
+  border-bottom-left-radius: 5px "";
+  -moz-border-radius-bottomright: 5px "";
+  -moz-border-radius-bottomleft: 5px "";
 }
 
 #wrapper > #content > #article > .content > .code-toolbar {
@@ -1503,12 +1503,12 @@ a:hover, a:active {
 .article_bloc > .images > a > img {
   width: 100%;
   max-height: 250px;
-  border-top-left-radius: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -moz-border-radius-topleft: 5px;
-  border-top-right-radius: 5px;
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px "";
+  -webkit-border-top-left-radius: 5px "";
+  -moz-border-radius-topleft: 5px "";
+  border-top-right-radius: 5px "";
+  -webkit-border-top-right-radius: 5px "";
+  -moz-border-radius-topright: 5px "";
 }
 
 .article_bloc > .images > .tags {

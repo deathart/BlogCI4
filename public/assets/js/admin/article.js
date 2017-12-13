@@ -301,6 +301,7 @@ var Article = (function(){
     };
 
     that.init = function() {
+        BBCode.init();
         that.TitleToLink();
         that.AddArticle();
         that.EditArticle();
