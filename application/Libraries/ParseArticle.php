@@ -16,7 +16,13 @@ class ParseArticle
      */
     protected $media;
 
+    /**
+     * @var array
+     */
     private $search = ['#\[b\](.*)\[/b\]#', '#\[i\](.*)\[/i\]#', '#\[u\](.*)\[/u\]#', '#\[del\](.*)\[/del\]#'];
+    /**
+     * @var array
+     */
     private $replace = ['<strong>$1</strong>', '<em>$1</em>', '<u>$1</u>', '<del>$1</del>'];
 
     /**
@@ -41,7 +47,6 @@ class ParseArticle
         $content = $this->parse_href($content);
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
-        //$content = str_replace("\n", '<br />', $content);
         return $content;
     }
 
@@ -72,11 +77,21 @@ class ParseArticle
         return preg_replace('/<a href="(.*?)">/', '<a href="$1" target="_blank" rel="nofollow">', $content);
     }
 
+    /**
+     * @param string $content
+     *
+     * @return null|string|string[]
+     */
     protected function parse_htmlbasic(string $content)
     {
         return preg_replace($this->search, $this->replace, $content);
     }
 
+    /**
+     * @param string $content
+     *
+     * @return null|string|string[]
+     */
     protected function parse_code(string $content)
     {
         $content = str_replace('<', '&lt;', $content);
@@ -90,28 +105,45 @@ class ParseArticle
         );
     }
 
+    /**
+     * @param string $content
+     *
+     * @return null|string|string[]
+     */
     protected function parse_header(string $content)
     {
         return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $content);
     }
 
+    /**
+     * @param string $content
+     *
+     * @return null|string|string[]
+     */
     protected function parse_align(string $content)
     {
         return preg_replace_callback('#\[align="(.*)"\](.*)\[/align\]#siU', function ($matchs) {
+            $cont = '';
             switch ($matchs[1]) {
                 case 'left':
-                    return '<div style="text-align: left;">' . $matchs[2] . '</div>';
+                    $cont = '<div style="text-align: left;">' . $matchs[2] . '</div>';
                 break;
                 case 'right':
-                    return '<div style="text-align: right;">' . $matchs[2] . '</div>';
+                    $cont = '<div style="text-align: right;">' . $matchs[2] . '</div>';
                 break;
                 case 'center':
-                    return '<div style="text-align: center;">' . $matchs[2] . '</div>';
+                    $cont = '<div style="text-align: center;">' . $matchs[2] . '</div>';
                 break;
             }
+            return $cont;
         }, $content);
     }
 
+    /**
+     * @param string $content
+     *
+     * @return null|string|string[]
+     */
     protected function parse_color(string $content)
     {
         return preg_replace('#\[color="(.*)"\](.*)\[/color\]#siU', '<span style="color: $1;">$2</span>', $content);
