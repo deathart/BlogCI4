@@ -80,7 +80,7 @@ class ParseArticle
     /**
      * @param string $content
      *
-     * @return null|string|string[]
+     * @return mixed
      */
     protected function parse_htmlbasic(string $content): string
     {
@@ -90,7 +90,7 @@ class ParseArticle
     /**
      * @param string $content
      *
-     * @return null|string|string[]
+     * @return mixed
      */
     protected function parse_code(string $content): string
     {
@@ -108,7 +108,7 @@ class ParseArticle
     /**
      * @param string $content
      *
-     * @return null|string|string[]
+     * @return mixed
      */
     protected function parse_header(string $content): string
     {
@@ -118,7 +118,7 @@ class ParseArticle
     /**
      * @param string $content
      *
-     * @return null|string|string[]
+     * @return mixed
      */
     protected function parse_align(string $content): string
     {
@@ -142,7 +142,7 @@ class ParseArticle
     /**
      * @param string $content
      *
-     * @return null|string|string[]
+     * @return mixed
      */
     protected function parse_color(string $content): string
     {

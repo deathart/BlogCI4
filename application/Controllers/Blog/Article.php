@@ -1,7 +1,6 @@
 <?php namespace App\Controllers\Blog;
 
 use App\Libraries\Captcha;
-use App\Libraries\ParseArticle;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\ArticleModel;
 

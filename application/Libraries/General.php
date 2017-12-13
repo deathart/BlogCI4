@@ -17,11 +17,6 @@ class General
 {
 
     /**
-     * @var \Config\App
-     */
-    private $config;
-
-    /**
      * @var \CodeIgniter\Session\Session
      */
     private $session;
@@ -56,8 +51,8 @@ class General
      */
     public function __construct()
     {
-        $this->config       = new App();
-        $this->session      = Services::session($this->config);
+        $config       = new App();
+        $this->session      = Services::session($config);
         $this->cat_model = new CatModel();
         $this->article_model = new ArticleModel();
         $this->comments_model = new CommentsModel();

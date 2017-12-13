@@ -33,7 +33,7 @@ class ConfigModel extends Model
      */
     public function GetConfigAll()
     {
-        $this->config_table->select('*');
+        $this->config_table->select();
         return $this->config_table->get()->getResult();
     }
 

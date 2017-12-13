@@ -38,9 +38,9 @@ class AuthModel extends Model
         $this->user_table->select('id');
         $this->user_table->where('email', $email);
         $this->user_table->limit('1');
-        $this->account_id_query = $this->user_table->get()->getRow();
-        if (count($this->account_id_query) > 0) {
-            return $this->account_id_query->id;
+        $account_id_query = $this->user_table->get()->getRow();
+        if (count($account_id_query) > 0) {
+            return $account_id_query->id;
         }
 
         return false;

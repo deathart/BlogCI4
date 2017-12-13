@@ -16,9 +16,9 @@ class Upload extends Ajax
      */
     protected $image;
     /**
-     * @var
+     * @var \App\Models\Admin\MediaModel
      */
-    protected $media_mode;
+    private $media_model;
 
     /**
      * Upload constructor.

@@ -27,14 +27,14 @@ class Twig
         $config_model = new ConfigModel();
         $loader = new Twig_Loader_Filesystem(APPPATH . 'Views/' . $templateFolder);
 
+        $dataconfig = [
+            'autoescape' => false
+        ];
+
         if ($config_model->GetConfig('cache') == 'on') {
             $dataconfig = [
                 'cache' => WRITEPATH . 'cache',
                 'auto_reload' => true,
-                'autoescape' => false
-            ];
-        } else {
-            $dataconfig = [
                 'autoescape' => false
             ];
         }

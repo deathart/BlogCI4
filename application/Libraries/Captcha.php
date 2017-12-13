@@ -10,10 +10,6 @@ use Config\Services;
  */
 class Captcha
 {
-    /**
-     * @var \Config\App
-     */
-    private $config;
 
     /**
      * @var \CodeIgniter\Session\Session
@@ -30,8 +26,8 @@ class Captcha
      */
     public function __construct()
     {
-        $this->config       = new App();
-        $this->session      = Services::session($this->config);
+        $config       = new App();
+        $this->session      = Services::session($config);
     }
 
     /**
@@ -39,8 +35,8 @@ class Captcha
      */
     public function Create(): string
     {
-        $first = rand(0, count($this->calcul) - 1);
-        $second = rand(0, count($this->calcul) - 1);
+        $first = random_int(0, count($this->calcul) - 1);
+        $second = random_int(0, count($this->calcul) - 1);
         $resultat = $first + $second;
         $this->session->set('captcha_response', $resultat);
         return $first . ' + ' . $second;
@@ -53,10 +49,7 @@ class Captcha
      */
     public function Check($captcha): bool
     {
-        if ($captcha == $this->session->get('captcha_response')) {
-            return true;
-        }
-        return false;
+        return $captcha == $this->session->get('captcha_response');
     }
 
     /**

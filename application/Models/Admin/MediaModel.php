@@ -3,8 +3,19 @@
 use CodeIgniter\Model;
 use Config\Database;
 
+/**
+ * Class MediaModel
+ *
+ * @package App\Models\Admin
+ */
 class MediaModel extends Model
 {
+
+    /**
+     * @var \CodeIgniter\Database\BaseBuilder
+     */
+    protected $medias_table;
+
     /**
      * MediaModel constructor.
      *

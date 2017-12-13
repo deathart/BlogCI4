@@ -29,6 +29,8 @@ class PagesModel extends Model
     }
 
     /**
+     * @param bool $active
+     *
      * @return array|mixed
      */
     public function GetPages(bool $active = true):array

@@ -11,7 +11,7 @@
         {% for data in js %}
             <script type="text/javascript" src="{{ data.file }}"></script>
         {% endfor %}
-        <script>
+        <script type="text/javascript">
             $(document).ready(function () {
                 App.init();
             });

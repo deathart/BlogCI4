@@ -48,7 +48,7 @@ class CSRFToken
             return $this->session->get($this->session_name);
         }
 
-        $token = uniqid($this->randomString());
+        $token = uniqid($this->randomString(), true);
         $this->session->set($this->session_name, $token);
 
         return $token;

@@ -33,7 +33,7 @@ class CatModel extends Model
      */
     public function getlist():array
     {
-        $this->cat_table->select('*');
+        $this->cat_table->select();
         $this->cat_table->where('parent', '0');
         $this->cat_table->orderBy('id', 'ASC');
         return $this->cat_table->get()->getResult('array');

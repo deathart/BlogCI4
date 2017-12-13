@@ -43,6 +43,8 @@ class TwigExtentions extends Twig_Extension
 
     /**
      * TwigExtentions constructor.
+     *
+     * @param $templateFolder
      */
     public function __construct($templateFolder)
     {
