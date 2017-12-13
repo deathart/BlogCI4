@@ -1,4 +1,4 @@
-vendor/
+/vendor/
 .idea
 writable/cache
 writable/logs
