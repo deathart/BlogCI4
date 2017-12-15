@@ -37,3 +37,12 @@ The list below shows the outstanding ones.
   - CUBRID via the *cubrid* and *pdo* drivers
   - Interbase/Firebird via the *ibase* and *pdo* drivers
   - ODBC via the *odbc* and *pdo* drivers (you should know that ODBC is actually an abstraction layer)
+  
+# TODO
+- [ ] Create new theme
+- [ ] Add Users management
+- [ ] Add Medias management
+- [ ] Add translation in admin
+- [ ] Update configuration admin
+- [ ] Add feed system
+- [ ] Add new BBCODE
