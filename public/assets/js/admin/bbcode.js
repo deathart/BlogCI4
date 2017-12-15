@@ -12,7 +12,7 @@ var BBCode = (function(){
         textArea.val(textArea.val().substring(0, start) + replacement + textArea.val().substring(end, len));
     };
 
-    that.media = function(textareaId) {
+    that.media = function(textarea) {
         $.ajax({
             beforeSend: function (xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
@@ -31,7 +31,7 @@ var BBCode = (function(){
 
                 $('.modal-media_bbcode').on('shown.bs.modal', function (e) {
                     $(".choice_img_bbcode").click(function() {
-                        that.insertTag('[img id="' + $(this).data("mediaid") + '"]', "", "image", textareaId);
+                        that.insertTag('[img id="' + $(this).data("mediaid") + '" width="0" height="0"]', "", "image", textarea);
                     })
                 });
 
