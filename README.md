@@ -40,9 +40,11 @@ The list below shows the outstanding ones.
   
 # TODO
 - [ ] Create new theme
+- [ ] Add theme management
 - [ ] Add Users management
 - [ ] Add Medias management
 - [ ] Add translation in admin
 - [ ] Update configuration admin
 - [ ] Add feed system
 - [ ] Add new BBCODE
+- [ ] Add installer
