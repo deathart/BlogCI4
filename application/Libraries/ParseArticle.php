@@ -19,11 +19,11 @@ class ParseArticle
     /**
      * @var array
      */
-    private $search = ['#\[b\](.*)\[/b\]#', '#\[i\](.*)\[/i\]#', '#\[u\](.*)\[/u\]#', '#\[del\](.*)\[/del\]#'];
+    private $search = ['#\[b\](.*)\[/b\]#', '#\[i\](.*)\[/i\]#', '#\[u\](.*)\[/u\]#', '#\[del\](.*)\[/del\]#', '#\[list\](.*)\[/list\]#isU', '#\[\*\](.+)\[\/\*\]#i'];
     /**
      * @var array
      */
-    private $replace = ['<strong>$1</strong>', '<em>$1</em>', '<u>$1</u>', '<del>$1</del>'];
+    private $replace = ['<strong>$1</strong>', '<em>$1</em>', '<u>$1</u>', '<del>$1</del>', '<ul>$1</ul>', '<li>$1</li>'];
 
     /**
      * ParseArticle constructor.
@@ -47,6 +47,7 @@ class ParseArticle
         $content = $this->parse_href($content);
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
+        $content = str_replace('[br]', '<br />', $content);
         return $content;
     }
 
@@ -58,10 +59,18 @@ class ParseArticle
     protected function parse_img(string $content): string
     {
         return preg_replace_callback(
-            '`\[img id="(.+)"\]`isU',
+            '`\[img id="(.+)" width="(.+)" height="(.+)"\]`isU',
             function ($matches) {
                 $get_info = $this->media->get_link($matches[1]);
-                return '<img src="' . base_url($get_info->slug . '/' . $get_info->name) . '" />';
+                $width = '';
+                $height = '';
+                if ($matches[2] != 0) {
+                    $width = $matches[2];
+                }
+                if ($matches[3] != 0) {
+                    $height = $matches[3];
+                }
+                return '<img name="' . $get_info->name . '" src="' . base_url($get_info->slug . '/' . $get_info->name) . '" style="width: ' . $width . 'px;height: ' . $height . 'px;" />';
             },
             $content
         );
