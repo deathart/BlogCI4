@@ -56,33 +56,26 @@
                             <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
                         </li>
                         {% if (general('GetCat')) %}
-                        <li class="dropdown">
-                            <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
-                            <div class="dropdown-content">
-                                <ul>
-                                    {% for data in general('GetCat') %}
-                                        <li><a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </li>
+                            <li class="dropdown">
+                                <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
+                                <div class="dropdown-content">
+                                    <ul>
+                                        {% for data in general('GetCat') %}
+                                            <li><a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
                         {% endif %}
                         {% if 'contact_active'|config == 1 %}
-                        <li>
-                            <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
-                        </li>
+                            <li>
+                                <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
+                            </li>
                         {% endif %}
                         {% if (general('GetPages')) %}
-                        <li class="dropdown">
-                            <a href="{{ 'page'|base_url }}" {% if '1'|uri_segment == "page" %}class="active"{% endif %}>{{ trans('layout.menu_pages') }}</a>
-                            <div class="dropdown-content">
-                                <ul>
-                                    {% for data in general('GetPages') %}
-                                        <li><a href="{{ ('page/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </li>
+                            {% for data in general('GetPages') %}
+                                <li><a href="{{ ('page/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
+                            {% endfor %}
                         {% endif %}
                     </ul>
                     <div class="search">
