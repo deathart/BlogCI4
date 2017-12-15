@@ -36,10 +36,7 @@ var Article = (function(){
 
     that.AddArticle = function() {
 
-        $("#pic").bind("change", function() {
-            var file_data = $("#pic").prop("files")[0];   // Getting the properties of file from file field
-            var form_data = new FormData();                  // Creating object of FormData class
-            form_data.append("pictures", file_data)
+        $(".add_picture_one").click(function() {
             $.ajax({
                 beforeSend: function (xhr, settings) {
                     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
@@ -47,18 +44,28 @@ var Article = (function(){
                     }
                 },
                 method: "POST",
-                url: App.GetBaseUrl() + "admin/ajax/upload",
-                data: form_data,
+                url: App.GetBaseUrl() + "admin/ajax/media/modal",
+                data: {"type_modal": "add_picture_one"},
                 dataType: 'json',
                 cache: false,
-                processData: false,
-                contentType: false,
                 success: function (data) {
-                    $("#pic").parent("div").prepend('<img data-slug="' + data.slug + '" src="' + App.GetBaseUrl() + '/' + data.slug + '" class="sl_pic_on rounded mb-2 col-sm-12" />');
-                    App.NotifToast("success", data.title, data.message);
+                    $("body").append(data.content);
+
+                    $(".modal-media_add_picture_one").modal('show');
+
+                    $('.modal-media_add_picture_one').on('shown.bs.modal', function (e) {
+                        $(".choice_img_add_picture_one").click(function() {
+                            $(".add_picture_one").parent("div").prepend('<img data-slug="' + $(this).data("mediaslug") + '" src="' + App.GetBaseUrl() + '/' + $(this).data("mediaslug") + '" class="sl_pic_on rounded mb-2 col-sm-12" />');
+                        })
+                    });
+
+                    $(".modal-media_add_picture_one").on('hidden.bs.modal', function (e) {
+                        $(".modal-media_add_picture_one").remove();
+                    });
+
                 },
                 error: function (data) {
-                    App.NotifToast("error", "Erreur", data.responseText);
+                    console.log(data.responseText);
                 }
             });
         });
