@@ -140,7 +140,7 @@
                                 {% if get_article.picture_one %}
                                     <img data-slug="{{ get_article.picture_one }}" src="{{ get_article.picture_one|base_url }}" class="sl_pic_on rounded mb-2 col-sm-12" />
                                 {% endif %}
-                                <input type="file" name="pictures" class="form-control" id="pic2" placeholder="Image à la une" data-url=""/>
+                                <span class="btn btn-secondary update_picture_one">Modifié l'image à la une</span>
                             </div>
                         </div>
                     </div>
@@ -148,4 +148,5 @@
             </div>
         </div>
     </form>
+
 {% endblock %}

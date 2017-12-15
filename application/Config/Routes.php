@@ -215,6 +215,10 @@ $routes->group('admin', function ($routes) {
 
         $routes->post('upload', 'Upload::index', ['namespace' => 'App\Controllers\Admin\Ajax']);
 
+        $routes->group('media', function ($routes) {
+            $routes->post('modal', 'Media::modal', ['namespace' => 'App\Controllers\Admin\Ajax']);
+        });
+
         $routes->group('contact', function ($routes) {
             $routes->post('rep', 'Contact::rep', ['namespace' => 'App\Controllers\Admin\Ajax']);
             $routes->post('markedview', 'Contact::markedview', ['namespace' => 'App\Controllers\Admin\Ajax']);

@@ -168,7 +168,7 @@ var Article = (function(){
 
     that.EditArticle = function () {
 
-        $("#pic2").bind("change", function() {
+        /*$("#pic2").bind("change", function() {
             var file_data = $("#pic2").prop("files")[0];   // Getting the properties of file from file field
             var form_data = new FormData();                  // Creating object of FormData class
             form_data.append("pictures", file_data)
@@ -192,6 +192,40 @@ var Article = (function(){
                 },
                 error: function (data) {
                     App.NotifToast("error", "Erreur", data.responseText);
+                }
+            });
+        });*/
+
+        $(".update_picture_one").click(function() {
+            $.ajax({
+                beforeSend: function (xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                        xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
+                    }
+                },
+                method: "POST",
+                url: App.GetBaseUrl() + "admin/ajax/media/modal",
+                data: {"type_modal": "picture_one"},
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $("body").append(data.content);
+
+                    $(".modal-media_picture_one").modal('show');
+
+                    $('.modal-media_picture_one').on('shown.bs.modal', function (e) {
+                        $(".choice_img_picture_one").click(function() {
+                            $(".sl_pic_on").data("slug", $(this).data("mediaslug")).attr("src", App.GetBaseUrl() + '/' + $(this).data("mediaslug"));
+                        })
+                    });
+
+                    $(".modal-media_picture_one").on('hidden.bs.modal', function (e) {
+                        $(".modal-media_picture_one").remove();
+                    });
+
+                },
+                error: function (data) {
+                    console.log(data.responseText);
                 }
             });
         });

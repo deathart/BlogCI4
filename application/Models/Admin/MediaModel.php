@@ -14,7 +14,7 @@ class MediaModel extends Model
     /**
      * @var \CodeIgniter\Database\BaseBuilder
      */
-    protected $medias_table;
+    protected $media_table;
 
     /**
      * MediaModel constructor.
@@ -25,7 +25,7 @@ class MediaModel extends Model
     {
         parent::__construct(...$params);
         $this->db = Database::connect();
-        $this->medias_table = $this->db->table('medias');
+        $this->media_table = $this->db->table('medias');
     }
 
     /**
@@ -40,7 +40,13 @@ class MediaModel extends Model
             'slug' => $slug,
             'name' => $name
         ];
-        $this->medias_table->insert($data);
+        $this->media_table->insert($data);
         return $this->db->insertID();
+    }
+
+    public function Get_All()
+    {
+        $this->media_table->select();
+        return $this->media_table->get()->getResult();
     }
 }

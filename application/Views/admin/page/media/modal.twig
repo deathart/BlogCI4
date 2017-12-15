@@ -1,0 +1,33 @@
+<div class="modal fade modal-media_{{ type_modal }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 95%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Media</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    {% for data in get_all_media %}
+                    <div class="col-sm-2">
+                        <div class="card mb-3">
+                            <img class="card-img-top" src="{{ (data.slug ~ data.name)|base_url }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ data.name }}</h4>
+                                <p class="card-text"><span class="btn btn-secondary choice_img_{{ type_modal }}" data-mediaid="{{ data.id }}" data-mediaslug="{{ (data.slug ~ data.name) }}">Choisir</span></p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">{{ data.date }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

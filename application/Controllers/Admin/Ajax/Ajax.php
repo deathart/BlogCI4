@@ -91,8 +91,6 @@ class Ajax extends Controller
     /**
      * @param array $arr
      * @param int $code
-     *
-     * @return \CodeIgniter\HTTP\Response
      */
     public function responded(array $arr, int $code = 200)
     {
@@ -106,7 +104,6 @@ class Ajax extends Controller
             }
         } else {
             $this->response->setStatusCode(403)->setContentType('application/json')->setBody(json_encode(['error' => 'Error CSRF, You are HACKER ?', 'error_code' => 4010]))->send();
-            return false;
         }
         exit();
     }

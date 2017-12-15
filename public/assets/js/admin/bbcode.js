@@ -12,8 +12,38 @@ var BBCode = (function(){
         textArea.val(textArea.val().substring(0, start) + replacement + textArea.val().substring(end, len));
     };
 
-    that.media = function() {
+    that.media = function(textareaId) {
+        $.ajax({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
+                }
+            },
+            method: "POST",
+            url: App.GetBaseUrl() + "admin/ajax/media/modal",
+            data: {"type_modal": "bbcode"},
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $("body").append(data.content);
 
+                $(".modal-media_bbcode").modal('show');
+
+                $('.modal-media_bbcode').on('shown.bs.modal', function (e) {
+                    $(".choice_img_bbcode").click(function() {
+                        that.insertTag('[img id="' + $(this).data("mediaid") + '"]', "", "image", textareaId);
+                    })
+                });
+
+                $(".modal-media_bbcode").on('hidden.bs.modal', function (e) {
+                    $(".modal-media_bbcode").remove();
+                });
+
+            },
+            error: function (data) {
+                console.log(data.responseText);
+            }
+        });
     };
 
     that.color = function(textarea) {
@@ -21,7 +51,7 @@ var BBCode = (function(){
         $("#mycp").spectrum({
             showInput: true,
             allowEmpty: true,
-            color: "#f00",
+            color: "#f00000",
             change: function(color) {
                 console.log(color.toHexString());
                 that.insertTag("[color=\"" + color.toHexString() + "\"]", "[/color]", "color", textarea);
@@ -68,6 +98,7 @@ var BBCode = (function(){
                     that.insertTag("[code=\"" + code_lang + "\"]", "[/code]", "code", textareaId);
                     break;
                 case "media":
+                    that.media(textareaId);
                     break;
                 case "source":
                     that.insertTag("[source]", "[/source]", "source", textareaId);
