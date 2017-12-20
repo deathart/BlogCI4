@@ -25,7 +25,8 @@ class Twig
     public function __construct($templateFolder)
     {
         $config_model = new ConfigModel();
-        $loader = new Twig_Loader_Filesystem(APPPATH . 'Views/' . $templateFolder);
+
+        $loader = new Twig_Loader_Filesystem(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $templateFolder . DIRECTORY_SEPARATOR . $config_model->GetConfig('theme_' . $templateFolder));
 
         $dataconfig = [
             'autoescape' => false

@@ -106,26 +106,25 @@ class Application extends Controller
     {
 
         //Set css file
-        $this->set_css(base_url('assets/css/blog/style.css'));
+        $this->set_css(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/css/style.css'));
         $this->set_css(base_url('assets/css/font-awesome.css'));
         $this->set_css('//fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:100,300');
 
         //Set JS
-
-        $this->set_js(base_url('assets/js/vendor/jquery.min.js'));
-        $this->set_js(base_url('assets/js/vendor/cookie.min.js'));
-        $this->set_js(base_url('assets/js/blog/app.js'));
+        $this->set_js(base_url('assets/js/jquery.min.js'));
+        $this->set_js(base_url('assets/js/cookie.min.js'));
+        $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/app.js'));
 
         //Set by page
         if ($this->request->uri->getSegment(1) == 'article') {
-            $this->set_js(base_url('assets/js/blog/article.js'));
+            $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/article.js'));
             $this->set_css(base_url('assets/css/prism.css'));
-            $this->set_js(base_url('assets/js/vendor/prism.min.js'));
+            $this->set_js(base_url('assets/js/prism.min.js'));
         } elseif ($this->request->uri->getSegment(1) == 'contact') {
-            $this->set_js(base_url('assets/js/blog/contact.js'));
+            $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/contact.js'));
         } elseif ($this->request->uri->getSegment(1) == 'page') {
             $this->set_css(base_url('assets/css/prism.css'));
-            $this->set_js(base_url('assets/js/vendor/prism.min.js'));
+            $this->set_js(base_url('assets/js/prism.min.js'));
         }
 
         return $this;

@@ -108,40 +108,40 @@ class Application extends Controller
         //Set css file
         $this->set_css(base_url('assets/css/font-awesome.css'));
         $this->set_css('//fonts.googleapis.com/css?family=RobotoDraft:300,400,500');
-        $this->set_css(base_url('assets/css/admin/bootstrap.css'));
+        $this->set_css(base_url('assets/css/bootstrap.css'));
 
         //Set JS
-        $this->set_js(base_url('assets/js/vendor/jquery.min.js'));
-        $this->set_js(base_url('assets/js/vendor/popper.min.js'));
-        $this->set_js(base_url('assets/js/vendor/bootstrap.min.js'));
-        $this->set_js(base_url('assets/js/vendor/cookie.min.js'));
-        $this->set_js(base_url('assets/js/vendor/jquery.toast.js'));
+        $this->set_js(base_url('assets/js/jquery.min.js'));
+        $this->set_js(base_url('assets/js/popper.min.js'));
+        $this->set_js(base_url('assets/js/bootstrap.min.js'));
+        $this->set_js(base_url('assets/js/cookie.min.js'));
+        $this->set_js(base_url('assets/js/jquery.toast.js'));
 
         //Set by page
         if ($this->request->uri->getSegment(2) == 'auth') {
-            $this->set_css(base_url('assets/css/admin/auth.css'));
-            $this->set_js(base_url('assets/js/admin/auth.js'));
+            $this->set_css(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/css/auth.css'));
+            $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/auth.js'));
         } else {
-            $this->set_css(base_url('assets/css/admin/style.css'));
-            $this->set_js(base_url('assets/js/admin/app.js'));
+            $this->set_css(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/css/style.css'));
+            $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/app.js'));
 
             if ($this->request->uri->getSegment(2) == 'article') {
-                $this->set_css(base_url('assets/css/admin/article.css'));
-                $this->set_js(base_url('assets/js/vendor/spectrum.js'));
-                $this->set_js(base_url('assets/js/admin/bbcode.js'));
-                $this->set_js(base_url('assets/js/admin/article.js'));
+                $this->set_css(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/css/article.css'));
+                $this->set_js(base_url('assets/js/spectrum.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/bbcode.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/article.js'));
             } elseif ($this->request->uri->getSegment(2) == 'comments') {
-                $this->set_js(base_url('assets/js/admin/comments.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/comments.js'));
             } elseif ($this->request->uri->getSegment(2) == 'config') {
-                $this->set_js(base_url('assets/js/admin/config.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/config.js'));
             } elseif ($this->request->uri->getSegment(2) == 'cat') {
-                $this->set_js(base_url('assets/js/admin/cat.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/cat.js'));
             } elseif ($this->request->uri->getSegment(2) == 'contact') {
-                $this->set_js(base_url('assets/js/admin/contact.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/contact.js'));
             } elseif ($this->request->uri->getSegment(2) == 'page') {
-                $this->set_js(base_url('assets/js/vendor/spectrum.js'));
-                $this->set_js(base_url('assets/js/admin/bbcode.js'));
-                $this->set_js(base_url('assets/js/admin/page.js'));
+                $this->set_js(base_url('assets/js/spectrum.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/bbcode.js'));
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/page.js'));
             }
         }
 
