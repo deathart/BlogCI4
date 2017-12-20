@@ -1,4 +1,4 @@
-var Comments = (function(){
+var Comments = (function() {
 
     var that = {};
 
@@ -6,26 +6,27 @@ var Comments = (function(){
         var parent_li = get.parent("li");
         var comments_id = parent_li.data("comments");
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/comments/valide",
-            data: {'id': comments_id},
+            data: {
+                'id': comments_id
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
-                if(data.code = 1) {
+            success: function(data) {
+                if (data.code = 1) {
                     App.NotifToast("success", data.title, data.message);
                     parent_li.hide("slow");
-                }
-                else {
+                } else {
                     App.NotifToast("error", "Erreur", data.message);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -35,26 +36,27 @@ var Comments = (function(){
         var parent_li = get.parent("li");
         var comments_id = parent_li.data("comments");
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/comments/refuse",
-            data: {'id': comments_id},
+            data: {
+                'id': comments_id
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
-                if(data.code = 1) {
+            success: function(data) {
+                if (data.code = 1) {
                     App.NotifToast("success", data.title, data.message);
                     parent_li.hide("slow");
-                }
-                else {
+                } else {
                     App.NotifToast("error", "Erreur", data.message);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -73,6 +75,6 @@ var Comments = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     Comments.init();
 });

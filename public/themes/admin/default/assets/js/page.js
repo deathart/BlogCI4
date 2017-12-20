@@ -1,11 +1,11 @@
-var Page = (function(){
-    
+var Page = (function() {
+
     var that = {};
-    
-    that.TitleToLink = function () {
+
+    that.TitleToLink = function() {
         var title = $("#title");
-        var link = $("#link");        
-        
+        var link = $("#link");
+
         title.bind("change paste keyup", function() {
 
             var accent = [
@@ -18,17 +18,17 @@ var Page = (function(){
                 /[\307]/g, /[\347]/g, // C, c
             ];
 
-            var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+            var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
 
             var key = title.val();
 
-            for(var i = 0; i < accent.length; i++){
+            for (var i = 0; i < accent.length; i++) {
                 key = key.replace(accent[i], noaccent[i]);
             }
 
             key = key.replace(/'/g, "");
             key = key.replace(/"/g, "");
-            key = key.replace(/ /g,"-");
+            key = key.replace(/ /g, "-");
 
             link.val(key);
         });
@@ -47,60 +47,61 @@ var Page = (function(){
 
             var errors = null;
 
-            if(!title.val()) {
+            if (!title.val()) {
                 errors = true;
                 title.addClass("is-invalid");
                 setTimeout(function() {
                     title.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 title.addClass("is-valid");
             }
 
-            if(!link.val()) {
+            if (!link.val()) {
                 errors = true;
                 link.addClass("is-invalid");
                 setTimeout(function() {
                     link.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 link.addClass("is-valid");
             }
 
-            if(!content.val()) {
+            if (!content.val()) {
                 errors = true;
                 content.addClass("is-invalid");
                 setTimeout(function() {
                     content.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 content.addClass("is-valid");
             }
 
             if (errors == null) {
                 $.ajax({
-                    beforeSend: function (xhr, settings) {
+                    beforeSend: function(xhr, settings) {
                         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                             xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                         }
                     },
                     method: "POST",
                     url: App.GetBaseUrl() + "admin/ajax/page/add",
-                    data: {'title': title.val(), 'link': link.val(), 'content': content.val(), 'active': active},
+                    data: {
+                        'title': title.val(),
+                        'link': link.val(),
+                        'content': content.val(),
+                        'active': active
+                    },
                     dataType: 'json',
                     cache: false,
-                    success: function (data) {
-                        if(data.code = 1) {
+                    success: function(data) {
+                        if (data.code = 1) {
                             App.NotifToast("success", data.title, data.message);
-                        }
-                        else {
+                        } else {
                             App.NotifToast("error", "Erreur", data.message);
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data.responseText);
                     }
                 });
@@ -111,7 +112,7 @@ var Page = (function(){
 
     };
 
-    that.EditPage = function () {
+    that.EditPage = function() {
 
         $(".edit_page_form").submit(function(e) {
             e.preventDefault();
@@ -125,60 +126,62 @@ var Page = (function(){
 
             var errors = null;
 
-            if(!title.val()) {
+            if (!title.val()) {
                 errors = true;
                 title.addClass("is-invalid");
                 setTimeout(function() {
                     title.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 title.addClass("is-valid");
             }
 
-            if(!link.val()) {
+            if (!link.val()) {
                 errors = true;
                 link.addClass("is-invalid");
                 setTimeout(function() {
                     link.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 link.addClass("is-valid");
             }
 
-            if(!content.val()) {
+            if (!content.val()) {
                 errors = true;
                 content.addClass("is-invalid");
                 setTimeout(function() {
                     content.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 content.addClass("is-valid");
             }
 
             if (errors == null) {
                 $.ajax({
-                    beforeSend: function (xhr, settings) {
+                    beforeSend: function(xhr, settings) {
                         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                             xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                         }
                     },
                     method: "POST",
                     url: App.GetBaseUrl() + "admin/ajax/page/edit",
-                    data: {'pageid': pageid, 'title': title.val(), 'link': link.val(), 'content': content.val(), 'active': active},
+                    data: {
+                        'pageid': pageid,
+                        'title': title.val(),
+                        'link': link.val(),
+                        'content': content.val(),
+                        'active': active
+                    },
                     dataType: 'json',
                     cache: false,
-                    success: function (data) {
-                        if(data.code = 1) {
+                    success: function(data) {
+                        if (data.code = 1) {
                             App.NotifToast("success", data.title, data.message);
-                        }
-                        else {
+                        } else {
                             App.NotifToast("error", "Erreur", data.message);
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data.responseText);
                     }
                 });
@@ -200,6 +203,6 @@ var Page = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     Page.init();
 });

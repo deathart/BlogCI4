@@ -1,8 +1,8 @@
-var Config = (function(){
+var Config = (function() {
 
     var that = {};
 
-    that.SaveParams  = function(get) {
+    that.SaveParams = function(get) {
 
         var parent_class = get.parents(".justify-content-sm-center");
         var params_id = parent_class.data("configid");
@@ -10,26 +10,29 @@ var Config = (function(){
         var input_data = parent_class.children().find("#params_data").val();
 
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/config/updateparams",
-            data: {'id': params_id, 'key': input_key, 'data': input_data},
+            data: {
+                'id': params_id,
+                'key': input_key,
+                'data': input_data
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
-                if(data.code = 1) {
+            success: function(data) {
+                if (data.code = 1) {
                     console.log(data)
                     App.NotifToast("success", data.title, data.message);
-                }
-                else {
+                } else {
                     App.NotifToast("error", "Erreur", data.message);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -42,25 +45,26 @@ var Config = (function(){
         var params_id = parent_class.data("configid");
 
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/config/delparams",
-            data: {'id': params_id},
+            data: {
+                'id': params_id
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
-                if(data.code = 1) {
+            success: function(data) {
+                if (data.code = 1) {
                     App.NotifToast("success", data.title, data.message);
-                }
-                else {
+                } else {
                     App.NotifToast("error", "Erreur", data.message);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -83,6 +87,6 @@ var Config = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     Config.init();
 });

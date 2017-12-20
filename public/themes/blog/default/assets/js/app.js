@@ -1,8 +1,8 @@
-var App = (function(){
+var App = (function() {
 
     var that = {};
 
-    that.GetBaseUrl = function () {
+    that.GetBaseUrl = function() {
         return window.location.protocol + "//" + window.location.host + "/";
     };
 
@@ -53,14 +53,16 @@ var App = (function(){
             $(".eupopup-container").css("display", "block");
             $(".eupopup-button_1").click(function() {
                 $(".eupopup-container").slideUp("slow", function() {
-                    Cookies.set('cookie_ok', true, { expires: 365 });
+                    Cookies.set('cookie_ok', true, {
+                        expires: 365
+                    });
                 });
             });
         }
     };
 
     that.scroll_top = function() {
-        $(document).on( 'scroll', function(){
+        $(document).on('scroll', function() {
             if ($(window).scrollTop() > 100) {
                 $('.scroll-top-wrapper').addClass('show');
             } else {
@@ -69,41 +71,45 @@ var App = (function(){
         });
 
         $('.scroll-top-wrapper').on('click', scrollToTop);
+
         function scrollToTop() {
             verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
             element = $('body');
             offset = element.offset();
             offsetTop = offset.top;
-            $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+            $('html, body').animate({
+                scrollTop: offsetTop
+            }, 500, 'linear');
         }
     };
 
     that.newsletter = function(form_data) {
         var email = form_data.children("input").val();
-        if(email) {
+        if (email) {
             $.ajax({
-                beforeSend: function (xhr, settings) {
+                beforeSend: function(xhr, settings) {
                     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                         xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                     }
                 },
                 method: "POST",
                 url: that.GetBaseUrl() + "newsletter",
-                data: {'email': email},
+                data: {
+                    'email': email
+                },
                 dataType: 'json',
                 cache: false,
-                success: function (data_cap) {
+                success: function(data_cap) {
                     if (data_cap.code == 1) {
                         form_data.html('<div class="message success">' + data_cap.message + '</div>');
-                    }
-                    else if (data_cap.code == 2) {
+                    } else if (data_cap.code == 2) {
                         form_data.prepend('<div class="message error">' + data_cap.message + '</div>');
                         setTimeout(function() {
                             $(".message").hide();
                         }, 3000);
                     }
                 },
-                error: function (data_cap) {
+                error: function(data_cap) {
                     console.log(data_cap.responseText);
                 }
             });
@@ -114,6 +120,6 @@ var App = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     App.init();
 });

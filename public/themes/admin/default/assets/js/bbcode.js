@@ -1,4 +1,4 @@
-var BBCode = (function(){
+var BBCode = (function() {
 
     var that = {};
 
@@ -14,33 +14,35 @@ var BBCode = (function(){
 
     that.media = function(textarea) {
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/media/modal",
-            data: {"type_modal": "bbcode"},
+            data: {
+                "type_modal": "bbcode"
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
+            success: function(data) {
                 $("body").append(data.content);
 
                 $(".modal-media_bbcode").modal('show');
 
-                $('.modal-media_bbcode').on('shown.bs.modal', function (e) {
+                $('.modal-media_bbcode').on('shown.bs.modal', function(e) {
                     $(".choice_img_bbcode").click(function() {
                         that.insertTag('[img id="' + $(this).data("mediaid") + '" width="0" height="0"]', "", "image", textarea);
                     })
                 });
 
-                $(".modal-media_bbcode").on('hidden.bs.modal', function (e) {
+                $(".modal-media_bbcode").on('hidden.bs.modal', function(e) {
                     $(".modal-media_bbcode").remove();
                 });
 
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -69,7 +71,7 @@ var BBCode = (function(){
 
         selector.click(function() {
             var type = $(this).data("type");
-            switch(type) {
+            switch (type) {
                 case "bold":
                     that.insertTag("[b]", "[/b]", "bold", textareaId);
                     break;

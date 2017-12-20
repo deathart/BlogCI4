@@ -1,8 +1,8 @@
-var Cat = (function(){
+var Cat = (function() {
 
     var that = {};
 
-    that.TitleToLink = function () {
+    that.TitleToLink = function() {
         var title = $(".input_title_add");
         var link = $(".input_slug_add");
 
@@ -18,17 +18,17 @@ var Cat = (function(){
                 /[\307]/g, /[\347]/g, // C, c
             ];
 
-            var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+            var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
 
             var key = title.val();
 
-            for(var i = 0; i < accent.length; i++){
+            for (var i = 0; i < accent.length; i++) {
                 key = key.replace(accent[i], noaccent[i]);
             }
 
             key = key.replace(/'/g, "");
             key = key.replace(/"/g, "");
-            key = key.replace(/ /g,"-");
+            key = key.replace(/ /g, "-");
 
             link.val(key);
         });
@@ -38,25 +38,27 @@ var Cat = (function(){
         var catid = get_t.data("catid");
         var data_t = get_t.val();
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/cat/updatetitle",
-            data: {'id': catid, 'title': data_t},
+            data: {
+                'id': catid,
+                'title': data_t
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
-                if(data.code = 1) {
+            success: function(data) {
+                if (data.code = 1) {
                     App.NotifToast("success", data.title, "");
-                }
-                else {
+                } else {
                     App.NotifToast("error", "Erreur", data.message);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -66,25 +68,27 @@ var Cat = (function(){
         var catid = get_t.data("catid");
         var data_c = get_t.val();
         $.ajax({
-            beforeSend: function (xhr, settings) {
+            beforeSend: function(xhr, settings) {
                 if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                     xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                 }
             },
             method: "POST",
             url: App.GetBaseUrl() + "admin/ajax/cat/updatecontent",
-            data: {'id': catid, 'content': data_c},
+            data: {
+                'id': catid,
+                'content': data_c
+            },
             dataType: 'json',
             cache: false,
-            success: function (data) {
-                if(data.code = 1) {
+            success: function(data) {
+                if (data.code = 1) {
                     App.NotifToast("success", data.title, "");
-                }
-                else {
+                } else {
                     App.NotifToast("error", "Erreur", data.message);
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 console.log(data.responseText);
             }
         });
@@ -93,7 +97,7 @@ var Cat = (function(){
     that.addcat = function(get_par) {
         get_par.parents(".ac").before("<div class=\"col-md-3 casecat\">\n" +
             "                <div class=\"card border-secondary mb-3\">\n" +
-            "<form class='add_cat_form'>\n"+
+            "<form class='add_cat_form'>\n" +
             "                    <div class=\"card-header\">\n" +
             "                        <input type=\"text\" class=\"form-control input_title_add\" placeholder='Titre' />\n" +
             "                        <input type=\"text\" class=\"form-control input_slug_add\" placeholder='Slug' />\n" +
@@ -106,10 +110,10 @@ var Cat = (function(){
             "                    </div>\n" +
             "                    <div class=\"card-footer\">\n" +
             "                        <small class=\"text-muted\">\n" +
-            "<button type='submit' class='btn btn-success'>Ajouter une nouvel catégorie</button>\n"+
+            "<button type='submit' class='btn btn-success'>Ajouter une nouvel catégorie</button>\n" +
             "                        </small>\n" +
             "                    </div>\n" +
-            "</form>\n"+
+            "</form>\n" +
             "                </div>\n" +
             "            </div>")
     };
@@ -122,28 +126,32 @@ var Cat = (function(){
 
         if (title && content) {
             $.ajax({
-                beforeSend: function (xhr, settings) {
+                beforeSend: function(xhr, settings) {
                     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                         xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                     }
                 },
                 method: "POST",
                 url: App.GetBaseUrl() + "admin/ajax/cat/add",
-                data: {'title': title, 'content': content, 'slug': slug, 'icon': icon},
+                data: {
+                    'title': title,
+                    'content': content,
+                    'slug': slug,
+                    'icon': icon
+                },
                 dataType: 'json',
                 cache: false,
-                success: function (data) {
-                    if(data.code = 1) {
+                success: function(data) {
+                    if (data.code = 1) {
                         App.NotifToast("success", data.title, data.message);
                         setTimeout(function() {
                             location.reload();
                         }, 3000);
-                    }
-                    else {
+                    } else {
                         App.NotifToast("error", "Erreur", data.message);
                     }
                 },
-                error: function (data) {
+                error: function(data) {
                     console.log(data.responseText);
                 }
             });
@@ -174,6 +182,6 @@ var Cat = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     Cat.init();
 });

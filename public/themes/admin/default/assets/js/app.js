@@ -1,17 +1,17 @@
-var App = (function(){
-    
+var App = (function() {
+
     var that = {};
 
-    that.GetBaseUrl = function () {
+    that.GetBaseUrl = function() {
         return window.location.protocol + "//" + window.location.host + "/";
     };
 
     that.menu = function() {
-        $('.collapse').on('show.bs.collapse', function () {
+        $('.collapse').on('show.bs.collapse', function() {
             $(this).parent().addClass("active");
         });
 
-        $('.collapse').on('hide.bs.collapse', function () {
+        $('.collapse').on('hide.bs.collapse', function() {
             $(this).parent().removeClass("active");
         });
     };
@@ -40,6 +40,6 @@ var App = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     App.init();
 });

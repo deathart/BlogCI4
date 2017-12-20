@@ -1,11 +1,11 @@
-var Article = (function(){
-    
+var Article = (function() {
+
     var that = {};
-    
-    that.TitleToLink = function () {
+
+    that.TitleToLink = function() {
         var title = $("#title");
-        var link = $("#link");        
-        
+        var link = $("#link");
+
         title.bind("change paste keyup", function() {
 
             var accent = [
@@ -18,17 +18,17 @@ var Article = (function(){
                 /[\307]/g, /[\347]/g, // C, c
             ];
 
-            var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+            var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
 
             var key = title.val();
 
-            for(var i = 0; i < accent.length; i++){
+            for (var i = 0; i < accent.length; i++) {
                 key = key.replace(accent[i], noaccent[i]);
             }
 
             key = key.replace(/'/g, "");
             key = key.replace(/"/g, "");
-            key = key.replace(/ /g,"-");
+            key = key.replace(/ /g, "-");
 
             link.val(key);
         });
@@ -38,33 +38,35 @@ var Article = (function(){
 
         $(".add_picture_one").click(function() {
             $.ajax({
-                beforeSend: function (xhr, settings) {
+                beforeSend: function(xhr, settings) {
                     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                         xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                     }
                 },
                 method: "POST",
                 url: App.GetBaseUrl() + "admin/ajax/media/modal",
-                data: {"type_modal": "add_picture_one"},
+                data: {
+                    "type_modal": "add_picture_one"
+                },
                 dataType: 'json',
                 cache: false,
-                success: function (data) {
+                success: function(data) {
                     $("body").append(data.content);
 
                     $(".modal-media_add_picture_one").modal('show');
 
-                    $('.modal-media_add_picture_one').on('shown.bs.modal', function (e) {
+                    $('.modal-media_add_picture_one').on('shown.bs.modal', function(e) {
                         $(".choice_img_add_picture_one").click(function() {
                             $(".add_picture_one").parent("div").prepend('<img data-slug="' + $(this).data("mediaslug") + '" src="' + App.GetBaseUrl() + '/' + $(this).data("mediaslug") + '" class="sl_pic_on rounded mb-2 col-sm-12" />');
                         })
                     });
 
-                    $(".modal-media_add_picture_one").on('hidden.bs.modal', function (e) {
+                    $(".modal-media_add_picture_one").on('hidden.bs.modal', function(e) {
                         $(".modal-media_add_picture_one").remove();
                     });
 
                 },
-                error: function (data) {
+                error: function(data) {
                     console.log(data.responseText);
                 }
             });
@@ -77,92 +79,94 @@ var Article = (function(){
             var link = $("#link");
             var content = $("#content");
             var wordkey = $("#wordkey");
-            var cat =  $("#cat");
+            var cat = $("#cat");
             var pic = $("#pic");
 
             var important = $("input[name=options]:checked").val();
 
             var errors = null;
 
-            if(!title.val()) {
+            if (!title.val()) {
                 errors = true;
                 title.addClass("is-invalid");
                 setTimeout(function() {
                     title.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 title.addClass("is-valid");
             }
 
-            if(!link.val()) {
+            if (!link.val()) {
                 errors = true;
                 link.addClass("is-invalid");
                 setTimeout(function() {
                     link.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 link.addClass("is-valid");
             }
 
-            if(!content.val()) {
+            if (!content.val()) {
                 errors = true;
                 content.addClass("is-invalid");
                 setTimeout(function() {
                     content.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 content.addClass("is-valid");
             }
 
-            if(!wordkey.val()) {
+            if (!wordkey.val()) {
                 errors = true;
                 wordkey.addClass("is-invalid");
                 setTimeout(function() {
                     wordkey.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 wordkey.addClass("is-valid");
             }
 
-            if(!cat.val()) {
+            if (!cat.val()) {
                 errors = true;
                 cat.addClass("is-invalid");
                 setTimeout(function() {
                     cat.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 cat.addClass("is-valid");
             }
 
             if (errors == null) {
                 $.ajax({
-                    beforeSend: function (xhr, settings) {
+                    beforeSend: function(xhr, settings) {
                         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                             xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                         }
                     },
                     method: "POST",
                     url: App.GetBaseUrl() + "admin/ajax/article/add",
-                    data: {'title': title.val(), 'link': link.val(), 'content': content.val(), 'wordkey': wordkey.val(), 'cat': cat.val().join(";"), 'pic': $(".sl_pic_on").data("slug"), 'important': important},
+                    data: {
+                        'title': title.val(),
+                        'link': link.val(),
+                        'content': content.val(),
+                        'wordkey': wordkey.val(),
+                        'cat': cat.val().join(";"),
+                        'pic': $(".sl_pic_on").data("slug"),
+                        'important': important
+                    },
                     dataType: 'json',
                     cache: false,
-                    success: function (data) {
-                        if(data.code = 1) {
+                    success: function(data) {
+                        if (data.code = 1) {
                             App.NotifToast("success", data.title, data.message);
                             setTimeout(function() {
                                 window.location.href = App.GetBaseUrl() + "admin/article/edit/" + data.post_id + "/2";
                             }, 3000);
-                        }
-                        else {
+                        } else {
                             App.NotifToast("error", "Erreur", data.message);
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data.responseText);
                     }
                 });
@@ -173,7 +177,7 @@ var Article = (function(){
 
     };
 
-    that.EditArticle = function () {
+    that.EditArticle = function() {
 
         /*$("#pic2").bind("change", function() {
             var file_data = $("#pic2").prop("files")[0];   // Getting the properties of file from file field
@@ -205,33 +209,35 @@ var Article = (function(){
 
         $(".update_picture_one").click(function() {
             $.ajax({
-                beforeSend: function (xhr, settings) {
+                beforeSend: function(xhr, settings) {
                     if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                         xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                     }
                 },
                 method: "POST",
                 url: App.GetBaseUrl() + "admin/ajax/media/modal",
-                data: {"type_modal": "picture_one"},
+                data: {
+                    "type_modal": "picture_one"
+                },
                 dataType: 'json',
                 cache: false,
-                success: function (data) {
+                success: function(data) {
                     $("body").append(data.content);
 
                     $(".modal-media_picture_one").modal('show');
 
-                    $('.modal-media_picture_one').on('shown.bs.modal', function (e) {
+                    $('.modal-media_picture_one').on('shown.bs.modal', function(e) {
                         $(".choice_img_picture_one").click(function() {
                             $(".sl_pic_on").data("slug", $(this).data("mediaslug")).attr("src", App.GetBaseUrl() + '/' + $(this).data("mediaslug"));
                         })
                     });
 
-                    $(".modal-media_picture_one").on('hidden.bs.modal', function (e) {
+                    $(".modal-media_picture_one").on('hidden.bs.modal', function(e) {
                         $(".modal-media_picture_one").remove();
                     });
 
                 },
-                error: function (data) {
+                error: function(data) {
                     console.log(data.responseText);
                 }
             });
@@ -252,85 +258,89 @@ var Article = (function(){
 
             var errors = null;
 
-            if(!title.val()) {
+            if (!title.val()) {
                 errors = true;
                 title.addClass("is-invalid");
                 setTimeout(function() {
                     title.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 title.addClass("is-valid");
             }
 
-            if(!link.val()) {
+            if (!link.val()) {
                 errors = true;
                 link.addClass("is-invalid");
                 setTimeout(function() {
                     link.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 link.addClass("is-valid");
             }
 
-            if(!content.val()) {
+            if (!content.val()) {
                 errors = true;
                 content.addClass("is-invalid");
                 setTimeout(function() {
                     content.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 content.addClass("is-valid");
             }
 
-            if(!wordkey.val()) {
+            if (!wordkey.val()) {
                 errors = true;
                 wordkey.addClass("is-invalid");
                 setTimeout(function() {
                     wordkey.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 wordkey.addClass("is-valid");
             }
 
-            if(!cat.val()) {
+            if (!cat.val()) {
                 errors = true;
                 cat.addClass("is-invalid");
                 setTimeout(function() {
                     cat.removeClass("is-invalid");
                 }, 1500);
-            }
-            else {
+            } else {
                 cat.addClass("is-valid");
             }
 
             if (errors == null) {
                 $.ajax({
-                    beforeSend: function (xhr, settings) {
+                    beforeSend: function(xhr, settings) {
                         if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
                             xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
                         }
                     },
                     method: "POST",
                     url: App.GetBaseUrl() + "admin/ajax/article/edit",
-                    data: {'postid': postid, 'title': title.val(), 'link': link.val(), 'content': content.val(), 'wordkey': wordkey.val(), 'cat': cat.val().join(";"), 'pic': $(".sl_pic_on").data("slug"), 'important': important, 'type': type},
+                    data: {
+                        'postid': postid,
+                        'title': title.val(),
+                        'link': link.val(),
+                        'content': content.val(),
+                        'wordkey': wordkey.val(),
+                        'cat': cat.val().join(";"),
+                        'pic': $(".sl_pic_on").data("slug"),
+                        'important': important,
+                        'type': type
+                    },
                     dataType: 'json',
                     cache: false,
-                    success: function (data) {
-                        if(data.code = 1) {
+                    success: function(data) {
+                        if (data.code = 1) {
                             App.NotifToast("success", data.title, data.message);
                             setTimeout(function() {
                                 location.reload();
                             }, 3000);
-                        }
-                        else {
+                        } else {
                             App.NotifToast("error", "Erreur", data.message);
                         }
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data.responseText);
                     }
                 });
@@ -352,6 +362,6 @@ var Article = (function(){
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     Article.init();
 });
