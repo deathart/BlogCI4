@@ -3,6 +3,7 @@
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\Admin\ConfigModel;
 use Config\App;
 use Config\Services;
 
@@ -32,47 +33,37 @@ class DebugToolbar implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response)
     {
+        $config_model = new ConfigModel();
+
         $format = $response->getHeaderLine('content-type');
 
-        if (! is_cli() && CI_DEBUG && strpos($format, 'html') !== false) {
-            global $app;
+        if ($config_model->GetConfig('debug') == 1) {
+            if (!is_cli() && CI_DEBUG && strpos($format, 'html') !== false) {
+                global $app;
 
-            $toolbar = Services::toolbar(new App());
-            $stats   = $app->getPerformanceStats();
-            $output  = $toolbar->run(
-                $stats['startTime'],
-                $stats['totalTime'],
-                $stats['startMemory'],
-                $request,
-                $response
-            );
+                $toolbar = Services::toolbar(new App());
+                $stats = $app->getPerformanceStats();
+                $output = $toolbar->run($stats['startTime'], $stats['totalTime'], $stats['startMemory'], $request, $response);
 
-            helper(['filesystem', 'url']);
+                helper(['filesystem', 'url']);
 
-            // Updated to time() so we can get history
-            $time = time();
+                // Updated to time() so we can get history
+                $time = time();
 
-            if (! is_dir(WRITEPATH.'debugbar')) {
-                mkdir(WRITEPATH.'debugbar', 0777);
+                if (!is_dir(WRITEPATH . 'debugbar')) {
+                    mkdir(WRITEPATH . 'debugbar', 0777);
+                }
+
+                write_file(WRITEPATH . 'debugbar/' . 'debugbar_' . $time, $output, 'w+');
+
+                $script = PHP_EOL . '<script type="text/javascript" id="debugbar_loader" ' . 'data-time="' . $time . '" ' . 'src="' . rtrim(site_url(), '/') . '?debugbar"></script>' . PHP_EOL;
+
+                if (strpos($response->getBody(), '</body>') !== false) {
+                    return $response->setBody(str_replace('</body>', $script . '</body>', $response->getBody()));
+                }
+
+                return $response->appendBody($script);
             }
-
-            write_file(WRITEPATH .'debugbar/'.'debugbar_' . $time, $output, 'w+');
-
-            $script = PHP_EOL
-                . '<script type="text/javascript" id="debugbar_loader" '
-                . 'data-time="' . $time . '" '
-                . 'src="' . rtrim(site_url(), '/') . '?debugbar"></script>'
-                . PHP_EOL;
-
-            if (strpos($response->getBody(), '</body>') !== false) {
-                return $response->setBody(str_replace(
-                    '</body>',
-                    $script . '</body>',
-                    $response->getBody()
-                ));
-            }
-
-            return $response->appendBody($script);
         }
     }
 

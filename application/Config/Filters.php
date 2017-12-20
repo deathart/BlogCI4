@@ -8,7 +8,7 @@ class Filters extends BaseConfig
     // and simpler to change out script that's used.
     public $aliases = [
         //'csrf'      => \App\Filters\CSRF::class,
-        //'toolbar' => \App\Filters\DebugToolbar::class,
+        'toolbar' => \App\Filters\DebugToolbar::class,
         'admin' => \App\Filters\Admin::class
     ];
 
@@ -18,7 +18,7 @@ class Filters extends BaseConfig
             // 'csrf'
         ],
         'after'  => [
-            //'toolbar'
+            'toolbar'
         ]
     ];
 
