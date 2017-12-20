@@ -11,8 +11,7 @@ class Admin implements FilterInterface
 {
     public function __construct()
     {
-        $config        = new App();
-        $session = Services::session($config);
+        $session = Services::session(new App());
         $session->start();
     }
 
