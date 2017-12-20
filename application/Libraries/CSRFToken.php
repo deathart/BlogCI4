@@ -33,8 +33,7 @@ class CSRFToken
      */
     public function __construct($session_name = 'csrf_token')
     {
-        $config       = new App();
-        $this->session      = Services::session($config);
+        $this->session      = Services::session(new App());
         $this->session_name = $session_name;
     }
     /**

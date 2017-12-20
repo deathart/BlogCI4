@@ -16,8 +16,7 @@ class Auth
 
     public function __construct()
     {
-        $config        = new App();
-        $this->session = Services::session($config);
+        $this->session = Services::session(new App());
         $this->request = Services::request();
 
         helper('cookie');

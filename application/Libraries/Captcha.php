@@ -26,8 +26,7 @@ class Captcha
      */
     public function __construct()
     {
-        $config       = new App();
-        $this->session      = Services::session($config);
+        $this->session = Services::session(new App());
     }
 
     /**
