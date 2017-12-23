@@ -4,6 +4,7 @@ return [
     'search' => 'Recherche',
     'search_label' => 'Mots clef à rechercher',
     'search_btn' => 'Rechercher',
+    'search_btn_cancel' => 'Fermer',
     'menu_home' => 'Accueil',
     'menu_cat' => 'Catégories',
     'menu_contact' => 'Contact',

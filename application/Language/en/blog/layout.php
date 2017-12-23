@@ -4,6 +4,7 @@ return [
     'search' => 'Search',
     'search_label' => 'Keywords to search for',
     'search_btn' => 'Search',
+    'search_btn_cancel' => 'Close',
     'menu_home' => 'Home',
     'menu_cat' => 'Categories',
     'menu_contact' => 'Contact',
