@@ -706,7 +706,7 @@ a:hover, a:active {
 #wrapper > #content > .article_list {
   float: left;
   width: calc(75% - 10px);
-  padding: 5px;
+  padding: 10px;
 }
 
 @media only screen and (max-width: 40rem) {
@@ -729,6 +729,161 @@ a:hover, a:active {
   padding: 5px;
   margin-top: 70px;
   font-size: x-large;
+}
+
+#wrapper > #content > .article_list > .fisrt {
+  padding: 0;
+  float: left;
+  width: calc(50% - 20px);
+  margin: 0 10px 10px 0;
+  position: relative;
+}
+
+#wrapper > #content > .article_list > .fisrt > .desc {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 7px;
+  padding: 15px;
+  position: absolute;
+  width: 100%;
+}
+
+#wrapper > #content > .article_list > .fisrt > .desc > h2 {
+  font-size: 18px;
+  line-height: 1.4em;
+  color: #FFFFFF;
+}
+
+#wrapper > #content > .article_list > .fisrt > .desc > h2 > a {
+  color: #FFFFFF;
+  outline: none;
+  text-decoration: none;
+}
+
+#wrapper > #content > .article_list > .fisrt > .desc > .post_meta {
+  color: #fff;
+  font-size: 11px;
+  padding: 10px 0;
+}
+
+#wrapper > #content > .article_list > .last_tree {
+  padding: 0;
+  width: calc(50% - 20px);
+  margin: 0 10px 10px auto;
+  position: relative;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul {
+  height: 52.50vh;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li {
+  height: 32%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li:nth-child(n + 2) {
+  margin-top: 2%;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > a > img {
+  width: 30%;
+  height: 100%;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc {
+  bottom: 7px;
+  padding: 15px;
+  width: 68%;
+  float: right;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > h2 {
+  font-size: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > h2 > a {
+  color: black;
+  outline: none;
+  text-decoration: none;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .post_meta {
+  font-size: 11px;
+  padding: 10px 0;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a {
+  float: right;
+  color: rgba(0, 0, 0, 0.5) !important;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  padding-bottom: 3px;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a.active:after {
+  height: 3px;
+  display: block;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  content: '';
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a.active:before {
+  display: block;
+  content: '';
+  background: silver;
+  height: 3px;
+  margin-top: -20px;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  -webkit-transition: width 0s ease, background 0.5s ease;
+  transition: width 0s ease, background 0.5s ease;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a:after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-transition: width 0.5s ease;
+  transition: width 0.5s ease;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a:hover:before {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-transition: width 0.5s ease;
+  transition: width 0.5s ease;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a:hover:after {
+  width: 100%;
+  background: transparent;
+  -webkit-transition: all 0s ease;
+  transition: all 0s ease;
 }
 
 #wrapper > #content > .article_last {

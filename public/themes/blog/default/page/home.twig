@@ -20,31 +20,56 @@
         {% endif %}
     </div>
     <div class="article_list">
-        <h1>{{ trans('home.best_article_title') }}</h1>
+        <!--<h1>{{ trans('home.best_article_title') }}</h1>-->
         {% for data in last_important %}
-            <div class="article_bloc">
-                <div class="images">
-                    <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 130px;" src="{{ data.picture_one|base_url }}" /></a>
-                    <div class="tags">
-                        {{ general('TradCat', data.cat) }}
+            {% if loop.index == 1 %}
+                <div class="fisrt">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                        <img src="{{ data.picture_one|base_url }}" />
+                    </a>
+                    <div class="desc">
+                        <h2>
+                            <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                                {{ data.title }}
+                            </a>
+                            ({{ general('TradCat', data.cat) }})
+                        </h2>
+                        <span class="post_meta">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                            <i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
+                        </span>
                     </div>
                 </div>
-                <div class="info">
-                    <div class="publish_date">
-                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+            {% else %}
+                {% if loop.index == 2 %}
+                    <div class="last_tree">
+                        <ul>
+                {% endif %}
+                    <li>
+                        <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                            <img src="{{ data.picture_one|base_url }}" />
+                        </a>
+                        <div class="desc">
+                            <h2>
+                                <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                                    {{ data.title }}
+                                </a>
+                                ({{ general('TradCat', data.cat) }})
+                            </h2>
+                            <span class="post_meta">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                                <i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
+                            </span>
+                            <div class="read_more">
+                                <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
+                            </div>
+                        </div>
+                    </li>
+                {% if loop.index == 4 %}
+                        </ul>
                     </div>
-                    <div class="coms">
-                        <span>{{ general('CountCom', data.id) }}</span> <i class="fa fa-comments-o" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>
-                <!--<div class="content">
-                    {{ data.content|slice(0, 500) ~ '...' }}
-                </div>-->
-                <div class="read_more">
-                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
-                </div>
-            </div>
+                {% endif %}
+            {% endif %}
         {% endfor %}
     </div>
     {% if 'home_annonce_1'|config %}
