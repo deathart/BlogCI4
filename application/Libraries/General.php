@@ -68,9 +68,13 @@ class General
     {
         $arr = '';
         $piece = explode(';', $cat);
-        foreach ($piece as $data) {
+        $lastKey = count($piece) - 1;
+        foreach ($piece as $k =>$data) {
             $tt = $this->cat_model->GetCatNameAndLink($data);
             $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a>';
+            if ($k != $lastKey) {
+                $arr .= ' | ';
+            }
         }
 
         return $arr;

@@ -765,6 +765,10 @@ a:hover, a:active {
   padding: 10px 0;
 }
 
+#wrapper > #content > .article_list > .fisrt > .desc > .post_meta a {
+  color: #FFFFFF;
+}
+
 #wrapper > #content > .article_list > .last_tree {
   padding: 0;
   width: calc(50% - 20px);
@@ -808,7 +812,7 @@ a:hover, a:active {
 }
 
 #wrapper > #content > .article_list > .last_tree > ul > li > .desc > h2 > a {
-  color: black;
+  color: #000000;
   outline: none;
   text-decoration: none;
 }
@@ -816,6 +820,10 @@ a:hover, a:active {
 #wrapper > #content > .article_list > .last_tree > ul > li > .desc > .post_meta {
   font-size: 11px;
   padding: 10px 0;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .post_meta a {
+  color: #000000;
 }
 
 #wrapper > #content > .article_list > .last_tree > ul > li > .desc > .read_more > a {
