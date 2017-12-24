@@ -40,8 +40,8 @@ body {
   box-shadow: 5px 0px 10px 2px rgba(0, 0, 0, 0.5);
   color: white;
   position: fixed;
-  padding-right: 0px;
-  padding-left: 0px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .left > .users {
@@ -325,7 +325,7 @@ body {
   display: block;
   width: 100%;
   padding: 10px;
-  margin: 0px 0px 5px;
+  margin: 0 0 5px;
   border-radius: 4px;
   font-size: 12px;
   font-family: arial, sans-serif;
@@ -339,7 +339,7 @@ body {
 .jq-toast-single h2 {
   font-family: arial, sans-serif;
   font-size: 14px;
-  margin: 0px 0px 7px;
+  margin: 0 0 7px;
   background: none;
   color: inherit;
   line-height: inherit;
@@ -356,9 +356,9 @@ body {
 }
 
 .jq-toast-single ul {
-  margin: 0px 0px 0px 15px;
+  margin: 0 0 0 15px;
   background: none;
-  padding: 0px;
+  padding: 0;
 }
 
 .jq-toast-single ul li {
@@ -383,10 +383,10 @@ body {
   position: absolute;
   top: -2px;
   height: 5px;
-  width: 0%;
+  width: 0;
   left: 0;
   border-radius: 5px;
-  background: red;
+  background: #ff0000;
 }
 
 .jq-toast-loaded {
@@ -540,7 +540,7 @@ body {
 .sp-clear-enabled .sp-clear {
   display: block;
   position: absolute;
-  top: 0px;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 84%;
@@ -729,15 +729,14 @@ body {
 }
 
 .sp-input.sp-validation-error {
-  border: 1px solid red;
+  border: 1px solid #ff0000;
   background: #fdd;
 }
 
 .sp-picker-container, .sp-palette-container {
   float: left;
   position: relative;
-  padding: 10px;
-  padding-bottom: 300px;
+  padding: 10px 10px 300px;
   margin-bottom: -290px;
 }
 
@@ -893,9 +892,8 @@ body {
 .sp-cancel {
   font-size: 11px;
   color: #d93f3f !important;
-  margin: 0;
   padding: 2px;
-  margin-right: 5px;
+  margin: 0 5px 0 0;
   vertical-align: middle;
   text-decoration: none;
 }
