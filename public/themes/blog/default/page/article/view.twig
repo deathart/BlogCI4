@@ -73,7 +73,7 @@
                         <span class="date"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ data.created_date }}</span>
                     </div>
                     <div class="cont">
-                        {{ data.content }}
+                        {{ parse(data.content) }}
                     </div>
                 </div>
             {% endfor %}
