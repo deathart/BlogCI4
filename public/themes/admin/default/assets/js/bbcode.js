@@ -96,7 +96,7 @@ var BBCode = (function() {
                     that.insertTag("[align=\"" + align_style + "\"]", "[/align]", "align", textareaId);
                     break;
                 case "link":
-                    that.insertTag("[link]", "[/link]", "link", textareaId);
+                    that.insertTag("[link=\"\"]", "[/link]", "link", textareaId);
                     break;
                 case "code":
                     var code_lang = $(this).data("code");

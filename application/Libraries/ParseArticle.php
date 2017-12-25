@@ -84,7 +84,13 @@ class ParseArticle
      */
     protected function parse_href(string $content): string
     {
-        return preg_replace('/<a href="(.*?)">/', '<a href="$1" target="_blank" rel="nofollow">', $content);
+        return preg_replace_callback(
+            '`\[link="(.*)"\](.*)\[/link\]`siU',
+            function ($matches) {
+                return '<a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a>';
+            },
+            $content
+        );
     }
 
     /**
