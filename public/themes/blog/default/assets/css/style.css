@@ -914,6 +914,19 @@ a:hover, a:active {
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+#wrapper > #content > #article > .content a {
+  text-decoration: none;
+  background: #eee;
+  cursor: pointer;
+  padding: 0 3px;
+  color: #22bb66;
+}
+
+#wrapper > #content > #article > .content a:hover {
+  color: #eee;
+  background: #22bb66;
+}
+
 #wrapper > #content > .tags {
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -2086,7 +2099,8 @@ blockquote a {
 }
 
 blockquote a:hover {
-  color: #666;
+  color: #eee;
+  background: #22bb66;
 }
 
 blockquote em {
