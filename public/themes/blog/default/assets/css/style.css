@@ -206,16 +206,16 @@ a:hover, a:active {
 }
 
 #wrapper > header > .menu > .main-nav > ul > li.menu-item > a:hover {
-  color: #c7c7c7;
+  color: #22bb66;
 }
 
 #wrapper > header > .menu > .main-nav > ul > li.menu-item > a.active {
-  color: #c7c7c7;
+  color: #22bb66;
   text-decoration: underline;
 }
 
 #wrapper > header > .menu > .main-nav > ul > li.menu-item > span:hover {
-  color: #c7c7c7;
+  color: #22bb66;
   cursor: pointer;
 }
 
@@ -277,6 +277,10 @@ a:hover, a:active {
   border: 0;
 }
 
+#wrapper > header > .menu > .main-nav > ul > li.menu-item.menu-item-has-children > ul.sub-menu > li > a:hover {
+  color: #22bb66;
+}
+
 #wrapper > header > .header-area {
   padding: 50px 0 70px;
   overflow: hidden;
@@ -312,7 +316,7 @@ a:hover, a:active {
 }
 
 #wrapper > header > .header-area > ul.social-platforms > li > a:hover {
-  color: #4d4d4d;
+  color: #22bb66;
 }
 
 #wrapper > header > .header-area > a {
@@ -322,6 +326,10 @@ a:hover, a:active {
   display: inline-block;
   color: #4d4d4d;
   font-size: 42px;
+}
+
+#wrapper > header > .header-area > a:hover {
+  color: #22bb66;
 }
 
 #wrapper > #content {
