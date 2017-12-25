@@ -64,18 +64,20 @@
         {{ general('TradTags', get_info_article.keyword) }}
     </div>
     <div class="commentaire">
-        <h1>{{ trans('article.article_com') }}</h1>
-        {% for data in get_coms %}
-            <div class="comment">
-                <div class="inf">
-                    <span class="name">{{ data.author_name }}</span>
-                    <span class="date"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ data.created_date }}</span>
+        {% if get_coms %}
+            <h1>{{ trans('article.article_com') }}</h1>
+            {% for data in get_coms %}
+                <div class="comment">
+                    <div class="inf">
+                        <span class="name">{{ data.author_name }}</span>
+                        <span class="date"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ data.created_date }}</span>
+                    </div>
+                    <div class="cont">
+                        {{ data.content }}
+                    </div>
                 </div>
-                <div class="cont">
-                    {{ data.content }}
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
         <h1>{{ trans('article.article_add_com') }}</h1>
         <div class="message_add_coms"></div>
         <form class="add_com" data-post="{{ get_info_article.id }}">
