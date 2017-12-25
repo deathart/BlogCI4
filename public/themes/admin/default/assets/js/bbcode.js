@@ -84,6 +84,9 @@ var BBCode = (function() {
                 case "underline":
                     that.insertTag("[u]", "[/u]", "underligne", textareaId);
                     break;
+                case "quote":
+                    that.insertTag("[quote]", "[/quote]", "underligne", textareaId);
+                    break;
                 case "header":
                     var header_size = $(this).data("header");
                     that.insertTag("[header=\"" + header_size + "\"]", "[/header]", "header", textareaId);
