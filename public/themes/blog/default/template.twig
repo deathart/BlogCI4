@@ -31,56 +31,61 @@
         </div>
         <div id="wrapper">
             <header>
-                <div id="prem">
-                    <div class="titre">
-                        <a href="{{ '/'|base_url }}">{{ 'site_title'|config }}</a>
-                    </div>
-                    <div class="button">
+                <div class="menu">
+                    <nav class="main-nav">
+                        <ul id="menu-main-menu">
+                            <li class="menu-item ">
+                                <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
+                            </li>
+                            {% if (general('GetCat')) %}
+                            <li class="menu-item menu-item-has-children">
+                                <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
+                                <ul class="sub-menu">
+                                    {% for data in general('GetCat') %}
+                                        <li id="menu-item-131" class="menu-item">
+                                            <a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ data.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% if 'contact_active'|config == 1 %}
+                                <li class="menu-item">
+                                    <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
+                                </li>
+                            {% endif %}
+                            {% if (general('GetPages')) %}
+                                {% for data in general('GetPages') %}
+                                    <li class="menu-item">
+                                        <a href="{{ ('page/' ~ data.slug)|base_url }}" {% if '1'|uri_segment == "page" %}class="active"{% endif %}>{{ data.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            <li class="menu-item">
+                                <span class="click_search"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="header-area">
+                    <ul class="clean-list social-platforms">
                         {% if 'btn_facebook_link'|config is not null %}
-                            <a href="https://facebook.com/{{ 'btn_facebook_link'|config }}" target="_blank" class="facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                            <li class="platform">
+                                <a href="https://facebook.com/{{ 'btn_facebook_link'|config }}" target="_blank" class="facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                            </li>
                         {% endif %}
                         {% if 'btn_twitter_link'|config is not null %}
-                            <a href="https://twitter.com/{{ 'btn_twitter_link'|config }}" target="_blank" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <li class="platform">
+                                <a href="https://twitter.com/{{ 'btn_twitter_link'|config }}" target="_blank" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            </li>
                         {% endif %}
                         {% if 'btn_googleplus_link'|config is not null %}
-                            <a href="https://plus.google.com/{{ 'btn_googleplus_link'|config }}" target="_blank" class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                        {% endif %}
-                    </div>
-                </div>
-                <div id="menu">
-                    <div class="mobile_menu">
-                        Menu mobile
-                    </div>
-                    <ul>
-                        <li>
-                            <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
-                        </li>
-                        {% if (general('GetCat')) %}
-                            <li class="dropdown">
-                                <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
-                                <div class="dropdown-content">
-                                    <ul>
-                                        {% for data in general('GetCat') %}
-                                            <li><a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                            <li class="platform">
+                                <a href="https://plus.google.com/{{ 'btn_googleplus_link'|config }}" target="_blank" class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
                             </li>
-                        {% endif %}
-                        {% if 'contact_active'|config == 1 %}
-                            <li>
-                                <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
-                            </li>
-                        {% endif %}
-                        {% if (general('GetPages')) %}
-                            {% for data in general('GetPages') %}
-                                <li><a href="{{ ('page/' ~ data.slug)|base_url }}">{{ data.title }}</a></li>
-                            {% endfor %}
                         {% endif %}
                     </ul>
-                    <div class="search">
-                        <span class="click_search"><i class="fa fa-search" aria-hidden="true"></i></span>
-                    </div>
+                    <a href="{{ '/'|base_url }}" rel="home">{{ 'site_title'|config }}</a>
                 </div>
             </header>
             <div id="content">
