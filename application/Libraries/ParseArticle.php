@@ -121,13 +121,12 @@ class ParseArticle
      */
     protected function parse_code(string $content): string
     {
-        $content = str_replace('<', '&lt;', $content);
-
         return preg_replace_callback(
             '`\[code="(.*)"\](.*)\[/code\]`siU',
             function ($matches) {
                 if (!$this->noparse) {
-                    return '<pre><code class="language-' . $matches[1] . '">' . $matches[2] . '</code></pre>';
+                    $content_code = str_replace('<', '&lt;', $matches[2]);
+                    return '<pre><code class="language-' . $matches[1] . '">' . $content_code . '</code></pre>';
                 }
             },
             $content
