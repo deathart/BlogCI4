@@ -128,10 +128,10 @@ class TwigExtentions extends Twig_Extension
      *
      * @return mixed|string
      */
-    public function parseBbcode($content)
+    public function parseBbcode($content, $noparse = false)
     {
         $parse = new ParseArticle();
-        return $parse->rendered($content);
+        return $parse->rendered($content, $noparse);
     }
 
     /**

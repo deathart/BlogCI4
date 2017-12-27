@@ -25,6 +25,8 @@ class ParseArticle
      */
     private $replace = ['<strong>$1</strong>', '<em>$1</em>', '<u>$1</u>', '<del>$1</del>', '<ul>$1</ul>', '<li>$1</li>', '<blockquote>$1</blockquote>'];
 
+    private $noparse;
+
     /**
      * ParseArticle constructor.
      */
@@ -35,11 +37,14 @@ class ParseArticle
 
     /**
      * @param string $content
+     * @param bool $noparse
      *
      * @return mixed|string
      */
-    public function rendered(string $content): string
+    public function rendered(string $content, bool $noparse): string
     {
+        $this->noparse = $noparse;
+
         $content = $this->parse_code($content);
         $content = $this->parse_htmlbasic($content);
         $content = $this->parse_header($content);
@@ -47,8 +52,10 @@ class ParseArticle
         $content = $this->parse_href($content);
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
+
         $content = str_replace('[br]', '<br />', $content);
         $content = str_replace('[hr]', '<hr />', $content);
+
         return $content;
     }
 
@@ -71,7 +78,9 @@ class ParseArticle
                 if ($matches[3] != 0) {
                     $height = $matches[3];
                 }
-                return '<img name="' . $get_info->name . '" src="' . base_url($get_info->slug . '/' . $get_info->name) . '" style="width: ' . $width . 'px;height: ' . $height . 'px;" />';
+                if (!$this->noparse) {
+                    return '<img name="' . $get_info->name . '" src="' . base_url($get_info->slug . '/' . $get_info->name) . '" style="width: ' . $width . 'px;height: ' . $height . 'px;" />';
+                }
             },
             $content
         );
@@ -87,7 +96,9 @@ class ParseArticle
         return preg_replace_callback(
             '`\[link="(.*)"\](.*)\[/link\]`siU',
             function ($matches) {
-                return '<a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a>';
+                if (!$this->noparse) {
+                    return '<a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a>';
+                }
             },
             $content
         );
@@ -115,7 +126,9 @@ class ParseArticle
         return preg_replace_callback(
             '`\[code="(.*)"\](.*)\[/code\]`siU',
             function ($matches) {
-                return '<pre><code class="language-' . $matches[1] . '">' . $matches[2] . '</code></pre>';
+                if (!$this->noparse) {
+                    return '<pre><code class="language-' . $matches[1] . '">' . $matches[2] . '</code></pre>';
+                }
             },
             $content
         );
@@ -128,7 +141,11 @@ class ParseArticle
      */
     protected function parse_header(string $content): string
     {
-        return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $content);
+        if (!$this->noparse) {
+            return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $content);
+        } else {
+            return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '$2', $content);
+        }
     }
 
     /**
