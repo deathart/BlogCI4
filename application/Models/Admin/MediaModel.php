@@ -46,7 +46,8 @@ class MediaModel extends Model
 
     public function Get_All()
     {
-        $this->media_table->select();
+        $this->media_table->select("*, DATE_FORMAT(`date`,'Upload le %d-%m-%Y &agrave; %H:%i:%s') AS `date`");
+        $this->media_table->orderBy('date', 'DESC');
         return $this->media_table->get()->getResult();
     }
 }
