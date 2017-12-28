@@ -28,8 +28,9 @@ class Upload extends Ajax
     public function __construct(...$params)
     {
         parent::__construct(...$params);
-        $this->image = new Image($_FILES);
         $this->media_model = new MediaModel();
+        $this->image = new Image($_FILES);
+        $this->image->setSize('100', '100000000');
     }
 
     /**
