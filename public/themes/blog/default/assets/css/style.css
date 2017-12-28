@@ -1246,7 +1246,7 @@ a:hover, a:active {
 .recherche_modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 11;
   padding-top: 100px;
   left: 0;
   top: 0;
