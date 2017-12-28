@@ -282,6 +282,25 @@ body {
   margin-top: 5px;
 }
 
+.form-add-media {
+  text-align: center;
+}
+
+.form-add-media > .label-add-media {
+  font-size: 60px;
+  cursor: pointer;
+}
+
+.form-add-media > .input-add-media {
+  display: none;
+}
+
+.form-add-media > .btn-add-media {
+  display: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /**
  * jQuery toast plugin created by Kamran Ahmed copyright MIT license 2014
  */

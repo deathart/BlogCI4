@@ -179,34 +179,6 @@ var Article = (function() {
 
     that.EditArticle = function() {
 
-        /*$("#pic2").bind("change", function() {
-            var file_data = $("#pic2").prop("files")[0];   // Getting the properties of file from file field
-            var form_data = new FormData();                  // Creating object of FormData class
-            form_data.append("pictures", file_data)
-            $.ajax({
-                beforeSend: function (xhr, settings) {
-                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
-                        xhr.setRequestHeader("X-CSRFToken", $('meta[name="_token"]').attr('content'));
-                    }
-                },
-                method: "POST",
-                url: App.GetBaseUrl() + "admin/ajax/upload",
-                data: form_data,
-                dataType: 'json',
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    //$("#pic").parent("div").prepend('<img data-slug="' + data.slug + '" src="' + App.GetBaseUrl() + '/' + data.slug + '" class="sl_pic_on rounded mb-2 col-sm-12" />');
-                    $(".sl_pic_on").data("slug", data.slug).attr("src", App.GetBaseUrl() + '/' + data.slug);
-                    App.NotifToast("success", data.title, data.message);
-                },
-                error: function (data) {
-                    App.NotifToast("error", "Erreur", data.responseText);
-                }
-            });
-        });*/
-
         $(".update_picture_one").click(function() {
             $.ajax({
                 beforeSend: function(xhr, settings) {
