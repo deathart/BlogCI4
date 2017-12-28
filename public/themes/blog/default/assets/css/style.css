@@ -2118,3 +2118,29 @@ blockquote a:hover {
 blockquote em {
   font-style: italic;
 }
+
+@-webkit-keyframes showHeader {
+  from {
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    opacity: 0.35;
+  }
+  to {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes showHeader {
+  from {
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    opacity: 0.35;
+  }
+  to {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
