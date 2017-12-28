@@ -65,8 +65,12 @@ var App = (function() {
         $(document).on('scroll', function() {
             if ($(window).scrollTop() > 100) {
                 $('.scroll-top-wrapper').addClass('show');
+                $("header").addClass("fixed");
+                $("#wrapper > #content").css("margin-top", "25px");
             } else {
                 $('.scroll-top-wrapper').removeClass('show');
+                $("header").removeClass("fixed");
+                $("#wrapper > #content").css("margin-top", "0");
             }
         });
 
