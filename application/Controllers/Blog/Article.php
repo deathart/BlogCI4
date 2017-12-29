@@ -64,8 +64,7 @@ class Article extends Application
 
         $this->data['get_info_article'] = $info;
         $this->data['get_coms'] = $this->comments_model->GetComs($info->id);
-        $this->data['PostView'] = $this->article_model->nb_PostView($info->id);
-        $this->data['related_article'] = $this->article_model->GetRelated($info->keyword);
+        $this->data['related_article'] = $this->article_model->GetRelated($info->id, $info->keyword);
         $this->data['captcha'] = $this->captcha->Create();
 
         return $this->render('article/view', $info->title, $info->keyword);

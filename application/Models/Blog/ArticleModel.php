@@ -138,11 +138,12 @@ class ArticleModel extends Model
     }
 
     /**
+     * @param int $id
      * @param string $keyword
      *
      * @return array|mixed
      */
-    public function GetRelated(string $keyword):array
+    public function GetRelated(int $id, string $keyword):array
     {
         $keys = explode(',', $keyword);
 
@@ -158,7 +159,12 @@ class ArticleModel extends Model
         $this->article_table->limit('5');
         $this->article_table->orderBy('id', 'DESC');
 
-        return $this->article_table->get()->getResult('array');
+        $arr_r = $this->article_table->get()->getResult('array');
+        $keys_r = array_keys(array_column($arr_r, 'id'), $id);
+
+        unset($arr_r[$keys_r[0]]);
+
+        return $arr_r;
     }
 
     /**
