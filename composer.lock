@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c67e8717d5155516b526982b08a322b",
+    "content-hash": "9e8fce993b6ab9bd6cec8db422bde857",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -337,16 +337,16 @@
         },
         {
             "name": "illuminate/translation",
-            "version": "v5.5.17",
+            "version": "v5.5.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
-                "reference": "5e84b438dd6866d8d5c74693d6fd80b66a986ba6"
+                "reference": "c45b419a412eefe9064654a790d759b6feafeb93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/translation/zipball/5e84b438dd6866d8d5c74693d6fd80b66a986ba6",
-                "reference": "5e84b438dd6866d8d5c74693d6fd80b66a986ba6",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/c45b419a412eefe9064654a790d759b6feafeb93",
+                "reference": "c45b419a412eefe9064654a790d759b6feafeb93",
                 "shasum": ""
             },
             "require": {
@@ -378,7 +378,7 @@
             ],
             "description": "The Illuminate Translation package.",
             "homepage": "https://laravel.com",
-            "time": "2017-10-15T14:53:40+00:00"
+            "time": "2017-11-22T19:01:14+00:00"
         },
         {
             "name": "kint-php/kint",
@@ -1113,7 +1113,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }
