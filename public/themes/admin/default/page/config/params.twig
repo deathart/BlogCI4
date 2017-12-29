@@ -11,13 +11,17 @@
                         <div class="form-row justify-content-sm-center" data-configid="{{ data.id }}">
                             <div class="col-sm-4 ">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-addon">Clef</div>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Clef</div>
+                                    </div>
                                     <input type="text" class="form-control" id="params_key" placeholder="{{ data.key }}" value="{{ data.key }}" />
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-addon">Data</div>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Data</div>
+                                    </div>
                                     {% if data.type == 'simple' %}
                                         <input type="text" class="form-control" id="params_data" placeholder="{{ data.data }}" value="{{ data.data }}" />
                                     {% else %}
