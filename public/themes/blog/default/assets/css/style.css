@@ -469,7 +469,6 @@ a:hover, a:active {
 }
 
 #wrapper > #content > .menu_right > .bloc {
-  padding: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -480,6 +479,52 @@ a:hover, a:active {
 
 #wrapper > #content > .menu_right > .bloc:nth-child(n + 2) {
   margin-top: 10px;
+}
+
+#wrapper > #content > .menu_right > .bloc > .title {
+  background: #22bb66;
+  color: #FFFFFF;
+  padding: 5px;
+  text-align: center;
+}
+
+#wrapper > #content > .menu_right > .bloc > .content {
+  padding: 5px;
+}
+
+#wrapper > #content > .menu_right > .bloc > .content > .add_email_news > .message {
+  margin-left: 2%;
+  width: 96%;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+#wrapper > #content > .menu_right > .bloc > .content > .add_email_news > .message.success {
+  background: #029c1f;
+  color: #00ff7c;
+  padding: 10px;
+  border: 1px solid #006400;
+}
+
+#wrapper > #content > .menu_right > .bloc > .content > .add_email_news > .message.error {
+  background: #c80013;
+  color: #ff7a6e;
+  padding: 10px;
+  border: 1px solid #8A0000;
+}
+
+#wrapper > #content > .menu_right > .bloc > .content > .add_email_news > input {
+  margin-left: 2%;
+  width: 80%;
+  float: left;
+}
+
+#wrapper > #content > .menu_right > .bloc > .content > .add_email_news > button {
+  height: 41px;
+  width: 16%;
 }
 
 @media only screen and (max-width: 40rem) {
@@ -497,41 +542,6 @@ a:hover, a:active {
     right: 10px;
     margin-right: 12.5%;
   }
-}
-
-#wrapper > #content > .menu_right > .bloc > .add_email_news > .message {
-  margin-left: 2%;
-  width: 96%;
-  padding: 5px;
-  text-align: center;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-}
-
-#wrapper > #content > .menu_right > .bloc > .add_email_news > .message.success {
-  background: #029c1f;
-  color: #00ff7c;
-  padding: 10px;
-  border: 1px solid #006400;
-}
-
-#wrapper > #content > .menu_right > .bloc > .add_email_news > .message.error {
-  background: #c80013;
-  color: #ff7a6e;
-  padding: 10px;
-  border: 1px solid #8A0000;
-}
-
-#wrapper > #content > .menu_right > .bloc > .add_email_news > input {
-  margin-left: 2%;
-  width: 80%;
-  float: left;
-}
-
-#wrapper > #content > .menu_right > .bloc > .add_email_news > button {
-  height: 41px;
-  width: 16%;
 }
 
 #wrapper > #content > .article_list {
@@ -1112,9 +1122,19 @@ a:hover, a:active {
   float: left;
   width: calc(100% - 20px);
   margin: 10px;
-  padding: 15px;
   -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#wrapper > #content .page_content > .title {
+  background: #22bb66;
+  color: #FFFFFF;
+  padding: 15px;
+}
+
+#wrapper > #content .page_content > .content {
+  padding: 15px;
+  border: 1px solid #22bb66;
 }
 
 #wrapper > #content .tabsnavtitle {
@@ -1141,7 +1161,7 @@ a:hover, a:active {
 }
 
 #wrapper > #content .tabsnavtitle > button.active {
-  background-color: #ccc;
+  background-color: #22bb66;
 }
 
 #wrapper > #content .tabsnavcontent .tabsc {
