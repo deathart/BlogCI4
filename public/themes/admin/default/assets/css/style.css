@@ -183,7 +183,7 @@ body {
 }
 
 .right > .content > .title_page > .bread > a {
-  color: white;
+  color: #ffffff;
   font-size: large;
 }
 
@@ -258,7 +258,7 @@ body {
 
 .list-group > li > a {
   text-decoration: none;
-  color: black;
+  color: #000000;
 }
 
 .list-group > li h6 {
@@ -352,7 +352,7 @@ body {
   position: relative;
   pointer-events: all !important;
   background-color: #444444;
-  color: white;
+  color: #ffffff;
 }
 
 .jq-toast-single h2 {
@@ -369,7 +369,7 @@ body {
   color: #eee;
   text-decoration: none;
   font-weight: bold;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #ffffff;
   padding-bottom: 3px;
   font-size: 12px;
 }
@@ -530,8 +530,8 @@ body {
   width: 6px;
   left: 50%;
   cursor: pointer;
-  border: 1px solid black;
-  background: white;
+  border: 1px solid #000000;
+  background: #ffffff;
   opacity: .8;
 }
 
@@ -696,7 +696,7 @@ body {
   left: -1px;
   right: -1px;
   border: 1px solid #000;
-  background: white;
+  background: #ffffff;
   opacity: .8;
 }
 

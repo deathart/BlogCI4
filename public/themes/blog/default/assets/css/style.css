@@ -71,7 +71,7 @@ textarea {
 }
 
 [type='color']:hover, [type='date']:hover, [type='datetime']:hover, [type='datetime-local']:hover, [type='email']:hover, [type='month']:hover, [type='number']:hover, [type='password']:hover, [type='search']:hover, [type='tel']:hover, [type='text']:hover, [type='time']:hover, [type='url']:hover, [type='week']:hover, input:not([type]):hover, textarea:hover {
-  border-color: #b1b1b1;
+  border-color: #22bb66;
 }
 
 [type='color']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='email']:focus, [type='month']:focus, [type='number']:focus, [type='password']:focus, [type='search']:focus, [type='tel']:focus, [type='text']:focus, [type='time']:focus, [type='url']:focus, [type='week']:focus, input:not([type]):focus, textarea:focus {
@@ -130,8 +130,8 @@ select {
 [type="radio"]:focus,
 [type="file"]:focus,
 select:focus {
-  outline: 0px solid rgba(3, 169, 244, 0.6);
-  outline-offset: 0px;
+  outline: 0 solid #22bb66;
+  outline-offset: 0;
 }
 
 a {
@@ -192,7 +192,7 @@ a:hover, a:active {
   -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.15);
           box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.15);
   display: block;
-  background-color: white;
+  background-color: #ffffff;
   position: relative;
   z-index: 10;
 }
@@ -271,7 +271,7 @@ a:hover, a:active {
   left: 0;
   width: 200px;
   display: block;
-  background: white;
+  background: #ffffff;
 }
 
 #wrapper > header > .menu > .main-nav > ul > li.menu-item.menu-item-has-children > ul.sub-menu > li {
@@ -299,7 +299,7 @@ a:hover, a:active {
   text-align: center;
   margin-right: auto;
   margin-left: auto;
-  background-color: white;
+  background-color: #ffffff;
   -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.15);
           box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.15);
 }
@@ -513,14 +513,14 @@ a:hover, a:active {
   background: #029c1f;
   color: #00ff7c;
   padding: 10px;
-  border: 1px solid darkgreen;
+  border: 1px solid #006400;
 }
 
 #wrapper > #content > .menu_right > .bloc > .add_email_news > .message.error {
   background: #c80013;
   color: #ff7a6e;
   padding: 10px;
-  border: 1px solid darkred;
+  border: 1px solid #8A0000;
 }
 
 #wrapper > #content > .menu_right > .bloc > .add_email_news > input {
@@ -793,7 +793,7 @@ a:hover, a:active {
   left: 0;
   width: 100%;
   text-align: center;
-  color: white;
+  color: #ffffff;
 }
 
 #wrapper > #content > .list-cat > .cat_info > .header > .titre > a {
@@ -1340,7 +1340,7 @@ a:hover, a:active {
 }
 
 .recherche_modal > .modal > .content > form > .btn_act > span > i {
-  color: red;
+  color: #ff0000;
 }
 
 .recherche_modal > .modal > .content > form > .btn_act > button {
@@ -2038,7 +2038,7 @@ ul.pagination > li {
 ul.pagination > li.active > a {
   cursor: not-allowed;
   background-color: #21c6d3;
-  color: white;
+  color: #ffffff;
   border: 1px solid #22bb66;
 }
 
@@ -2054,7 +2054,7 @@ ul.pagination > li:last-child > a {
 }
 
 ul.pagination > li > a {
-  color: black;
+  color: #000000;
   float: left;
   padding: 8px 16px;
   text-decoration: none;

@@ -16,7 +16,7 @@ html {
 body {
   font-family: "Open Sans";
   font-size: 16px;
-  color: White;
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -79,11 +79,11 @@ a {
 }
 
 .content .login_form .message.error {
-  background: red;
+  background: #ff0000;
 }
 
 .content .login_form .message.success {
-  background: green;
+  background: #008000;
 }
 
 .content .login_form input {
@@ -149,7 +149,7 @@ a {
   padding: 10px;
   margin: 20px 0;
   background-color: #66A756;
-  color: White;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   -webkit-border-radius: 4px;
