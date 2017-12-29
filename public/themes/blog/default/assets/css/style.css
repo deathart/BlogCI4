@@ -76,8 +76,8 @@ textarea {
 
 [type='color']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='email']:focus, [type='month']:focus, [type='number']:focus, [type='password']:focus, [type='search']:focus, [type='tel']:focus, [type='text']:focus, [type='time']:focus, [type='url']:focus, [type='week']:focus, input:not([type]):focus, textarea:focus {
   border-color: #1a9da7;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(3, 169, 244, 0.7);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(3, 169, 244, 0.7);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px #22bb66;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px #22bb66;
   outline: none;
 }
 
@@ -875,6 +875,7 @@ a:hover, a:active {
   font-weight: 300;
   line-height: 1.42;
   margin-bottom: 14.5px;
+  color: #22bb66;
 }
 
 #wrapper > #content > #article > .title > ul {
@@ -897,6 +898,10 @@ a:hover, a:active {
 
 #wrapper > #content > #article > .title > ul > li a:hover, #wrapper > #content > #article > .title > ul > li a:active {
   color: #21c6d3;
+}
+
+#wrapper > #content > #article > .title > ul > li span {
+  color: #22bb66;
 }
 
 #wrapper > #content > #article > .image {

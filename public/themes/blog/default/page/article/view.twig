@@ -44,12 +44,12 @@
         <div class="title">
             <h2>{{ get_info_article.title }}</h2>
             <ul>
-                <li><strong>{{ trans('article.article_info_publi') }} : </strong>{{ get_info_article.date_created }}</li>
+                <li><strong><i class="fa fa-clock-o" aria-hidden="true"></i> {{ trans('article.article_info_publi') }} : </strong><span>{{ get_info_article.date_created }}</span></li>
                 {% if get_info_article.date_update %}
-                    <li><strong>{{ trans('article.article_info_update') }} : </strong>{{ get_info_article.date_update }}</li>
+                    <li><strong><i class="fa fa-clock-o" aria-hidden="true"></i> {{ trans('article.article_info_update') }} : </strong><span>{{ get_info_article.date_update }}</span></li>
                 {% endif %}
-                <li><strong>{{ trans('article.article_info_cat') }} : </strong>{{ general('TradCat', get_info_article.cat) }}</li>
-                <li><strong><i class="fa fa-eye"></i> {{ trans('article.article_info_view') }}</strong> {{ PostView }}</li>
+                <li><strong><i class="fa fa-list" aria-hidden="true"></i> {{ trans('article.article_info_cat') }} : </strong><span>{{ general('TradCat', get_info_article.cat, '/') }}</span></li>
+                <li><strong><i class="fa fa-eye"></i> {{ trans('article.article_info_view') }} : </strong> <span>{{ PostView }}</span></li>
             </ul>
         </div>
         <div class="image">
