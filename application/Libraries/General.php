@@ -61,10 +61,11 @@ class General
 
     /**
      * @param string $cat
+     * @param array $separator
      *
      * @return string
      */
-    public function TradCat(string $cat): string
+    public function TradCat(string $cat, string $separator = null): string
     {
         $arr = '';
         $piece = explode(';', $cat);
@@ -72,8 +73,8 @@ class General
         foreach ($piece as $k =>$data) {
             $tt = $this->cat_model->GetCatNameAndLink($data);
             $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a>';
-            if ($k != $lastKey) {
-                $arr .= ' | ';
+            if ($separator && $k != $lastKey) {
+                $arr .= '&nbsp;' . $separator . '&nbsp;';
             }
         }
 
