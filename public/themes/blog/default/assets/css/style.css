@@ -652,7 +652,7 @@ a:hover, a:active {
 }
 
 #wrapper > #content > .article_list > .last_tree > ul > li > .desc > h2 > a {
-  color: #000000;
+  color: #22bb66;
   outline: none;
   text-decoration: none;
 }
@@ -660,6 +660,10 @@ a:hover, a:active {
 #wrapper > #content > .article_list > .last_tree > ul > li > .desc > .post_meta {
   font-size: 11px;
   padding: 10px 0;
+}
+
+#wrapper > #content > .article_list > .last_tree > ul > li > .desc > .post_meta i {
+  color: #22bb66;
 }
 
 #wrapper > #content > .article_list > .last_tree > ul > li > .desc > .post_meta a {

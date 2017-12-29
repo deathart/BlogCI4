@@ -2,13 +2,20 @@
 {% block content %}
     <div class="menu_right home">
         <div class="bloc">
-            <h1>{{ info_cat.title }}</h1>
-            <p>{{ info_cat.description }}</p>
+            <div class="title">
+                <h1>{{ info_cat.title }}</h1>
+            </div>
+            <div class="content">
+                {{ info_cat.description }}
+            </div>
         </div>
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
-                <h1>{{ trans('cat.menu_right_pub') }}</h1>
-                <p></p>
+                <div class="title">
+                    <h1>{{ trans('cat.menu_right_pub') }}</h1>
+                </div>
+                <div class="content">
+                </div>
             </div>
         {% endif %}
         {{ pager }}
