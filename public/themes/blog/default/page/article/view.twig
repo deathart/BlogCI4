@@ -3,41 +3,57 @@
     <div class="menu_right article">
         {% if related_article %}
             <div class="bloc">
-                <h1>{{ trans('article.menu_right_similarpost') }}</h1>
-                {% for data in related_article %}
-                    {% if data.id != get_info_article.id and data.published == 1%}
-                        <a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a><br />
-                    {% endif %}
-                {% endfor %}
+                <div class="title">
+                    <h1>{{ trans('article.menu_right_similarpost') }}</h1>
+                </div>
+                <div class="content">
+                    {% for data in related_article %}
+                        {% if data.id != get_info_article.id and data.published == 1%}
+                            <a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a><br />
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         {% endif %}
         {% if 'pub_active'|config == 1 %}
             <div class="bloc" id="pub">
-                <h1>{{ trans('article.menu_right_pub') }}</h1>
-                <p></p>
+                <div class="title">
+                    <h1>{{ trans('article.menu_right_pub') }}</h1>
+                </div>
+                <div class="content">
+                    <p></p>
+                </div>
             </div>
         {% endif %}
         <div class="bloc">
-            <h1>{{ trans('article.menu_right_newsletter') }}</h1>
-            <form class="add_email_news">
-                <input type="email" placeholder="{{ trans('article.menu_right_newsletter_form_input') }}"/>
-                <button type="submit" class="btn">{{ trans('article.menu_right_newsletter_form_btn') }}</button>
-            </form>
+            <div class="title">
+                <h1>{{ trans('article.menu_right_newsletter') }}</h1>
+            </div>
+            <div class="content">
+                <form class="add_email_news">
+                    <input type="email" placeholder="{{ trans('article.menu_right_newsletter_form_input') }}"/>
+                    <button type="submit" class="btn">{{ trans('article.menu_right_newsletter_form_btn') }}</button>
+                </form>
+            </div>
         </div>
         <div class="bloc" id="share">
-            <h1>{{ trans('article.menu_right_share') }}</h1>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
-                <i class="fa fa-facebook"></i> {{ trans('article.menu_right_share_on') }} facebook
-            </a>
-            <a href="https://twitter.com/home?status={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-twitter">
-                <i class="fa fa-twitter"></i> {{ trans('article.menu_right_share_on') }} twitter
-            </a>
-            <a href="https://plus.google.com/share?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-google">
-                <i class="fa fa-google-plus"></i> {{ trans('article.menu_right_share_on') }} google+
-            </a>
-            <a href="http://www.reddit.com/submit?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-reddit">
-                <i class="fa fa-reddit-alien"></i> {{ trans('article.menu_right_share_on') }} reddit
-            </a>
+            <div class="title">
+                <h1>{{ trans('article.menu_right_share') }}</h1>
+            </div>
+            <div class="content">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i> {{ trans('article.menu_right_share_on') }} facebook
+                </a>
+                <a href="https://twitter.com/home?status={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-twitter">
+                    <i class="fa fa-twitter"></i> {{ trans('article.menu_right_share_on') }} twitter
+                </a>
+                <a href="https://plus.google.com/share?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-google">
+                    <i class="fa fa-google-plus"></i> {{ trans('article.menu_right_share_on') }} google+
+                </a>
+                <a href="http://www.reddit.com/submit?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-reddit">
+                    <i class="fa fa-reddit-alien"></i> {{ trans('article.menu_right_share_on') }} reddit
+                </a>
+            </div>
         </div>
     </div>
     <div id="article">
@@ -49,7 +65,7 @@
                     <li><strong><i class="fa fa-clock-o" aria-hidden="true"></i> {{ trans('article.article_info_update') }} : </strong><span>{{ get_info_article.date_update }}</span></li>
                 {% endif %}
                 <li><strong><i class="fa fa-list" aria-hidden="true"></i> {{ trans('article.article_info_cat') }} : </strong><span>{{ general('TradCat', get_info_article.cat, '/') }}</span></li>
-                <li><strong><i class="fa fa-eye"></i> {{ trans('article.article_info_view') }} : </strong> <span>{{ PostView }}</span></li>
+                <li><strong><i class="fa fa-eye"></i> {{ trans('article.article_info_view') }} : </strong> <span>{{ general('CountView', get_info_article.id) }}</span></li>
             </ul>
         </div>
         <div class="image">
