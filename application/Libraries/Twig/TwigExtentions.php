@@ -109,15 +109,15 @@ class TwigExtentions extends Twig_Extension
     }
 
     /**
-     * @param $func
-     * @param $data
+     * @param string $func
+     * @param array $data
      *
      * @return mixed
      */
-    public function functionGeneral($func, $data = null)
+    public function functionGeneral(string $func, ...$data)
     {
-        if ($data != null) {
-            return $this->general->$func($data);
+        if ($data) {
+            return $this->general->$func(...$data);
         }
 
         return $this->general->$func();
@@ -125,6 +125,7 @@ class TwigExtentions extends Twig_Extension
 
     /**
      * @param $content
+     * @param bool $noparse
      *
      * @return mixed|string
      */
