@@ -69,17 +69,17 @@
                 </div>
                 <div class="header-area">
                     <ul class="clean-list social-platforms">
-                        {% if 'btn_facebook_link'|config is not null %}
+                        {% if 'btn_facebook_link'|config is not empty %}
                             <li class="platform">
                                 <a href="https://facebook.com/{{ 'btn_facebook_link'|config }}" target="_blank" class="facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                             </li>
                         {% endif %}
-                        {% if 'btn_twitter_link'|config is not null %}
+                        {% if 'btn_twitter_link'|config is not empty %}
                             <li class="platform">
                                 <a href="https://twitter.com/{{ 'btn_twitter_link'|config }}" target="_blank" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                             </li>
                         {% endif %}
-                        {% if 'btn_googleplus_link'|config is not null %}
+                        {% if 'btn_googleplus_link'|config is not empty %}
                             <li class="platform">
                                 <a href="https://plus.google.com/{{ 'btn_googleplus_link'|config }}" target="_blank" class="googleplus"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
                             </li>
@@ -89,9 +89,11 @@
                 </div>
             </header>
             <div id="content">
-                <div class="annonce">
-                    {{ 'annonce_general'|config }}
-                </div>
+                {% if 'annonce_general'|config is not empty %}
+                    <div class="annonce">
+                        {{ 'annonce_general'|config }}
+                    </div>
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
             <footer>
