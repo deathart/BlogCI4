@@ -72,7 +72,7 @@
             {% endif %}
         {% endfor %}
     </div>
-    {% if 'home_annonce_1'|config %}
+    {% if 'home_annonce_1'|config is not empty %}
         <div class="annonce">{{ 'home_annonce_1'|config }}</div>
     {% endif %}
     <div class="article_last">
@@ -103,7 +103,7 @@
             </div>
         {% endfor %}
     </div>
-    {% if 'home_annonce_2'|config %}
+    {% if 'home_annonce_2'|config is not empty %}
         <div class="annonce">{{ 'home_annonce_2'|config }}</div>
     {% endif %}
 {% endblock %}
