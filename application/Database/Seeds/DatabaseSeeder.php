@@ -28,6 +28,8 @@ class DatabaseSeeder extends \CodeIgniter\Database\Seeder
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('btn_googleplus_link', '')");
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('contact_active', '1')");
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('debug', '0')");
+        $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('theme_blog', 'default')");
+        $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('theme_admin', 'default')");
 
         $this->db->query('INSERT INTO `users` (`username`, `password`, `email`) VALUES (\'admin\', \'$2y$10$YFeHHk2cC1GFPWhw2yQMSeY9DFiFNjsOu3/jGnLzyGBqVqG5sOUDO\', \'contact@blog.dev\')');
 
