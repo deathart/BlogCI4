@@ -1,7 +1,9 @@
 <?php namespace App\Libraries\Twig;
 
 use App\Models\Admin\ConfigModel;
+use Codeigniter\UnknownFileException;
 use Twig_Environment;
+use Twig_Error_Loader;
 use Twig_Loader_Filesystem;
 
 /**
@@ -16,11 +18,6 @@ class Twig
      * @var \Twig_Environment
      */
     private $environment;
-
-    /**
-     * @var array
-     */
-    private $dataconfig = [];
 
     /**
      * @var string
@@ -38,32 +35,34 @@ class Twig
 
         $loader = new Twig_Loader_Filesystem(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $templateFolder . DIRECTORY_SEPARATOR . $config_model->GetConfig('theme_' . $templateFolder));
 
-        if ($config_model->GetConfig('cache') == 'on') {
-            $this->dataconfig[] = [
-                'cache' => WRITEPATH . 'cache',
-                'auto_reload' => true
-            ];
+        if ($config_model->GetConfig('cache') === 'on') {
+            $dataconfig['cache'] = WRITEPATH . 'cache';
+            $dataconfig['auto_reload'] = true;
         }
 
-        $this->dataconfig[] = [
-            'autoescape' => false
-        ];
+        $dataconfig['autoescape'] = false;
 
-        $this->environment = new Twig_Environment($loader, $this->dataconfig);
+        $this->environment = new Twig_Environment($loader, $dataconfig);
 
         $this->environment->addExtension(new TwigExtentions($templateFolder));
     }
 
     /**
-     * @param $file
-     * @param $array
-     * @param string $ext
+     * @param string $file
+     * @param array $array
      *
      * @return string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function Rendered(string $file, array $array): string
     {
-        $template = $this->environment->load('page/' . $file . $this->ext);
+        try {
+            $template = $this->environment->load('page/' . $file . $this->ext);
+        } catch (Twig_Error_Loader $error_Loader) {
+            throw new UnknownFileException($error_Loader);
+        }
 
         return $template->render($array);
     }
