@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f683f07e94189b16a65886c6488aec4",
+    "content-hash": "e7ccd9fcaef803fc04944a5124ec3664",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -541,16 +541,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.4.0",
+            "version": "v1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "9bfa05311d1851db0bbc2ad453c7083b9996b5b4"
+                "reference": "bb652faf69416b56ecdb3f92a16fd49f7c2a1bf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/9bfa05311d1851db0bbc2ad453c7083b9996b5b4",
-                "reference": "9bfa05311d1851db0bbc2ad453c7083b9996b5b4",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/bb652faf69416b56ecdb3f92a16fd49f7c2a1bf7",
+                "reference": "bb652faf69416b56ecdb3f92a16fd49f7c2a1bf7",
                 "shasum": ""
             },
             "require": {
@@ -619,7 +619,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2017-11-28T15:55:13+00:00"
+            "time": "2018-01-02T11:03:32+00:00"
         },
         {
             "name": "psr/container",
