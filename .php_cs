@@ -7,6 +7,7 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
+        '@PHP71Migration' => true,
         'psr4' => true,
         '@PSR2' => true,
         'list_syntax' => ['syntax' => 'short'],

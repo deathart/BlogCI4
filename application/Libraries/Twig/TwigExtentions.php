@@ -39,7 +39,7 @@ class TwigExtentions extends Twig_Extension
     /**
      * @var \Illuminate\Translation\Translator|null
      */
-    private $translator = null;
+    private $translator;
 
     /**
      * TwigExtentions constructor.
