@@ -16,6 +16,9 @@ class Media extends Ajax
      */
     private $media_model;
 
+    /**
+     * @var \App\Libraries\Twig\Twig
+     */
     protected $twig;
 
     /**
@@ -30,6 +33,9 @@ class Media extends Ajax
         $this->twig = new Twig('admin');
     }
 
+    /**
+     *
+     */
     public function modal()
     {
         if ($this->isConnected()) {

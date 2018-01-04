@@ -33,6 +33,7 @@ return PhpCsFixer\Config::create()
         'ternary_to_null_coalescing' => true,
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
-        'whitespace_after_comma_in_array' => true
+        'whitespace_after_comma_in_array' => true,
+        'phpdoc_add_missing_param_annotation' => true
     ])
     ->setFinder($finder);

@@ -2,8 +2,17 @@
 
 use App\Models\Admin\CommentsModel;
 
+/**
+ * Class Comments
+ *
+ * @package App\Controllers\Admin\Ajax
+ */
 class Comments extends Ajax
 {
+
+    /**
+     * @var \App\Models\Admin\CommentsModel
+     */
     protected $comments_model;
 
     /**
@@ -17,6 +26,9 @@ class Comments extends Ajax
         $this->comments_model = new CommentsModel();
     }
 
+    /**
+     *
+     */
     public function valide()
     {
         if ($this->isConnected()) {
@@ -30,6 +42,9 @@ class Comments extends Ajax
         }
     }
 
+    /**
+     *
+     */
     public function refuse()
     {
         if ($this->isConnected()) {

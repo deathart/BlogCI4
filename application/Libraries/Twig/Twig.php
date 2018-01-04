@@ -18,29 +18,38 @@ class Twig
     private $environment;
 
     /**
+     * @var array
+     */
+    private $dataconfig = [];
+
+    /**
+     * @var string
+     */
+    private $ext = '.twig';
+
+    /**
      * Twig constructor.
      *
      * @param $templateFolder
      */
-    public function __construct($templateFolder)
+    public function __construct(string $templateFolder)
     {
         $config_model = new ConfigModel();
 
         $loader = new Twig_Loader_Filesystem(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $templateFolder . DIRECTORY_SEPARATOR . $config_model->GetConfig('theme_' . $templateFolder));
 
-        $dataconfig = [
-            'autoescape' => false
-        ];
-
         if ($config_model->GetConfig('cache') == 'on') {
-            $dataconfig = [
+            $this->dataconfig[] = [
                 'cache' => WRITEPATH . 'cache',
-                'auto_reload' => true,
-                'autoescape' => false
+                'auto_reload' => true
             ];
         }
 
-        $this->environment = new Twig_Environment($loader, $dataconfig);
+        $this->dataconfig[] = [
+            'autoescape' => false
+        ];
+
+        $this->environment = new Twig_Environment($loader, $this->dataconfig);
 
         $this->environment->addExtension(new TwigExtentions($templateFolder));
     }
@@ -52,9 +61,9 @@ class Twig
      *
      * @return string
      */
-    public function Rendered($file, $array, $ext = '.twig'): string
+    public function Rendered(string $file, array $array): string
     {
-        $template = $this->environment->load('page/' . $file . $ext);
+        $template = $this->environment->load('page/' . $file . $this->ext);
 
         return $template->render($array);
     }
