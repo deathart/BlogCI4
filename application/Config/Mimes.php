@@ -288,8 +288,8 @@ class Mimes
     {
         $extension = trim(strtolower($extension), '. ');
 
-        if (! array_key_exists($extension, self::$mimes)) {
-            return null;
+        if (!array_key_exists($extension, self::$mimes)) {
+            return;
         }
 
         return is_array(self::$mimes[$extension]) ? self::$mimes[$extension][0] : self::$mimes[$extension];
@@ -315,8 +315,6 @@ class Mimes
                 return $ext;
             }
         }
-
-        return null;
     }
 
     //--------------------------------------------------------------------

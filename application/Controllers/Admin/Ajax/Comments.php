@@ -5,6 +5,7 @@ use App\Models\Admin\CommentsModel;
 class Comments extends Ajax
 {
     protected $comments_model;
+
     /**
      * Comments constructor.
      *

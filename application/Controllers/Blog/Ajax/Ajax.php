@@ -66,7 +66,7 @@ class Ajax extends Controller
         }
 
         return $this->response->setStatusCode(500)->setContentType('application/json')->setBody(json_encode($data))->send();
-        
+
         exit();
     }
 }

@@ -17,7 +17,7 @@ class Media extends Ajax
     private $media_model;
 
     protected $twig;
-    
+
     /**
      * Media constructor.
      *

@@ -129,6 +129,7 @@ class Application extends Controller
 
         return $this;
     }
+
     /**
      * @param string $file link
      *

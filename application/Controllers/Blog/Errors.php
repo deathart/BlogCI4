@@ -7,7 +7,6 @@
  */
 class Errors extends Application
 {
-
     /**
      * Errors constructor.
      *

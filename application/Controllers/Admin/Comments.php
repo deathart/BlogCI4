@@ -5,6 +5,7 @@ use App\Models\Admin\CommentsModel;
 class Comments extends Application
 {
     protected $comments_model;
+
     public function __construct(...$params)
     {
         parent::__construct(...$params);

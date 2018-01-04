@@ -26,6 +26,7 @@ class CSRFToken
      * @var \CodeIgniter\Session\Session
      */
     private $session;
+
     /**
      * Constructor
      *
@@ -36,6 +37,7 @@ class CSRFToken
         $this->session      = Services::session(new App());
         $this->session_name = $session_name;
     }
+
     /**
      * Getting a token
      *
@@ -52,6 +54,7 @@ class CSRFToken
 
         return $token;
     }
+
     /**
      * Checking the token
      *
@@ -71,6 +74,7 @@ class CSRFToken
 
         return '0';
     }
+
     /**
      * Generate a random string
      *

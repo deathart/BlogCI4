@@ -7,7 +7,6 @@
  */
 class Home extends Application
 {
-
     /**
      * Home constructor.
      *

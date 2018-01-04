@@ -7,7 +7,6 @@
  */
 class Config extends Application
 {
-
     /**
      * Article constructor.
      *

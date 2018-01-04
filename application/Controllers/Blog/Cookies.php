@@ -7,7 +7,6 @@
  */
 class Cookies extends Application
 {
-
     /**
      * Cookies constructor.
      *
