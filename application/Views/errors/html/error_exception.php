@@ -76,7 +76,7 @@
 							<!-- Class/Method -->
 							<?php if (isset($row['class'])) : ?>
 							&nbsp;&nbsp;&mdash;&nbsp;&nbsp;<?= $row['class'].$row['type'].$row['function'] ?>
-							<?php if (! empty($row['args'])) : ?>
+							<?php if (!empty($row['args'])) : ?>
 							<?php $args_id = $error_id.'args'.$index ?>
 							( <a href="#" onclick="return toggle('<?= $args_id ?>');">arguments</a> )
 						<div class="args" id="<?= $args_id ?>">
@@ -103,7 +103,7 @@
 						<?php endif; ?>
 						<?php endif; ?>
 
-						<?php if (! isset($row['class']) && isset($row['function'])) : ?>
+						<?php if (!isset($row['class']) && isset($row['function'])) : ?>
 							&nbsp;&nbsp;&mdash;&nbsp;&nbsp;	<?= $row['function'] ?>()
 						<?php endif; ?>
 						</p>
@@ -124,7 +124,7 @@
 		<!-- Server -->
 		<div class="content" id="server">
 			<?php foreach (['_SERVER', '_SESSION'] as $var) : ?>
-				<?php if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) {
+				<?php if (empty($GLOBALS[$var]) || !is_array($GLOBALS[$var])) {
                                     continue;
                                 } ?>
 
@@ -157,7 +157,7 @@
 
 			<!-- Constants -->
 			<?php $constants = get_defined_constants(true); ?>
-			<?php if (! empty($constants['user'])) : ?>
+			<?php if (!empty($constants['user'])) : ?>
 				<h3>Constants</h3>
 
 				<table>
@@ -172,7 +172,7 @@
 						<tr>
 							<td><?= htmlspecialchars($key, ENT_IGNORE, 'UTF-8') ?></td>
 							<td>
-								<?php if (!is_array($value) && ! is_object($value)) : ?>
+								<?php if (!is_array($value) && !is_object($value)) : ?>
 									<?= htmlspecialchars($value, ENT_SUBSTITUTE, 'UTF-8') ?>
 								<?php else: ?>
 									<?= '<pre>'.print_r($value, true) ?>
@@ -226,7 +226,7 @@
 
 			<?php $empty = true; ?>
 			<?php foreach (['_GET', '_POST', '_COOKIE'] as $var) : ?>
-				<?php if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) {
+				<?php if (empty($GLOBALS[$var]) || !is_array($GLOBALS[$var])) {
                                     continue;
                                 } ?>
 
@@ -246,7 +246,7 @@
 						<tr>
 							<td><?= htmlspecialchars($key, ENT_IGNORE, 'UTF-8') ?></td>
 							<td>
-								<?php if (!is_array($value) && ! is_object($value)) : ?>
+								<?php if (!is_array($value) && !is_object($value)) : ?>
 									<?= htmlspecialchars($value, ENT_SUBSTITUTE, 'UTF-8') ?>
 								<?php else: ?>
 									<?= '<pre>'.print_r($value, true) ?>
@@ -268,7 +268,7 @@
 			<?php endif; ?>
 
 			<?php $headers = $request->getHeaders(); ?>
-			<?php if (! empty($headers)) : ?>
+			<?php if (!empty($headers)) : ?>
 
 				<h3>Headers</h3>
 
@@ -284,7 +284,7 @@
 						<?php if (empty($value)) {
                                     continue;
                                 } ?>
-						<?php if (! is_array($value)) {
+						<?php if (!is_array($value)) {
                                     $value = [$value];
                                 } ?>
 						<?php foreach ($value as $h) : ?>
@@ -314,7 +314,7 @@
 			</table>
 
 			<?php $headers = $response->getHeaders(); ?>
-			<?php if (! empty($headers)) : ?>
+			<?php if (!empty($headers)) : ?>
 				<?php natsort($headers) ?>
 
 				<h3>Headers</h3>
