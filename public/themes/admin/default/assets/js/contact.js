@@ -6,7 +6,7 @@ var Contact = (function() {
 
         var sujet = $("#inputsujet").val();
         var message = $("#inputmessage").val().replace(/\r\n|\r|\n/g, "<br />");
-        var contact_id = $(get).data("contact")
+        var contact_id = $(get).data("contact");
 
         if (sujet && message) {
             $.ajax({

@@ -15,7 +15,7 @@ var Cat = (function() {
                 /[\322-\330]/g, /[\362-\370]/g, // O, o
                 /[\331-\334]/g, /[\371-\374]/g, // U, u
                 /[\321]/g, /[\361]/g, // N, n
-                /[\307]/g, /[\347]/g, // C, c
+                /[\307]/g, /[\347]/g // C, c
             ];
 
             var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
@@ -32,7 +32,7 @@ var Cat = (function() {
 
             link.val(key);
         });
-    }
+    };
 
     that.updatetitlecat = function(get_t) {
         var catid = get_t.data("catid");

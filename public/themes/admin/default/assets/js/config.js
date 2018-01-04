@@ -26,7 +26,6 @@ var Config = (function() {
             cache: false,
             success: function(data) {
                 if (data.code = 1) {
-                    console.log(data)
                     App.NotifToast("success", data.title, data.message);
                 } else {
                     App.NotifToast("error", "Erreur", data.message);

@@ -90,7 +90,7 @@ var BBCode = (function() {
                                 return false;
                             });
 
-                        };
+                        }
 
                     });
 
