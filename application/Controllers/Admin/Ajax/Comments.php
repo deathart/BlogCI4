@@ -21,6 +21,7 @@ class Comments extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->comments_model->valideComments($_POST['id']);
+
                 return $this->responded(['code' => 1, 'title' => 'Commentaire', 'message' => 'Commentaire validé avec success']);
             }
         } else {
@@ -33,6 +34,7 @@ class Comments extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->comments_model->refuseComments($_POST['id']);
+
                 return $this->responded(['code' => 1, 'title' => 'Commentaire', 'message' => 'Commentaire refusé avec success']);
             }
         } else {

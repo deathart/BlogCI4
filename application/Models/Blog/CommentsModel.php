@@ -39,6 +39,7 @@ class CommentsModel extends Model
         $this->comments_table->where('post_id', $id);
         $this->comments_table->where('verified', 1);
         $this->comments_table->orderBy('id', 'DESC');
+
         return $this->comments_table->get()->getResult('array');
     }
 
@@ -52,6 +53,7 @@ class CommentsModel extends Model
         $this->comments_table->select('COUNT(id) as id');
         $this->comments_table->where('post_id', $id);
         $this->comments_table->where('verified', 1);
+
         return $this->comments_table->get()->getRow()->id;
     }
 

@@ -85,6 +85,7 @@ class CSRFToken
         while ($max--) {
             $string .= $chars[random_int(0, $size)];
         }
+
         return $string;
     }
 }

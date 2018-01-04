@@ -1,8 +1,8 @@
 <?php namespace App\Controllers\Blog;
 
 use App\Libraries\Captcha;
-use App\Models\Blog\CommentsModel;
 use App\Models\Blog\ArticleModel;
+use App\Models\Blog\CommentsModel;
 
 /**
  * Class Article

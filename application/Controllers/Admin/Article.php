@@ -1,7 +1,7 @@
 <?php namespace App\Controllers\Admin;
 
-use App\Models\Admin\CatModel;
 use App\Models\Admin\ArticleModel;
+use App\Models\Admin\CatModel;
 
 class Article extends Application
 {
@@ -53,6 +53,7 @@ class Article extends Application
     {
         $this->tpage = "Ajout d'un article";
         $this->data['getcat'] = $this->cat_model->getlist();
+
         return $this->render('article/add', 'Ajouter un article');
     }
 
@@ -68,6 +69,7 @@ class Article extends Application
         $this->data['get_article'] = $this->article_model->GetArticle('id', $id);
         $this->data['getcat'] = $this->cat_model->getlist();
         $this->data['type'] = $type;
+
         return $this->render('article/edit', 'Modification de l\'article');
     }
 
@@ -82,6 +84,7 @@ class Article extends Application
         $this->data['get_list'] = $this->article_model->getArticleListAdmin($id);
         $this->data['type'] = $id;
         $this->tpage = 'Liste des articles';
+
         return $this->render('article/list', 'Liste des articles');
     }
 }

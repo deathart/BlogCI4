@@ -37,6 +37,7 @@ class CommentsModel extends Model
     {
         $this->comments_table->select('COUNT(id) as id');
         $this->comments_table->where('verified', $type);
+
         return $this->comments_table->get()->getRow()->id;
     }
 
@@ -50,6 +51,7 @@ class CommentsModel extends Model
         $this->comments_table->select("comments.*, article.title AS article_title, article.link AS article_slug, DATE_FORMAT(`created_date`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `created_date`");
         $this->comments_table->where('verified', $type);
         $this->comments_table->join('article', 'article.id = comments.post_id', 'left');
+
         return $this->comments_table->get()->getResult();
     }
 
@@ -65,6 +67,7 @@ class CommentsModel extends Model
         ];
         $this->comments_table->where('id', $id);
         $this->comments_table->update($data);
+
         return true;
     }
 
@@ -80,6 +83,7 @@ class CommentsModel extends Model
         ];
         $this->comments_table->where('id', $id);
         $this->comments_table->update($data);
+
         return true;
     }
 }

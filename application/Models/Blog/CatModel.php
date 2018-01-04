@@ -37,6 +37,7 @@ class CatModel extends Model
     {
         $this->cat_table->select();
         $this->cat_table->where('id', $id);
+
         return $this->cat_table->get()->getRow();
     }
 
@@ -49,6 +50,7 @@ class CatModel extends Model
     {
         $this->cat_table->select();
         $this->cat_table->where('id', $id);
+
         return $this->cat_table->get()->getRow();
     }
 
@@ -62,6 +64,7 @@ class CatModel extends Model
     {
         $this->cat_table->select();
         $this->cat_table->where('slug', $slug);
+
         return $this->cat_table->get()->getRow();
     }
 
@@ -73,6 +76,7 @@ class CatModel extends Model
         $this->cat_table->select();
         $this->cat_table->where('parent', '0');
         $this->cat_table->orderBy('id', 'DESC');
+
         return $this->cat_table->get()->getResult('array');
     }
 }

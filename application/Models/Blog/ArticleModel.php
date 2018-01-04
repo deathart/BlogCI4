@@ -44,6 +44,7 @@ class ArticleModel extends Model
     {
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
         $this->article_table->where($column, $data);
+
         return $this->article_table->get()->getRow();
     }
 
@@ -64,6 +65,7 @@ class ArticleModel extends Model
             $this->article_table->limit($limit);
         }
         $this->article_table->orderBy('id', 'DESC');
+
         return $this->article_table->get()->getResult('array');
     }
 
@@ -98,6 +100,7 @@ class ArticleModel extends Model
         $this->article_table->where('published', '1');
         $this->article_table->where('corriged', '1');
         $this->article_table->like('cat', $cat);
+
         return $this->article_table->get()->getRow()->id;
     }
 
@@ -119,6 +122,7 @@ class ArticleModel extends Model
                 'ip'      => $ip
             ];
             $this->article_view_table->insert($data);
+
             return true;
         }
 
@@ -134,6 +138,7 @@ class ArticleModel extends Model
     {
         $this->article_view_table->select('COUNT(id) as id');
         $this->article_view_table->where('post_id', $id);
+
         return $this->article_view_table->get()->getRow()->id;
     }
 
@@ -182,16 +187,15 @@ class ArticleModel extends Model
             $this->article_table->like('keyword', $keyword);
 
             return $this->article_table->get()->getRow()->id;
-        } else {
-            $offset = ($page-1)*$per_page;
-
-            $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
-            $this->article_table->where('published', '1');
-            $this->article_table->like('keyword', $keyword);
-            $this->article_table->orderBy('id', 'DESC');
-            $this->article_table->limit($per_page, $offset);
-
-            return $this->article_table->get()->getResult('array');
         }
+        $offset = ($page-1)*$per_page;
+
+        $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
+        $this->article_table->where('published', '1');
+        $this->article_table->like('keyword', $keyword);
+        $this->article_table->orderBy('id', 'DESC');
+        $this->article_table->limit($per_page, $offset);
+
+        return $this->article_table->get()->getResult('array');
     }
 }

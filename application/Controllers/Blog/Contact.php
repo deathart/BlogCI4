@@ -36,6 +36,7 @@ class Contact extends Application
             return redirect(base_url('errors/404'));
         }
         $this->data['check'] = $this->contact_model->Check($this->request->getIPAddress());
+
         return $this->render('contact/home');
     }
 }

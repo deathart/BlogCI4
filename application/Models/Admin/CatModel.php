@@ -36,6 +36,7 @@ class CatModel extends Model
         $this->cat_table->select();
         $this->cat_table->where('parent', '0');
         $this->cat_table->orderBy('id', 'ASC');
+
         return $this->cat_table->get()->getResult('array');
     }
 
@@ -51,6 +52,7 @@ class CatModel extends Model
         $this->cat_table->set($column, $data);
         $this->cat_table->where('id', $id);
         $this->cat_table->update();
+
         return true;
     }
 

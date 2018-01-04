@@ -37,6 +37,7 @@ class MediaModel extends Model
     {
         $this->medias_table->select();
         $this->medias_table->where('id', $id);
+
         return $this->medias_table->get()->getRow();
     }
 }

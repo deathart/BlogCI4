@@ -74,6 +74,7 @@ class AuthModel extends Model
     {
         $this->user_table->select('username');
         $this->user_table->where('id', $account);
+
         return $this->user_table->get()->getRow()->username;
     }
 
@@ -89,6 +90,7 @@ class AuthModel extends Model
         if ($this->user_table->get()->getRow()->avatar != 'user.png') {
             return 'uploads/avatar/' . $this->user_table->get()->getRow()->avatar;
         }
+
         return 'assets/images/user.png';
     }
 }

@@ -43,6 +43,7 @@ class Pages extends Application
     public function view(string $slug): self
     {
         $this->data['page_info'] = $this->pages_model->GetPage($slug);
+
         return $this->render('pages/view');
     }
 }

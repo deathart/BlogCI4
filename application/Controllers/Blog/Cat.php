@@ -1,7 +1,7 @@
 <?php namespace App\Controllers\Blog;
 
-use App\Models\Blog\CatModel;
 use App\Models\Blog\ArticleModel;
+use App\Models\Blog\CatModel;
 use Config\Services;
 
 /**
@@ -40,6 +40,7 @@ class Cat extends Application
     public function index(): self
     {
         $this->data['get_cat'] = $this->cat_model->GetCat();
+
         return $this->render('cat/home');
     }
 

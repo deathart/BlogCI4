@@ -47,18 +47,19 @@ class Upload extends Ajax
                     $upload = $this->image->upload();
                     if ($upload) {
                         $id_pic = $this->media_model->Add('uploads/' . date('Y') . '/' . date('n') . '/', $this->image->getName() . '.' . $this->image->getMime());
+
                         return $this->responded(['code' => 1, 'title' => 'Uploads', 'message' => 'Image sauvegarder', 'id' => $id_pic, 'slug' => 'uploads/' . date('Y') . '/' . date('n') . '/' . $this->image->getName() . '.' . $this->image->getMime()]);
-                    } else {
-                        return $this->responded(['code' => 0, 'message' => 'Erreur : ' . $this->image['error']]);
                     }
-                } else {
+
                     return $this->responded(['code' => 0, 'message' => 'Erreur : ' . $this->image['error']]);
                 }
-            } else {
-                return $this->responded(['code' => 0]);
+
+                return $this->responded(['code' => 0, 'message' => 'Erreur : ' . $this->image['error']]);
             }
-        } else {
+
             return $this->responded(['code' => 0]);
         }
+
+        return $this->responded(['code' => 0]);
     }
 }

@@ -126,6 +126,7 @@ class ParseArticle
             function ($matches) {
                 if (!$this->noparse) {
                     $content_code = str_replace('<', '&lt;', $matches[2]);
+
                     return '<pre><code class="language-' . $matches[1] . '">' . $content_code . '</code></pre>';
                 }
             },
@@ -142,9 +143,9 @@ class ParseArticle
     {
         if (!$this->noparse) {
             return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $content);
-        } else {
-            return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '$2', $content);
         }
+
+        return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '$2', $content);
     }
 
     /**
@@ -159,14 +160,18 @@ class ParseArticle
             switch ($matchs[1]) {
                 case 'left':
                     $cont = '<div style="text-align: left;">' . $matchs[2] . '</div>';
+
                 break;
                 case 'right':
                     $cont = '<div style="text-align: right;">' . $matchs[2] . '</div>';
+
                 break;
                 case 'center':
                     $cont = '<div style="text-align: center;">' . $matchs[2] . '</div>';
+
                 break;
             }
+
             return $cont;
         }, $content);
     }

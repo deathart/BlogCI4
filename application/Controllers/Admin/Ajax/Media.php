@@ -1,7 +1,7 @@
 <?php namespace App\Controllers\Admin\Ajax;
 
-use App\Models\Admin\MediaModel;
 use App\Libraries\Twig\Twig;
+use App\Models\Admin\MediaModel;
 
 /**
  * Class Media
@@ -38,12 +38,13 @@ class Media extends Ajax
                     'get_all_media' => $this->media_model->Get_All(),
                     'type_modal' => $_POST['type_modal']
                 ];
+
                 return $this->responded(['code' => 1, 'title' => 'Media', 'content' => $this->twig->Rendered('media/modal', $data_ajax)]);
-            } else {
-                return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
             }
-        } else {
-            return $this->responded([]);
+
+            return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
         }
+
+        return $this->responded([]);
     }
 }

@@ -38,6 +38,7 @@ class ArticleModel extends Model
     {
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y &agrave; %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y &agrave; %H:%i:%s') AS `date_update`");
         $this->article_table->where($column, $data);
+
         return $this->article_table->get()->getRow();
     }
 
@@ -49,6 +50,7 @@ class ArticleModel extends Model
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `date_created`, DATE_FORMAT(`date_update`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `date_update`");
         $this->article_table->limit('5');
         $this->article_table->orderBy('id', 'DESC');
+
         return $this->article_table->get()->getResult();
     }
 
@@ -59,6 +61,7 @@ class ArticleModel extends Model
     {
         $this->article_table->select('COUNT(id) as id');
         $this->article_table->where('published', 1);
+
         return $this->article_table->get()->getRow()->id;
     }
 
@@ -71,6 +74,7 @@ class ArticleModel extends Model
         $this->article_table->where('corriged', 0);
         $this->article_table->where('published', 0);
         $this->article_table->where('brouillon', 0);
+
         return $this->article_table->get()->getRow()->id;
     }
 
@@ -82,6 +86,7 @@ class ArticleModel extends Model
         $this->article_table->select('COUNT(id) as id');
         $this->article_table->where('corriged', 1);
         $this->article_table->where('published', 0);
+
         return $this->article_table->get()->getRow()->id;
     }
 
@@ -92,6 +97,7 @@ class ArticleModel extends Model
     {
         $this->article_table->select('COUNT(id) as id');
         $this->article_table->where('brouillon', 1);
+
         return $this->article_table->get()->getRow()->id;
     }
 
@@ -119,6 +125,7 @@ class ArticleModel extends Model
             'keyword'        => $wordkey
         ];
         $this->article_table->insert($data);
+
         return $this->db->insertID();
     }
 
@@ -165,6 +172,7 @@ class ArticleModel extends Model
         $this->article_table->where('id', $id);
         $this->article_table->set('date_update', 'NOW()', false);
         $this->article_table->update($data);
+
         return true;
     }
 

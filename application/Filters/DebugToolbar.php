@@ -1,9 +1,9 @@
 <?php namespace App\Filters;
 
+use App\Models\Admin\ConfigModel;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\Admin\ConfigModel;
 use Config\App;
 use Config\Services;
 

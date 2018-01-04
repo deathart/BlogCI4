@@ -38,6 +38,7 @@ class Captcha
         $second = random_int(0, count($this->calcul) - 1);
         $resultat = $first + $second;
         $this->session->set('captcha_response', $resultat);
+
         return $first . ' + ' . $second;
     }
 
@@ -57,6 +58,7 @@ class Captcha
     public function Remove(): bool
     {
         $this->session->remove('captcha_response');
+
         return true;
     }
 }

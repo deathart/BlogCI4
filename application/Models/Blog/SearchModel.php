@@ -54,6 +54,7 @@ class SearchModel extends Model
                 }
             }
             $this->article_table->orderBy('id', 'DESC');
+
             return $this->article_table->get()->getResult('array');
         } elseif ($type == 2) {
             $this->comments_table->select();
@@ -65,6 +66,7 @@ class SearchModel extends Model
                 }
             }
             $this->comments_table->orderBy('id', 'DESC');
+
             return $this->comments_table->get()->getResult('array');
         }
     }

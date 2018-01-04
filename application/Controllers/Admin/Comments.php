@@ -17,6 +17,7 @@ class Comments extends Application
         $this->data['count_wait'] = $this->comments_model->countComments('0');
         $this->data['count_ok'] = $this->comments_model->countComments('1');
         $this->data['count_no'] = $this->comments_model->countComments('-1');
+
         return $this->render('comments/home');
     }
 
@@ -24,6 +25,7 @@ class Comments extends Application
     {
         $this->tpage = 'Commentaires en attentes de validation';
         $this->data['comments'] = $this->comments_model->getComments('0');
+
         return $this->render('comments/wait');
     }
 
@@ -31,6 +33,7 @@ class Comments extends Application
     {
         $this->tpage = 'Commentaires validés';
         $this->data['comments'] = $this->comments_model->getComments('1');
+
         return $this->render('comments/ok');
     }
 
@@ -38,6 +41,7 @@ class Comments extends Application
     {
         $this->tpage = 'Commentaires refusés';
         $this->data['comments'] = $this->comments_model->getComments('-1');
+
         return $this->render('comments/no');
     }
 }

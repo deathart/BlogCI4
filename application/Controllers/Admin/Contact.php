@@ -33,6 +33,7 @@ class Contact extends Application
     public function index(): self
     {
         $this->tpage = 'Liste des contacts';
+
         return $this->render('contact/home');
     }
 
@@ -43,6 +44,7 @@ class Contact extends Application
     {
         $this->tpage = 'Liste des contacts nouveau';
         $this->data['get_list'] = $this->contact_model->getList(0);
+
         return $this->render('contact/new');
     }
 
@@ -53,6 +55,7 @@ class Contact extends Application
     {
         $this->tpage = 'Liste des contacts fini';
         $this->data['get_list'] = $this->contact_model->getList(1);
+
         return $this->render('contact/finish');
     }
 
@@ -65,6 +68,7 @@ class Contact extends Application
     {
         $this->tpage = 'Envoyez une réponse';
         $this->data['getContact'] = $this->contact_model->getContact($id);
+
         return $this->render('contact/rep');
     }
 }

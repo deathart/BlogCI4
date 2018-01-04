@@ -40,6 +40,7 @@ class PagesModel extends Model
             $this->pages_table->where('active', 1);
         }
         $this->pages_table->orderBy('id', 'DESC');
+
         return $this->pages_table->get()->getResult('array');
     }
 
@@ -52,6 +53,7 @@ class PagesModel extends Model
     {
         $this->pages_table->select();
         $this->pages_table->where('slug', $slug);
+
         return $this->pages_table->get()->getRow();
     }
 

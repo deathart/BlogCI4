@@ -41,6 +41,7 @@ class MediaModel extends Model
             'name' => $name
         ];
         $this->media_table->insert($data);
+
         return $this->db->insertID();
     }
 
@@ -48,6 +49,7 @@ class MediaModel extends Model
     {
         $this->media_table->select("*, DATE_FORMAT(`date`,'Upload le %d-%m-%Y &agrave; %H:%i:%s') AS `date`");
         $this->media_table->orderBy('date', 'DESC');
+
         return $this->media_table->get()->getResult();
     }
 }

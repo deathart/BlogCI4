@@ -34,6 +34,7 @@ class Config extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->config_model->UpdateConfig($_POST['id'], $_POST['key'], $_POST['data']);
+
                 return $this->responded(['code' => 1, 'title' => 'Paramètres', 'message' => 'Les paramêtres on bien été mise à jours']);
             }
         } else {
@@ -49,6 +50,7 @@ class Config extends Ajax
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->config_model->DelConfig($_POST['id']);
+
                 return $this->responded(['code' => 1, 'title' => 'Paramètres', 'message' => 'Paramêtre supprimé avec success']);
             }
         } else {

@@ -37,6 +37,7 @@ class ConfigModel extends Model
     {
         $this->config_table->select('data');
         $this->config_table->where('key', $key);
+
         return $this->config_table->get()->getRow()->data;
     }
 }

@@ -34,6 +34,7 @@ class Config extends Application
     {
         $this->tpage = 'Paramêtres';
         $this->data['getall'] = $this->config_model->GetConfigAll();
+
         return $this->render('config/params');
     }
 }

@@ -1,9 +1,9 @@
 <?php namespace App\Filters;
 
+use App\Libraries\Auth;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Libraries\Auth;
 use Config\App;
 use Config\Services;
 

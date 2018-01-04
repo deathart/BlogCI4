@@ -2,11 +2,11 @@
 
 use App\Libraries\CSRFToken;
 use App\Libraries\Twig\Twig;
+use App\Models\Admin\ConfigModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\Response;
 use Config\App;
 use Config\Services;
-use App\Models\Admin\ConfigModel;
 
 /**
  * Our base controller.
@@ -155,6 +155,7 @@ class Application extends Controller
     public function set_css(string $file)
     {
         $this->css[]['file'] = $file;
+
         return $this;
     }
 
@@ -166,6 +167,7 @@ class Application extends Controller
     public function set_js(string $file)
     {
         $this->js[]['file'] = $file;
+
         return $this;
     }
 
@@ -233,6 +235,7 @@ class Application extends Controller
             $bread .= 'Accueil';
         }
         $bread .= '</div>';
+
         return $bread;
     }
 }

@@ -34,6 +34,7 @@ class Pages extends Application
     {
         $this->tpage = 'Liste des pages';
         $this->data['get_page'] = $this->pages_model->GetPages(false);
+
         return $this->render('pages/home');
     }
 
@@ -46,12 +47,14 @@ class Pages extends Application
     {
         $this->tpage = 'Modification de la page';
         $this->data['page_info'] = $this->pages_model->GetPage($slug);
+
         return $this->render('pages/edit');
     }
 
     public function add(): self
     {
         $this->tpage = 'Ajout d\'une page';
+
         return $this->render('pages/add');
     }
 }

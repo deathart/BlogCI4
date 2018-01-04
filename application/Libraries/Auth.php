@@ -38,10 +38,13 @@ class Auth
                 if ($cookie) {
                     return redirect($_SERVER['REQUEST_URI']);
                 }
+
                 return false;
             }
+
             return true;
         }
+
         return true;
     }
 }

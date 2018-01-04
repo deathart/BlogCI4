@@ -38,6 +38,7 @@ class ContactModel extends Model
         $this->contact_table->select("*, DATE_FORMAT(`date_created`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `date_created`");
         $this->contact_table->where('etat', $etat);
         $this->contact_table->orderBy('id', 'DESC');
+
         return $this->contact_table->get()->getResult();
     }
 
@@ -53,6 +54,7 @@ class ContactModel extends Model
         ];
         $this->contact_table->where('id', $id);
         $this->contact_table->update($data);
+
         return true;
     }
 
@@ -64,6 +66,7 @@ class ContactModel extends Model
     public function del(int $id)
     {
         $this->contact_table->delete(['id' => $id]);
+
         return true;
     }
 
@@ -76,6 +79,7 @@ class ContactModel extends Model
     {
         $this->contact_table->select("*, DATE_FORMAT(`date_created`,'<strong>%d-%m-%Y</strong> &agrave; <strong>%H:%i:%s</strong>') AS `date_created`");
         $this->contact_table->where('id', $id);
+
         return $this->contact_table->get()->getRow();
     }
 }

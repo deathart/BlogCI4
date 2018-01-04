@@ -42,6 +42,7 @@ class Search extends Application
         }
 
         $this->data['val_mc'] = $valeur;
+
         return $this->render('search/home');
     }
 }

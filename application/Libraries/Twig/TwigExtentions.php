@@ -132,6 +132,7 @@ class TwigExtentions extends Twig_Extension
     public function parseBbcode($content, $noparse = false)
     {
         $parse = new ParseArticle();
+
         return $parse->rendered($content, $noparse);
     }
 

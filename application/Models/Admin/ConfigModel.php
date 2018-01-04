@@ -34,6 +34,7 @@ class ConfigModel extends Model
     public function GetConfigAll()
     {
         $this->config_table->select();
+
         return $this->config_table->get()->getResult();
     }
 
@@ -51,6 +52,7 @@ class ConfigModel extends Model
             'key'  => $key,
             'data' => $data
         ]);
+
         return true;
     }
 
@@ -63,6 +65,7 @@ class ConfigModel extends Model
     {
         $this->config_table->where('id', $id);
         $this->config_table->delete();
+
         return true;
     }
 
@@ -75,6 +78,7 @@ class ConfigModel extends Model
     {
         $this->config_table->select('data');
         $this->config_table->where('key', $key);
+
         return $this->config_table->get()->getRow()->data;
     }
 }

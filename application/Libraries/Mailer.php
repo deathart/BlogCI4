@@ -1,9 +1,9 @@
 <?php namespace App\Libraries;
 
 use App\Models\Admin\ConfigModel;
-use Swift_SmtpTransport;
 use Swift_Mailer;
 use Swift_Message;
+use Swift_SmtpTransport;
 
 class Mailer
 {
@@ -55,6 +55,7 @@ class Mailer
             ->setBody($body);
 
         $this->mail->send($message);
+
         return true;
     }
 }

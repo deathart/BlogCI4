@@ -34,6 +34,7 @@ class Cat extends Application
     {
         $this->tpage = 'Liste des categories';
         $this->data['get_cat'] = $this->cat_model->getlist();
+
         return $this->render('cat/list');
     }
 }

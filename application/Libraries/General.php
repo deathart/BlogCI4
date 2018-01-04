@@ -1,10 +1,10 @@
 <?php namespace App\Libraries;
 
+use App\Models\Admin\AuthModel;
+use App\Models\Blog\ArticleModel;
 use App\Models\Blog\CatModel;
 use App\Models\Blog\CommentsModel;
-use App\Models\Blog\ArticleModel;
 use App\Models\Blog\PagesModel;
-use App\Models\Admin\AuthModel;
 use Config\App;
 use Config\Services;
 
