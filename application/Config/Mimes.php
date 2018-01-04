@@ -286,7 +286,7 @@ class Mimes
      */
     public static function guessTypeFromExtension(string $extension)
     {
-        $extension = trim(strtolower($extension), '. ');
+        $extension = strtolower(trim($extension, '. '));
 
         if (!array_key_exists($extension, self::$mimes)) {
             return;
@@ -306,7 +306,7 @@ class Mimes
      */
     public static function guessExtensionFromType(string $type)
     {
-        $type = trim(strtolower($type), '. ');
+        $type = strtolower(trim($type, '. '));
 
         foreach (self::$mimes as $ext => $types) {
             if (is_string($types) && $types == $type) {

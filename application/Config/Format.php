@@ -48,6 +48,8 @@ class Format extends BaseConfig
      * @param string $mime
      *
      * @return \CodeIgniter\Format\FormatterInterface
+     * @throws \BadMethodCallException
+     * @throws \InvalidArgumentException
      */
     public function getFormatter(string $mime)
     {

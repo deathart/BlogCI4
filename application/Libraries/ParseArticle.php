@@ -53,8 +53,7 @@ class ParseArticle
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
 
-        $content = str_replace('[br]', '<br />', $content);
-        $content = str_replace('[hr]', '<hr />', $content);
+        $content = str_replace(['[br]', '[hr]'], ['<br />', '<hr />'], $content);
 
         return $content;
     }

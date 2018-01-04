@@ -31,11 +31,6 @@ class TwigExtentions extends Twig_Extension
      * @var \App\Models\Blog\ConfigModel
      */
     private $Config_model;
-
-    /**
-     * @var string
-     */
-    private $langPath = APPPATH . 'Language';
     /**
      * @var \Illuminate\Translation\Translator|null
      */
@@ -55,7 +50,7 @@ class TwigExtentions extends Twig_Extension
         $this->translator = new Translator(
             new FileLoader(
                 new Filesystem(),
-                $this->langPath
+                APPPATH . 'Language'
             ),
             $this->Config_model->GetConfig('lang') . '/' . $templateFolder . '/'
         );
@@ -158,7 +153,7 @@ class TwigExtentions extends Twig_Extension
      *
      * @return string
      */
-    public function transChoice($id, $number, array $parameters = [], $domain = 'messages', $locale = null)
+    public function transChoice($id, $number, array $parameters = [], $domain = 'messages', $locale = null): string
     {
         return $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
     }

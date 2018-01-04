@@ -39,9 +39,7 @@ class CSRFToken
     }
 
     /**
-     * Getting a token
-     *
-     * @return string Return result
+     * @return array|string
      */
     public function getToken()
     {
@@ -56,11 +54,9 @@ class CSRFToken
     }
 
     /**
-     * Checking the token
+     * @param $token
      *
-     * @param string $token The token to check
-     *
-     * @return boolean Return result
+     * @return bool|string
      */
     public function validateToken($token)
     {
@@ -84,7 +80,7 @@ class CSRFToken
     {
         $chars  = 'qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP';
         $max    = $this->length_random_string;
-        $size   = strlen($chars) - 1;
+        $size   = \strlen($chars) - 1;
         $string = '';
         while ($max--) {
             $string .= $chars[random_int(0, $size)];

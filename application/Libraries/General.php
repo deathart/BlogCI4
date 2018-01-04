@@ -61,7 +61,7 @@ class General
 
     /**
      * @param string $cat
-     * @param array $separator
+     * @param string $separator
      *
      * @return string
      */
@@ -69,7 +69,7 @@ class General
     {
         $arr = '';
         $piece = explode(';', $cat);
-        $lastKey = count($piece) - 1;
+        $lastKey = \count($piece) - 1;
         foreach ($piece as $k =>$data) {
             $tt = $this->cat_model->GetCatNameAndLink($data);
             $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a>';

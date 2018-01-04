@@ -34,8 +34,8 @@ class Captcha
      */
     public function Create(): string
     {
-        $first = random_int(0, count($this->calcul) - 1);
-        $second = random_int(0, count($this->calcul) - 1);
+        $first = random_int(0, \count($this->calcul) - 1);
+        $second = random_int(0, \count($this->calcul) - 1);
         $resultat = $first + $second;
         $this->session->set('captcha_response', $resultat);
 
