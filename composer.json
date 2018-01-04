@@ -18,7 +18,7 @@
 	"require": {
 		"php": ">=7.1",
 		"zendframework/zend-escaper": "2.5.2",
-		"paragonie/sodium_compat": "1.4.0",
+		"paragonie/sodium_compat": "1.5.3",
 		"kint-php/kint": "2.2",
 		"twig/twig": "2.4.4",
 		"samayo/bulletproof": "3.2.0",
