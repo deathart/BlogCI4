@@ -1,14 +1,12 @@
 {
-	"description": "The CodeIgniter framework v4",
-	"name": "codeigniter4/framework",
+	"description": "Blog write with Codeigniter v4dev",
+	"name": "deathart/blogci4",
 	"type": "project",
-	"homepage": "https://codeigniter.com",
+	"homepage": "https://github.com/deathart/BlogCI4",
 	"license": "MIT",
 	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter4/wiki",
-		"slack": "https://codeigniterchat.slack.com",
-		"source": "https://github.com/bcit-ci/CodeIgniter4"
+		"issues": "https://github.com/deathart/BlogCI4/issues",
+		"source": "https://github.com/deathart/BlogCI4"
 	},
 	"autoload": {
 		"psr-4": {
@@ -31,5 +29,12 @@
 			"composer dump-autoload",
 			"CodeIgniter\\ComposerScripts::postUpdate"
 		]
-	}
+	},
+	"authors": [
+		{
+			"name": "deathart",
+			"email": "contact@deathart.fr",
+			"homepage": "https://deathart.fr"
+		}
+	]
 }
