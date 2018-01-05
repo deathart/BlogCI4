@@ -201,7 +201,7 @@ class Application extends Controller
         $h .= '<meta name="twitter:title" content="' . $titre . '" />';
         $h .= '<meta name="twitter:site" content="' . base_url() . '" />';
         $h .= '<meta name="twitter:image" content="' . base_url('assets/images/logo.png') . '" />';
-        $h .= '<meta name="_token" content="'.$this->csrf->getToken().'">';
+        $h .= '<meta name="_token" content="'.$this->csrf->getToken().'" />';
 
         return $h;
     }
