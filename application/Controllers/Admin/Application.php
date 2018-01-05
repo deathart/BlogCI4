@@ -126,7 +126,6 @@ class Application extends Controller
             $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/app.js'));
 
             if ($this->request->uri->getSegment(2) == 'article') {
-                $this->set_css(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/css/article.css'));
                 $this->set_js(base_url('assets/js/spectrum.js'));
                 $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/bbcode.js'));
                 $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/article.js'));
