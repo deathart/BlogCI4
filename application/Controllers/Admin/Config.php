@@ -19,7 +19,7 @@ class Config extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Config
+     * @return \App\Controllers\Admin\Config|string
      */
     public function index(): self
     {
@@ -27,7 +27,7 @@ class Config extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Config
+     * @return \App\Controllers\Admin\Config|string
      */
     public function params(): self
     {

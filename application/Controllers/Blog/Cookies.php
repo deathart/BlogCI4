@@ -19,7 +19,7 @@ class Cookies extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Cookies|string
      */
     public function index(): self
     {

@@ -19,7 +19,7 @@ class Errors extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Errors|string
      */
     public function index(): self
     {
@@ -27,7 +27,7 @@ class Errors extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Errors|string
      */
     public function show_404(): self
     {

@@ -20,6 +20,8 @@ class MediaModel extends Model
      * MediaModel constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -34,7 +36,7 @@ class MediaModel extends Model
      *
      * @return int
      */
-    public function Add(string $slug, string $name)
+    public function Add(string $slug, string $name): int
     {
         $data = [
             'slug' => $slug,

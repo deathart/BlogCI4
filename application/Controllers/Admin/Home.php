@@ -19,7 +19,7 @@ class Home extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Admin\Home|string
      */
     public function index(): self
     {

@@ -44,6 +44,7 @@ class Config extends Ajax
 
     /**
      * @return \CodeIgniter\HTTP\Response
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function delparams()
     {

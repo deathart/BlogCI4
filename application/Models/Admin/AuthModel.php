@@ -20,6 +20,8 @@ class AuthModel extends Model
      * Site constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -39,7 +41,7 @@ class AuthModel extends Model
         $this->user_table->where('email', $email);
         $this->user_table->limit('1');
         $account_id_query = $this->user_table->get()->getRow();
-        if (count($account_id_query) > 0) {
+        if (\count($account_id_query) > 0) {
             return $account_id_query->id;
         }
 

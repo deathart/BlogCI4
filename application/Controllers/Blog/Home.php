@@ -28,7 +28,7 @@ class Home extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Home|string
      */
     public function index(): self
     {

@@ -28,7 +28,7 @@ class Contact extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Contact
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function index(): self
     {
@@ -38,7 +38,7 @@ class Contact extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Contact
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function new(): self
     {
@@ -49,7 +49,7 @@ class Contact extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Contact
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function finish(): self
     {
@@ -62,7 +62,7 @@ class Contact extends Application
     /**
      * @param int $id
      *
-     * @return \App\Controllers\Admin\Contact
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function rep(int $id): self
     {

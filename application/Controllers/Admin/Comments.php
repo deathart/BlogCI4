@@ -28,7 +28,7 @@ class Comments extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Comments
+     * @return \App\Controllers\Admin\Comments|string
      */
     public function index(): self
     {
@@ -40,34 +40,34 @@ class Comments extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Comments
+     * @return \App\Controllers\Admin\Comments|string
      */
     public function wait(): self
     {
         $this->tpage = 'Commentaires en attentes de validation';
-        $this->data['comments'] = $this->comments_model->getComments('0');
+        $this->data['comments'] = $this->comments_model->GetComments('0');
 
         return $this->render('comments/wait');
     }
 
     /**
-     * @return \App\Controllers\Admin\Comments
+     * @return \App\Controllers\Admin\Comments|string
      */
     public function ok(): self
     {
         $this->tpage = 'Commentaires validés';
-        $this->data['comments'] = $this->comments_model->getComments('1');
+        $this->data['comments'] = $this->comments_model->GetComments('1');
 
         return $this->render('comments/ok');
     }
 
     /**
-     * @return \App\Controllers\Admin\Comments
+     * @return \App\Controllers\Admin\Comments|string
      */
     public function no(): self
     {
         $this->tpage = 'Commentaires refusés';
-        $this->data['comments'] = $this->comments_model->getComments('-1');
+        $this->data['comments'] = $this->comments_model->GetComments('-1');
 
         return $this->render('comments/no');
     }

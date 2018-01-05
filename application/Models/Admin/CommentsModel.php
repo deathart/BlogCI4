@@ -20,6 +20,8 @@ class CommentsModel extends Model
      * Site constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -60,7 +62,7 @@ class CommentsModel extends Model
      *
      * @return bool
      */
-    public function valideComments(int $id)
+    public function valideComments(int $id): bool
     {
         $data = [
             'verified' => 1
@@ -76,7 +78,7 @@ class CommentsModel extends Model
      *
      * @return bool
      */
-    public function refuseComments(int $id)
+    public function refuseComments(int $id): bool
     {
         $data = [
             'verified' => '-1'

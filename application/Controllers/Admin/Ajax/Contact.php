@@ -3,10 +3,22 @@
 use App\Libraries\Mailer;
 use App\Models\Admin\ContactModel;
 
+/**
+ * Class Contact
+ *
+ * @package App\Controllers\Admin\Ajax
+ */
 class Contact extends Ajax
 {
+
+    /**
+     * @var \App\Models\Admin\ContactModel
+     */
     protected $contact_model;
 
+    /**
+     * @var \App\Libraries\Mailer
+     */
     protected $mailer;
 
     /**
@@ -21,6 +33,9 @@ class Contact extends Ajax
         $this->mailer = new Mailer();
     }
 
+    /**
+     *
+     */
     public function rep()
     {
         if ($this->isConnected()) {
@@ -36,6 +51,9 @@ class Contact extends Ajax
         }
     }
 
+    /**
+     *
+     */
     public function markedview()
     {
         if ($this->isConnected()) {
@@ -49,6 +67,9 @@ class Contact extends Ajax
         }
     }
 
+    /**
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     */
     public function del()
     {
         if ($this->isConnected()) {

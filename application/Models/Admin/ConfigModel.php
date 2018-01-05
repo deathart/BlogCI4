@@ -20,6 +20,8 @@ class ConfigModel extends Model
      * Site constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -45,7 +47,7 @@ class ConfigModel extends Model
      *
      * @return bool
      */
-    public function UpdateConfig(int $id, string $key, string $data)
+    public function UpdateConfig(int $id, string $key, string $data): bool
     {
         $this->config_table->where('id', $id);
         $this->config_table->update([
@@ -60,8 +62,9 @@ class ConfigModel extends Model
      * @param int $id
      *
      * @return bool
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function DelConfig(int $id)
+    public function DelConfig(int $id): bool
     {
         $this->config_table->where('id', $id);
         $this->config_table->delete();

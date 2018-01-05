@@ -42,7 +42,7 @@ class Article extends Application
     }
 
     /**
-     * @return string
+     * @return \CodeIgniter\HTTP\RedirectResponse
      */
     public function index()
     {
@@ -52,7 +52,10 @@ class Article extends Application
     /**
      * @param string $link
      *
-     * @return string
+     * @return \App\Controllers\Blog\Article|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function View(string $link): self
     {

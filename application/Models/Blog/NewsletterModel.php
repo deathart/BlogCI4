@@ -20,6 +20,8 @@ class NewsletterModel extends Model
      * NewsletterModel constructor.
      *
      * @param array $params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -48,7 +50,7 @@ class NewsletterModel extends Model
      * @param string $ip
      * @param string $email
      *
-     * @return bool
+     * @return mixed
      */
     public function Add(string $ip, string $email)
     {

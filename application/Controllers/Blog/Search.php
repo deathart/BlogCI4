@@ -28,7 +28,7 @@ class Search extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Search|string
      */
     public function index(): self
     {

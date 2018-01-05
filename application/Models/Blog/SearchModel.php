@@ -25,6 +25,8 @@ class SearchModel extends Model
      * SearchModel constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -56,7 +58,9 @@ class SearchModel extends Model
             $this->article_table->orderBy('id', 'DESC');
 
             return $this->article_table->get()->getResult('array');
-        } elseif ($type == 2) {
+        }
+
+        if ($type == 2) {
             $this->comments_table->select();
             $this->comments_table->like('content', $key_delimiter[0]);
 

@@ -35,7 +35,7 @@ class Cat extends Application
     }
 
     /**
-     * @return \App\Controllers\Blog\Cat
+     * @return \App\Controllers\Blog\Cat|string
      */
     public function index(): self
     {
@@ -47,7 +47,7 @@ class Cat extends Application
     /**
      * @param string $slug
      *
-     * @return \App\Controllers\Blog\Cat
+     * @return \App\Controllers\Blog\Cat|string
      */
     public function View(string $slug): self
     {

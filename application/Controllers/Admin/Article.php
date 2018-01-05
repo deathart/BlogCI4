@@ -31,7 +31,7 @@ class Article extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Admin\Article|string
      */
     public function index(): self
     {
@@ -47,7 +47,7 @@ class Article extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Admin\Article|string
      */
     public function add(): self
     {
@@ -61,7 +61,7 @@ class Article extends Application
      * @param int $id id of article
      * @param int $type (1 = publied, 2 = wait corrected, 3 = wait publied, 4 = brouillon)
      *
-     * @return string
+     * @return \App\Controllers\Admin\Article|string
      */
     public function edit(int $id, int $type): self
     {
@@ -76,7 +76,7 @@ class Article extends Application
     /**
      * @param int $id (1 = publied, 2 = wait corrected, 3 = wait publied, 4 = brouillon)
      *
-     * @return string
+     * @return \App\Controllers\Admin\Article|string
      */
     public function list(int $id): self
     {

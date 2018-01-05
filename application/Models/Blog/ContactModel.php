@@ -20,6 +20,8 @@ class ContactModel extends Model
      * Contact constructor.
      *
      * @param array $params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -50,7 +52,7 @@ class ContactModel extends Model
      * @param string $message
      * @param string $ip
      *
-     * @return bool
+     * @return mixed
      */
     public function Add(string $name, string $email, string $sujet, string $message, string $ip)
     {

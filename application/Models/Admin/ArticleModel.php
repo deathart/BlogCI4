@@ -20,6 +20,8 @@ class ArticleModel extends Model
      * ArticleModel constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -179,7 +181,7 @@ class ArticleModel extends Model
     /**
      * @param int $type (1 = publied, 2 = wait corrected, 3 = wait publied, 4 = brouillon)
      *
-     * @return string
+     * @return mixed
      */
     public function getArticleListAdmin(int $type)
     {

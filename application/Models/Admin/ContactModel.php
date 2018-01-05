@@ -20,6 +20,8 @@ class ContactModel extends Model
      * Site constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
@@ -47,7 +49,7 @@ class ContactModel extends Model
      *
      * @return bool
      */
-    public function markedview(int $id)
+    public function markedview(int $id): bool
     {
         $data = [
             'etat' => 1
@@ -62,8 +64,9 @@ class ContactModel extends Model
      * @param int $id
      *
      * @return bool
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function del(int $id)
+    public function del(int $id): bool
     {
         $this->contact_table->delete(['id' => $id]);
 

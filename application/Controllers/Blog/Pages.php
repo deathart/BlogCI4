@@ -28,7 +28,7 @@ class Pages extends Application
     }
 
     /**
-     * @return \App\Controllers\Blog\Pages
+     * @return \App\Controllers\Blog\Pages|string
      */
     public function index(): self
     {
@@ -38,7 +38,7 @@ class Pages extends Application
     /**
      * @param string $slug
      *
-     * @return \App\Controllers\Blog\Pages
+     * @return \App\Controllers\Blog\Pages|string
      */
     public function view(string $slug): self
     {

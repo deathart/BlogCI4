@@ -28,7 +28,7 @@ class Contact extends Application
     }
 
     /**
-     * @return string
+     * @return \App\Controllers\Blog\Contact|string
      */
     public function index(): self
     {

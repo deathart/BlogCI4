@@ -59,7 +59,7 @@ class Ajax extends Controller
      *
      * @return \CodeIgniter\HTTP\Response
      */
-    public function Render(array $data, bool $error = false)
+    public function Render(array $data, bool $error = false): ?Response
     {
         if (!$error) {
             return $this->response->setStatusCode(Response::HTTP_OK)->setContentType('application/json')->setBody(json_encode($data))->send();

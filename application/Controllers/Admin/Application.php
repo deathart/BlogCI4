@@ -102,7 +102,7 @@ class Application extends Controller
      *
      * @return string $this
      */
-    private function base_template()
+    private function base_template(): self
     {
 
         //Set css file
@@ -153,7 +153,7 @@ class Application extends Controller
      *
      * @return string $this
      */
-    public function set_css(string $file)
+    public function set_css(string $file): self
     {
         $this->css[]['file'] = $file;
 
@@ -165,7 +165,7 @@ class Application extends Controller
      *
      * @return string $this
      */
-    public function set_js(string $file)
+    public function set_js(string $file): self
     {
         $this->js[]['file'] = $file;
 
@@ -177,7 +177,7 @@ class Application extends Controller
      *
      * @return string $h return all meta
      */
-    public function meta(string $title)
+    public function meta(string $title): string
     {
         $titre = $title . ' | Administration | ' . $this->config_model->GetConfig('site_title');
 
@@ -196,8 +196,11 @@ class Application extends Controller
      * @param string $title set title page
      *
      * @return string $this
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function render(string $page, string $title = null)
+    public function render(string $page, string $title = null): self
     {
         $this->base_template();
 
@@ -221,7 +224,10 @@ class Application extends Controller
         return $this;
     }
 
-    protected function breadcrumb()
+    /**
+     * @return string
+     */
+    protected function breadcrumb(): string
     {
         $bread = '<div class="bread">';
         if ($this->request->uri->getTotalSegments() >= 2) {

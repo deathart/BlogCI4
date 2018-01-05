@@ -167,7 +167,9 @@ class Application extends Controller
         if ($type == 1) {
             $titre = $this->config_model->GetConfig('site_title') . ' | ' . $this->config_model->GetConfig('site_description');
             $oritype = 'Website';
-        } elseif ($type == 2) {
+        }
+
+        if ($type == 2) {
             $titre = $title . ' | ' . $this->config_model->GetConfig('site_title');
             $oritype = 'Article';
         }
@@ -210,6 +212,9 @@ class Application extends Controller
      * @param string|null $keyword
      *
      * @return string $this
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function render(string $page, string $title = null, string $keyword = null)
     {

@@ -28,7 +28,7 @@ class Pages extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Pages
+     * @return \App\Controllers\Admin\Pages|string
      */
     public function index(): self
     {
@@ -41,7 +41,7 @@ class Pages extends Application
     /**
      * @param string $slug
      *
-     * @return \App\Controllers\Admin\Pages
+     * @return \App\Controllers\Admin\Pages|string
      */
     public function edit(string $slug): self
     {
@@ -51,6 +51,9 @@ class Pages extends Application
         return $this->render('pages/edit');
     }
 
+    /**
+     * @return \App\Controllers\Admin\Pages|string
+     */
     public function add(): self
     {
         $this->tpage = 'Ajout d\'une page';

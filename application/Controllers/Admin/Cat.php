@@ -28,7 +28,7 @@ class Cat extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Cat
+     * @return \App\Controllers\Admin\Cat|string
      */
     public function index(): self
     {
