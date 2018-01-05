@@ -7,12 +7,39 @@ var App = (function() {
     };
 
     that.menu = function() {
-        $('.collapse').on('show.bs.collapse', function() {
+        /*$('.collapse').on('show.bs.collapse', function () {
             $(this).parent().addClass("active");
         });
 
-        $('.collapse').on('hide.bs.collapse', function() {
+        $('.collapse').on('hide.bs.collapse', function () {
             $(this).parent().removeClass("active");
+        });*/
+
+        $('#menu li.active').addClass('active').children('ul').show();
+
+        $('#menu li.has-sub>a').click(function(e) {
+
+            e.preventDefault();
+
+            var element = $(this).parents('li');
+
+            if (element.hasClass('active')) {
+                element.find('ul').slideUp("slow", function() {
+                    element.removeClass('active');
+                    element.find('li').removeClass('active');
+                });
+            } else {
+                element.addClass('active');
+                element.children('ul').slideDown("slow");
+                element.siblings('li').children('ul').slideUp("slow", function() {
+                    element.siblings('li').removeClass('active');
+                    element.siblings('li').find('li').removeClass('active');
+                    element.siblings('li').find('ul').slideUp("slow");
+                });
+            }
+
+            return false;
+
         });
     };
 

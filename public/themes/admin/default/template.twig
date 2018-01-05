@@ -20,105 +20,89 @@
 								</ul>
 							</div>
 						</div>
-						<div class="menu">
+						<div id="menu">
 							<div class="home_dash">
 								<a href="{{ 'admin'|base_url }}">Dashboard</a> - <a href="{{ ''|base_url }}">Blog</a>
 							</div>
-							<div id="exampleAccordion" class="link" data-children=".item">
-								<div class="item {% if '2'|uri_segment == "article" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionArticle" aria-expanded="{% if '2'|uri_segment == "article" %}true{% endif %}" aria-controls="AccordionArticle">
-										Articles
-									</a>
-									<div id="AccordionArticle" class="collapse cont {% if '2'|uri_segment == "article" %}show{% endif %}" role="tabpanel">
-										<ul class="list-unstyled">
-											<li><a href="{{ 'admin/article'|base_url }}">Liste des articles</a></li>
-											<li><a href="{{ 'admin/article/list/2'|base_url }}">Articles en attente de correction</a></li>
-											<li><a href="{{ 'admin/article/list/3'|base_url }}">Articles en attente de publication</a></li>
-											<li><a href="{{ 'admin/article/add'|base_url }}">Ajouter un article</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="item {% if '2'|uri_segment == "cat" %}active{% endif %}">
-									<a class="title" href="{{ 'admin/cat'|base_url }}" aria-expanded="{% if '2'|uri_segment == "cat" %}true{% endif %}" >
-										Catégories
-									</a>
-								</div>
-                                <div class="item {% if '2'|uri_segment == "page" %}active{% endif %}">
-                                    <a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionPages" aria-expanded="{% if '2'|uri_segment == "page" %}true{% endif %}" aria-controls="AccordionPages">
+                            <ul>
+                                <li class="has-sub {% if '2'|uri_segment == "article" %}active{% endif %}">
+                                    <a>
+                                        Articles
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ 'admin/article'|base_url }}">Liste des articles</a></li>
+                                        <li><a href="{{ 'admin/article/list/2'|base_url }}">Articles en attente de correction</a></li>
+                                        <li><a href="{{ 'admin/article/list/3'|base_url }}">Articles en attente de publication</a></li>
+                                        <li><a href="{{ 'admin/article/add'|base_url }}">Ajouter un article</a></li>
+                                    </ul>
+                                </li>
+                                <li class="{% if '2'|uri_segment == "cat" %}active{% endif %}">
+                                    <a href="{{ 'admin/cat'|base_url }}" class="{% if '2'|uri_segment == "cat" %}active{% endif %}" >
+                                        Catégories
+                                    </a>
+                                </li>
+                                <li class="has-sub {% if '2'|uri_segment == "page" %}active{% endif %}">
+                                    <a>
                                         Pages
                                     </a>
-                                    <div id="AccordionPages" class="collapse cont {% if '2'|uri_segment == "page" %}show{% endif %}" role="tabpanel">
-                                        <ul class="list-unstyled">
-                                            <li><a href="{{ 'admin/page'|base_url }}">Liste des pages</a></li>
-                                            <li><a href="{{ 'admin/page/add'|base_url }}">Ajouter une page</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-								<div class="item {% if '2'|uri_segment == "comments" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionComments" aria-expanded="{% if '2'|uri_segment == "comments" %}true{% endif %}" aria-controls="AccordionComments">
-										Commentaires
-									</a>
-									<div id="AccordionComments" class="collapse cont {% if '2'|uri_segment == "comments" %}show{% endif %}" role="tabpanel">
-										<ul class="list-unstyled">
-                                            <li><a href="{{ 'admin/comments'|base_url }}">Liste de toute les commentaires</a></li>
-                                            <li><a href="{{ 'admin/comments/wait'|base_url }}">Commentaires en attentes de validation</a></li>
-											<li><a href="{{ 'admin/comments/ok'|base_url }}">Commentaires validés</a></li>
-											<li><a href="{{ 'admin/comments/no'|base_url }}">Commentaires non validés</a></li>
-										</ul>
-									</div>
-								</div>
-                                <div class="item {% if '2'|uri_segment == "media" %}active{% endif %}">
-                                    <a class="title" href="{{ 'admin/media'|base_url }}" aria-expanded="{% if '2'|uri_segment == "media" %}true{% endif %}" >
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ 'admin/page'|base_url }}">Liste des pages</a></li>
+                                        <li><a href="{{ 'admin/page/add'|base_url }}">Ajouter une page</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub {% if '2'|uri_segment == "comments" %}active{% endif %}">
+                                    <a>
+                                        Commentaires
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ 'admin/comments'|base_url }}">Liste de toute les commentaires</a></li>
+                                        <li><a href="{{ 'admin/comments/wait'|base_url }}">Commentaires en attentes de validation</a></li>
+                                        <li><a href="{{ 'admin/comments/ok'|base_url }}">Commentaires validés</a></li>
+                                        <li><a href="{{ 'admin/comments/no'|base_url }}">Commentaires non validés</a></li>
+                                    </ul>
+                                </li>
+                                <li class="{% if '2'|uri_segment == "media" %}active{% endif %}">
+                                    <a href="{{ 'admin/media'|base_url }}" class="{% if '2'|uri_segment == "media" %}active{% endif %}" >
                                         Médias
                                     </a>
-                                </div>
-								<div class="item {% if '2'|uri_segment == "users" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionUser" aria-expanded="{% if '2'|uri_segment == "users" %}true{% endif %}" aria-controls="AccordionUser">
-										Utilisateurs
-									</a>
-									<div id="AccordionUser" class="collapse cont {% if '2'|uri_segment == "users" %}show{% endif %}" role="tabpanel">
-										<ul class="list-unstyled">
-											<li><a href="{{ 'admin/users/liste'|base_url }}">Liste</a></li>
-											<li><a href="{{ 'admin/users/add'|base_url }}">Créer un utilisateur</a></li>
-											<li><a href="{{ 'admin/users/log'|base_url }}">Logs</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="item {% if '2'|uri_segment == "contact" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionContact" aria-expanded="{% if '2'|uri_segment == "contact" %}true{% endif %}" aria-controls="AccordionContact">
-										Contact
-									</a>
-									<div id="AccordionContact" class="collapse cont {% if '2'|uri_segment == "contact" %}show{% endif %}" role="tabpanel">
-										<ul class="list-unstyled">
-											<li><a href="{{ 'admin/contact/new'|base_url }}">Nouveaux</a></li>
-											<li><a href="{{ 'admin/contact/finish'|base_url }}">Fini</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="item {% if '2'|uri_segment == "config" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionConfig" aria-expanded="{% if '2'|uri_segment == "config" %}true{% endif %}" aria-controls="AccordionConfig">
-										Configuration
-									</a>
-									<div id="AccordionConfig" class="collapse cont {% if '2'|uri_segment == "config" %}show{% endif %}" role="tabpanel">
-										<ul class="list-unstyled">
-											<li><a href="{{ 'admin/config/params'|base_url }}">Paramêtres</a></li>
-											<li><a href="{{ 'admin/config/task'|base_url }}">Tâche</a></li>
-											<li><a href="{{ 'admin/config/db'|base_url }}">DB</a></li>
-											<li><a href="{{ 'admin/config/cache'|base_url }}">Caches</a></li>
-											<li><a href="{{ 'admin/config/log'|base_url }}">Logs</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
+                                </li>
+                                <li class="has-sub {% if '2'|uri_segment == "users" %}active{% endif %}">
+                                    <a>
+                                        Utilisateurs
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ 'admin/users/liste'|base_url }}">Liste</a></li>
+                                        <li><a href="{{ 'admin/users/add'|base_url }}">Créer un utilisateur</a></li>
+                                        <li><a href="{{ 'admin/users/log'|base_url }}">Logs</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub {% if '2'|uri_segment == "contact" %}active{% endif %}">
+                                    <a>
+                                        Contact
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ 'admin/contact/new'|base_url }}">Nouveaux</a></li>
+                                        <li><a href="{{ 'admin/contact/finish'|base_url }}">Fini</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub {% if '2'|uri_segment == "config" %}active{% endif %}">
+                                    <a>
+                                        Configuration
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li><a href="{{ 'admin/config/params'|base_url }}">Paramêtres</a></li>
+                                        <li><a href="{{ 'admin/config/task'|base_url }}">Tâche</a></li>
+                                        <li><a href="{{ 'admin/config/db'|base_url }}">DB</a></li>
+                                        <li><a href="{{ 'admin/config/cache'|base_url }}">Caches</a></li>
+                                        <li><a href="{{ 'admin/config/log'|base_url }}">Logs</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
 						</div>
                     </div>
                 </div>
                 <div class="col-md-10 h-100 ">
                     <div class="right">
-                        <!--<div class="header col-md-10">
-                            <a class="title" href="{{ 'admin'|base_url }}">Accueil</a>
-							<div class="notifs">Notifications</div>
-                        </div>-->
                         <div class="content">
                             <div class="title_page">
                                 {{ breadcrumb }}
