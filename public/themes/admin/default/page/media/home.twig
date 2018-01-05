@@ -1,0 +1,47 @@
+{% extends "template.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 mb-3 p-0">
+        <div class="col-md-12">
+            <div id="pan_cont">
+                <div class="title">
+                    <h2>{{ page_stitle }}</h2>
+                </div>
+                <div class="fin">
+                    <div class="row">
+                        <div class="col-sm-2 col-add-media">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <form method="POST" enctype="multipart/form-data" class="form-add-media">
+                                        <label for="pictures" class="label-add-media"><i class="fa fa-plus" aria-hidden="true"></i></label>
+                                        <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
+                                        <input type="file" id="pictures" name="pictures" accept="image/*" class="input-add-media"/>
+                                        <button type="submit" class="btn btn-secondary btn-add-media">Enregistré</button>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    Max file size : 5M
+                                </div>
+                            </div>
+                        </div>
+                        {% for data in get_all_media %}
+                            <div class="col-sm-2">
+                                <div class="card mb-3">
+                                    <img class="card-img-top" src="{{ (data.slug ~ data.name)|base_url }}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ data.name }}</h4>
+                                        <p class="card-text" style="text-align: center">
+                                            <span class="btn btn-danger remove_img" data-mediaid="{{ data.id }}" data-medianame="{{ data.name }}" data-mediaslug="{{ (data.slug ~ data.name) }}" style="margin-left: auto;margin-right: auto;">Delete</span>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">{{ data.date }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

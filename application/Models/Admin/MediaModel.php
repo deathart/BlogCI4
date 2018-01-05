@@ -47,11 +47,45 @@ class MediaModel extends Model
         return $this->db->insertID();
     }
 
+    /**
+     * @return array|mixed
+     */
     public function Get_All()
     {
         $this->media_table->select("*, DATE_FORMAT(`date`,'Upload le %d-%m-%Y &agrave; %H:%i:%s') AS `date`");
         $this->media_table->orderBy('date', 'DESC');
 
         return $this->media_table->get()->getResult();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function isAlreadyExists(string $name): bool
+    {
+        $this->media_table->select('id');
+        $this->media_table->where('name', $name);
+        $this->media_table->limit('1');
+        $media_id_query = $this->media_table->get()->getRow();
+        if (\count($media_id_query) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     */
+    public function removeMedia(int $id): bool
+    {
+        $this->media_table->delete(['id' => $id]);
+
+        return true;
     }
 }

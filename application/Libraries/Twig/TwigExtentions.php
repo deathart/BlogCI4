@@ -119,9 +119,9 @@ class TwigExtentions extends Twig_Extension
      * @param $id
      * @param array $parameters
      *
-     * @return array|null|string
+     * @return string
      */
-    public function trans($id, array $parameters = [])
+    public function trans($id, array $parameters = []): string
     {
         $folder = 'blog';
 

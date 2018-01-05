@@ -165,7 +165,6 @@ $routes->group('admin', function ($routes) {
 
     $routes->group('media', function ($routes) {
         $routes->add('/', 'Media::index', ['namespace' => 'App\Controllers\Admin']);
-        $routes->add('add', 'Media::add', ['namespace' => 'App\Controllers\Admin']);
     });
 
     $routes->group('users', function ($routes) {
@@ -213,10 +212,10 @@ $routes->group('admin', function ($routes) {
             $routes->post('refuse', 'Comments::refuse', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
-        $routes->post('upload', 'Upload::index', ['namespace' => 'App\Controllers\Admin\Ajax']);
-
         $routes->group('media', function ($routes) {
             $routes->post('modal', 'Media::modal', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('add', 'Media::add_media', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('remove', 'Media::remove_media', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
         $routes->group('contact', function ($routes) {

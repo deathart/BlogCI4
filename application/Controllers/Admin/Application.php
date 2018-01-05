@@ -142,6 +142,8 @@ class Application extends Controller
                 $this->set_js(base_url('assets/js/spectrum.js'));
                 $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/bbcode.js'));
                 $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/page.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'media') {
+                $this->set_js(base_url('themes/admin/' . $this->config_model->GetConfig('theme_admin') . '/assets/js/media.js'));
             }
         }
 

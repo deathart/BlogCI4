@@ -59,28 +59,34 @@ var BBCode = (function() {
                                         }
                                     },
                                     method: "POST",
-                                    url: App.GetBaseUrl() + "admin/ajax/upload",
+                                    url: App.GetBaseUrl() + "admin/ajax/media/add",
                                     data: form_data,
                                     dataType: 'json',
                                     cache: false,
                                     processData: false,
                                     contentType: false,
                                     success: function(data) {
-                                        $(".col-add-media").after('<div class="col-sm-2">\n' +
-                                            '                        <div class="card mb-3">\n' +
-                                            '                            <img class="card-img-top" src="' + App.GetBaseUrl() + '/' + data.slug + '" alt="Card image cap">\n' +
-                                            '                            <div class="card-body">\n' +
-                                            '                                <h4 class="card-title">' + file_data.name + '</h4>\n' +
-                                            '                                <p class="card-text" style="text-align: center">\n' +
-                                            '                                    <span class="btn btn-secondary choice_img_bbcode" data-mediaid="' + data.id + '" data-mediaslug="' + App.GetBaseUrl() + '/' + data.slug + '" style="margin-left: auto;margin-right: auto;">Choisir</span>\n' +
-                                            '                                </p>\n' +
-                                            '                            </div>\n' +
-                                            '                        </div>\n' +
-                                            '                    </div>');
+                                        if (data.code == 1) {
+                                            $(".col-add-media").after('<div class="col-sm-2">\n' +
+                                                '                        <div class="card mb-3">\n' +
+                                                '                            <img class="card-img-top" src="' + App.GetBaseUrl() + '/' + data.slug + '" alt="Card image cap">\n' +
+                                                '                            <div class="card-body">\n' +
+                                                '                                <h4 class="card-title">' + file_data.name + '</h4>\n' +
+                                                '                                <p class="card-text" style="text-align: center">\n' +
+                                                '                                    <span class="btn btn-secondary choice_img_bbcode" data-mediaid="' + data.id + '" data-mediaslug="' + App.GetBaseUrl() + '/' + data.slug + '" style="margin-left: auto;margin-right: auto;">Choisir</span>\n' +
+                                                '                                </p>\n' +
+                                                '                            </div>\n' +
+                                                '                        </div>\n' +
+                                                '                    </div>');
 
-
-                                        App.NotifToast("success", data.title, data.message);
-                                        console.log(data)
+                                            $(".image_name").remove();
+                                            $(".img_form_upload_card").remove();
+                                            $(".btn-add-media").css("display", "none");
+                                            form_data.delete("pictures");
+                                            App.NotifToast("success", data.title, data.message);
+                                        } else {
+                                            App.NotifToast("error", "Erreur", data.message);
+                                        }
                                     },
                                     error: function(data) {
                                         App.NotifToast("error", "Erreur", data.responseText);

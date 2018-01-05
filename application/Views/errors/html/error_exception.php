@@ -1,4 +1,5 @@
 <?php $error_id = uniqid('error', true); ?>
+<?= $exception->getMessage() ?>
 <!doctype html>
 <html>
 <head>

@@ -67,17 +67,11 @@
 										</ul>
 									</div>
 								</div>
-								<div class="item {% if '2'|uri_segment == "media" %}active{% endif %}">
-									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionMedia" aria-expanded="{% if '2'|uri_segment == "media" %}true{% endif %}" aria-controls="AccordionMedia">
-										Médias
-									</a>
-									<div id="AccordionMedia" class="collapse cont {% if '2'|uri_segment == "media" %}show{% endif %}" role="tabpanel">
-										<ul class="list-unstyled">
-											<li><a href="{{ 'admin/media'|base_url }}">Liste des médias</a></li>
-											<li><a href="{{ 'admin/media/add'|base_url }}">Ajouter un media</a></li>
-										</ul>
-									</div>
-								</div>
+                                <div class="item {% if '2'|uri_segment == "media" %}active{% endif %}">
+                                    <a class="title" href="{{ 'admin/media'|base_url }}" aria-expanded="{% if '2'|uri_segment == "media" %}true{% endif %}" >
+                                        Médias
+                                    </a>
+                                </div>
 								<div class="item {% if '2'|uri_segment == "users" %}active{% endif %}">
 									<a class="title" data-toggle="collapse" data-parent="#exampleAccordion" href="#AccordionUser" aria-expanded="{% if '2'|uri_segment == "users" %}true{% endif %}" aria-controls="AccordionUser">
 										Utilisateurs
