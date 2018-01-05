@@ -55,6 +55,8 @@ class ParseArticle
 
         $content = str_replace(['[br]', '[hr]'], ['<br />', '<hr />'], $content);
 
+        $content = nl2br($content);
+
         return $content;
     }
 
