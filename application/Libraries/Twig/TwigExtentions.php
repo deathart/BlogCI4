@@ -4,9 +4,6 @@ use App\Libraries\General;
 use App\Libraries\ParseArticle;
 use App\Models\Blog\ConfigModel;
 use Config\Services;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Translation\FileLoader;
-use Illuminate\Translation\Translator;
 use Twig_Extension;
 use Twig_Filter;
 use Twig_Function;
@@ -31,10 +28,6 @@ class TwigExtentions extends Twig_Extension
      * @var \App\Models\Blog\ConfigModel
      */
     private $Config_model;
-    /**
-     * @var \Illuminate\Translation\Translator|null
-     */
-    private $translator;
 
     /**
      * TwigExtentions constructor.
@@ -47,15 +40,7 @@ class TwigExtentions extends Twig_Extension
         $this->Config_model = new ConfigModel();
         $this->general      = new General();
 
-        $this->translator = new Translator(
-            new FileLoader(
-                new Filesystem(),
-                APPPATH . 'Language'
-            ),
-            $this->Config_model->GetConfig('lang') . '/' . $templateFolder . '/'
-        );
-
-        $this->translator->setFallback($this->Config_model->GetConfig('lang') . '/' . $templateFolder);
+        service('Language', $this->Config_model->GetConfig('lang'));
     }
 
     /**
@@ -78,8 +63,7 @@ class TwigExtentions extends Twig_Extension
         return [
             'general' => new Twig_Function('general', [$this, 'functionGeneral'], ['is_safe' => ['html']]),
             'parse' => new Twig_Function('parse', [$this, 'parseBbcode'], ['is_safe' => ['html']]),
-            'trans' => new Twig_Function('trans', [$this, 'trans'], ['is_safe' => ['html']]),
-            'trans_choice' => new Twig_Function('trans_choice', [$this, 'transChoice'], ['is_safe' => ['html']])
+            'trans' => new Twig_Function('trans', [$this, 'trans'], ['is_safe' => ['html']])
         ];
     }
 
@@ -134,27 +118,17 @@ class TwigExtentions extends Twig_Extension
     /**
      * @param $id
      * @param array $parameters
-     * @param string $domain
-     * @param null $locale
      *
      * @return array|null|string
      */
-    public function trans($id, array $parameters = [], $domain = 'messages', $locale = null)
+    public function trans($id, array $parameters = [])
     {
-        return $this->translator->trans($id, $parameters, $domain, $locale);
-    }
+        $folder = 'blog';
 
-    /**
-     * @param $id
-     * @param $number
-     * @param array $parameters
-     * @param string $domain
-     * @param null $locale
-     *
-     * @return string
-     */
-    public function transChoice($id, $number, array $parameters = [], $domain = 'messages', $locale = null): string
-    {
-        return $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
+        if ($this->request->uri->getSegment(1) == 'admin') {
+            $folder = 'admin';
+        }
+
+        return lang($folder . '/' . $id, $parameters);
     }
 }
