@@ -6,7 +6,7 @@ Configure the `.env` file and `application/config/*.php`
 ```
 composer install
 php spark migrate:latest
-php spark db:seed
+php spark db:seed DatabaseSeeder
 ```
 
 # Admin access
@@ -39,12 +39,14 @@ The list below shows the outstanding ones.
   - ODBC via the *odbc* and *pdo* drivers (you should know that ODBC is actually an abstraction layer)
   
 # TODO
-- [ ] Create new theme
+- [x] Create new theme
 - [ ] Add theme management
 - [ ] Add Users management
-- [ ] Add Medias management
+- [x] Add Medias management
 - [ ] Add translation in admin
 - [ ] Update configuration admin
 - [ ] Add feed system
 - [ ] Add new BBCODE
+- [ ] Optimise SEO
+- [ ] Add Tags manager
 - [ ] Add installer
