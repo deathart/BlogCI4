@@ -19,6 +19,9 @@ class Media extends Application
      * Media constructor.
      *
      * @param array ...$params
+     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     * @throws \InvalidArgumentException
      */
     public function __construct(...$params)
     {

@@ -36,7 +36,9 @@ class Media extends Ajax
     }
 
     /**
-     *
+     * @throws \Twig_Error_Syntax
+     * @throws \Twig_Error_Runtime
+     * @throws \CodeIgniter\UnknownFileException
      */
     public function modal()
     {
@@ -91,7 +93,7 @@ class Media extends Ajax
     }
 
     /**
-     *
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function remove_media()
     {
