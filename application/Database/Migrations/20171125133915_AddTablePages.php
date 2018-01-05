@@ -23,6 +23,6 @@ class Migration_AddTablePages extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('pages');
     }
 }

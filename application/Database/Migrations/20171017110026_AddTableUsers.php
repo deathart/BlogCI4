@@ -23,6 +23,6 @@ class Migration_AddTableUsers extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('users');
     }
 }

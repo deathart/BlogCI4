@@ -21,6 +21,6 @@ class Migration_AddTableArticleView extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('article_view');
     }
 }

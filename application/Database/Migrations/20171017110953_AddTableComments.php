@@ -30,6 +30,6 @@ class Migration_AddTableComments extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('comments');
     }
 }

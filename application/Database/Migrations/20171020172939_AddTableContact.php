@@ -27,6 +27,6 @@ class Migration_AddTableContact extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('contact');
     }
 }

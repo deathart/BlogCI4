@@ -24,6 +24,6 @@ class Migration_AddTableCat extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('cat');
     }
 }
