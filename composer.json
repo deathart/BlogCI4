@@ -21,7 +21,6 @@
 		"paragonie/sodium_compat": "^1.5",
 		"kint-php/kint": "^2.2",
 		"twig/twig": "^2.4",
-		"samayo/bulletproof": "^3.2",
 		"swiftmailer/swiftmailer": "^v6.0"
 	},
 	"require-dev": {

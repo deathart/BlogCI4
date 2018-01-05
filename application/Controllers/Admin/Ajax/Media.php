@@ -2,7 +2,6 @@
 
 use App\Libraries\Twig\Twig;
 use App\Models\Admin\MediaModel;
-use Bulletproof\Image;
 
 /**
  * Class Media
@@ -58,33 +57,31 @@ class Media extends Ajax
     }
 
     /**
-     *
+     * @throws \InvalidArgumentException
      */
     public function add_media()
     {
         if ($this->isConnected()) {
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $image = new Image($_FILES);
-                $image->setSize('100', '100000000');
-                $image->setLocation(FCPATH . 'uploads/' . date('Y') . '/' . date('n'));
-                if ($image['pictures']) {
-                    $name = substr($_FILES['pictures']['name'], 0, strrpos($_FILES['pictures']['name'], '.'));
-                    $image->setName($name);
-                    if (!$this->media_model->isAlreadyExists($image->getName() . '.' . $image->getMime())) {
-                        $upload = $image->upload();
-                        if ($upload) {
-                            $id_pic = $this->media_model->Add('uploads/' . date('Y') . '/' . date('n') . '/', $image->getName() . '.' . $image->getMime());
+                if ($img = $this->request->getFile('pictures')) {
+                    if ($img->isValid() && !$img->hasMoved()) {
+                        $name = $img->getName();
+                        $path = 'uploads/' . date('Y') . '/' . date('n');
+                        if (!$this->media_model->isAlreadyExists($img->getName())) {
+                            if ($img->move(FCPATH . $path, $name, true)) {
+                                $id_pic = $this->media_model->Add('uploads/' . date('Y') . '/' . date('n') . '/', $img->getName());
 
-                            return $this->responded(['code' => 1, 'title' => 'Medias', 'message' => 'Image importée avec success', 'id' => $id_pic, 'slug' => 'uploads/' . date('Y') . '/' . date('n') . '/' . $image->getName() . '.' . $image->getMime()]);
+                                return $this->responded(['code' => 1, 'title' => 'Medias', 'message' => 'Image importée avec success', 'id' => $id_pic, 'slug' => $path  . '/' . $img->getName()]);
+                            }
+
+                            throw $this->responded(['code' => 0, 'message' => 'Erreur : ' .$img->getErrorString().'('.$img->getError().')']);
                         }
 
-                        return $this->responded(['code' => 0, 'message' => 'Erreur : ' . $image['error']]);
+                        return $this->responded(['code' => 0, 'message' => 'Erreur : L\'image existe déjà']);
                     }
 
-                    return $this->responded(['code' => 0, 'message' => 'Erreur : L\'image existe déjà']);
+                    throw $this->responded(['code' => 0, 'message' => 'Erreur : ' .$img->getErrorString().'('.$img->getError().')']);
                 }
-
-                return $this->responded(['code' => 0, 'message' => 'Erreur : ' . $image['error']]);
             }
 
             return $this->responded(['code' => 0]);
