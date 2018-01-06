@@ -39,8 +39,6 @@ class TwigExtentions extends Twig_Extension
         $this->request      = Services::request();
         $this->Config_model = new ConfigModel();
         $this->general      = new General();
-
-        service('Language', $this->Config_model->GetConfig('lang'));
     }
 
     /**
@@ -117,11 +115,11 @@ class TwigExtentions extends Twig_Extension
 
     /**
      * @param $id
-     * @param array $parameters
+     * @param array $params
      *
      * @return string
      */
-    public function trans($id, array $parameters = []): string
+    public function trans($id, array $params = []): string
     {
         $folder = 'blog';
 
@@ -129,6 +127,6 @@ class TwigExtentions extends Twig_Extension
             $folder = 'admin';
         }
 
-        return lang($folder . '/' . $id, $parameters);
+        return lang($folder . '/' . $id, $params, $this->Config_model->GetConfig('lang'));
     }
 }
