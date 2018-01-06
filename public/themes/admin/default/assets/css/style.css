@@ -60,6 +60,10 @@ body {
   color: #ffffff;
 }
 
+.left > #menu {
+  height: 100%;
+}
+
 .left > #menu > .home_dash {
   padding: 15px;
   text-align: center;
@@ -150,6 +154,21 @@ body {
   background-color: #293846;
 }
 
+.left > #menu > .footer {
+  bottom: 0;
+  position: absolute;
+  padding: 5px;
+  font-size: small;
+  color: #a7b1c2;
+  text-align: center;
+  width: 100%;
+}
+
+.left > #menu > .footer > a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
 .right {
   height: 100%;
   /*.header {
@@ -176,8 +195,15 @@ body {
 
 .right > .content > .title_page {
   background: #2f4050;
-  padding: 20px;
+  height: 80px;
+  max-height: 80px;
   color: #ffffff;
+  border-bottom: 2px solid #888888;
+}
+
+.right > .content > .title_page > .bread {
+  font-size: large;
+  padding: 20px;
 }
 
 .right > .content > .title_page > .bread > a {
