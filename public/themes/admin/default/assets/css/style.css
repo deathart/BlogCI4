@@ -77,10 +77,33 @@ body {
 
 .left > #menu a {
   color: #a7b1c2;
+  width: 100%;
 }
 
 .left > #menu ul ul {
   display: none;
+}
+
+.left > #menu > ul > .active > a::after {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.left > #menu > ul > .has-sub > a {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.left > #menu > ul > .has-sub > a::after {
+  margin-left: auto;
+  font-family: FontAwesome;
+  content: '\f061';
+  font-style: normal;
+  font-weight: normal;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .left > #menu > ul .active > a {
