@@ -1,8 +1,10 @@
 # BlogCI4
 I created this blog system with the help of codeigniter v4, thank you for being lenient I'm not a professional developer, this system just helps me to learn more deeply codeigniter but also are style, feel free to help me in this project and tell me what goes and what doesn't go well.
 
-# Installation
-Configure the `.env` file and `application/config/*.php`
+# Installation (An automatic installation will come later on)
+First of all, configure the file `.env` to the root of the folder.
+
+Then execute the following commands : 
 ```
 composer install
 php spark migrate:latest
@@ -16,9 +18,13 @@ contact@blog.dev
 password
 ```
 
+# Themes and languages
+- Themes : To modify or add a new theme, this can be found in the folder: `public/themes/` (Provisional).
+- Languuage : To modify or add a new language, this can be found in the folder: `application/Languages/` (Provisional).
+
 # Server Requirements
 
-[php](http://php.net) version 7.1 or newer is required, with the *intl* extension installed.
+[PHP](http://php.net) version 7.1 or newer is required, with the *intl* extension installed. [Why 7.1](https://gophp71.org/)?
 
 A database is required for most web application programming.
 Currently supported databases are:
@@ -38,7 +44,7 @@ The list below shows the outstanding ones.
   - Interbase/Firebird via the *ibase* and *pdo* drivers
   - ODBC via the *odbc* and *pdo* drivers (you should know that ODBC is actually an abstraction layer)
   
-# TODO
+# TODO (Open to all suggestions)
 - [x] Create new theme
 - [ ] Add theme management
 - [ ] Add Users management
@@ -49,4 +55,9 @@ The list below shows the outstanding ones.
 - [ ] Add new BBCODE
 - [ ] Optimise SEO
 - [ ] Add Tags manager
-- [ ] Add installer
+- [ ] Add installer (and automatic update system)
+- [ ] Create Docs
+- [ ] Create demo
+
+# Issues
+For any problems or suggestions created a new issue (By checking that this issue has not already been created)
