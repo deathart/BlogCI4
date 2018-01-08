@@ -12,7 +12,7 @@ class Migration_AddTableArticleView extends Migration
             'ip' => ['type' => 'VARCHAR', 'constraint' => 250]
         ]);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('article_view');
     }

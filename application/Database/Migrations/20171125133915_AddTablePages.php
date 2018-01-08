@@ -14,7 +14,7 @@ class Migration_AddTablePages extends Migration
             'active' => ['type' => 'INT', 'constraint' => 11, 'default' => 1],
         ]);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('pages');
     }

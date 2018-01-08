@@ -13,7 +13,7 @@ class Migration_AddTableConfig extends Migration
             'type' => ['type' => 'VARCHAR', 'constraint' => 250, 'default' => 'simple']
         ]);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('config');
     }

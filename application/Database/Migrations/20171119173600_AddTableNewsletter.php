@@ -14,7 +14,7 @@ class Migration_AddTableNewsletter extends Migration
 
         $this->forge->addField('date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('newsletter');
     }

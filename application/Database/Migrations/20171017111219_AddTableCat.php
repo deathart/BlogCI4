@@ -15,7 +15,7 @@ class Migration_AddTableCat extends Migration
             'parent' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
         ]);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('cat');
     }

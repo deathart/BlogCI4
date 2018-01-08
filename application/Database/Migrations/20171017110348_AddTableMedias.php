@@ -14,7 +14,7 @@ class Migration_AddTableMedias extends Migration
 
         $this->forge->addField('date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('medias');
     }

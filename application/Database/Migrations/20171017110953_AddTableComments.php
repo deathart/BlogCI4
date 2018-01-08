@@ -21,7 +21,7 @@ class Migration_AddTableComments extends Migration
             'content' => ['type' => 'LONGTEXT'],
         ]);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
 
         $this->forge->createTable('comments');
     }
