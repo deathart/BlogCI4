@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class App
+ *
+ * @package Config
+ */
 class App extends BaseConfig
 {
 

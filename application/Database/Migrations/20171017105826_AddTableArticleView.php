@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTableArticleView
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTableArticleView extends Migration
 {
     public function up()

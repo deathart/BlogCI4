@@ -13,6 +13,11 @@
 | single extension.
 |
 */
+/**
+ * Class Mimes
+ *
+ * @package Config
+ */
 class Mimes
 {
     /**

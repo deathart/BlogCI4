@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Images
+ *
+ * @package Config
+ */
 class Images extends BaseConfig
 {
     /**

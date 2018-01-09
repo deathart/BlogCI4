@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Pager
+ *
+ * @package Config
+ */
 class Pager extends BaseConfig
 {
     /*

@@ -2,6 +2,11 @@
 
 use App\Models\Admin\CatModel;
 
+/**
+ * Class Cat
+ *
+ * @package App\Controllers\Admin\Ajax
+ */
 class Cat extends Ajax
 {
 

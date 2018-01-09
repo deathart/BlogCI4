@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Class DatabaseSeeder
+ */
 class DatabaseSeeder extends \CodeIgniter\Database\Seeder
 {
+    /**
+     * @return mixed|void
+     */
     public function run()
     {
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('site_title', 'Mon blog')");

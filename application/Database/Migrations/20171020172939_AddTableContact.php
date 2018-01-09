@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTableContact
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTableContact extends Migration
 {
     public function up()

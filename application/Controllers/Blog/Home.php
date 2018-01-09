@@ -29,6 +29,9 @@ class Home extends Application
 
     /**
      * @return \App\Controllers\Blog\Home|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {

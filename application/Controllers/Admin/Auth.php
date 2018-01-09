@@ -73,6 +73,9 @@ class Auth extends Application
 
     /**
      * @return \App\Controllers\Admin\Auth|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function Logout(): self
     {

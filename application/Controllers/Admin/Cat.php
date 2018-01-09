@@ -29,6 +29,9 @@ class Cat extends Application
 
     /**
      * @return \App\Controllers\Admin\Cat|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {

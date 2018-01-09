@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Cache
+ *
+ * @package Config
+ */
 class Cache extends BaseConfig
 {
     /*

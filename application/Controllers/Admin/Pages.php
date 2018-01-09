@@ -29,6 +29,9 @@ class Pages extends Application
 
     /**
      * @return \App\Controllers\Admin\Pages|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {
@@ -42,6 +45,9 @@ class Pages extends Application
      * @param string $slug
      *
      * @return \App\Controllers\Admin\Pages|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function edit(string $slug): self
     {
@@ -53,6 +59,9 @@ class Pages extends Application
 
     /**
      * @return \App\Controllers\Admin\Pages|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function add(): self
     {

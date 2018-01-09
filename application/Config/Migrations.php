@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Migrations
+ *
+ * @package Config
+ */
 class Migrations extends BaseConfig
 {
     /*

@@ -29,6 +29,9 @@ class Contact extends Application
 
     /**
      * @return \App\Controllers\Admin\Contact|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {
@@ -39,6 +42,9 @@ class Contact extends Application
 
     /**
      * @return \App\Controllers\Admin\Contact|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function new(): self
     {
@@ -50,6 +56,9 @@ class Contact extends Application
 
     /**
      * @return \App\Controllers\Admin\Contact|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function finish(): self
     {
@@ -63,6 +72,9 @@ class Contact extends Application
      * @param int $id
      *
      * @return \App\Controllers\Admin\Contact|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function rep(int $id): self
     {

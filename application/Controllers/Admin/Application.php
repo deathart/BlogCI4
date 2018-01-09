@@ -100,7 +100,7 @@ class Application extends Controller
     /**
      * Set js & css file
      *
-     * @return string $this
+     * @return \App\Controllers\Admin\Application $this
      */
     private function base_template(): self
     {
@@ -152,7 +152,7 @@ class Application extends Controller
     /**
      * @param string $file link
      *
-     * @return string $this
+     * @return \App\Controllers\Admin\Application $this
      */
     public function set_css(string $file): self
     {
@@ -164,7 +164,7 @@ class Application extends Controller
     /**
      * @param string $file link
      *
-     * @return string $this
+     * @return \App\Controllers\Admin\Application $this
      */
     public function set_js(string $file): self
     {
@@ -196,7 +196,7 @@ class Application extends Controller
      * @param string $page set page
      * @param string $title set title page
      *
-     * @return string $this
+     * @return \App\Controllers\Admin\Application $this
      * @throws \Codeigniter\UnknownFileException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax

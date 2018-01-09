@@ -7,6 +7,11 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Config\App;
 use Config\Services;
 
+/**
+ * Class DebugToolbar
+ *
+ * @package App\Filters
+ */
 class DebugToolbar implements FilterInterface
 {
     /**

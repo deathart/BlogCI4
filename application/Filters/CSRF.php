@@ -5,6 +5,11 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
+/**
+ * Class CSRF
+ *
+ * @package App\Filters
+ */
 class CSRF implements FilterInterface
 {
     /**

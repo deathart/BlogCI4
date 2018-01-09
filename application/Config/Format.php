@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Format
+ *
+ * @package Config
+ */
 class Format extends BaseConfig
 {
     /*

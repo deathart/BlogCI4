@@ -59,6 +59,15 @@ class PagesModel extends Model
         return $this->pages_table->get()->getRow();
     }
 
+    /**
+     * @param int $id
+     * @param string $title
+     * @param string $slug
+     * @param string $content
+     * @param int $active
+     *
+     * @return bool
+     */
     public function Edit(int $id, string $title, string $slug, string $content, int $active): bool
     {
         $data = [
@@ -74,6 +83,14 @@ class PagesModel extends Model
         return true;
     }
 
+    /**
+     * @param string $title
+     * @param string $slug
+     * @param string $content
+     * @param int $active
+     *
+     * @return bool
+     */
     public function Add(string $title, string $slug, string $content, int $active): bool
     {
         $data = [

@@ -3,6 +3,11 @@
 use Config\App;
 use Config\Services;
 
+/**
+ * Class Auth
+ *
+ * @package App\Libraries
+ */
 class Auth
 {
     /**
@@ -22,6 +27,9 @@ class Auth
         helper('cookie');
     }
 
+    /**
+     * @return bool|\CodeIgniter\HTTP\RedirectResponse
+     */
     public function isConnected()
     {
         if (uri_string() != 'admin/auth/login' && uri_string() != 'admin/auth/login_ajax') {

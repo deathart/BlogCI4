@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTableNewsletter
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTableNewsletter extends Migration
 {
     public function up()

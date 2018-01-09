@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTableCat
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTableCat extends Migration
 {
     public function up()

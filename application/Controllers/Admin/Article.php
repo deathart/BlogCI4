@@ -3,6 +3,11 @@
 use App\Models\Admin\ArticleModel;
 use App\Models\Admin\CatModel;
 
+/**
+ * Class Article
+ *
+ * @package App\Controllers\Admin
+ */
 class Article extends Application
 {
     /**
@@ -32,6 +37,9 @@ class Article extends Application
 
     /**
      * @return \App\Controllers\Admin\Article|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {
@@ -48,6 +56,9 @@ class Article extends Application
 
     /**
      * @return \App\Controllers\Admin\Article|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function add(): self
     {
@@ -62,6 +73,9 @@ class Article extends Application
      * @param int $type (1 = publied, 2 = wait corrected, 3 = wait publied, 4 = brouillon)
      *
      * @return \App\Controllers\Admin\Article|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function edit(int $id, int $type): self
     {
@@ -77,6 +91,9 @@ class Article extends Application
      * @param int $id (1 = publied, 2 = wait corrected, 3 = wait publied, 4 = brouillon)
      *
      * @return \App\Controllers\Admin\Article|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function list(int $id): self
     {

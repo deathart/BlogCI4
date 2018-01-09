@@ -7,6 +7,11 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Config\App;
 use Config\Services;
 
+/**
+ * Class Admin
+ *
+ * @package App\Filters
+ */
 class Admin implements FilterInterface
 {
     public function __construct()

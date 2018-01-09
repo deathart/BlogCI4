@@ -29,6 +29,9 @@ class Comments extends Application
 
     /**
      * @return \App\Controllers\Admin\Comments|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {
@@ -41,6 +44,9 @@ class Comments extends Application
 
     /**
      * @return \App\Controllers\Admin\Comments|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function wait(): self
     {
@@ -52,6 +58,9 @@ class Comments extends Application
 
     /**
      * @return \App\Controllers\Admin\Comments|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function ok(): self
     {
@@ -63,6 +72,9 @@ class Comments extends Application
 
     /**
      * @return \App\Controllers\Admin\Comments|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function no(): self
     {

@@ -1,5 +1,10 @@
 <?php namespace Config;
 
+/**
+ * Class Validation
+ *
+ * @package Config
+ */
 class Validation
 {
     //--------------------------------------------------------------------

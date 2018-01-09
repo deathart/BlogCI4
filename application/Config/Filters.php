@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Filters
+ *
+ * @package Config
+ */
 class Filters extends BaseConfig
 {
     // Makes reading things below nicer,

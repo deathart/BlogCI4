@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTableComments
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTableComments extends Migration
 {
     public function up()

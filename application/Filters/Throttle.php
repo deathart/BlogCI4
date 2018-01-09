@@ -5,6 +5,11 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
+/**
+ * Class Throttle
+ *
+ * @package App\Filters
+ */
 class Throttle implements FilterInterface
 {
     /**

@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTablePages
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTablePages extends Migration
 {
     public function up()

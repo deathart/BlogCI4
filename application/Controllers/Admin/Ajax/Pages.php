@@ -2,6 +2,11 @@
 
 use App\Models\Admin\PagesModel;
 
+/**
+ * Class Pages
+ *
+ * @package App\Controllers\Admin\Ajax
+ */
 class Pages extends Ajax
 {
     protected $data = [];
@@ -11,6 +16,11 @@ class Pages extends Ajax
      */
     private $pages_model;
 
+    /**
+     * Pages constructor.
+     *
+     * @param array ...$params
+     */
     public function __construct(...$params)
     {
         parent::__construct(...$params);

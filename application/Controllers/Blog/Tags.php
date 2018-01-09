@@ -32,6 +32,9 @@ class Tags extends Application
      * @param string $tags
      *
      * @return \App\Controllers\Blog\Tags|string
+     * @throws \Codeigniter\UnknownFileException
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function index(string $tags): self
     {

@@ -2,6 +2,11 @@
 
 use App\Models\Admin\ArticleModel;
 
+/**
+ * Class Article
+ *
+ * @package App\Controllers\Admin\Ajax
+ */
 class Article extends Ajax
 {
     protected $data = [];

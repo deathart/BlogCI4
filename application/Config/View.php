@@ -1,5 +1,10 @@
 <?php namespace Config;
 
+/**
+ * Class View
+ *
+ * @package Config
+ */
 class View extends \CodeIgniter\Config\View
 {
     /**

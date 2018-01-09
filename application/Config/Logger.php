@@ -2,6 +2,11 @@
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Logger
+ *
+ * @package Config
+ */
 class Logger extends BaseConfig
 {
     /*

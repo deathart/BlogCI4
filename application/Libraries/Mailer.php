@@ -5,6 +5,11 @@ use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
 
+/**
+ * Class Mailer
+ *
+ * @package App\Libraries
+ */
 class Mailer
 {
 

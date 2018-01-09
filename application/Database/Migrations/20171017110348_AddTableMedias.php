@@ -2,6 +2,11 @@
 
 use CodeIgniter\Database\Migration;
 
+/**
+ * Class Migration_AddTableMedias
+ *
+ * @package App\Database\Migrations
+ */
 class Migration_AddTableMedias extends Migration
 {
     public function up()

@@ -1,5 +1,10 @@
 <?php namespace Config;
 
+/**
+ * Class Email
+ *
+ * @package Config
+ */
 class Email
 {
     /**
