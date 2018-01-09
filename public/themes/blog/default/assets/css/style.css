@@ -535,7 +535,7 @@ a:hover, a:active {
 @media only screen and (min-width: 40rem) {
   #wrapper > #content > .menu_right > .bloc.fixed {
     position: fixed;
-    top: 0;
+    top: 90px;
     float: left;
     width: calc(25% - 10px);
     right: 10px;
