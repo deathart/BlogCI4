@@ -52,7 +52,7 @@ The list below shows the outstanding ones.
 - [ ] Add translation in admin
 - [ ] Update configuration admin
 - [ ] Add feed system
-- [ ] Add new BBCODE
+- [x] Add new BBCODE
 - [ ] Optimise SEO
 - [ ] Add Tags manager
 - [ ] Add installer (and automatic update system)
