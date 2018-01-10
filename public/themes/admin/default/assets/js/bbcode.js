@@ -173,6 +173,9 @@ var BBCode = (function() {
                 case "media":
                     that.media(textareaId);
                     break;
+                case "youtube":
+                    that.insertTag("[youtube]", "[/youtube]", "source", textareaId);
+                    break;
                 case "source":
                     that.insertTag("[source url=\"\"]", "[/source]", "source", textareaId);
                     break;

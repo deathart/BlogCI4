@@ -48,7 +48,7 @@ class ParseArticle
         $content = $this->parse_code($content);
         $content = $this->parse_htmlbasic($content);
         $content = $this->parse_header($content);
-        $content = $this->parse_img($content);
+        $content = $this->parse_media($content);
         $content = $this->parse_href($content);
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
@@ -64,9 +64,9 @@ class ParseArticle
      *
      * @return mixed
      */
-    protected function parse_img(string $content): string
+    protected function parse_media(string $content): string
     {
-        return preg_replace_callback(
+        $content = preg_replace_callback(
             '`\[img id="(.+)" width="(.+)" height="(.+)"\]`isU',
             function ($matches) {
                 $get_info = $this->media->get_link($matches[1]);
@@ -84,6 +84,20 @@ class ParseArticle
             },
             $content
         );
+
+        $content = preg_replace_callback(
+            '`\[youtube](.*)\[/youtube\]`siU',
+            function ($matches) {
+                if (!$this->noparse) {
+                    $url = str_replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/', $matches[1]);
+
+                    return '<iframe width="560" height="315" src="' . $url . '" frameborder="0" allowfullscreen></iframe>';
+                }
+            },
+            $content
+        );
+
+        return $content;
     }
 
     /**
@@ -186,6 +200,11 @@ class ParseArticle
         return preg_replace('#\[color="(.*)"\](.*)\[/color\]#siU', '<span style="color: $1;">$2</span>', $content);
     }
 
+    /**
+     * @param string $content
+     *
+     * @return string
+     */
     protected function parse_source(string $content): string
     {
         return preg_replace_callback(
