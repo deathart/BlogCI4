@@ -1140,19 +1140,19 @@ a:hover, a:active {
   border: 1px solid #22bb66;
 }
 
-#wrapper > #content > .page_content .contact > .group-inline {
+#wrapper > #content > .page_content > .content .contact > .group-inline {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
-#wrapper > #content > .page_content .contact > .group-inline:after {
+#wrapper > #content > .page_content > .content .contact > .group-inline:after {
   content: " ";
   display: block;
   clear: both;
 }
 
-#wrapper > #content > .page_content .contact > .group-inline > label {
+#wrapper > #content > .page_content > .content .contact > .group-inline > label {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 12.5%;
@@ -1160,14 +1160,14 @@ a:hover, a:active {
   padding: 0.5;
 }
 
-#wrapper > #content > .page_content .contact > .group-inline > input {
+#wrapper > #content > .page_content > .content .contact > .group-inline > input {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 87.5%;
   float: right;
 }
 
-#wrapper > #content > .page_content .contact > .group-inline > textarea {
+#wrapper > #content > .page_content > .content .contact > .group-inline > textarea {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 87.5%;
@@ -1175,14 +1175,14 @@ a:hover, a:active {
   min-height: 200px;
 }
 
-#wrapper > #content > .page_content > .tabsnavtitle {
+#wrapper > #content > .page_content > .content > .tabsnavtitle {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
   margin-top: 1%;
 }
 
-#wrapper > #content > .page_content > .tabsnavtitle > button {
+#wrapper > #content > .page_content > .content > .tabsnavtitle > button {
   background-color: inherit;
   float: left;
   border: none;
@@ -1194,15 +1194,15 @@ a:hover, a:active {
   font-size: 17px;
 }
 
-#wrapper > #content > .page_content > .tabsnavtitle > button:hover {
+#wrapper > #content > .page_content > .content > .tabsnavtitle > button:hover {
   background-color: #ddd;
 }
 
-#wrapper > #content > .page_content > .tabsnavtitle > button.active {
+#wrapper > #content > .page_content > .content > .tabsnavtitle > button.active {
   background-color: #22bb66;
 }
 
-#wrapper > #content > .page_content > .tabsnavcontent .tabsc {
+#wrapper > #content > .page_content > .content > .tabsnavcontent .tabsc {
   display: none;
   -webkit-animation: fadeEffect 1s;
   animation: fadeEffect 1s;
@@ -1210,7 +1210,7 @@ a:hover, a:active {
   padding: 5px;
 }
 
-#wrapper > #content > .page_content > .tabsnavcontent .show {
+#wrapper > #content > .page_content > .content > .tabsnavcontent .show {
   display: block;
 }
 
