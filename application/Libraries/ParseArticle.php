@@ -25,49 +25,54 @@ class ParseArticle
      */
     private $replace = ['<strong>$1</strong>', '<em>$1</em>', '<u>$1</u>', '<del>$1</del>', '<ul>$1</ul>', '<li>$1</li>', '<blockquote>$1</blockquote>'];
 
+    /**
+     * @var string
+     */
+    public $content;
+    /**
+     * @var bool
+     */
     private $noparse;
 
     /**
      * ParseArticle constructor.
+     *
+     * @param string $content
+     * @param bool $noparse
      */
-    public function __construct()
+    public function __construct(string $content, bool $noparse)
     {
+        $this->content = $content;
+        $this->noparse = $noparse;
         $this->media = new MediaModel();
     }
 
     /**
-     * @param string $content
-     * @param bool $noparse
-     *
-     * @return mixed|string
+     * @return string
      */
-    public function rendered(string $content, bool $noparse): string
+    public function rendered(): string
     {
-        $this->noparse = $noparse;
+        $this->content = $this->parse_code();
+        $this->content = $this->parse_htmlbasic();
+        $this->content = $this->parse_header();
+        $this->content = $this->parse_media();
+        $this->content = $this->parse_href();
+        $this->content = $this->parse_color();
+        $this->content = $this->parse_align();
+        $this->content = $this->parse_source();
+        $this->content = $this->parse_alert();
 
-        $content = $this->parse_code($content);
-        $content = $this->parse_htmlbasic($content);
-        $content = $this->parse_header($content);
-        $content = $this->parse_media($content);
-        $content = $this->parse_href($content);
-        $content = $this->parse_color($content);
-        $content = $this->parse_align($content);
-        $content = $this->parse_source($content);
-        $content = $this->parse_alert($content);
+        $this->content = str_replace(['[br]', '[hr]', "\n", "\r"], ['<br />', '<hr />', '<br />', ''], $this->content);
 
-        $content = str_replace(['[br]', '[hr]', "\n", "\r"], ['<br />', '<hr />', '<br />', ''], $content);
-
-        return $content;
+        return $this->content;
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
+     * @return string
      */
-    protected function parse_media(string $content): string
+    private function parse_media(): string
     {
-        $content = preg_replace_callback(
+        $this->content = preg_replace_callback(
             '`\[img id="(.+)" width="(.+)" height="(.+)"\]`isU',
             function ($matches) {
                 $get_info = $this->media->get_link($matches[1]);
@@ -83,10 +88,10 @@ class ParseArticle
                     return '<img name="' . $get_info->name . '" src="' . base_url($get_info->slug . '/' . $get_info->name) . '" style="width: ' . $width . 'px;height: ' . $height . 'px;" />';
                 }
             },
-            $content
+            $this->content
         );
 
-        $content = preg_replace_callback(
+        $this->content = preg_replace_callback(
             '`\[youtube](.*)\[/youtube\]`siU',
             function ($matches) {
                 if (!$this->noparse) {
@@ -95,18 +100,16 @@ class ParseArticle
                     return '<iframe width="560" height="315" src="' . $url . '" frameborder="0" allowfullscreen></iframe>';
                 }
             },
-            $content
+            $this->content
         );
 
-        return $content;
+        return $this->content;
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
+     * @return string
      */
-    protected function parse_href(string $content): string
+    private function parse_href(): string
     {
         return preg_replace_callback(
             '`\[link="(.*)"\](.*)\[/link\]`siU',
@@ -115,60 +118,52 @@ class ParseArticle
                     return '<a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a>';
                 }
             },
-            $content
+            $this->content
         );
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
+     * @return string
      */
-    protected function parse_htmlbasic(string $content): string
+    private function parse_htmlbasic(): string
     {
-        return preg_replace($this->search, $this->replace, $content);
+        return preg_replace($this->search, $this->replace, $this->content);
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
+     * @return string
      */
-    protected function parse_code(string $content): string
+    private function parse_code(): string
     {
         return preg_replace_callback(
             '`\[code="(.*)"\](.*)\[/code\]`siU',
             function ($matches) {
                 if (!$this->noparse) {
-                    $content_code = str_replace('<', '&lt;', $matches[2]);
+                    $this->content_code = str_replace('<', '&lt;', $matches[2]);
 
-                    return '<pre><code class="language-' . $matches[1] . '">' . $content_code . '</code></pre>';
+                    return '<pre><code class="language-' . $matches[1] . '">' . $this->content_code . '</code></pre>';
                 }
             },
-            $content
+            $this->content
         );
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
+     * @return string
      */
-    protected function parse_header(string $content): string
+    private function parse_header(): string
     {
         if (!$this->noparse) {
-            return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $content);
+            return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '<$1>$2</$1>', $this->content);
         }
 
-        return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '$2', $content);
+        return preg_replace('#\[header="(.*)"\](.*)\[/header\]#siU', '$2', $this->content);
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
+     * @return string
      */
-    protected function parse_align(string $content): string
+    private function parse_align(): string
     {
         return preg_replace_callback('#\[align="(.*)"\](.*)\[/align\]#siU', function ($matchs) {
             $cont = '';
@@ -188,25 +183,21 @@ class ParseArticle
             }
 
             return $cont;
-        }, $content);
+        }, $this->content);
     }
 
     /**
-     * @param string $content
-     *
-     * @return mixed
-     */
-    protected function parse_color(string $content): string
-    {
-        return preg_replace('#\[color="(.*)"\](.*)\[/color\]#siU', '<span style="color: $1;">$2</span>', $content);
-    }
-
-    /**
-     * @param string $content
-     *
      * @return string
      */
-    protected function parse_source(string $content): string
+    private function parse_color(): string
+    {
+        return preg_replace('#\[color="(.*)"\](.*)\[/color\]#siU', '<span style="color: $1;">$2</span>', $this->content);
+    }
+
+    /**
+     * @return string
+     */
+    private function parse_source(): string
     {
         return preg_replace_callback(
             '`\[source url="(.*)"\](.*)\[/source\]`siU',
@@ -215,26 +206,23 @@ class ParseArticle
                     return '<div class="source">Source : <a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a></div>';
                 }
             },
-            $content
+            $this->content
         );
     }
 
     /**
-     * @param string $content
-     *
      * @return string
      */
-    protected function parse_alert(string $content): string
+    private function parse_alert(): string
     {
         return preg_replace_callback(
             '`\[alert="(.*)"\](.*)\[/alert\]`siU',
             function ($matches) {
                 if (!$this->noparse) {
                     return '<div class="alert ' . $matches[1] . '">' . $matches[2] . '</div>';
-                    //return '<pre><code class="language-' . $matches[1] . '">' . $content_code . '</code></pre>';
                 }
             },
-            $content
+            $this->content
         );
     }
 }
