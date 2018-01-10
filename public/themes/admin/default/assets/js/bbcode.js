@@ -174,7 +174,7 @@ var BBCode = (function() {
                     that.media(textareaId);
                     break;
                 case "source":
-                    that.insertTag("[source]", "[/source]", "source", textareaId);
+                    that.insertTag("[source url=\"\"]", "[/source]", "source", textareaId);
                     break;
             }
         });

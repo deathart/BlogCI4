@@ -52,6 +52,7 @@ class ParseArticle
         $content = $this->parse_href($content);
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
+        $content = $this->parse_source($content);
 
         $content = str_replace(['[br]', '[hr]', "\n", "\r"], ['<br />', '<hr />', '<br />', ''], $content);
 
@@ -183,5 +184,18 @@ class ParseArticle
     protected function parse_color(string $content): string
     {
         return preg_replace('#\[color="(.*)"\](.*)\[/color\]#siU', '<span style="color: $1;">$2</span>', $content);
+    }
+
+    protected function parse_source(string $content): string
+    {
+        return preg_replace_callback(
+            '`\[source url="(.*)"\](.*)\[/source\]`siU',
+            function ($matches) {
+                if (!$this->noparse) {
+                    return '<div class="source">Source : <a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a></div>';
+                }
+            },
+            $content
+        );
     }
 }
