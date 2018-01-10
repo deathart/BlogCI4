@@ -9,7 +9,7 @@ var BBCode = (function() {
         var end = textArea[0].selectionEnd;
         var selectedText = textArea.val().substring(start, end);
         var replacement = openTag + selectedText + closeTag;
-        textArea.val(textArea.val().substring(0, start) + replacement + textArea.val().substring(end, len));
+        textArea.val(textArea.val().substring(0, start) + replacement + textArea.val().substring(end));
     };
 
     that.media = function(textarea) {
