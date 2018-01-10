@@ -170,11 +170,15 @@ var BBCode = (function() {
                     var code_lang = $(this).data("code");
                     that.insertTag("[code=\"" + code_lang + "\"]", "[/code]", "code", textareaId);
                     break;
+                case "alert":
+                    var code_alert = $(this).data("alert");
+                    that.insertTag("[alert=\"" + code_alert + "\"]", "[/alert]", "alert", textareaId);
+                    break;
                 case "media":
                     that.media(textareaId);
                     break;
                 case "youtube":
-                    that.insertTag("[youtube]", "[/youtube]", "source", textareaId);
+                    that.insertTag("[youtube]", "[/youtube]", "youtube", textareaId);
                     break;
                 case "source":
                     that.insertTag("[source url=\"\"]", "[/source]", "source", textareaId);

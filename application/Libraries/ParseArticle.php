@@ -53,6 +53,7 @@ class ParseArticle
         $content = $this->parse_color($content);
         $content = $this->parse_align($content);
         $content = $this->parse_source($content);
+        $content = $this->parse_alert($content);
 
         $content = str_replace(['[br]', '[hr]', "\n", "\r"], ['<br />', '<hr />', '<br />', ''], $content);
 
@@ -212,6 +213,25 @@ class ParseArticle
             function ($matches) {
                 if (!$this->noparse) {
                     return '<div class="source">Source : <a href="' . $matches[1] . '" target="_blank" rel="nofollow">' . $matches[2] . '</a></div>';
+                }
+            },
+            $content
+        );
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return string
+     */
+    protected function parse_alert(string $content): string
+    {
+        return preg_replace_callback(
+            '`\[alert="(.*)"\](.*)\[/alert\]`siU',
+            function ($matches) {
+                if (!$this->noparse) {
+                    return '<div class="alert ' . $matches[1] . '">' . $matches[2] . '</div>';
+                    //return '<pre><code class="language-' . $matches[1] . '">' . $content_code . '</code></pre>';
                 }
             },
             $content
