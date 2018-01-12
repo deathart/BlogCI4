@@ -225,16 +225,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.5.3",
+            "version": "v1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "bb652faf69416b56ecdb3f92a16fd49f7c2a1bf7"
+                "reference": "552bb515ff1aab212ccf7d8bb5b95b2ed2c46bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/bb652faf69416b56ecdb3f92a16fd49f7c2a1bf7",
-                "reference": "bb652faf69416b56ecdb3f92a16fd49f7c2a1bf7",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/552bb515ff1aab212ccf7d8bb5b95b2ed2c46bdd",
+                "reference": "552bb515ff1aab212ccf7d8bb5b95b2ed2c46bdd",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2018-01-02T11:03:32+00:00"
+            "time": "2018-01-12T04:57:07+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
