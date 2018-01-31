@@ -225,21 +225,25 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.5.4",
+            "version": "v1.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "552bb515ff1aab212ccf7d8bb5b95b2ed2c46bdd"
+                "reference": "ca9d0656dbd6e6f7b23675ff7abd90d5e9cea054"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/552bb515ff1aab212ccf7d8bb5b95b2ed2c46bdd",
-                "reference": "552bb515ff1aab212ccf7d8bb5b95b2ed2c46bdd",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/ca9d0656dbd6e6f7b23675ff7abd90d5e9cea054",
+                "reference": "ca9d0656dbd6e6f7b23675ff7abd90d5e9cea054",
                 "shasum": ""
             },
             "require": {
                 "paragonie/random_compat": "^1|^2",
                 "php": "^5.2.4|^5.3|^5.4|^5.5|^5.6|^7"
+            },
+            "provide": {
+                "ext-libsodium": "*",
+                "ext-sodium": "*"
             },
             "require-dev": {
                 "phpunit/phpunit": "^3|^4|^5"
@@ -303,7 +307,7 @@
                 "secret-key cryptography",
                 "side-channel resistant"
             ],
-            "time": "2018-01-12T04:57:07+00:00"
+            "time": "2018-01-30T13:19:20+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
