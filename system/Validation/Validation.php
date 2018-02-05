@@ -136,6 +136,9 @@ class Validation implements ValidationInterface
 			return false;
 		}
 
+		// Need this for searching arrays in validation.
+		helper('array');
+
 		// Run through each rule. If we have any field set for
 		// this rule, then we need to run them through!
 		foreach ($this->rules as $rField => $rSetup)
@@ -148,7 +151,9 @@ class Validation implements ValidationInterface
 				$rules = explode('|', $rules);
 			}
 
-			$this->processRules($rField, $rSetup['label'] ?? $rField, $data[$rField] ?? null, $rules, $data);
+			$value = dot_array_search($rField, $data);
+
+			$this->processRules($rField, $rSetup['label'] ?? $rField, $value ?? null, $rules, $data);
 		}
 
 		return ! empty($this->errors) ? false : true;
@@ -608,7 +613,7 @@ class Validation implements ValidationInterface
 		// If we already have errors, we'll use those.
 		// If we don't, check the session to see if any were
 		// passed along from a redirect_with_input request.
-		if (empty($this->errors))
+		if (empty($this->errors) && ! is_cli())
 		{
 			// Start up the session if it's not already
 			if ( ! isset($_SESSION))

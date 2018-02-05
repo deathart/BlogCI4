@@ -312,43 +312,14 @@ class Session implements SessionInterface
 	 */
 	protected function configureSidLength()
 	{
-		if (PHP_VERSION_ID < 70100)
+		$bits_per_character = (int) ini_get('session.sid_bits_per_character');
+		$sid_length = (int) ini_get('session.sid_length');
+		if (($sid_length * $bits_per_character) < 160)
 		{
-			$bits = 160;
-			$hash_function = ini_get('session.hash_function');
-			if (ctype_digit($hash_function))
-			{
-				if ($hash_function !== '1')
-				{
-					ini_set('session.hash_function', 1);
-					$bits = 160;
-				}
-			}
-			elseif ( ! in_array($hash_function, hash_algos(), true))
-			{
-				ini_set('session.hash_function', 1);
-				$bits = 160;
-			}
-			elseif (($bits = strlen(hash($hash_function, 'dummy', false)) * 4) < 160)
-			{
-				ini_set('session.hash_function', 1);
-				$bits = 160;
-			}
-
-			$bits_per_character = (int) ini_get('session.hash_bits_per_character');
-			$sid_length = (int) ceil($bits / $bits_per_character);
-		}
-		else
-		{
-			$bits_per_character = (int) ini_get('session.sid_bits_per_character');
-			$sid_length = (int) ini_get('session.sid_length');
-			if (($sid_length * $bits_per_character) < 160)
-			{
-				$bits = ($sid_length * $bits_per_character);
-				// Add as many more characters as necessary to reach at least 160 bits
-				$sid_length += (int) ceil((160 % $bits) / $bits_per_character);
-				ini_set('session.sid_length', $sid_length);
-			}
+			$bits = ($sid_length * $bits_per_character);
+			// Add as many more characters as necessary to reach at least 160 bits
+			$sid_length += (int) ceil((160 % $bits) / $bits_per_character);
+			ini_set('session.sid_length', $sid_length);
 		}
 
 		// Yes, 4,5,6 are the only known possible values as of 2016-10-27
@@ -639,7 +610,7 @@ class Session implements SessionInterface
 		{
 			foreach ($_SESSION['__ci_vars'] as $key => &$value)
 			{
-				is_int($value) OR $flashdata[$key] = $_SESSION[$key];
+				is_int($value) || $flashdata[$key] = $_SESSION[$key];
 			}
 		}
 
@@ -710,7 +681,7 @@ class Session implements SessionInterface
 			return;
 		}
 
-		is_array($key) OR $key = [$key];
+		is_array($key) || $key = [$key];
 
 		foreach ($key as $k)
 		{
@@ -743,7 +714,7 @@ class Session implements SessionInterface
 		$keys = [];
 		foreach (array_keys($_SESSION['__ci_vars']) as $key)
 		{
-			is_int($_SESSION['__ci_vars'][$key]) OR $keys[] = $key;
+			is_int($_SESSION['__ci_vars'][$key]) || $keys[] = $key;
 		}
 
 		return $keys;
@@ -885,7 +856,7 @@ class Session implements SessionInterface
 			return;
 		}
 
-		is_array($key) OR $key = [$key];
+		is_array($key) || $key = [$key];
 
 		foreach ($key as $k)
 		{

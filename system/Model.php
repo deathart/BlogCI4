@@ -248,6 +248,7 @@ class Model
 	protected $beforeUpdate = [];
 	protected $afterUpdate = [];
 	protected $afterFind = [];
+	protected $beforeDelete = [];
 	protected $afterDelete = [];
 
 	//--------------------------------------------------------------------
@@ -285,7 +286,7 @@ class Model
 		{
 			$validation = \Config\Services::validation(null, false);
 		}
-		
+
 		$this->validation = $validation;
 	}
 
@@ -313,13 +314,13 @@ class Model
 
 		if (is_array($id))
 		{
-			$row = $builder->whereIn($this->primaryKey, $id)
+			$row = $builder->whereIn($this->table.'.'.$this->primaryKey, $id)
 					->get();
 			$row = $row->getResult($this->tempReturnType);
 		}
 		else
 		{
-			$row = $builder->where($this->primaryKey, $id)
+			$row = $builder->where($this->table.'.'.$this->primaryKey, $id)
 					->get();
 
 			$row = $row->getFirstRow($this->tempReturnType);
@@ -419,7 +420,7 @@ class Model
 		// information to consistently return correct results.
 		if (empty($builder->QBOrderBy))
 		{
-			$builder->orderBy($this->primaryKey, 'asc');
+			$builder->orderBy($this->table.'.'.$this->primaryKey, 'asc');
 		}
 
 		$row = $builder->limit(1, 0)
@@ -689,6 +690,8 @@ class Model
 	 */
 	public function delete($id, $purge = false)
 	{
+		$this->trigger('beforeDelete', ['id' => $id, 'purge' => $purge]);
+
 		if ($this->useSoftDeletes && ! $purge)
 		{
             $set[$this->deletedField] = 1;
@@ -734,6 +737,8 @@ class Model
 		{
 			throw new DatabaseException('You must provided a valid key to deleteWhere.');
 		}
+
+		$this->trigger('beforeDelete', ['key' => $key, 'value' => $value, 'purge' => $purge]);
 
 		if ($this->useSoftDeletes && ! $purge)
 		{
@@ -1172,7 +1177,7 @@ class Model
 		{
 			$rules = array_intersect_key($rules, array_flip($options['only']));
 		}
-		
+
 		return $rules;
 	}
 
