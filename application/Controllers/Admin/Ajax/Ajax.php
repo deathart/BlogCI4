@@ -24,10 +24,6 @@ class Ajax extends Controller
      */
     protected $session;
     /**
-     * @var \CodeIgniter\HTTP\IncomingRequest
-     */
-    protected $request;
-    /**
      * @var \App\Libraries\General
      */
     protected $General;

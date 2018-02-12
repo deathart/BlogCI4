@@ -20,6 +20,7 @@ class Tags extends Application
      * About constructor.
      *
      * @param array ...$params
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {

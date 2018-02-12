@@ -20,6 +20,7 @@ class Pages extends Ajax
      * Pages constructor.
      *
      * @param array ...$params
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {

@@ -35,6 +35,7 @@ class DebugToolbar implements FilterInterface
      * @param ResponseInterface|\CodeIgniter\HTTP\Response $response
      *
      * @return mixed
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function after(RequestInterface $request, ResponseInterface $response)
     {
@@ -56,7 +57,9 @@ class DebugToolbar implements FilterInterface
                 $time = time();
 
                 if (!is_dir(WRITEPATH . 'debugbar')) {
-                    mkdir(WRITEPATH . 'debugbar', 0777);
+                    if (!mkdir(WRITEPATH . 'debugbar', 0777) && !is_dir(WRITEPATH . 'debugbar')) {
+                        throw new \RuntimeException(sprintf('Directory "%s" was not created', WRITEPATH . 'debugbar'));
+                    }
                 }
 
                 write_file(WRITEPATH . 'debugbar/' . 'debugbar_' . $time, $output, 'w+');

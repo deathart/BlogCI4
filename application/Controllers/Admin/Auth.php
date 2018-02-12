@@ -20,23 +20,12 @@ class Auth extends Application
      * @var array
      */
     protected $helpers = ['cookie'];
-    /**
-     * @var \CodeIgniter\Session\Session
-     */
-    protected $session;
-    /**
-     * @var \CodeIgniter\HTTP\IncomingRequest
-     */
-    protected $request;
-    /**
-     * @var \CodeIgniter\HTTP\Response
-     */
-    protected $response;
 
     /**
      * Auth constructor.
      *
      * @param array ...$params
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {

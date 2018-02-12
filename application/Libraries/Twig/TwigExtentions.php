@@ -33,6 +33,7 @@ class TwigExtentions extends Twig_Extension
      * TwigExtentions constructor.
      *
      * @param $templateFolder
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct($templateFolder)
     {
@@ -105,6 +106,7 @@ class TwigExtentions extends Twig_Extension
      * @param bool $noparse
      *
      * @return mixed|string
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function parseBbcode($content, $noparse = false): string
     {

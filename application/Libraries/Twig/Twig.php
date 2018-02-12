@@ -27,7 +27,8 @@ class Twig
     /**
      * Twig constructor.
      *
-     * @param $templateFolder
+     * @param string $templateFolder
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(string $templateFolder)
     {

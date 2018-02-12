@@ -20,13 +20,7 @@ class Application extends Controller
     protected $session;
     /**
      * @var \CodeIgniter\HTTP\IncomingRequest
-     */
-    protected $request;
-    /**
-     * @var \CodeIgniter\HTTP\Response
-     */
-    protected $response;
-    /**
+     * /**
      * @var array
      */
     protected $helpers = ['cookie', 'text'];
@@ -67,6 +61,7 @@ class Application extends Controller
      * Application constructor.
      *
      * @param array ...$params
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {

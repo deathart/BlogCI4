@@ -39,6 +39,7 @@ class ParseArticle
      *
      * @param string $content
      * @param bool $noparse
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(string $content, bool $noparse)
     {
@@ -139,9 +140,9 @@ class ParseArticle
             '`\[code="(.*)"\](.*)\[/code\]`siU',
             function ($matches) {
                 if (!$this->noparse) {
-                    $this->content_code = str_replace('<', '&lt;', $matches[2]);
+                    $content_code = str_replace('<', '&lt;', $matches[2]);
 
-                    return '<pre><code class="language-' . $matches[1] . '">' . $this->content_code . '</code></pre>';
+                    return '<pre><code class="language-' . $matches[1] . '">' . $content_code . '</code></pre>';
                 }
             },
             $this->content

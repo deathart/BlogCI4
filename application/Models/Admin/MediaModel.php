@@ -69,11 +69,8 @@ class MediaModel extends Model
         $this->media_table->where('name', $name);
         $this->media_table->limit('1');
         $media_id_query = $this->media_table->get()->getRow();
-        if (\count($media_id_query) > 0) {
-            return true;
-        }
 
-        return false;
+        return \count($media_id_query) > 0;
     }
 
     /**

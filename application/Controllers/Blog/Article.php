@@ -31,6 +31,7 @@ class Article extends Application
      * Article constructor.
      *
      * @param array ...$params
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {

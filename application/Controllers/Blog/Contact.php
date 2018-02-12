@@ -19,6 +19,7 @@ class Contact extends Application
      * Contact constructor.
      *
      * @param array ...$params
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {

@@ -20,13 +20,7 @@ class Application extends Controller
     protected $session;
     /**
      * @var \CodeIgniter\HTTP\IncomingRequest
-     */
-    protected $request;
-    /**
-     * @var \CodeIgniter\HTTP\Response
-     */
-    protected $response;
-    /**
+     * /**
      * @var array
      */
     protected $helpers = ['text'];
@@ -68,7 +62,7 @@ class Application extends Controller
      *
      * @param array ...$params
      *
-     * @throws \InvalidArgumentException
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)
     {
