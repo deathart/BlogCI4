@@ -35,7 +35,7 @@
         <!--<h1>{{ trans('home.best_article_title') }}</h1>-->
         {% for data in last_important %}
             {% if loop.index == 1 %}
-                <div class="fisrt">
+                <div class="first">
                     <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
                         <img src="{{ data.picture_one|base_url }}" />
                     </a>

@@ -571,7 +571,7 @@ a:hover, a:active {
   font-size: x-large;
 }
 
-#wrapper > #content > .article_list > .fisrt {
+#wrapper > #content > .article_list > .first {
   padding: 0;
   float: left;
   width: calc(50% - 20px);
@@ -579,7 +579,12 @@ a:hover, a:active {
   position: relative;
 }
 
-#wrapper > #content > .article_list > .fisrt > .desc {
+#wrapper > #content > .article_list > .first > a > img {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+#wrapper > #content > .article_list > .first > .desc {
   background: rgba(0, 0, 0, 0.5);
   bottom: 7px;
   padding: 15px;
@@ -587,25 +592,25 @@ a:hover, a:active {
   width: 100%;
 }
 
-#wrapper > #content > .article_list > .fisrt > .desc > h2 {
+#wrapper > #content > .article_list > .first > .desc > h2 {
   font-size: 18px;
   line-height: 1.4em;
   color: #FFFFFF;
 }
 
-#wrapper > #content > .article_list > .fisrt > .desc > h2 > a {
+#wrapper > #content > .article_list > .first > .desc > h2 > a {
   color: #FFFFFF;
   outline: none;
   text-decoration: none;
 }
 
-#wrapper > #content > .article_list > .fisrt > .desc > .post_meta {
+#wrapper > #content > .article_list > .first > .desc > .post_meta {
   color: #fff;
   font-size: 11px;
   padding: 10px 0;
 }
 
-#wrapper > #content > .article_list > .fisrt > .desc > .post_meta a {
+#wrapper > #content > .article_list > .first > .desc > .post_meta a {
   color: #FFFFFF;
 }
 
