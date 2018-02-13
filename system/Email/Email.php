@@ -1745,7 +1745,7 @@ class Email
 			// We'll append ?= to the end of each line though.
 			if ($length+($l = self::strlen($chr)) > 74)
 			{
-				$output .= '?='.$this->crlf // EOL
+				$output .= '?='.$this->CRLF // EOL
 				           .' =?'.$this->charset.'?Q?'.$chr; // New line
 				$length = 6+self::strlen($this->charset)+$l; // Reset the length for the new line
 			} else
@@ -2045,7 +2045,7 @@ class Email
 			return false;
 		}
 
-		if (! $this->SMTPConnect() OR ! $this->SMTPAuthenticate())
+		if (! $this->SMTPConnect() || ! $this->SMTPAuthenticate())
 		{
 			return false;
 		}
