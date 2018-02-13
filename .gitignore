@@ -7,3 +7,4 @@ writable/uploads
 writable/debugbar
 public/uploads
 application/.php_cs.cache
+node_modules/
