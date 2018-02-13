@@ -65,6 +65,10 @@ class ParseArticle
 
         $this->content = str_replace(['[br]', '[hr]', "\n", "\r"], ['<br />', '<hr />', '<br />', ''], $this->content);
 
+        if ($this->noparse) {
+            $this->content = preg_replace("/\[(.*?)\]/is", '', $this->content);
+        }
+
         return $this->content;
     }
 
