@@ -1259,13 +1259,13 @@ a:hover, a:active {
   overflow: hidden;
   text-align: center;
   z-index: 99999999;
-  background-color: #777777;
+  background-color: #22bb66;
   color: #eeeeee;
   width: 50px;
   height: 48px;
   line-height: 48px;
   right: 30px;
-  bottom: 30px;
+  bottom: 50px;
   padding-top: 2px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -1275,7 +1275,7 @@ a:hover, a:active {
 }
 
 #wrapper > .scroll-top-wrapper:hover {
-  background-color: #888888;
+  background-color: #36da7f;
 }
 
 #wrapper > .scroll-top-wrapper.show {
