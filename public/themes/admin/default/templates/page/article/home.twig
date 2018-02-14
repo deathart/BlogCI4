@@ -1,0 +1,65 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 p-0">
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-header">Article publié</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre d'article : </strong> <a href="{{ 'admin/article/list/1'|base_url }}">{{ count_article.pub }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-header">Article en attente de correction</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre d'article : </strong> <a href="{{ 'admin/article/list/2'|base_url }}">{{ count_article.att_co }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger">
+                <div class="card-header">Article en attente de publication</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre d'article : </strong> <a href="{{ 'admin/article/list/3'|base_url }}">{{ count_article.att_pub }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-header">Article en brouillons</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Nombre d'article : </strong> <a href="{{ 'admin/article/list/4'|base_url }}">{{ count_article.brouillon }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ml-0 mr-0 mt-3 mb-3 p-0">
+        <div class="col-md-12">
+            <div id="pan_cont">
+                <div class="title">
+                    <h2>Les 5 derniès articles <small>(<a class="add_article" href="{{ 'admin/article/add'|base_url }}">Ajouter un article</a>)</small></h2>
+                </div>
+                <div class="fin">
+                    <ul class="list-unstyled list-group">
+                        {% for data in last_five %}
+                            <li>
+                                <a href="{{ ('article/' ~ data.link)|base_url }}">
+                                    <h6>{{ data.title }}</h6>
+                                </a>
+                                <hr />
+                                Catégories : <strong>{{ general('TradCat', data.cat) }}</strong>
+                                <hr />
+                                Date de publication : {{ data.date_created }} {% if data.date_update %}
+                                    | Mise à jours : {{ data.date_update }}
+                                {% endif %}
+                                <hr />
+                                Vues : <strong>{{ general('CountView', data.id) }}</strong> / Commentaires : <strong>{{ general('CountCom', data.id) }}</strong>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

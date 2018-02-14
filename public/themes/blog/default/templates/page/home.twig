@@ -1,0 +1,118 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <div class="menu_right home">
+        <div class="bloc">
+            <div class="title">
+                <h1>{{ trans('home.menu_right_pres') }}</h1>
+            </div>
+            <div class="content">
+                {{ 'presentation'|config }}
+            </div>
+        </div>
+        <div class="bloc">
+            <div class="title">
+                <h1>{{ trans('home.menu_right_newsletter') }}</h1>
+            </div>
+            <div class="content">
+                <form class="add_email_news">
+                    <input type="email" placeholder="{{ trans('home.menu_right_newsletter_form_input') }}"/>
+                    <button type="submit" class="btn">{{ trans('home.menu_right_newsletter_form_btn') }}</button>
+                </form>
+            </div>
+        </div>
+        {% if 'pub_active'|config == 1 %}
+            <div class="bloc" id="pub">
+                <div class="title">
+                    <h1>{{ trans('home.menu_right_pub') }}</h1>
+                </div>
+                <div class="content">
+
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="article_list">
+        <!--<h1>{{ trans('home.best_article_title') }}</h1>-->
+        {% for data in last_important %}
+            {% if loop.index == 1 %}
+                <div class="first">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                        <img src="{{ data.picture_one|base_url }}" />
+                    </a>
+                    <div class="desc">
+                        <h2>
+                            <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                                {{ data.title }}
+                            </a>
+                        </h2>
+                        <span class="post_meta">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                            <i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
+                            <i class="fa fa-list" aria-hidden="true"></i> <span>{{ general('TradCat', data.cat, '|') }}</span>
+                        </span>
+                    </div>
+                </div>
+            {% else %}
+                {% if loop.index == 2 %}
+                    <div class="last_tree">
+                        <ul>
+                {% endif %}
+                    <li>
+                        <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                            <img src="{{ data.picture_one|base_url }}" />
+                        </a>
+                        <div class="desc">
+                            <h2>
+                                <a href="{{ ('article/' ~ data.link)|base_url }}" title="{{ data.title }}">
+                                    {{ data.title }}
+                                </a>
+                            </h2>
+                            <span class="post_meta">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                                <i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
+                                <i class="fa fa-list" aria-hidden="true"></i> <span>{{ general('TradCat', data.cat, '|') }}</span>
+                            </span>
+                            <div class="read_more">
+                                <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
+                            </div>
+                        </div>
+                    </li>
+                {% if loop.index == 4 %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% if 'home_annonce_1'|config is not empty %}
+        <div class="annonce">{{ 'home_annonce_1'|config }}</div>
+    {% endif %}
+    <div class="article_last">
+        <h1>{{ trans('home.last_article') }}</h1>
+        {% for data in last_article %}
+            <div class="article_bloc">
+                <div class="images">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 250px;" src="{{ data.picture_one|base_url }}" /></a>
+                    <div class="tags">
+                        {{ general('TradCat', data.cat) }}
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="publish_date">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                    </div>
+                    <div class="coms">
+                        <span>{{ general('CountCom', data.id) }}</span> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>
+                <div class="content">
+                    {{ parse(data.content|slice(0, 200), true) ~ '...' }}
+                </div>
+                <div class="read_more">
+                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

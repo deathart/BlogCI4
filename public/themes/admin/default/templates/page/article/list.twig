@@ -1,0 +1,34 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 mb-3 p-0">
+        <div class="col-md-12">
+            <div id="pan_cont">
+                <div class="title">
+                    <h2>Liste des articles {% if type == 1 %}publiés{% elseif type == 2 %}en attente de correction{% elseif type == 3 %}en attente de publication{% elseif type == 4 %}brouillons{% endif %}</h2>
+                </div>
+                <div class="fin">
+                    {% if get_list %}
+                        <ul class="list-unstyled list-group">
+                            {% for data in get_list %}
+                                <li>
+                                    <a href="{{ ('admin/article/edit/' ~ data.id ~ '/' ~ type)|base_url }}">
+                                        <h6>{{ data.title }}</h6>
+                                    </a>
+                                    <hr />
+                                    Catégories : <strong>{{ general('TradCat', data.cat) }}</strong>
+                                    <hr />
+                                    Date de publication : {{ data.date_created }} {% if data.date_update %}
+                                        | Mise à jours : {{ data.date_update }}
+                                    {% endif %}
+                                    <hr />
+                                    Vues : <strong>{{ general('CountView', data.id) }}</strong> / Commentaires : <strong>{{ general('CountCom', data.id) }}</strong></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        Aucun article
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <div class="row ml-0 mr-0 mt-3 mb-3 p-0">
+        <div class="col-md-12">
+            <div id="pan_cont">
+                <div class="title">
+                    <h2>Liste des pages</h2>
+                </div>
+                <div class="fin">
+                    {% if get_page %}
+                        <ul class="list-unstyled list-group">
+                            {% for data in get_page %}
+                                <li>
+                                    <a href="{{ ('admin/page/edit/' ~ data.slug )|base_url }}">
+                                        <h6>{{ data.title }}</h6>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        Aucune page
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <div class="list-cat">
+        {% for data in get_cat %}
+        <div class="cat_info">
+            <div class="header">
+                <div class="titre">
+                    <a href="{{ ('cat/' ~ data.slug)|base_url }}">
+                        <h1>
+                           {{ data.title }}
+                        </h1>
+                    </a>
+                </div>
+                <img class="icon" src="{{ data.icon }}" />
+            </div>
+            <div class="description">
+                {{ data.description }}
+                <div class="explore">
+                    <a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ trans('cat.home_view_all', {'count': general('CountArticle', data.id)}) }}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{%  endblock %}

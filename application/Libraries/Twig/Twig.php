@@ -34,7 +34,7 @@ class Twig
     {
         $config_model = new ConfigModel();
 
-        $loader = new Twig_Loader_Filesystem(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $templateFolder . DIRECTORY_SEPARATOR . $config_model->GetConfig('theme_' . $templateFolder));
+        $loader = new Twig_Loader_Filesystem(FCPATH . 'themes' . DIRECTORY_SEPARATOR . $templateFolder . DIRECTORY_SEPARATOR . $config_model->GetConfig('theme_' . $templateFolder) . DIRECTORY_SEPARATOR . 'templates');
 
         if ($config_model->GetConfig('cache') === 'on') {
             $dataconfig['cache'] = WRITEPATH . 'cache';
