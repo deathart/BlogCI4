@@ -4,9 +4,14 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+* {
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+*:before, *:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html {
@@ -22,6 +27,24 @@ body {
 
 a {
   color: #BBB;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 540px;
+  height: 400px;
+  background-color: rgba(10, 10, 10, 0.5);
+  margin: auto auto;
+  padding: 40px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-box-shadow: 0 0 10px black;
+  box-shadow: 0 0 10px black;
 }
 
 .content:before {
@@ -42,24 +65,6 @@ a {
   -o-filter: blur(2px);
   -ms-filter: blur(2px);
   filter: blur(2px);
-}
-
-.content {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 540px;
-  height: 400px;
-  background-color: rgba(10, 10, 10, 0.5);
-  margin: auto auto;
-  padding: 40px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-box-shadow: 0 0 10px black;
-  box-shadow: 0 0 10px black;
 }
 
 .content .title {
