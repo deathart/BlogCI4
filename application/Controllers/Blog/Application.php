@@ -102,7 +102,7 @@ class Application extends Controller
 
         //Set css file
         $this->set_css(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/css/style.css'));
-        $this->set_css(base_url('assets/css/font-awesome.css'));
+        $this->set_css(base_url('assets/css/fontawesome.css'));
         $this->set_css('//fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:100,300');
 
         //Set JS

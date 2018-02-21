@@ -135,7 +135,8 @@ a {
 }
 
 .content .login_form input[type=checkbox]:checked + label:before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f00c";
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2) 2px 5px rgba(0, 0, 0, 0.4);
   font-size: 16px;

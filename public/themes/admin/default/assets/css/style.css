@@ -122,10 +122,10 @@ body {
 
 .left > #menu > ul > li.has-sub > a::after {
   margin-left: auto;
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: '\f061';
   font-style: normal;
-  font-weight: normal;
   color: #ffffff;
 }
 
@@ -213,10 +213,11 @@ body {
 }
 
 .right > .content > .title_page > .bread > a::after {
-  /*font-family: FontAwesome;
-                                                      content: '\f105';
-                                                      padding-left: 5px;
-                                                      margin-top: 2px;*/
+  /*font-family: "Font Awesome 5 Free";
+                                font-weight: 900;
+                                content: '\f105';
+                                padding-left: 5px;
+                                margin-top: 2px;*/
   display: inline-block;
   padding-right: .5rem;
   padding-left: .5rem;

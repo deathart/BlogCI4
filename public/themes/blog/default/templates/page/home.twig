@@ -46,9 +46,9 @@
                             </a>
                         </h2>
                         <span class="post_meta">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
-                            <i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
-                            <i class="fa fa-list" aria-hidden="true"></i> <span>{{ general('TradCat', data.cat, '|') }}</span>
+                            <i class="far fa-clock" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                            <i class="far fa-comments" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
+                            <i class="fas fa-list" aria-hidden="true"></i> <span>{{ general('TradCat', data.cat, '|') }}</span>
                         </span>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
                                 </a>
                             </h2>
                             <span class="post_meta">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
-                                <i class="fa fa-comments-o" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
-                                <i class="fa fa-list" aria-hidden="true"></i> <span>{{ general('TradCat', data.cat, '|') }}</span>
+                                <i class="far fa-clock" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                                <i class="far fa-comments" aria-hidden="true"></i> <span>{{ general('CountCom', data.id) }}</span>
+                                <i class="fas fa-list" aria-hidden="true"></i> <span>{{ general('TradCat', data.cat, '|') }}</span>
                             </span>
                             <div class="read_more">
                                 <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('home.view_more') }}</a>
@@ -99,10 +99,10 @@
                 </div>
                 <div class="info">
                     <div class="publish_date">
-                        <i class="fa fa-clock-o" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
+                        <i class="far fa-clock" aria-hidden="true"></i> <span>{{ data.date_created }}</span>
                     </div>
                     <div class="coms">
-                        <span>{{ general('CountCom', data.id) }}</span> <i class="fa fa-comments-o" aria-hidden="true"></i>
+                        <span>{{ general('CountCom', data.id) }}</span> <i class="far fa-comments" aria-hidden="true"></i>
                     </div>
                 </div>
                 <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>

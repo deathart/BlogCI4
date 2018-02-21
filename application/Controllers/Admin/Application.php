@@ -100,7 +100,7 @@ class Application extends Controller
     {
 
         //Set css file
-        $this->set_css(base_url('assets/css/font-awesome.css'));
+        $this->set_css(base_url('assets/css/fontawesome.css'));
         $this->set_css('//fonts.googleapis.com/css?family=RobotoDraft:300,400,500');
         $this->set_css(base_url('assets/css/bootstrap.css'));
 

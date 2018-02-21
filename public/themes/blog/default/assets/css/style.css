@@ -239,7 +239,7 @@ a:hover, a:active {
 
 #wrapper > header > .menu > .main-nav > ul > li.menu-item.menu-item-has-children > a:first-of-type::after {
   display: inline-block;
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   content: "\f107";
   margin-left: 5px;
 }
@@ -1148,10 +1148,6 @@ a:hover, a:active {
   opacity: 1.0;
 }
 
-#wrapper > .scroll-top-wrapper i.fa {
-  line-height: inherit;
-}
-
 @media only screen and (max-width: 40rem) {
   #wrapper > #content > .menu_right.home {
     float: left;
@@ -1780,7 +1776,6 @@ a:hover, a:active {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   background-color: #22bb66;
-  border-color: #1a904e;
   padding: .5em;
   margin-bottom: 1em;
   color: white;
@@ -1788,7 +1783,7 @@ a:hover, a:active {
   transition: background .15s;
   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
-  border: 1px solid;
+  border: 1px solid #1a904e;
 }
 
 .btn:hover, .btn:active {
@@ -2203,7 +2198,8 @@ blockquote em {
 }
 
 .alert.success::before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f00c";
   display: inline-block;
   padding-right: 3px;
@@ -2216,7 +2212,8 @@ blockquote em {
 }
 
 .alert.info::before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f129";
   display: inline-block;
   padding-right: 3px;
@@ -2229,7 +2226,8 @@ blockquote em {
 }
 
 .alert.warning::before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f071";
   display: inline-block;
   padding-right: 3px;
@@ -2242,7 +2240,8 @@ blockquote em {
 }
 
 .alert.danger::before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   content: "\f00d";
   display: inline-block;
   padding-right: 3px;
