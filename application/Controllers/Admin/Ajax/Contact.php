@@ -43,9 +43,11 @@ class Contact extends Ajax
             if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
                 $this->contact_model->markedview($_POST['id']);
                 $infocontact = $this->contact_model->getContact($_POST['id']);
-                $this->mailer->sendmail($_POST['sujet'], $infocontact->email, $_POST['message']);
+                if ($this->mailer->sendmail($_POST['sujet'], $infocontact->email, $_POST['message']) == true) {
+                    return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'Le message à bien été envoyé']);
+                }
 
-                return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'Le message à bien été envoyé']);
+                return $this->responded(['code' => 2, 'title' => 'Contact', 'message' => 'Message non envoyé']);
             }
         } else {
             return $this->responded([]);

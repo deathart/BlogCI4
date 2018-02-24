@@ -1,9 +1,7 @@
 <?php namespace App\Libraries;
 
 use App\Models\Admin\ConfigModel;
-use Swift_Mailer;
-use Swift_Message;
-use Swift_SmtpTransport;
+use Config\Services;
 
 /**
  * Class Mailer
@@ -14,9 +12,9 @@ class Mailer
 {
 
     /**
-     * @var \Swift_Mailer
+     * @var \CodeIgniter\Email\Email|mixed
      */
-    protected $mail;
+    protected $email;
     /**
      * @var \App\Models\Admin\ConfigModel
      */
@@ -24,25 +22,19 @@ class Mailer
 
     /**
      * Mailer constructor.
+     * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct()
     {
         $this->config_model = new ConfigModel();
-        $transport = new Swift_SmtpTransport($this->config_model->GetConfig('mail_host'), $this->config_model->GetConfig('mail_port'));
+        $this->email = Services::email();
 
-        if ($this->config_model->GetConfig('mail_security') != null) {
-            $transport->setEncryption($this->config_model->GetConfig('mail_security'));
-        }
-
-        if ($this->config_model->GetConfig('mail_username') != null) {
-            $transport->setUsername($this->config_model->GetConfig('mail_username'));
-        }
-
-        if ($this->config_model->GetConfig('mail_password') != null) {
-            $transport->setPassword($this->config_model->GetConfig('mail_password'));
-        }
-
-        $this->mail = new Swift_Mailer($transport);
+        $this->email->protocol = 'smtp';
+        $this->email->SMTPCrypto = $this->config_model->GetConfig('mail_security');
+        $this->email->SMTPHost = $this->config_model->GetConfig('mail_host');
+        $this->email->SMTPPort = $this->config_model->GetConfig('mail_port');
+        $this->email->SMTPUser = $this->config_model->GetConfig('mail_username');
+        $this->email->SMTPPass = $this->config_model->GetConfig('mail_password');
     }
 
     /**
@@ -54,13 +46,22 @@ class Mailer
      */
     public function sendmail(string $sujet, string $to, string $body): bool
     {
-        $message = (new Swift_Message($sujet))
-            ->setFrom([$this->config_model->GetConfig('mail_from_adress') => $this->config_model->GetConfig('mail_from_name')])
-            ->setTo($to)
-            ->setBody($body);
+        $this->email->initialize([
+            'SMTPTimeout' => '30',
+            'mailType' => 'html',
+            'newLine' => "\r\n",
+            'CRLF' => "\r\n"
+        ]);
 
-        $this->mail->send($message);
+        $this->email->setFrom($this->config_model->GetConfig('mail_from_adress'), $this->config_model->GetConfig('mail_from_name'));
+        $this->email->setTo($to);
+        $this->email->setSubject($sujet);
+        $this->email->setMessage($body);
 
-        return true;
+        if ($this->email->send(false)) {
+            return true;
+        }
+
+        return false;
     }
 }
