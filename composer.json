@@ -16,10 +16,9 @@
 	"require": {
 		"php": ">=7.1",
 		"zendframework/zend-escaper": "^2.5",
-		"paragonie/sodium_compat": "^1.5",
+		"paragonie/sodium_compat": "^1.6",
 		"kint-php/kint": "^2.2",
-		"twig/twig": "^2.4",
-		"swiftmailer/swiftmailer": "^v6.0"
+		"twig/twig": "^2.4"
 	},
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^2.9"
