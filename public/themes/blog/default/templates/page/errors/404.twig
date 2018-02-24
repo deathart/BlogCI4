@@ -1,7 +1,11 @@
 {% extends "layout.twig" %}
 {% block content %}
-    <div id="errors">
-        <h1>{{ trans('errors.404_title') }}</h1>
-        <div class="description">{{ trans('errors.404_content') }}</div>
+    <div class="page_content">
+        <div class="title">
+            <h2>{{ trans('errors.404_title') }}</h2>
+        </div>
+        <div class="content">
+            {{ trans('errors.404_content') }}
+        </div>
     </div>
 {% endblock %}

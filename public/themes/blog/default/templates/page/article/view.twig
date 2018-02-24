@@ -1,120 +1,126 @@
 {% extends "layout.twig" %}
 {% block content %}
-    <div class="menu_right article">
-        {% if related_article %}
-            <div class="bloc">
+    <div class="row mt-2">
+        <div class="col-9">
+            <div id="article">
                 <div class="title">
-                    <h1>{{ trans('article.menu_right_similarpost') }}</h1>
-                </div>
-                <div class="content">
-                    {% for data in related_article %}
-                        {% if data.id != get_info_article.id and data.published == 1%}
-                            <a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a><br />
+                    <h2>{{ get_info_article.title }}</h2>
+                    <ul>
+                        <li><strong><i class="far fa-clock" aria-hidden="true"></i> {{ trans('article.article_info_publi') }} : </strong><span>{{ get_info_article.date_created }}</span></li>
+                        {% if get_info_article.date_update %}
+                            <li><strong><i class="far fa-clock" aria-hidden="true"></i> {{ trans('article.article_info_update') }} : </strong><span>{{ get_info_article.date_update }}</span></li>
                         {% endif %}
-                    {% endfor %}
+                        <li><strong><i class="fas fa-list" aria-hidden="true"></i> {{ trans('article.article_info_cat') }} : </strong><span>{{ general('TradCat', get_info_article.cat, '/') }}</span></li>
+                        <li><strong><i class="fas fa-eye"></i> {{ trans('article.article_info_view') }} : </strong> <span>{{ general('CountView', get_info_article.id) }}</span></li>
+                    </ul>
                 </div>
-            </div>
-        {% endif %}
-        {% if 'pub_active'|config == 1 %}
-            <div class="bloc" id="pub">
-                <div class="title">
-                    <h1>{{ trans('article.menu_right_pub') }}</h1>
+                <div class="image">
+                    <img src="{{ get_info_article.picture_one|base_url }}" />
                 </div>
                 <div class="content">
-                    <p></p>
+                    {{ parse(get_info_article.content) }}
                 </div>
             </div>
-        {% endif %}
-        <div class="bloc">
-            <div class="title">
-                <h1>{{ trans('article.menu_right_newsletter') }}</h1>
+            <div class="tags mt-3">
+                <h1>{{ trans('article.article_tags') }}</h1>
+                {{ general('TradTags', get_info_article.keyword) }}
             </div>
-            <div class="content">
-                <form class="add_email_news">
-                    <input type="email" placeholder="{{ trans('article.menu_right_newsletter_form_input') }}"/>
-                    <button type="submit" class="btn">{{ trans('article.menu_right_newsletter_form_btn') }}</button>
+            <div class="commentaire mt-3">
+                {% if get_coms %}
+                    <h1>{{ trans('article.article_com') }}</h1>
+                    {% for data in get_coms %}
+                        <div class="comment">
+                            <div class="inf">
+                                <span class="name">{{ data.author_name }}</span>
+                                <span class="date"><i class="far fa-clock" aria-hidden="true"></i> {{ data.created_date }}</span>
+                            </div>
+                            <div class="cont">
+                                {{ parse(data.content) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <h1>{{ trans('article.article_add_com') }}</h1>
+                <div class="message_add_coms"></div>
+                <form class="add_com" data-post="{{ get_info_article.id }}">
+                    <div class="group-inline">
+                        <label for="name">{{ trans('article.article_add_com_name') }} : </label>
+                        <input type="text" id="name" />
+                    </div>
+                    <div class="group-inline">
+                        <label for="email">{{ trans('article.article_add_com_email') }} : </label>
+                        <input type="email" id="email" />
+                    </div>
+                    <div class="group-inline">
+                        <label for="com">{{ trans('article.article_add_com_content') }} : </label>
+                        <textarea id="com"></textarea>
+                    </div>
+                    <div class="group-inline">
+                        <label for="captcha">{{ trans('article.article_add_com_captcha') }} : {{ captcha }} = </label>
+                        <input type="text" id="captcha" />
+                    </div>
+                    <button type="submit" class="btn">{{ trans('article.article_add_com_send') }}</button>
+                    <div style="clear:both;"></div>
                 </form>
             </div>
         </div>
-        <div class="bloc" id="share">
-            <div class="title">
-                <h1>{{ trans('article.menu_right_share') }}</h1>
-            </div>
-            <div class="content">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
-                    <i class="fab fa-facebook-f"></i> {{ trans('article.menu_right_share_on') }} facebook
-                </a>
-                <a href="https://twitter.com/home?status={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-twitter">
-                    <i class="fab fa-twitter"></i> {{ trans('article.menu_right_share_on') }} twitter
-                </a>
-                <a href="https://plus.google.com/share?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-google">
-                    <i class="fab fa-google-plus"></i> {{ trans('article.menu_right_share_on') }} google+
-                </a>
-                <a href="http://www.reddit.com/submit?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-reddit">
-                    <i class="fab fa-reddit-alien"></i> {{ trans('article.menu_right_share_on') }} reddit
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="article">
-        <div class="title">
-            <h2>{{ get_info_article.title }}</h2>
-            <ul>
-                <li><strong><i class="far fa-clock" aria-hidden="true"></i> {{ trans('article.article_info_publi') }} : </strong><span>{{ get_info_article.date_created }}</span></li>
-                {% if get_info_article.date_update %}
-                    <li><strong><i class="far fa-clock" aria-hidden="true"></i> {{ trans('article.article_info_update') }} : </strong><span>{{ get_info_article.date_update }}</span></li>
-                {% endif %}
-                <li><strong><i class="fas fa-list" aria-hidden="true"></i> {{ trans('article.article_info_cat') }} : </strong><span>{{ general('TradCat', get_info_article.cat, '/') }}</span></li>
-                <li><strong><i class="fas fa-eye"></i> {{ trans('article.article_info_view') }} : </strong> <span>{{ general('CountView', get_info_article.id) }}</span></li>
-            </ul>
-        </div>
-        <div class="image">
-            <img src="{{ get_info_article.picture_one|base_url }}" />
-        </div>
-        <div class="content">
-            {{ parse(get_info_article.content) }}
-        </div>
-    </div>
-    <div class="tags">
-        <h1>{{ trans('article.article_tags') }}</h1>
-        {{ general('TradTags', get_info_article.keyword) }}
-    </div>
-    <div class="commentaire">
-        {% if get_coms %}
-            <h1>{{ trans('article.article_com') }}</h1>
-            {% for data in get_coms %}
-                <div class="comment">
-                    <div class="inf">
-                        <span class="name">{{ data.author_name }}</span>
-                        <span class="date"><i class="far fa-clock" aria-hidden="true"></i> {{ data.created_date }}</span>
+        <div class="col-3">
+            <div class="menu_right article">
+                {% if related_article %}
+                    <div class="bloc">
+                        <div class="title">
+                            <h1>{{ trans('article.menu_right_similarpost') }}</h1>
+                        </div>
+                        <div class="content">
+                            {% for data in related_article %}
+                                {% if data.id != get_info_article.id and data.published == 1%}
+                                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ data.title }}</a><br />
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div class="cont">
-                        {{ parse(data.content) }}
+                {% endif %}
+                {% if 'pub_active'|config == 1 %}
+                    <div class="bloc" id="pub">
+                        <div class="title">
+                            <h1>{{ trans('article.menu_right_pub') }}</h1>
+                        </div>
+                        <div class="content">
+                            <p></p>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="bloc">
+                    <div class="title">
+                        <h1>{{ trans('article.menu_right_newsletter') }}</h1>
+                    </div>
+                    <div class="content">
+                        <form class="add_email_news">
+                            <input type="email" placeholder="{{ trans('article.menu_right_newsletter_form_input') }}"/>
+                            <button type="submit" class="btn">{{ trans('article.menu_right_newsletter_form_btn') }}</button>
+                        </form>
                     </div>
                 </div>
-            {% endfor %}
-        {% endif %}
-        <h1>{{ trans('article.article_add_com') }}</h1>
-        <div class="message_add_coms"></div>
-        <form class="add_com" data-post="{{ get_info_article.id }}">
-            <div class="group-inline">
-                <label for="name">{{ trans('article.article_add_com_name') }} : </label>
-                <input type="text" id="name" />
+                <div class="bloc" id="share">
+                    <div class="title">
+                        <h1>{{ trans('article.menu_right_share') }}</h1>
+                    </div>
+                    <div class="content">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f"></i> {{ trans('article.menu_right_share_on') }} facebook
+                        </a>
+                        <a href="https://twitter.com/home?status={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-twitter">
+                            <i class="fab fa-twitter"></i> {{ trans('article.menu_right_share_on') }} twitter
+                        </a>
+                        <a href="https://plus.google.com/share?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-google">
+                            <i class="fab fa-google-plus"></i> {{ trans('article.menu_right_share_on') }} google+
+                        </a>
+                        <a href="http://www.reddit.com/submit?url={{ ('article/' ~ get_info_article.link)|base_url }}" target="_blank" class="btn-social btn-reddit">
+                            <i class="fab fa-reddit-alien"></i> {{ trans('article.menu_right_share_on') }} reddit
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="group-inline">
-                <label for="email">{{ trans('article.article_add_com_email') }} : </label>
-                <input type="email" id="email" />
-            </div>
-            <div class="group-inline">
-                <label for="com">{{ trans('article.article_add_com_content') }} : </label>
-                <textarea id="com"></textarea>
-            </div>
-            <div class="group-inline">
-                <label for="captcha">{{ trans('article.article_add_com_captcha') }} : {{ captcha }} = </label>
-                <input type="text" id="captcha" />
-            </div>
-            <button type="submit" class="btn">{{ trans('article.article_add_com_send') }}</button>
-            <div style="clear:both;"></div>
-        </form>
+        </div>
     </div>
 {% endblock %}

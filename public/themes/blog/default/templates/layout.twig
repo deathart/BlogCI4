@@ -29,15 +29,14 @@
                 </div>
             </div>
         </div>
-        <div id="wrapper">
-            <header>
-                <div class="menu">
-                    <nav class="main-nav">
-                        <ul id="menu-main-menu">
-                            <li class="menu-item ">
-                                <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
-                            </li>
-                            {% if (general('GetCat')) %}
+        <header>
+            <div class="menu">
+                <nav class="main-nav">
+                    <ul id="menu-main-menu">
+                        <li class="menu-item ">
+                            <a href="{{ '/'|base_url }}" {% if '1'|uri_segment == "" %}class="active"{% endif %}>{{ trans('layout.menu_home') }}</a>
+                        </li>
+                        {% if (general('GetCat')) %}
                             <li class="menu-item menu-item-has-children">
                                 <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
                                 <ul class="sub-menu">
@@ -48,46 +47,47 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            {% endif %}
-                            {% if 'contact_active'|config == 1 %}
-                                <li class="menu-item">
-                                    <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
-                                </li>
-                            {% endif %}
-                            {% if (general('GetPages')) %}
-                                {% for data in general('GetPages') %}
-                                    <li class="menu-item">
-                                        <a href="{{ ('page/' ~ data.slug)|base_url }}" {% if '1'|uri_segment == "page" %}class="active"{% endif %}>{{ data.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            {% endif %}
+                        {% endif %}
+                        {% if 'contact_active'|config == 1 %}
                             <li class="menu-item">
-                                <span class="click_search"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="header-area">
-                    <ul class="clean-list social-platforms">
-                        {% if 'btn_facebook_link'|config is not empty %}
-                            <li class="platform">
-                                <a href="https://facebook.com/{{ 'btn_facebook_link'|config }}" target="_blank" class="facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                                <a href="{{ 'contact'|base_url }}" {% if '1'|uri_segment == "contact" %}class="active"{% endif %}>{{ trans('layout.menu_contact') }}</a>
                             </li>
                         {% endif %}
-                        {% if 'btn_twitter_link'|config is not empty %}
-                            <li class="platform">
-                                <a href="https://twitter.com/{{ 'btn_twitter_link'|config }}" target="_blank" class="twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                            </li>
+                        {% if (general('GetPages')) %}
+                            {% for data in general('GetPages') %}
+                                <li class="menu-item">
+                                    <a href="{{ ('page/' ~ data.slug)|base_url }}" {% if '1'|uri_segment == "page" %}class="active"{% endif %}>{{ data.title }}</a>
+                                </li>
+                            {% endfor %}
                         {% endif %}
-                        {% if 'btn_googleplus_link'|config is not empty %}
-                            <li class="platform">
-                                <a href="https://plus.google.com/{{ 'btn_googleplus_link'|config }}" target="_blank" class="googleplus"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
-                            </li>
-                        {% endif %}
+                        <li class="menu-item">
+                            <span class="click_search"><i class="fas fa-search" aria-hidden="true"></i></span>
+                        </li>
                     </ul>
-                    <a href="{{ '/'|base_url }}" rel="home">{{ 'site_title'|config }}</a>
-                </div>
-            </header>
+                </nav>
+            </div>
+            <div class="header-area">
+                <ul class="clean-list social-platforms">
+                    {% if 'btn_facebook_link'|config is not empty %}
+                        <li class="platform">
+                            <a href="https://facebook.com/{{ 'btn_facebook_link'|config }}" target="_blank" class="facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if 'btn_twitter_link'|config is not empty %}
+                        <li class="platform">
+                            <a href="https://twitter.com/{{ 'btn_twitter_link'|config }}" target="_blank" class="twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        </li>
+                    {% endif %}
+                    {% if 'btn_googleplus_link'|config is not empty %}
+                        <li class="platform">
+                            <a href="https://plus.google.com/{{ 'btn_googleplus_link'|config }}" target="_blank" class="googleplus"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <a href="{{ '/'|base_url }}" rel="home">{{ 'site_title'|config }}</a>
+            </div>
+        </header>
+        <div class="container-fluid">
             <div id="content">
                 {% if 'annonce_general'|config is not empty %}
                     <div class="annonce">
@@ -96,14 +96,14 @@
                 {% endif %}
                 {% block content %}{% endblock %}
             </div>
-            <footer>
-                {{ trans('layout.footer_copy', ['site_title'|config]) }}
-            </footer>
-            <div class="scroll-top-wrapper ">
+        </div>
+        <footer>
+            {{ trans('layout.footer_copy', ['site_title'|config]) }}
+        </footer>
+        <div class="scroll-top-wrapper ">
 				<span class="scroll-top-inner">
 					<i class="fas fa-lg fa-arrow-circle-up"></i>
 				</span>
-            </div>
         </div>
         <div class="eupopup-container eupopup-container-bottom eupopup-color-default" style="display: none;">
             <div class="eupopup-head">

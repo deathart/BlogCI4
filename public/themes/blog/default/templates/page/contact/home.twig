@@ -1,34 +1,34 @@
 {% extends "layout.twig" %}
 {% block content %}
-	<div class="page_content">
-        <div class="title">
-            <h2>{{ trans('contact.title') }}</h2>
+        <div class="page_content">
+            <div class="title">
+                <h2>{{ trans('contact.title') }}</h2>
+            </div>
+            <div class="content">
+                <div class="message_contact"></div>
+                {% if check %}
+                    {{ trans('contact.last_contact') }}
+                {% else %}
+                <form class="contact">
+                    <div class="group-inline">
+                        <label for="name">{{ trans('contact.form_name') }} : </label>
+                        <input type="text" id="name" placeholder="{{ trans('contact.form_name') }}"/>
+                    </div>
+                    <div class="group-inline">
+                        <label for="email">{{ trans('contact.form_email') }} : </label>
+                        <input type="email" id="email" placeholder="{{ trans('contact.form_email') }}"/>
+                    </div>
+                    <div class="group-inline">
+                        <label for="email">{{ trans('contact.form_subject') }} : </label>
+                        <input type="text" id="sujet" placeholder="{{ trans('contact.form_subject') }}"/>
+                    </div>
+                    <div class="group-inline">
+                        <label for="msg">{{ trans('contact.form_content') }} : </label>
+                        <textarea id="msg"></textarea>
+                    </div>
+                    <button type="submit" class="btn">{{ trans('contact.form_btn') }}</button>
+                </form>
+                {% endif %}
+            </div>
         </div>
-        <div class="content">
-            <div class="message_contact"></div>
-            {% if check %}
-                {{ trans('contact.last_contact') }}
-            {% else %}
-            <form class="contact">
-                <div class="group-inline">
-                    <label for="name">{{ trans('contact.form_name') }} : </label>
-                    <input type="text" id="name" placeholder="{{ trans('contact.form_name') }}"/>
-                </div>
-                <div class="group-inline">
-                    <label for="email">{{ trans('contact.form_email') }} : </label>
-                    <input type="email" id="email" placeholder="{{ trans('contact.form_email') }}"/>
-                </div>
-                <div class="group-inline">
-                    <label for="email">{{ trans('contact.form_subject') }} : </label>
-                    <input type="text" id="sujet" placeholder="{{ trans('contact.form_subject') }}"/>
-                </div>
-                <div class="group-inline">
-                    <label for="msg">{{ trans('contact.form_content') }} : </label>
-                    <textarea id="msg"></textarea>
-                </div>
-                <button type="submit" class="btn">{{ trans('contact.form_btn') }}</button>
-            </form>
-            {% endif %}
-        </div>
-	</div>
 {% endblock %}
