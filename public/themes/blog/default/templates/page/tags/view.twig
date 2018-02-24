@@ -23,7 +23,7 @@
                                 </div>
                                 <a href="{{ ('article/' ~ data.link)|base_url }}"><h1>{{ data.title }}</h1></a>
                                 <div class="content">
-                                    {{ parse(data.content|slice(0, 200), true) ~ '...' }}
+                                    {{ parse(data.content|slice(0, 600), true) ~ '...' }}
                                 </div>
                                 <div class="read_more">
                                     <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('tags.view_more') }}</a>
