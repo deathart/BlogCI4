@@ -7,13 +7,26 @@ var App = (function() {
     };
 
     that.init = function() {
+
         that.research();
         that.avert_cookies();
         that.scroll_top();
+
         $(".add_email_news").submit(function(e) {
             e.preventDefault();
             that.newsletter($(this));
             return false;
+        });
+
+        $(".delallcookies").click(function () {
+            Object.keys(Cookies.get()).forEach(function (cookieName) {
+                Cookies.remove(cookieName);
+            });
+            alert('All cookies have been successfully deleted page reload in 3 seconds.');
+
+            setTimeout(function () {
+                location.reload();
+            }, 3000);
         });
     };
 
