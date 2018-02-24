@@ -488,7 +488,7 @@ header > .header-area > a:hover {
 
 #content .article_list > .first > .desc {
   background: rgba(0, 0, 0, 0.5);
-  bottom: 7px;
+  bottom: 0;
   padding: 15px;
   position: absolute;
   width: 100%;
@@ -1203,7 +1203,7 @@ Article display
 }
 
 .article_bloc > .images > .tags_art_bloc {
-  margin-top: -33px;
+  margin-top: -25px;
   position: absolute;
 }
 
@@ -1241,7 +1241,7 @@ Article display
 }
 
 .article_bloc > .info > .publish_date > span {
-  color: #000;
+  color: #000000;
 }
 
 .article_bloc > .info > .coms {
@@ -1253,11 +1253,15 @@ Article display
 }
 
 .article_bloc > .info > .coms > span {
-  color: #000;
+  color: #000000;
 }
 
 .article_bloc > a {
-  color: #333;
+  color: #333333;
+}
+
+.article_bloc > a:hover {
+  color: #22bb66;
   text-decoration: none;
 }
 
@@ -1352,70 +1356,16 @@ Article display
 
 .article_bloc > .read_more > a {
   float: right;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: #333333;
   text-decoration: none;
   display: inline-block;
   position: relative;
   padding-bottom: 3px;
 }
 
-.article_bloc > .read_more > a.active:after {
-  height: 3px;
-  display: block;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  content: '';
-}
-
-.article_bloc > .read_more > a.active:before {
-  display: block;
-  content: '';
-  background: silver;
-  height: 3px;
-  margin-top: -20px;
-}
-
-.article_bloc > .read_more > a:before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 0;
-  -webkit-transition: width 0s ease, background 0.5s ease;
-  transition: width 0s ease, background 0.5s ease;
-}
-
-.article_bloc > .read_more > a:after {
-  content: '';
-  display: block;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  width: 0;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-transition: width 0.5s ease;
-  transition: width 0.5s ease;
-}
-
 .article_bloc > .read_more > a:hover {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.article_bloc > .read_more > a:hover:before {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-transition: width 0.5s ease;
-  transition: width 0.5s ease;
-}
-
-.article_bloc > .read_more > a:hover:after {
-  width: 100%;
-  background: transparent;
-  -webkit-transition: all 0s ease;
-  transition: all 0s ease;
+  color: #22bb66;
+  text-decoration: none;
 }
 
 /* ==========================================================================
