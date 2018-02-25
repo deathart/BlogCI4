@@ -43,24 +43,31 @@
                 <h1>{{ trans('article.article_add_com') }}</h1>
                 <div class="message_add_coms"></div>
                 <form class="add_com" data-post="{{ get_info_article.id }}">
-                    <div class="group-inline">
-                        <label for="name">{{ trans('article.article_add_com_name') }} : </label>
-                        <input type="text" id="name" />
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label text-right">{{ trans('article.article_add_com_name') }} : </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="name" class="form-control" placeholder="{{ trans('article.article_add_com_name') }}" />
+                        </div>
                     </div>
-                    <div class="group-inline">
-                        <label for="email">{{ trans('article.article_add_com_email') }} : </label>
-                        <input type="email" id="email" />
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label text-right">{{ trans('article.article_add_com_email') }} : </label>
+                        <div class="col-sm-10">
+                            <input type="email" id="email" class="form-control" placeholder="{{ trans('article.article_add_com_email') }}" />
+                        </div>
                     </div>
-                    <div class="group-inline">
-                        <label for="com">{{ trans('article.article_add_com_content') }} : </label>
-                        <textarea id="com"></textarea>
+                    <div class="form-group row">
+                        <label for="com" class="col-sm-2 col-form-label text-right">{{ trans('article.article_add_com_content') }} : </label>
+                        <div class="col-sm-10">
+                            <textarea id="com" class="form-control" rows="10" placeholder="{{ trans('article.article_add_com_content') }}"></textarea>
+                        </div>
                     </div>
-                    <div class="group-inline">
-                        <label for="captcha">{{ trans('article.article_add_com_captcha') }} : {{ captcha }} = </label>
-                        <input type="text" id="captcha" />
+                    <div class="form-group row">
+                        <label for="captcha" class="col-sm-2 col-form-label text-right">{{ trans('article.article_add_com_captcha') }} : {{ captcha }} = </label>
+                        <div class="col-sm-10">
+                            <input type="text" id="captcha" class="form-control" placeholder="{{ trans('article.article_add_com_captcha') }}" />
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-theme">{{ trans('article.article_add_com_send') }}</button>
-                    <div style="clear:both;"></div>
                 </form>
             </div>
         </div>
@@ -96,8 +103,12 @@
                     </div>
                     <div class="content">
                         <form class="add_email_news">
-                            <input type="email" placeholder="{{ trans('article.menu_right_newsletter_form_input') }}"/>
-                            <button type="submit" class="btn btn-theme">{{ trans('article.menu_right_newsletter_form_btn') }}</button>
+                            <div class="input-group">
+                                <input type="email" class="form-control email-newsletter" placeholder="{{ trans('home.menu_right_newsletter_form_input') }}" aria-label="{{ trans('home.menu_right_newsletter_form_input') }}" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-theme" type="submit">{{ trans('home.menu_right_newsletter_form_btn') }}</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

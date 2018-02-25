@@ -6,8 +6,12 @@
         </div>
         <div class="content">
             <form  method="post" action="{{ 'search'|base_url }}">
-                <label for="mc">{{ trans('search.form_label') }}</label>
-                <input type="text" id="mc" name="mc_key" value="{{ val_mc }}" />
+                <div class="form-group row">
+                    <label for="mc" class="col-sm-2 col-form-label">{{ trans('search.form_label') }}</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="mc" class="form-control" name="mc_key" value="{{ val_mc }}" />
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-theme">{{ trans('search.form_btn') }}</button>
             </form>
             {% if val_mc %}

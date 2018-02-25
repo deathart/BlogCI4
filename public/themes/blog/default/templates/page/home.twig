@@ -76,8 +76,12 @@
                     </div>
                     <div class="content">
                         <form class="add_email_news">
-                            <input type="email" placeholder="{{ trans('home.menu_right_newsletter_form_input') }}"/>
-                            <button type="submit" class="btn btn-theme">{{ trans('home.menu_right_newsletter_form_btn') }}</button>
+                            <div class="input-group">
+                                <input type="email" class="form-control email-newsletter" placeholder="{{ trans('home.menu_right_newsletter_form_input') }}" aria-label="{{ trans('home.menu_right_newsletter_form_input') }}" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-theme" type="submit">{{ trans('home.menu_right_newsletter_form_btn') }}</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -168,9 +168,11 @@
                     </div>
                     <div class="modal-body">
                         <form  method="post" action="{{ 'search'|base_url }}">
-                            <div class="group-inline">
-                                <label for="rech_val">{{ trans('layout.search_label') }} : </label>
-                                <input type="text" class="rech_val" name="mc_key" />
+                            <div class="form-group row">
+                                <label for="rech_val" class="col-sm-4 col-form-label">{{ trans('layout.search_label') }}</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="rech_val form-control" name="mc_key" placeholder="{{ trans('layout.search_label') }}" />
+                                </div>
                             </div>
                             <div class="group-inline btn_act">
                                 <button type="submit" class="btn btn-theme">{{ trans('layout.search_btn') }}</button>
