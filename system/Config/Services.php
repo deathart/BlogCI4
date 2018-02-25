@@ -538,7 +538,10 @@ class Services
 		}
 
 		return new \CodeIgniter\HTTP\IncomingRequest(
-				$config, new \CodeIgniter\HTTP\URI()
+				$config,
+				new \CodeIgniter\HTTP\URI(),
+				'php://input',
+				new \CodeIgniter\HTTP\UserAgent()
 		);
 	}
 
@@ -589,7 +592,10 @@ class Services
 			$config = new \Config\App();
 		}
 
-		return new \CodeIgniter\HTTP\RedirectResponse($config);
+		$response = new \CodeIgniter\HTTP\RedirectResponse($config);
+		$response->setProtocolVersion(self::request()->getProtocolVersion());
+
+		return $response;
 	}
 
 	//--------------------------------------------------------------------

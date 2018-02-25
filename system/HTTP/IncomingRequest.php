@@ -133,16 +133,22 @@ class IncomingRequest extends Request
 	 */
 	protected $oldInput = [];
 
+	/**
+	 * @var \CodeIgniter\HTTP\UserAgent
+	 */
+	protected $userAgent;
+
 	//--------------------------------------------------------------------
 
 	/**
 	 * Constructor
 	 *
-	 * @param object $config
-	 * @param URI $uri
-	 * @param string $body
+	 * @param object                      $config
+	 * @param URI                         $uri
+	 * @param string                      $body
+	 * @param \CodeIgniter\HTTP\UserAgent $userAgent
 	 */
-	public function __construct($config, $uri = null, $body = 'php://input')
+	public function __construct($config, $uri = null, $body = 'php://input', UserAgent $userAgent)
 	{
 		// Get our body from php://input
 		if ($body == 'php://input')
@@ -152,6 +158,7 @@ class IncomingRequest extends Request
 
 		$this->body = $body;
 		$this->config = $config;
+		$this->userAgent = $userAgent;
 
 		parent::__construct($config);
 
@@ -449,9 +456,9 @@ class IncomingRequest extends Request
 	 *
 	 * @return mixed
 	 */
-	public function getUserAgent($filter = null)
+	public function getUserAgent()
 	{
-		return $this->fetchGlobal(INPUT_SERVER, 'HTTP_USER_AGENT', $filter);
+		return $this->userAgent;
 	}
 
 	//--------------------------------------------------------------------
@@ -556,17 +563,6 @@ class IncomingRequest extends Request
 		else
 		{
 			throw FrameworkException::forEmptyBaseURL();
-
-//			$this->isSecure() ? $this->uri->setScheme('https') : $this->uri->setScheme('http');
-//
-//			// While both SERVER_NAME and HTTP_HOST are open to security issues,
-//			// if we have to choose, we will go with the server-controlled version first.
-//			! empty($_SERVER['SERVER_NAME']) ? (isset($_SERVER['SERVER_NAME']) ? $this->uri->setHost($_SERVER['SERVER_NAME']) : null) : (isset($_SERVER['HTTP_HOST']) ? $this->uri->setHost($_SERVER['HTTP_HOST']) : null);
-//
-//			if ( ! empty($_SERVER['SERVER_PORT']))
-//			{
-//				$this->uri->setPort($_SERVER['SERVER_PORT']);
-//			}
 		}
 	}
 
