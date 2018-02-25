@@ -8,7 +8,7 @@
             <form  method="post" action="{{ 'search'|base_url }}">
                 <label for="mc">{{ trans('search.form_label') }}</label>
                 <input type="text" id="mc" name="mc_key" value="{{ val_mc }}" />
-                <button type="submit" class="btn">{{ trans('search.form_btn') }}</button>
+                <button type="submit" class="btn btn-theme">{{ trans('search.form_btn') }}</button>
             </form>
             {% if val_mc %}
                 <hr />

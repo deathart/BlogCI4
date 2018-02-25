@@ -12,23 +12,6 @@ html {
   box-sizing: border-box;
 }
 
-ul, ol {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-img, picture {
-  margin: 0;
-  max-width: 100%;
-}
-
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.375em;
-}
-
 input, select, textarea {
   display: block;
   font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Segoe UI", "Lucida Grande", "Helvetica Neue", "Helvetica", "Fira Sans", "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu", "Franklin Gothic Medium", "Century Gothic", "Liberation Sans", sans-serif;
@@ -116,15 +99,6 @@ textarea::placeholder {
   outline-offset: 0;
 }
 
-a {
-  text-decoration: none;
-  color: #1a9da7;
-}
-
-a:hover, a:active {
-  color: #21c6d3;
-}
-
 /* ==========================================================================
 Content
 ========================================================================== */
@@ -184,12 +158,13 @@ header > .menu > .main-nav > ul > li.menu-item {
 }
 
 header > .menu > .main-nav > ul > li.menu-item > a:hover {
+  text-decoration: none;
   color: #22bb66;
 }
 
 header > .menu > .main-nav > ul > li.menu-item > a.active {
   color: #22bb66;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 header > .menu > .main-nav > ul > li.menu-item > span:hover {
@@ -257,6 +232,7 @@ header > .menu > .main-nav > ul > li.menu-item.menu-item-has-children > ul.sub-m
 
 header > .menu > .main-nav > ul > li.menu-item.menu-item-has-children > ul.sub-menu > li > a:hover {
   color: #22bb66;
+  text-decoration: none;
 }
 
 header > .header-area {
@@ -307,6 +283,7 @@ header > .header-area > a {
 
 header > .header-area > a:hover {
   color: #22bb66;
+  text-decoration: none;
 }
 
 #content {
@@ -1573,34 +1550,6 @@ Popup cookie
 /* ==========================================================================
 Button
 ========================================================================== */
-.btn {
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  background-color: #22bb66;
-  padding: .5em;
-  margin-bottom: 1em;
-  color: white;
-  -webkit-transition: background .15s;
-  transition: background .15s;
-  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
-  border: 1px solid #1a904e;
-}
-
-.btn:hover, .btn:active {
-  background: #36da7f;
-}
-
-.btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.btn:disabled:hover {
-  background-color: #22bb66;
-}
-
 .btn-social {
   position: relative;
   text-align: center;
