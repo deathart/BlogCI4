@@ -12,23 +12,6 @@
         {% endif %}
     </head>
     <body>
-        <div id="voile" class="recherche_modal">
-            <div class="modal">
-                <h2 class="titre">{{ trans('layout.search') }}</h2>
-                <div class="content">
-                    <form  method="post" action="{{ 'search'|base_url }}">
-                    <div class="group-inline">
-                        <label for="rech_val">{{ trans('layout.search_label') }} : </label>
-                        <input type="text" class="rech_val" name="mc_key" />
-                    </div>
-                    <div class="group-inline btn_act">
-                        <button type="submit" class="btn">{{ trans('layout.search_btn') }}</button>
-                        <button type="button" class="del_modal btn">{{ trans('layout.search_btn_cancel') }}</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <header>
             <div class="menu">
                 <nav class="main-nav">
@@ -172,6 +155,30 @@
                     {{ trans('layout.eupopup_more') }}
                 </a>
                 <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="modal fade" id="SearchModal" tabindex="-1" role="dialog" aria-labelledby="SearchModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SearchModalTitle">{{ trans('layout.search') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form  method="post" action="{{ 'search'|base_url }}">
+                            <div class="group-inline">
+                                <label for="rech_val">{{ trans('layout.search_label') }} : </label>
+                                <input type="text" class="rech_val" name="mc_key" />
+                            </div>
+                            <div class="group-inline btn_act">
+                                <button type="submit" class="btn">{{ trans('layout.search_btn') }}</button>
+                                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">{{ trans('layout.search_btn_cancel') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         {% for data in js %}

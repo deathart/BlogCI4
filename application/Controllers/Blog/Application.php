@@ -108,6 +108,7 @@ class Application extends Controller
 
         //Set JS
         $this->set_js(base_url('assets/js/jquery.min.js'));
+        $this->set_js(base_url('assets/js/bootstrap.bundle.js'));
         $this->set_js(base_url('assets/js/cookie.min.js'));
         $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/app.js'));
 
