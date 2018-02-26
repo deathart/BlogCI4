@@ -224,7 +224,26 @@ class ParseArticle
             '`\[alert="(.*)"\](.*)\[/alert\]`siU',
             function ($matches) {
                 if (!$this->noparse) {
-                    return '<div class="alert ' . $matches[1] . '">' . $matches[2] . '</div>';
+                    switch ($matches[1]) {
+                        case 'success':
+                            $icon = '<i class="fas fa-check"></i>';
+
+                            break;
+                        case 'info':
+                            $icon = '<i class="fas fa-info"></i>';
+
+                            break;
+                        case 'warning':
+                            $icon = '<i class="fas fa-exclamation-triangle"></i>';
+
+                            break;
+                        case 'danger':
+                            $icon = '<i class="fas fa-times"></i>';
+
+                            break;
+                    }
+
+                    return '<div class="alert ' . $matches[1] . '"><div class="icon">' . $icon . '</div><div class="message">' . $matches[2] . '</div></div>';
                 }
             },
             $this->content
