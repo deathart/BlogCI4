@@ -21,10 +21,9 @@ password
 
 # Themes and languages
 - Themes : To modify or add a new theme, this can be found in the folder: `public/themes/` (Provisional).
-- Languuage : To modify or add a new language, this can be found in the folder: `application/Languages/` (Provisional).
+- Language : To modify or add a new language, this can be found in the folder: `application/Languages/` (Provisional).
 
 # Server Requirements
-
 [PHP](http://php.net) version 7.1 or newer is required, with the *intl* extension installed. [Why 7.1](https://gophp71.org/)?
 
 A database is required for most web application programming.
@@ -32,6 +31,14 @@ Currently supported databases are:
 
  - MySQL (5.1+) via the *MySQLi* driver
  - PostgreSQL via the *Postgre* driver
+ 
+More information : [Codeigniter4 User Guide](https://bcit-ci.github.io/CodeIgniter4/)
+
+# Issues
+For any problems or suggestions created a new issue (By checking that this issue has not already been created)
+
+# Helps
+Don't hesitate to help this project, to improve it to make it grow, even constructive criticism helps.
 
 # TODO (Open to all suggestions)
 - [ ] Add theme management
@@ -45,6 +52,3 @@ Currently supported databases are:
 - [ ] Optimise AJAX
 - [ ] Create Docs
 - [ ] Create demo
-
-# Issues
-For any problems or suggestions created a new issue (By checking that this issue has not already been created)
