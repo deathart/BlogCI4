@@ -45,19 +45,17 @@ The list below shows the outstanding ones.
   - ODBC via the *odbc* and *pdo* drivers (you should know that ODBC is actually an abstraction layer)
   
 # TODO (Open to all suggestions)
-- [x] Create new theme
 - [ ] Add theme management
 - [ ] Add Users management
-- [x] Add Medias management
 - [ ] Add translation in admin
 - [ ] Update configuration admin
 - [ ] Add feed system
-- [x] Add new BBCODE
 - [ ] Optimise SEO
 - [ ] Add Tags manager
 - [ ] Add installer (and automatic update system)
 - [ ] Create Docs
 - [ ] Create demo
+- [ ] Optimise AJAX
 
 # Issues
 For any problems or suggestions created a new issue (By checking that this issue has not already been created)
