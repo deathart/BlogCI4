@@ -59,6 +59,7 @@ class Media extends Ajax
     }
 
     /**
+     * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function add_media()

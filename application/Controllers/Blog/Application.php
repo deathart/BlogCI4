@@ -61,6 +61,7 @@ class Application extends Controller
      * Application constructor.
      *
      * @param array ...$params
+     * @throws \InvalidArgumentException
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
     public function __construct(...$params)

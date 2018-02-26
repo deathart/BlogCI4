@@ -39,12 +39,12 @@ class Auth extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Auth render
+     * @return Application|Auth
      * @throws \Codeigniter\UnknownFileException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function index(): self
+    public function index()
     {
         return $this->render('home');
     }
@@ -77,6 +77,7 @@ class Auth extends Application
 
     /**
      *
+     * @throws \InvalidArgumentException
      */
     public function login_ajax()
     {
