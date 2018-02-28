@@ -80,17 +80,18 @@ class ParseArticle
         $this->content = preg_replace_callback(
             '`\[img id="(.+)" width="(.+)" height="(.+)"\]`isU',
             function ($matches) {
-                $get_info = $this->media->get_link($matches[1]);
-                $width = '';
-                $height = '';
-                if ($matches[2] != 0) {
-                    $width = $matches[2];
-                }
-                if ($matches[3] != 0) {
-                    $height = $matches[3];
-                }
                 if (!$this->noparse) {
-                    return '<img name="' . $get_info->name . '" src="' . base_url($get_info->slug . '/' . $get_info->name) . '" style="width: ' . $width . 'px;height: ' . $height . 'px;" />';
+                    $get_info = $this->media->get_link($matches[1]);
+                    $width = 'auto';
+                    $height = 'auto';
+                    if ($matches[2] != 0) {
+                        $width = $matches[2] . 'px';
+                    }
+                    if ($matches[3] != 0) {
+                        $height = $matches[3] . 'px';
+                    }
+
+                    return '<img name="' . $get_info->name . '" src="' . base_url($get_info->slug . '/' . $get_info->name) . '" class="img-fluid" style="width: ' . $width . ';height: ' . $height . ';" />';
                 }
             },
             $this->content
