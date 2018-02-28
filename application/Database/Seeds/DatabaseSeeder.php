@@ -15,7 +15,6 @@ class DatabaseSeeder extends \CodeIgniter\Database\Seeder
         $this->db->query("INSERT INTO `config` (`key`, `data`, `type`) VALUES ('site_keyword', 'ide, development, free, open source, articles, website, php, javascript, jquery, node.js, codeigniter, ci3, ci4, tutorials', 'text')");
         $this->db->query("INSERT INTO `config` (`key`, `data`, `type`) VALUES ('presentation', 'Change the presentation from <strong>administration</strong>', 'text')");
         $this->db->query("INSERT INTO `config` (`key`, `data`, `type`) VALUES ('annonce_general', 'You can change this in the <strong>administration</strong>', 'text')");
-        $this->db->query("INSERT INTO `config` (`key`, `data`, `type`) VALUES ('home_annonce_1', 'You can change this in the <strong>administration</strong>', 'text')");
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('pub_active', '0')");
         $this->db->query("INSERT INTO `config` (`key`, `data`) VALUES ('analytics_active', '0')");
         $this->db->query("INSERT INTO `config` (`key`, `data`, `type`) VALUES ('analytics_code', '', 'text')");

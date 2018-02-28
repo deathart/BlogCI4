@@ -98,13 +98,10 @@
             </div>
         </div>
     </div>
-    <div class="row mt-2">
+    <div class="row">
         <div class="col-12">
-            {% if 'home_annonce_1'|config is not empty %}
-                <div class="annonce">{{ 'home_annonce_1'|config }}</div>
-            {% endif %}
-            <div class="article_last">
-                <h1>{{ trans('home.last_article') }}</h1>
+            <div class="annonce"><h1>{{ trans('home.last_article') }}</h1></div>
+            <div class="article_last mt-2">
                 <div class="row">
                     {% for data in last_article %}
                         <div class="col-3">
