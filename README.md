@@ -44,11 +44,12 @@ Don't hesitate to help this project, to improve it to make it grow, even constru
 - [ ] Add theme management
 - [ ] Add Users management
 - [ ] Add translation in admin
-- [ ] Add Tags manager
+- [ ] Add Tags manager (Or not ?)
 - [ ] Add installer (and automatic update system)
 - [ ] Add feed system
 - [ ] Update configuration admin
 - [ ] Optimise SEO
 - [ ] Optimise AJAX
+- [ ] Clean rewriting of the css/js
 - [ ] Create Docs
 - [ ] Create demo
