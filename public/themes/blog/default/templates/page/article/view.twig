@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 {% block content %}
     <div class="row mt-2">
-        <div class="col-9">
+        <div class="col-md-12 col-lg-9">
             <div id="article">
                 <div class="title">
                     <h2>{{ get_info_article.title }}</h2>
@@ -71,7 +71,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-lg-3 d-none d-sm-none d-md-block">
             <div class="menu_right article">
                 {% if related_article %}
                     <div class="bloc">

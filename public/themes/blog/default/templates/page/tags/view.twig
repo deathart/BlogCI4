@@ -1,11 +1,11 @@
 {% extends "layout.twig" %}
 {% block content %}
     <div class="row mt-2">
-        <div class="col-9">
+        <div class="col-md-12 col-lg-9">
             <div class="article_list">
                 <div class="row">
                     {% for data in get_all %}
-                        <div class="col-3">
+                        <div class="col-sm-6 col-lg-3">
                             <div class="article_bloc">
                                 <div class="images">
                                     <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 250px;" src="{{ data.picture_one|base_url }}" /></a>
@@ -31,14 +31,16 @@
                             </div>
                         </div>
                     {% else %}
-                        <div class="nopost">
-                            {{ trans('tags.no_article') }} {{ tags_name }}
+                        <div class="col-12">
+                            <div class="nopost">
+                                {{ trans('tags.no_article') }} {{ tags_name }}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-lg-3 d-none d-sm-none d-md-block">
             <div class="menu_right home">
                 <div class="bloc">
                     <div class="title">

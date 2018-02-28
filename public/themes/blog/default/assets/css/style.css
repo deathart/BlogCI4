@@ -333,6 +333,14 @@ header > .header-area > a:hover {
   text-decoration: none;
 }
 
+#content .menu_right > .bloc.fixed {
+  position: fixed;
+  top: 90px;
+  float: left;
+  width: calc(25% - 30px);
+  right: 15px;
+}
+
 #content .article_list {
   width: 100%;
 }
