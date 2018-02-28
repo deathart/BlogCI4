@@ -82,6 +82,12 @@ class ConfigModel extends Model
         $this->config_table->select('data');
         $this->config_table->where('key', $key);
 
-        return $this->config_table->get()->getRow()->data;
+        $row_result = $this->config_table->get()->getRow();
+
+        if (isset($row_result)) {
+            return $row_result->data;
+        }
+
+        return false;
     }
 }
