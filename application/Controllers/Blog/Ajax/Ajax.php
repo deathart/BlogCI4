@@ -37,16 +37,6 @@ class Ajax extends Controller
         $session->start();
 
         $this->csrf = new CSRFToken();
-
-        $this->response->setStatusCode(Response::HTTP_OK);
-        $this->response->setHeader('Content-type', 'application/json');
-        $this->response->noCache();
-        $this->response->setHeader('X-robots-tag', 'noindex');
-        $this->response->setHeader('X-XSS-Protection', '1; mode=block');
-        $this->response->setHeader('X-Frame-Options', 'DENY');
-        $this->response->setHeader('X-Content-Type-Options', 'nosniff');
-
-        header('Content-type: application/json');
     }
 
     /**
@@ -55,18 +45,43 @@ class Ajax extends Controller
 
     /**
      * @param array $data
-     * @param bool $error
      *
      * @return \CodeIgniter\HTTP\Response
      */
-    public function Render(array $data, bool $error = false): ?Response
+    public function Render(array $data): Response
     {
-        if (!$error) {
-            return $this->response->setStatusCode(Response::HTTP_OK)->setContentType('application/json')->setBody(json_encode($data))->send();
+        if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
+            if ($this->request->isValidIP($this->request->getIPAddress())) {
+                return $this->response
+                    ->setStatusCode(Response::HTTP_OK)
+                    ->setContentType('application/json')
+                    ->setHeader('X-robots-tag', 'noindex')
+                    ->setHeader('X-XSS-Protection', '1; mode=block')
+                    ->setHeader('X-Frame-Options', 'DENY')
+                    ->setHeader('X-Content-Type-Options', 'nosniff')
+                    ->setBody(json_encode($data))
+                    ->noCache();
+            }
+
+            return $this->response
+                ->setStatusCode(Response::HTTP_FORBIDDEN)
+                ->setContentType('application/json')
+                ->setHeader('X-robots-tag', 'noindex')
+                ->setHeader('X-XSS-Protection', '1; mode=block')
+                ->setHeader('X-Frame-Options', 'DENY')
+                ->setHeader('X-Content-Type-Options', 'nosniff')
+                ->setBody(json_encode(['message' => 'Error : yout IP is bizzar ?', 'code' => 2]))
+                ->noCache();
         }
 
-        return $this->response->setStatusCode(500)->setContentType('application/json')->setBody(json_encode($data))->send();
-
-        exit();
+        return $this->response
+            ->setStatusCode(Response::HTTP_FORBIDDEN)
+            ->setContentType('application/json')
+            ->setHeader('X-robots-tag', 'noindex')
+            ->setHeader('X-XSS-Protection', '1; mode=block')
+            ->setHeader('X-Frame-Options', 'DENY')
+            ->setHeader('X-Content-Type-Options', 'nosniff')
+            ->setBody(json_encode(['error' => 'Error CSRF, You are HACKER ?', 'error_code' => 2]))
+            ->noCache();
     }
 }

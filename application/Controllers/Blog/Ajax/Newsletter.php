@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Blog\Ajax;
 
 use App\Models\Blog\NewsletterModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Comments
@@ -28,28 +29,16 @@ class Newsletter extends Ajax
     }
 
     /**
-     * @return bool
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-            if ($this->request->isValidIP($this->request->getIPAddress())) {
-                if (!$this->newsletter_model->Check($this->request->getIPAddress(), $_POST['email'])) {
-                    $this->newsletter_model->Add($this->request->getIPAddress(), $_POST['email']);
-                    $this->Render(['message' => 'Success : Votre email à bien été enregistré', 'code' => 1]);
+        if (!$this->newsletter_model->Check($this->request->getIPAddress(), $_POST['email'])) {
+            $this->newsletter_model->Add($this->request->getIPAddress(), $_POST['email']);
 
-                    return true;
-                }
-                $this->Render(['message' => 'Erreur : Votre email à déjà été enregistré', 'code' => 2]);
-
-                return false;
-            }
-            $this->Render(['message' => 'Error : yout IP is bizzar ?', 'code' => 2]);
-
-            return false;
+            return $this->Render(['message' => 'Success : Votre email à bien été enregistré', 'code' => 1]);
         }
-        $this->Render(['message' => 'Error CSRF, You are HACKER ?', 'code' => 2]);
 
-        return false;
+        return $this->Render(['message' => 'Erreur : Votre email à déjà été enregistré', 'code' => 2]);
     }
 }

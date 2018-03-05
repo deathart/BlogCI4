@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Blog\Ajax;
 
 use App\Models\Blog\ContactModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Contact
@@ -28,23 +29,12 @@ class Contact extends Ajax
     }
 
     /**
-     * @return bool
+     * @return Response
      */
-    public function addContact()
+    public function addContact(): Response
     {
-        if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-            if ($this->request->isValidIP($this->request->getIPAddress())) {
-                $this->contact_model->Add($_POST['name'], $_POST['email'], $_POST['sujet'], $_POST['message'], $this->request->getIPAddress());
-                $this->Render(['message' => "La prise de contact à bien été envoyez, vous receverez une réponse d'ici 24h à 48h", 'code' => 1]);
+        $this->contact_model->Add($_POST['name'], $_POST['email'], $_POST['sujet'], $_POST['message'], $this->request->getIPAddress());
 
-                return true;
-            }
-            $this->Render(['message' => 'Error : yout IP is bizzar ?', 'code' => 2]);
-
-            return false;
-        }
-        $this->Render(['message' => 'Error CSRF, You are HACKER ?', 'code' => 2]);
-
-        return false;
+        return $this->Render(['message' => "La prise de contact à bien été envoyez, vous receverez une réponse d'ici 24h à 48h", 'code' => 1]);
     }
 }
