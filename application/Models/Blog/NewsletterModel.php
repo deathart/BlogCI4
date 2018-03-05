@@ -38,12 +38,15 @@ class NewsletterModel extends Model
      */
     public function Check(string $ip, string $email): bool
     {
-        $this->newsletter_table->select('COUNT(id) as id');
+        $this->newsletter_table->select('id');
         $this->newsletter_table->where('ip', $ip);
         $this->newsletter_table->orWhere('email', $email);
-        $result = $this->newsletter_table->get()->getRow()->id;
 
-        return !($result == 0);
+        if (\count($this->newsletter_table->get()->getRow()) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
