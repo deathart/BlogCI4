@@ -56,19 +56,19 @@ class CSRFToken
     /**
      * @param $token
      *
-     * @return bool|string
+     * @return bool
      */
-    public function validateToken($token)
+    public function validateToken($token): bool
     {
         if ($this->session->has($this->session_name)) {
             if ($this->session->get($this->session_name) === $token) {
                 return true;
             }
 
-            return '1';
+            return false;
         }
 
-        return '0';
+        return false;
     }
 
     /**

@@ -49,7 +49,7 @@ class Captcha
      */
     public function Check($captcha): bool
     {
-        return $captcha == $this->session->get('captcha_response');
+        return $captcha === $this->session->get('captcha_response');
     }
 
     /**
