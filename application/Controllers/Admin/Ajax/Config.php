@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Admin\Ajax;
 
 use App\Models\Admin\ConfigModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Config
@@ -28,35 +29,23 @@ class Config extends Ajax
     }
 
     /**
-     * @return \CodeIgniter\HTTP\Response
+     * @return Response
      */
-    public function updateparams()
+    public function updateparams():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->config_model->UpdateConfig($_POST['id'], $_POST['key'], $_POST['data']);
+        $this->config_model->UpdateConfig($_POST['id'], $_POST['key'], $_POST['data']);
 
-                return $this->responded(['code' => 1, 'title' => 'Paramètres', 'message' => 'Les paramêtres on bien été mise à jours']);
-            }
-        } else {
-            return $this->responded([]);
-        }
+        return $this->Responded(['code' => 1, 'title' => 'Paramètres', 'message' => 'Les paramêtres on bien été mise à jours']);
     }
 
     /**
-     * @return \CodeIgniter\HTTP\Response
+     * @return Response
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function delparams()
+    public function delparams():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->config_model->DelConfig($_POST['id']);
+        $this->config_model->DelConfig($_POST['id']);
 
-                return $this->responded(['code' => 1, 'title' => 'Paramètres', 'message' => 'Paramêtre supprimé avec success']);
-            }
-        } else {
-            return $this->responded([]);
-        }
+        return $this->Responded(['code' => 1, 'title' => 'Paramètres', 'message' => 'Paramêtre supprimé avec success']);
     }
 }

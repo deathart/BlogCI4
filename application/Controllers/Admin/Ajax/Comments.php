@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Admin\Ajax;
 
 use App\Models\Admin\CommentsModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Comments
@@ -28,34 +29,22 @@ class Comments extends Ajax
     }
 
     /**
-     *
+     * @return Response
      */
-    public function valide()
+    public function valide():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->comments_model->valideComments($_POST['id']);
+        $this->comments_model->valideComments($_POST['id']);
 
-                return $this->responded(['code' => 1, 'title' => 'Commentaire', 'message' => 'Commentaire validé avec success']);
-            }
-        } else {
-            return $this->responded([]);
-        }
+        return $this->Responded(['code' => 1, 'title' => 'Commentaire', 'message' => 'Commentaire validé avec success']);
     }
 
     /**
-     *
+     * @return Response
      */
-    public function refuse()
+    public function refuse():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->comments_model->refuseComments($_POST['id']);
+        $this->comments_model->refuseComments($_POST['id']);
 
-                return $this->responded(['code' => 1, 'title' => 'Commentaire', 'message' => 'Commentaire refusé avec success']);
-            }
-        } else {
-            return $this->responded([]);
-        }
+        return $this->Responded(['code' => 1, 'title' => 'Commentaire', 'message' => 'Commentaire refusé avec success']);
     }
 }

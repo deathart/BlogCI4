@@ -46,9 +46,8 @@ class Ajax extends Controller
         parent::__construct(...$params);
 
         //Declare class
-        $this->config        = new App();
+        $this->config       = new App();
         $this->session      = Services::session($this->config);
-        $this->request      = Services::request();
         $this->General      = new General;
         $this->csrf         = new CSRFToken();
     }
@@ -86,21 +85,54 @@ class Ajax extends Controller
 
     /**
      * @param array $arr
-     * @param int $code
+     * @return Response
      */
-    public function responded(array $arr, int $code = 200)
+    public function Responded(array $arr): Response
     {
-        $this->response = new Response($this->config);
-
         if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-            if ($this->isConnected()) {
-                $this->response->setStatusCode($code)->setContentType('application/json')->setBody(json_encode($arr))->send();
-            } else {
-                $this->response->setStatusCode(403)->setContentType('application/json')->setBody(json_encode(['error' => 'You are not loged', 'error_code' => 4001]))->send();
+            if ($this->request->isValidIP($this->request->getIPAddress())) {
+                if ($this->isConnected()) {
+                    return $this->response
+                        ->setStatusCode(Response::HTTP_OK)
+                        ->setContentType('application/json')
+                        ->setHeader('X-robots-tag', 'noindex')
+                        ->setHeader('X-XSS-Protection', '1; mode=block')
+                        ->setHeader('X-Frame-Options', 'DENY')
+                        ->setHeader('X-Content-Type-Options', 'nosniff')
+                        ->setBody(json_encode($arr))
+                        ->noCache();
+                }
+
+                return $this->response
+                    ->setStatusCode(Response::HTTP_FORBIDDEN)
+                    ->setContentType('application/json')
+                    ->setHeader('X-robots-tag', 'noindex')
+                    ->setHeader('X-XSS-Protection', '1; mode=block')
+                    ->setHeader('X-Frame-Options', 'DENY')
+                    ->setHeader('X-Content-Type-Options', 'nosniff')
+                    ->setBody(json_encode(['error' => 'You are not loged', 'error_code' => 4001]))
+                    ->noCache();
             }
-        } else {
-            $this->response->setStatusCode(403)->setContentType('application/json')->setBody(json_encode(['error' => 'Error CSRF, You are HACKER ?', 'error_code' => 4010]))->send();
+
+            return $this->response
+                ->setStatusCode(Response::HTTP_FORBIDDEN)
+                ->setContentType('application/json')
+                ->setHeader('X-robots-tag', 'noindex')
+                ->setHeader('X-XSS-Protection', '1; mode=block')
+                ->setHeader('X-Frame-Options', 'DENY')
+                ->setHeader('X-Content-Type-Options', 'nosniff')
+                ->setBody(json_encode(['error' => 'Error : yout IP is bizzar ?', 'error_code' => 4010]))
+                ->noCache();
         }
-        exit();
+
+        return $this->response
+            ->setStatusCode(Response::HTTP_FORBIDDEN)
+            ->setContentType('application/json')
+            ->setHeader('X-robots-tag', 'noindex')
+            ->setHeader('X-XSS-Protection', '1; mode=block')
+            ->setHeader('X-Frame-Options', 'DENY')
+            ->setHeader('X-Content-Type-Options', 'nosniff')
+            ->setBody(json_encode(['error' => 'Error CSRF, You are HACKER ?', 'error_code' => 4010]))
+            ->noCache();
     }
 }

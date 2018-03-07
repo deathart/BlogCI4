@@ -2,6 +2,7 @@
 
 use App\Libraries\Mailer;
 use App\Models\Admin\ContactModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Contact
@@ -35,54 +36,37 @@ class Contact extends Ajax
     }
 
     /**
-     *
+     * @return Response
      */
-    public function rep()
+    public function rep():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->contact_model->markedview($_POST['id']);
-                $infocontact = $this->contact_model->getContact($_POST['id']);
-                if ($this->mailer->sendmail($_POST['sujet'], $infocontact->email, $_POST['message']) == true) {
-                    return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'Le message à bien été envoyé']);
-                }
-
-                return $this->responded(['code' => 2, 'title' => 'Contact', 'message' => 'Message non envoyé']);
-            }
-        } else {
-            return $this->responded([]);
+        $this->contact_model->markedview($_POST['id']);
+        $infocontact = $this->contact_model->getContact($_POST['id']);
+        if ($this->mailer->sendmail($_POST['sujet'], $infocontact->email, $_POST['message']) === true) {
+            return $this->Responded(['code' => 1, 'title' => 'Contact', 'message' => 'Le message à bien été envoyé']);
         }
+
+        return $this->Responded(['code' => 2, 'title' => 'Contact', 'message' => 'Message non envoyé']);
     }
 
     /**
-     *
+     * @return Response
      */
-    public function markedview()
+    public function markedview():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->contact_model->markedview($_POST['id']);
+        $this->contact_model->markedview($_POST['id']);
 
-                return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'La prise de contact à été marqué comme vue']);
-            }
-        } else {
-            return $this->responded([]);
-        }
+        return $this->Responded(['code' => 1, 'title' => 'Contact', 'message' => 'La prise de contact à été marqué comme vue']);
     }
 
     /**
+     * @return Response
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function del()
+    public function del():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->contact_model->del($_POST['id']);
+        $this->contact_model->del($_POST['id']);
 
-                return $this->responded(['code' => 1, 'title' => 'Contact', 'message' => 'La prise de contact à été supprimé']);
-            }
-        } else {
-            return $this->responded([]);
-        }
+        return $this->Responded(['code' => 1, 'title' => 'Contact', 'message' => 'La prise de contact à été supprimé']);
     }
 }

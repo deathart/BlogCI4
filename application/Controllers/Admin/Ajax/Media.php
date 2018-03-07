@@ -2,6 +2,7 @@
 
 use App\Libraries\Twig\Twig;
 use App\Models\Admin\MediaModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Media
@@ -36,84 +37,61 @@ class Media extends Ajax
     }
 
     /**
-     * @throws \Twig_Error_Syntax
+     * @return Response
+     * @throws \Codeigniter\UnknownFileException
      * @throws \Twig_Error_Runtime
-     * @throws \CodeIgniter\UnknownFileException
+     * @throws \Twig_Error_Syntax
      */
-    public function modal()
+    public function modal():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $data_ajax = [
-                    'get_all_media' => $this->media_model->Get_All(),
-                    'type_modal' => $_POST['type_modal']
-                ];
+        $data_ajax = [
+            'get_all_media' => $this->media_model->Get_All(),
+            'type_modal' => $_POST['type_modal']
+        ];
 
-                return $this->responded(['code' => 1, 'title' => 'Media', 'content' => $this->twig->Rendered('media/modal', $data_ajax)]);
-            }
-
-            return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
-        }
-
-        return $this->responded([]);
+        return $this->Responded(['code' => 1, 'title' => 'Media', 'content' => $this->twig->Rendered('media/modal', $data_ajax)]);
     }
 
     /**
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
+     * @return Response
      */
-    public function add_media()
+    public function add_media():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                if ($img = $this->request->getFile('pictures')) {
-                    if ($img->isValid() && !$img->hasMoved()) {
-                        $name = $img->getName();
-                        $path = 'uploads/' . date('Y') . '/' . date('n');
-                        if (!$this->media_model->isAlreadyExists($img->getName())) {
-                            if ($img->move(FCPATH . $path, $name, true)) {
-                                $id_pic = $this->media_model->Add('uploads/' . date('Y') . '/' . date('n') . '/', $img->getName());
+        if ($img = $this->request->getFile('pictures')) {
+            if ($img->isValid() && !$img->hasMoved()) {
+                $name = $img->getName();
+                $path = 'uploads/' . date('Y') . '/' . date('n');
+                if (!$this->media_model->isAlreadyExists($img->getName())) {
+                    if ($img->move(FCPATH . $path, $name, true)) {
+                        $id_pic = $this->media_model->Add('uploads/' . date('Y') . '/' . date('n') . '/', $img->getName());
 
-                                return $this->responded(['code' => 1, 'title' => 'Medias', 'message' => 'Image importée avec success', 'id' => $id_pic, 'slug' => $path  . '/' . $img->getName()]);
-                            }
-
-                            throw $this->responded(['code' => 0, 'message' => 'Erreur : ' .$img->getErrorString().'('.$img->getError().')']);
-                        }
-
-                        return $this->responded(['code' => 0, 'message' => 'Erreur : L\'image existe déjà']);
+                        return $this->Responded(['code' => 1, 'title' => 'Medias', 'message' => 'Image importée avec success', 'id' => $id_pic, 'slug' => $path  . '/' . $img->getName()]);
                     }
 
-                    throw $this->responded(['code' => 0, 'message' => 'Erreur : ' .$img->getErrorString().'('.$img->getError().')']);
+                    return $this->Responded(['code' => 0, 'message' => 'Erreur : ' .$img->getErrorString().'('.$img->getError().')']);
                 }
+
+                return $this->Responded(['code' => 0, 'message' => 'Erreur : L\'image existe déjà']);
             }
 
-            return $this->responded(['code' => 0]);
+            return $this->Responded(['code' => 0, 'message' => 'Erreur : ' .$img->getErrorString().'('.$img->getError().')']);
         }
-
-        return $this->responded(['code' => 0]);
     }
 
     /**
+     * @return Response
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function remove_media()
+    public function remove_media():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                if (file_exists(FCPATH . $_POST['slug'])) {
-                    unlink(FCPATH . $_POST['slug']);
-                }
-
-                if ($this->media_model->isAlreadyExists($_POST['name'])) {
-                    $this->media_model->removeMedia($_POST['id']);
-                }
-
-                return $this->responded(['code' => 1, 'title' => 'Medias', 'message' => 'Image supprimé']);
-            }
-
-            return $this->responded(['code' => 0]);
+        if (file_exists(FCPATH . $_POST['slug'])) {
+            unlink(FCPATH . $_POST['slug']);
         }
 
-        return $this->responded(['code' => 0]);
+        if ($this->media_model->isAlreadyExists($_POST['name'])) {
+            $this->media_model->removeMedia($_POST['id']);
+        }
+
+        return $this->Responded(['code' => 1, 'title' => 'Medias', 'message' => 'Image supprimé']);
     }
 }

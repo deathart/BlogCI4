@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Admin\Ajax;
 
 use App\Models\Admin\CatModel;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class Cat
@@ -27,48 +28,33 @@ class Cat extends Ajax
         $this->cat_model = new CatModel();
     }
 
-    public function UpdateTitle()
+    /**
+     * @return Response
+     */
+    public function UpdateTitle():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->cat_model->UpdateCat($_POST['id'], 'title', $_POST['title']);
+        $this->cat_model->UpdateCat($_POST['id'], 'title', $_POST['title']);
 
-                return $this->responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
-            }
-
-            return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
-        }
-
-        return $this->responded([]);
+        return $this->Responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
     }
 
-    public function UpdateContent()
+    /**
+     * @return Response
+     */
+    public function UpdateContent():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->cat_model->UpdateCat($_POST['id'], 'description', $_POST['content']);
+        $this->cat_model->UpdateCat($_POST['id'], 'description', $_POST['content']);
 
-                return $this->responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
-            }
-
-            return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
-        }
-
-        return $this->responded([]);
+        return $this->Responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
     }
 
-    public function Add()
+    /**
+     * @return Response
+     */
+    public function Add():Response
     {
-        if ($this->isConnected()) {
-            if ($this->csrf->validateToken($_SERVER['HTTP_X_CSRFTOKEN'])) {
-                $this->cat_model->AddCat($_POST['title'], $_POST['content'], $_POST['slug'], $_POST['icon']);
+        $this->cat_model->AddCat($_POST['title'], $_POST['content'], $_POST['slug'], $_POST['icon']);
 
-                return $this->responded(['code' => 1, 'title' => "Ajout d'une catégorie", 'message' => 'La catégories à bien été ajouter, rechargemen tde la page']);
-            }
-
-            return $this->responded(['code' => 0, 'message' => 'Erreurs...']);
-        }
-
-        return $this->responded([]);
+        return $this->Responded(['code' => 1, 'title' => "Ajout d'une catégorie", 'message' => 'La catégories à bien été ajouter, rechargemen tde la page']);
     }
 }
