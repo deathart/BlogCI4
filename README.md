@@ -10,7 +10,9 @@ Then execute the following commands :
 composer install
 php spark migrate:latest
 php spark db:seed DatabaseSeeder
+php serve
 ```
+Go to [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
 # Admin access
 Then go to the link of your blog and added "/admin/" the identifiers are:
