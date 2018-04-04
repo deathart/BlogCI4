@@ -32,6 +32,8 @@ RUN "date"
 RUN docker-php-ext-configure intl \
     && docker-php-ext-install pdo pdo_mysql opcache intl
 
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
 # install xdebug
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug \
