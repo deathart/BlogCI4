@@ -166,6 +166,8 @@ class Session implements SessionInterface
 		$this->cookieDomain = $config->cookieDomain;
 		$this->cookiePath = $config->cookiePath;
 		$this->cookieSecure = $config->cookieSecure;
+
+		helper('array');
 	}
 
 	//--------------------------------------------------------------------
@@ -233,6 +235,8 @@ class Session implements SessionInterface
 		$this->initVars();
 
 		$this->logger->info("Session: Class initialized using '" . $this->sessionDriverName . "' driver.");
+
+		return $this;
 	}
 
 	//--------------------------------------------------------------------
@@ -461,18 +465,23 @@ class Session implements SessionInterface
 	 */
 	public function get(string $key = null)
 	{
-		if (isset($key))
+		if (! empty($key) && $value = dot_array_search($key, $_SESSION))
 		{
-			return $_SESSION[$key] ?? null;
+			return $value;
 		}
 		elseif (empty($_SESSION))
 		{
 			return [];
 		}
 
+		if (! empty($key))
+		{
+			return null;
+		}
+
 		$userdata = [];
 		$_exclude = array_merge(
-				['__ci_vars'], $this->getFlashKeys(), $this->getTempKeys()
+			['__ci_vars'], $this->getFlashKeys(), $this->getTempKeys()
 		);
 
 		$keys = array_keys($_SESSION);

@@ -36,6 +36,7 @@
  * @filesource
  */
 use CodeIgniter\Autoloader\FileLocator;
+use CodeIgniter\Router\Exceptions\RouterException;
 
 /**
  * Class RouteCollection
@@ -1129,13 +1130,15 @@ class RouteCollection implements RouteCollectionInterface
 		{
 			// Ensure that the param we're inserting matches
 			// the expected param type.
+			$pos = strpos($from, $pattern);
+
 			if (preg_match("|{$pattern}|", $params[$index]))
 			{
-				$from = str_replace($pattern, $params[$index], $from);
+				$from = substr_replace($from, $params[$index], $pos, strlen($pattern));
 			}
 			else
 			{
-				throw new \LogicException('A parameter does not match the expected type.');
+				throw RouterException::forInvalidParameterType();
 			}
 		}
 
