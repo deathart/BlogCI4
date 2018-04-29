@@ -10,7 +10,7 @@ Then execute the following commands :
 composer install
 php spark migrate:latest
 php spark db:seed DatabaseSeeder
-php -S 127.0.0.1:8080 -t public/ ../rewrite.php
+php spark serve -host 127.0.0.1
 ```
 Go to [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
