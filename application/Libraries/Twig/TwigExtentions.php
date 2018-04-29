@@ -123,7 +123,7 @@ class TwigExtentions extends Twig_Extension
     {
         $folder = 'blog';
 
-        if ($this->request->uri->getSegment(1) == 'admin') {
+        if ($this->request->uri->getSegment(1) === 'admin') {
             $folder = 'admin';
         }
 
