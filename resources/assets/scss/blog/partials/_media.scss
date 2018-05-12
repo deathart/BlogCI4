@@ -1,0 +1,144 @@
+/* ==========================================================================
+Media rules
+========================================================================== */
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .menu_right.home {
+        float: left;
+        width: calc(100% - 10px);
+        margin: 5px;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    #wrapper > #content > .menu_right.home {
+        float: right;
+        width: 25%;
+        margin: 10px 5px 10px 0;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .menu_right.article {
+        float: left;
+        width: calc(100% - 10px);
+        margin: 5px;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    #wrapper > #content > .menu_right.article {
+        float: right;
+        width: 25%;
+        margin: 10px 12.5% 10px 0;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .menu_right > .bloc#pub {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    #wrapper > #content > .menu_right > .bloc.fixed {
+        position: fixed;
+        top: 90px;
+        float: left;
+        width: calc(25% - 10px);
+        right: 10px;
+        margin-right: 12.5%;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .article_list {
+        float: left;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 64rem) {
+    #wrapper > #content > .list-cat > .cat_info {
+        float: left;
+        width: calc(50% - 10px);
+        margin: 5px;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .list-cat > .cat_info {
+        float: left;
+        width: calc(100% - 10px);
+        margin: 5px;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    #wrapper > #content > #article {
+        float: left;
+        width: calc(50% - 25px);
+        margin: 15px 0 20px calc((12.5% + 10px) - 25px);
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > #article {
+        float: left;
+        width: calc(100% - 20px);
+        margin: 0 10px 10px;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    #wrapper > #content > .tags {
+        float: left;
+        width: calc(50% - 25px);
+        margin: 15px 0 20px calc((12.5% + 10px) - 25px);
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .tags {
+        float: left;
+        width: calc(100% - 20px);
+        margin: 0 10px 10px;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    #wrapper > #content > .commentaire {
+        float: left;
+        width: calc(50% - 25px);
+        margin: 15px 0 20px calc((12.5% + 10px) - 25px);
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > #content > .commentaire {
+        float: left;
+        width: calc(100% - 20px);
+        margin: 0 10px 10px;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    #wrapper > footer {
+        height: 70px;
+    }
+}
+
+@media only screen and (max-width: 64rem) {
+    .article_bloc {
+        float: left;
+        width: calc(50% - 10px);
+        margin: 5px;
+    }
+}
+
+@media only screen and (max-width: 40rem) {
+    .article_bloc {
+        float: left;
+        width: calc(100% - 10px);
+        margin: 5px;
+    }
+}

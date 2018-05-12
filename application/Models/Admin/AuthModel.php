@@ -93,6 +93,6 @@ class AuthModel extends Model
             return 'uploads/avatar/' . $this->user_table->get()->getRow()->avatar;
         }
 
-        return 'assets/images/user.png';
+        return 'images/admin/user.png';
     }
 }

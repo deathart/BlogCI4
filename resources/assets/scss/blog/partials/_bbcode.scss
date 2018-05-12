@@ -1,0 +1,105 @@
+/* ==========================================================================
+BBCODE
+========================================================================== */
+blockquote {
+    display: block;
+    background: #fff;
+    padding: 15px 20px 15px 45px;
+    margin: 0 0 20px;
+    position: relative;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #666;
+    text-align: justify;
+    border-left: 15px solid #22bb66;
+    border-right: 2px solid #22bb66;
+    box-shadow: 2px 2px 15px #ccc;
+    &::before {
+        content: "\201C";
+        font-family: Georgia, serif;
+        font-size: 60px;
+        font-weight: bold;
+        color: #999;
+        position: absolute;
+        left: 10px;
+        top: 5px;
+    }
+    &::after {
+        content: "";
+    }
+    a {
+        text-decoration: none;
+        background: #eee;
+        cursor: pointer;
+        padding: 0 3px;
+        color: #22bb66;
+        &:hover {
+            color: #eee;
+            background: #22bb66;
+        }
+    }
+    em {
+        font-style: italic;
+    }
+}
+
+.source {
+    display: block;
+    background: #fff;
+    padding: 15px;
+    margin: 0 0 20px;
+    position: relative;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.2;
+    color: #666;
+    text-align: justify;
+    border-left: 15px solid #22bb66;
+    border-right: 2px solid #22bb66;
+    box-shadow: 2px 2px 15px #ccc;
+}
+
+.alert {
+    padding: 0!important;
+    position: relative;
+    color: #FFFFFF;
+    line-height: 25px;
+    border-width: 0;
+    margin-bottom: 18px!important;
+    color: #FFF;
+    >.icon {
+        display: table-cell;
+        width: 60px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: rgba(255,255,255,.08);
+        font-size: 1.846rem;
+        line-height: 22px;
+        padding-top: 1px;
+    }
+    >.message {
+        display: table-cell;
+        padding: 1.385rem;
+        border-left-width: 0;
+    }
+    &.success {
+        background-color: #33a451;
+    }
+    &.info {
+        background-color: #3d82f4;
+    }
+    &.warning {
+        background-color: #f7b904;
+    }
+    &.danger {
+        background-color: #ea3f30;
+    }
+}
+
+iframe {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

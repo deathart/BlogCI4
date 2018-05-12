@@ -1,8 +1,8 @@
 <?php namespace App\Libraries\Twig;
 
 use App\Models\Admin\ConfigModel;
-use Codeigniter\UnknownFileException;
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
+use Codeigniter\UnknownFileException;
 use Twig_Environment;
 use Twig_Error_Loader;
 use Twig_Loader_Filesystem;
@@ -65,6 +65,7 @@ class Twig
             $template = $this->environment->load('page/' . $file . $this->ext);
         } catch (Twig_Error_Loader $error_Loader) {
             throw new UnknownFileException($error_Loader);
+
             throw new FileNotFoundException($error_Loader);
         }
 

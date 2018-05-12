@@ -1,0 +1,38 @@
+{
+    "name": "blogCI4",
+    "version": "1.0.0",
+    "description": "Asset Manager for BlogCI4",
+    "main": "index.js",
+    "scripts": {
+        "theme:build": "node_modules/.bin/gulp --gulpfile ./gulpfile.js build",
+        "theme:watch": "node_modules/.bin/gulp --gulpfile ./gulpfile.js watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:deathart/BlogCI4.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/deathart/BlogCI4/issues"
+    },
+    "homepage": "https://github.com/deathart/BlogCI4#README",
+    "dependencies": {},
+    "devDependencies": {
+        "autoprefixer": "^8.4.1",
+        "gulp": "^3.9.1",
+        "gulp-clean": "^0.4.0",
+        "gulp-clean-css": "^3.9.2",
+        "gulp-cli": "^2.0.1",
+        "gulp-image": "^4.3.0",
+        "gulp-plumber": "^1.2.0",
+        "gulp-postcss": "^7.0.1",
+        "gulp-rev": "^8.1.1",
+        "gulp-rev-css-url": "^0.1.0",
+        "gulp-rev-delete-original": "^0.2.3",
+        "gulp-sass": "^4.0.1",
+        "gulp-sequence": "^1.0.0",
+        "gulp-uglify": "^3.0.0",
+        "merge-stream": "^1.0.1"
+    }
+}

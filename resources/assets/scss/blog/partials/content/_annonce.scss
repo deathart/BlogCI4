@@ -1,0 +1,69 @@
+.annonce {
+    color: #fff;
+    padding: 15px;
+    background-color: #22bb66;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    > a {
+        color: rgba(0, 0, 0, 0.5) !important;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 3px;
+        &.active {
+            &:after {
+                height: 3px;
+                display: block;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                content: '';
+            }
+            &:before {
+                display: block;
+                content: '';
+                background: silver;
+                height: 3px;
+                margin-top: -20px;
+            }
+        }
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 0;
+            transition: width 0s ease, background 0.5s ease;
+        }
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            width: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: width 0.5s ease;
+        }
+        &:hover {
+            color: rgba(0, 0, 0, 0.5);
+            &:before {
+                width: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                transition: width 0.5s ease;
+            }
+            &:after {
+                width: 100%;
+                background: transparent;
+                transition: all 0s ease;
+            }
+        }
+    }
+    > h1 {
+        text-align: center;
+    }
+}

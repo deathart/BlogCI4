@@ -1,0 +1,336 @@
+/* ==========================================================================
+Button
+========================================================================== */
+
+.btn-social {
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: .5em;
+    display: block;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    margin-bottom: 2%;
+    &.btn-facebook {
+        color: #ffffff;
+        background-color: #3b5998;
+        border-color: rgba(0, 0, 0, 0.2);
+        &:focus, &.focus, &:hover, &:active, &.active {
+            color: #ffffff;
+            background-color: #2d4373;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-facebook.dropdown-toggle {
+    color: #ffffff;
+    background-color: #2d4373;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social.btn-facebook {
+    &:active {
+        &:hover, &:focus, &.focus {
+            color: #ffffff;
+            background-color: #23345a;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &.active {
+        &:hover, &:focus, &.focus {
+            color: #ffffff;
+            background-color: #23345a;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-facebook.dropdown-toggle {
+    &:hover, &:focus, &.focus {
+        color: #ffffff;
+        background-color: #23345a;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social.btn-facebook {
+    &:active, &.active {
+        background-image: none;
+    }
+}
+
+.open > .btn-social.btn-facebook.dropdown-toggle {
+    background-image: none;
+}
+
+.btn-social.btn-facebook {
+    &.disabled {
+        &:hover, &:focus, &.focus {
+            background-color: #3b5998;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &[disabled] {
+        &:hover, &:focus, &.focus {
+            background-color: #3b5998;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+fieldset[disabled] .btn-social.btn-facebook {
+    &:hover, &:focus, &.focus {
+        background-color: #3b5998;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social {
+    &.btn-facebook .badge {
+        color: #3b5998;
+        background-color: #ffffff;
+    }
+    &.btn-twitter {
+        color: #ffffff;
+        background-color: #55acee;
+        border-color: rgba(0, 0, 0, 0.2);
+        &:focus, &.focus, &:hover, &:active, &.active {
+            color: #ffffff;
+            background-color: #2795e9;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-twitter.dropdown-toggle {
+    color: #ffffff;
+    background-color: #2795e9;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social.btn-twitter {
+    &:active {
+        &:hover, &:focus, &.focus {
+            color: #ffffff;
+            background-color: #1583d7;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &.active {
+        &:hover, &:focus, &.focus {
+            color: #ffffff;
+            background-color: #1583d7;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-twitter.dropdown-toggle {
+    &:hover, &:focus, &.focus {
+        color: #ffffff;
+        background-color: #1583d7;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social.btn-twitter {
+    &:active, &.active {
+        background-image: none;
+    }
+}
+
+.open > .btn-social.btn-twitter.dropdown-toggle {
+    background-image: none;
+}
+
+.btn-social.btn-twitter {
+    &.disabled {
+        &:hover, &:focus, &.focus {
+            background-color: #55acee;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &[disabled] {
+        &:hover, &:focus, &.focus {
+            background-color: #55acee;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+fieldset[disabled] .btn-social.btn-twitter {
+    &:hover, &:focus, &.focus {
+        background-color: #55acee;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social {
+    &.btn-twitter .badge {
+        color: #55acee;
+        background-color: #ffffff;
+    }
+    &.btn-google {
+        color: #ffffff;
+        background-color: #dd4b39;
+        border-color: rgba(0, 0, 0, 0.2);
+        &:focus, &.focus, &:hover, &:active, &.active {
+            color: #ffffff;
+            background-color: #c23321;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-google.dropdown-toggle {
+    color: #ffffff;
+    background-color: #c23321;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social.btn-google {
+    &:active {
+        &:hover, &:focus, &.focus {
+            color: #ffffff;
+            background-color: #a32b1c;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &.active {
+        &:hover, &:focus, &.focus {
+            color: #ffffff;
+            background-color: #a32b1c;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-google.dropdown-toggle {
+    &:hover, &:focus, &.focus {
+        color: #ffffff;
+        background-color: #a32b1c;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social.btn-google {
+    &:active, &.active {
+        background-image: none;
+    }
+}
+
+.open > .btn-social.btn-google.dropdown-toggle {
+    background-image: none;
+}
+
+.btn-social.btn-google {
+    &.disabled {
+        &:hover, &:focus, &.focus {
+            background-color: #dd4b39;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &[disabled] {
+        &:hover, &:focus, &.focus {
+            background-color: #dd4b39;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+fieldset[disabled] .btn-social.btn-google {
+    &:hover, &:focus, &.focus {
+        background-color: #dd4b39;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social {
+    &.btn-google .badge {
+        color: #dd4b39;
+        background-color: #ffffff;
+    }
+    &.btn-reddit {
+        color: #000000;
+        background-color: #eff7ff;
+        border-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid #000000;
+        &:focus, &.focus, &:hover, &:active, &.active {
+            color: #000000;
+            background-color: #bcdeff;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-reddit.dropdown-toggle {
+    color: #000000;
+    background-color: #bcdeff;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social.btn-reddit {
+    &:active {
+        &:hover, &:focus, &.focus {
+            color: #000000;
+            background-color: #98ccff;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &.active {
+        &:hover, &:focus, &.focus {
+            color: #000000;
+            background-color: #98ccff;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.open > .btn-social.btn-reddit.dropdown-toggle {
+    &:hover, &:focus, &.focus {
+        color: #000000;
+        background-color: #98ccff;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social.btn-reddit {
+    &:active, &.active {
+        background-image: none;
+    }
+}
+
+.open > .btn-social.btn-reddit.dropdown-toggle {
+    background-image: none;
+}
+
+.btn-social.btn-reddit {
+    &.disabled {
+        &:hover, &:focus, &.focus {
+            background-color: #eff7ff;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+    &[disabled] {
+        &:hover, &:focus, &.focus {
+            background-color: #eff7ff;
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+fieldset[disabled] .btn-social.btn-reddit {
+    &:hover, &:focus, &.focus {
+        background-color: #eff7ff;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.btn-social.btn-reddit .badge {
+    color: #eff7ff;
+    background-color: #000000;
+}

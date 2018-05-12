@@ -1,0 +1,49 @@
+/* ==========================================================================
+Keyframes
+========================================================================== */
+@-webkit-keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@-webkit-keyframes showHeader {
+    from {
+        transform: translateY(-50%);
+        opacity: 0.35;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+@keyframes showHeader {
+    from {
+        transform: translateY(-50%);
+        opacity: 0.35;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

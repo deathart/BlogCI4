@@ -50,7 +50,8 @@ class TwigExtentions extends Twig_Extension
         return [
             'base_url' => new Twig_Filter('base_url', 'base_url'),
             'config' => new Twig_Filter('config', [$this, 'filterConfig']),
-            'uri_segment' => new Twig_Filter('uri_segment', [$this, 'filterSegment'])
+            'uri_segment' => new Twig_Filter('uri_segment', [$this, 'filterSegment']),
+            'asset_path' => new Twig_Filter('asset_path', [$this, 'asset_path'])
         ];
     }
 
@@ -128,5 +129,26 @@ class TwigExtentions extends Twig_Extension
         }
 
         return lang($folder . '/' . $id, $params, $this->Config_model->GetConfig('lang'));
+    }
+
+    /**
+     * @param $filename
+     * @return string
+     */
+    public function asset_path($filename)
+    {
+        $manifest_path = FCPATH . 'assets/rev-manifest.json';
+
+        if (file_exists($manifest_path)) {
+            $manifest = json_decode(file_get_contents($manifest_path), true);
+        } else {
+            $manifest = [];
+        }
+
+        if (array_key_exists($filename, $manifest)) {
+            return base_url('assets/' . $manifest[$filename]);
+        }
+
+        return base_url('assets/' . $filename);
     }
 }

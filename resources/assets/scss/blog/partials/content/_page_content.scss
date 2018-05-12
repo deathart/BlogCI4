@@ -1,0 +1,46 @@
+.page_content {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 1%;
+    >.title {
+        background: #22bb66;
+        color: #FFFFFF;
+        padding: 15px;
+    }
+    >.content {
+        padding: 15px;
+        border: 1px solid #22bb66;
+        >.tabsnavtitle {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            margin-top: 1%;
+            > button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+                &:hover {
+                    background-color: #ddd;
+                }
+                &.active {
+                    background-color: #22bb66;
+                }
+            }
+        }
+        >.tabsnavcontent {
+            >.tabsc {
+                display: none;
+                animation: fadeEffect 1s;
+                border: 1px solid #ccc;
+                padding: 5px;
+            }
+            >.show {
+                display: block;
+            }
+        }
+    }
+}

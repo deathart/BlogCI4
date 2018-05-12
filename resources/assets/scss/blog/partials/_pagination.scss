@@ -1,0 +1,39 @@
+/* ==========================================================================
+Pagination
+========================================================================== */
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    > li {
+        display: inline;
+        &.active > a {
+            cursor: not-allowed;
+            background-color: #21c6d3;
+            color: #ffffff;
+            border: 1px solid #22bb66;
+        }
+        &:first-child > a {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        &:last-child > a {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-right: 1px solid #22bb66;
+        }
+        > a {
+            color: #000000;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-top: 1px solid #22bb66;
+            border-bottom: 1px solid #22bb66;
+            border-left: 1px solid #22bb66;
+            font-weight: bold;
+            &:hover {
+                background: #22bb66;
+            }
+        }
+    }
+}

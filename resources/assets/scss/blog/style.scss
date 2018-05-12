@@ -1,0 +1,33 @@
+@import "partials/html";
+
+/* ==========================================================================
+Content
+========================================================================== */
+
+@import "layout/header";
+
+#content {
+    margin-top: 1%;
+    @import "partials/content/annonce";
+    @import "partials/content/menu_right";
+    @import "partials/content/article_list";
+    @import "partials/content/article_last";
+    @import "partials/content/list_cat";
+    @import "partials/content/article";
+    @import "partials/content/tags";
+    @import "partials/content/comments";
+    @import "partials/content/page_content";
+
+}
+
+@import "layout/footer";
+
+@import "partials/article";
+@import "partials/bbcode";
+
+@import "partials/eupopup";
+@import "partials/btn";
+@import "partials/pagination";
+
+@import "partials/media";
+@import "partials/keyframes";

@@ -100,29 +100,28 @@ class Application extends Controller
      */
     private function base_template()
     {
-
         //Set css file
-        $this->set_css(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/css/style.css'));
-        $this->set_css(base_url('assets/css/fontawesome.css'));
+        $this->set_css($this->asset_path('css/blog/style.css'));
+        $this->set_css($this->asset_path('css/vendor/fontawesome.css'));
         $this->set_css('//fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:100,300');
-        $this->set_css(base_url('assets/css/bootstrap.css'));
+        $this->set_css($this->asset_path('css/vendor/bootstrap.css'));
 
         //Set JS
-        $this->set_js(base_url('assets/js/jquery.min.js'));
-        $this->set_js(base_url('assets/js/bootstrap.bundle.js'));
-        $this->set_js(base_url('assets/js/cookie.min.js'));
-        $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/app.js'));
+        $this->set_js($this->asset_path('js/vendor/jquery.min.js'));
+        $this->set_js($this->asset_path('js/vendor/bootstrap.bundle.js'));
+        $this->set_js($this->asset_path('js/vendor/cookie.min.js'));
+        $this->set_js($this->asset_path('js/blog/app.js'));
 
         //Set by page
         if ($this->request->uri->getSegment(1) == 'article') {
-            $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/article.js'));
-            $this->set_css(base_url('assets/css/prism.css'));
-            $this->set_js(base_url('assets/js/prism.min.js'));
+            $this->set_js($this->asset_path('js/blog/article.js'));
+            $this->set_css($this->asset_path('css/vendor/prism.css'));
+            $this->set_js($this->asset_path('js/vendor/prism.min.js'));
         } elseif ($this->request->uri->getSegment(1) == 'contact') {
-            $this->set_js(base_url('themes/blog/' . $this->config_model->GetConfig('theme_blog') . '/assets/js/contact.js'));
+            $this->set_js($this->asset_path('js/blog/contact.js'));
         } elseif ($this->request->uri->getSegment(1) == 'page') {
-            $this->set_css(base_url('assets/css/prism.css'));
-            $this->set_js(base_url('assets/js/prism.min.js'));
+            $this->set_css($this->asset_path('css/vendor/prism.css'));
+            $this->set_js($this->asset_path('js/vendor/prism.min.js'));
         }
 
         return $this;
@@ -192,13 +191,13 @@ class Application extends Controller
         $h .= '<meta property="og:url" content="' . current_url() . '"/>';
         $h .= '<meta property="og:description" content="' . $this->config_model->GetConfig('site_description') . '"/>';
         $h .= '<meta property="og:type" content="' . $oritype . '" />';
-        $h .= '<meta property="og:image" content="' . base_url('assets/images/logo.png') . '" />';
-        $h .= '<meta property="og:image:secure_url" content="' . base_url('assets/images/logo.png') . '" />';
+        $h .= '<meta property="og:image" content="' . $this->asset_path('/images/logo.png') . '" />';
+        $h .= '<meta property="og:image:secure_url" content="' . $this->asset_path('/images/logo.png') . '" />';
         $h .= '<meta name="twitter:card" content="summary_large_image" />';
         $h .= '<meta name="twitter:description" content="' . $this->config_model->GetConfig('site_description') . '" />';
         $h .= '<meta name="twitter:title" content="' . $titre . '" />';
         $h .= '<meta name="twitter:site" content="' . base_url() . '" />';
-        $h .= '<meta name="twitter:image" content="' . base_url('assets/images/logo.png') . '" />';
+        $h .= '<meta name="twitter:image" content="' . $this->asset_path('/images/logo.png') . '" />';
         $h .= '<meta name="_token" content="'.$this->csrf->getToken().'" />';
 
         return $h;
@@ -234,5 +233,26 @@ class Application extends Controller
         $this->response->send();
 
         return $this;
+    }
+
+    /**
+     * @param $filename
+     * @return mixed
+     */
+    private function asset_path($filename)
+    {
+        $manifest_path = FCPATH . 'assets/rev-manifest.json';
+
+        if (file_exists($manifest_path)) {
+            $manifest = json_decode(file_get_contents($manifest_path), true);
+        } else {
+            $manifest = [];
+        }
+
+        if (array_key_exists($filename, $manifest)) {
+            return base_url('assets/' . $manifest[$filename]);
+        }
+
+        return base_url('assets/' . $filename);
     }
 }

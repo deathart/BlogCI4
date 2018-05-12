@@ -1,0 +1,56 @@
+.commentaire {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    > {
+        .comment {
+            margin: 5px 5px 15px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            > {
+                .inf {
+                    background-color: #22bb66;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                    padding: 0 5px;
+                    > span {
+                        display: block;
+                        color: #fff;
+                        &.name {
+                            color: #fff;
+                        }
+                        &.date {
+                            font-size: xx-small;
+                        }
+                        > i {
+                            color: #fff;
+                        }
+                    }
+                }
+                .cont {
+                    padding: 5px;
+                }
+            }
+        }
+        .no-comment {
+            margin: 5px 5px 15px;
+        }
+        .message_add_coms {
+            width: 100%;
+            text-align: center;
+        }
+        .add_com {
+            margin: 5px 5px 15px;
+            padding: 5px;
+            >button {
+                margin-left: auto;
+                float: right;
+            }
+        }
+    }
+}

@@ -1,0 +1,168 @@
+.article_list {
+    width: 100%;
+    > {
+        h1 {
+            color: #22bb66;
+            text-align: center;
+            padding: 5px;
+            margin: 0;
+        }
+        .nopost {
+            color: #22bb66;
+            text-align: center;
+            padding: 5px;
+            margin-top: 70px;
+            font-size: x-large;
+        }
+        .first {
+            padding: 0;
+            float: left;
+            width: calc(50% - 20px);
+            margin: 0 10px 10px 0;
+            position: relative;
+            > {
+                a > img {
+                    min-width: 100%;
+                    max-width: 100%;
+                }
+                .desc {
+                    background: rgba(0, 0, 0, 0.5);
+                    bottom: 0;
+                    padding: 15px;
+                    position: absolute;
+                    width: 100%;
+                    > {
+                        h2 {
+                            font-size: 18px;
+                            line-height: 1.4em;
+                            color: #FFFFFF;
+                            > a {
+                                color: #FFFFFF;
+                                outline: none;
+                                text-decoration: none;
+                            }
+                        }
+                        .post_meta {
+                            color: #fff;
+                            font-size: 11px;
+                            padding: 10px 0;
+                            a {
+                                color: #FFFFFF;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .last_tree {
+            padding: 0;
+            width: calc(50% - 20px);
+            margin: 0 10px 10px auto;
+            > ul {
+                height: 52.50vh;
+                > li {
+                    height: 32%;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                    border-radius: 5px;
+                    -webkit-border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    &:nth-child(n + 2) {
+                        margin-top: 2%;
+                    }
+                    > {
+                        a > img {
+                            width: 30%;
+                            height: 100%;
+                        }
+                        .desc {
+                            bottom: 7px;
+                            padding: 15px;
+                            width: 68%;
+                            float: right;
+                            > {
+                                h2 {
+                                    font-size: 18px;
+                                    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                                    > a {
+                                        color: #22bb66;
+                                        outline: none;
+                                        text-decoration: none;
+                                    }
+                                }
+                                .post_meta {
+                                    font-size: 11px;
+                                    padding: 10px 0;
+                                    i {
+                                        color: #22bb66;
+                                    }
+                                    a {
+                                        color: #000000;
+                                    }
+                                }
+                                .read_more > a {
+                                    float: right;
+                                    color: rgba(0, 0, 0, 0.5) !important;
+                                    text-decoration: none;
+                                    display: inline-block;
+                                    position: relative;
+                                    padding-bottom: 3px;
+                                    &.active {
+                                        &:after {
+                                            height: 3px;
+                                            display: block;
+                                            width: 100%;
+                                            background: rgba(0, 0, 0, 0.5);
+                                            content: '';
+                                        }
+                                        &:before {
+                                            display: block;
+                                            content: '';
+                                            background: silver;
+                                            height: 3px;
+                                            margin-top: -20px;
+                                        }
+                                    }
+                                    &:before {
+                                        content: '';
+                                        display: block;
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+                                        height: 3px;
+                                        width: 0;
+                                        transition: width 0s ease, background 0.5s ease;
+                                    }
+                                    &:after {
+                                        content: '';
+                                        display: block;
+                                        position: absolute;
+                                        right: 0;
+                                        bottom: 0;
+                                        height: 3px;
+                                        width: 0;
+                                        background: rgba(0, 0, 0, 0.5);
+                                        transition: width 0.5s ease;
+                                    }
+                                    &:hover {
+                                        color: rgba(0, 0, 0, 0.5);
+                                        &:before {
+                                            width: 100%;
+                                            background: rgba(0, 0, 0, 0.5);
+                                            transition: width 0.5s ease;
+                                        }
+                                        &:after {
+                                            width: 100%;
+                                            background: transparent;
+                                            transition: all 0s ease;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

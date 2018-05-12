@@ -1,0 +1,127 @@
+/* ==========================================================================
+Footer
+========================================================================== */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-top: 2%;
+    >.foot {
+        height: 200px;
+        background: #22bb66;
+        .footer-about {
+            > h4 {
+
+            }
+            > p {
+                font-size: 14px;
+                line-height: 22px;
+            }
+            > .social {
+                > ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    overflow: hidden;
+                    > li {
+                        float: left;
+                        > a {
+                            display: block;
+                            margin-right: 15px;
+                            transition: opacity .25s ease;
+                            color: #eeeeee;
+                            &:hover, &:focus {
+                                color: rgba(255, 255, 255, 0.5);
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .footer-useful-links {
+            > ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                > li {
+                    font-size: 15px;
+                    font-weight: 400;
+                    padding-bottom: 4px;
+                    > a {
+                        border-bottom: 1px dotted #fff;
+                        display: block;
+                        margin: 2px 0;
+                        padding-bottom: 5px;
+                        text-transform: capitalize;
+                        transition: opacity .25s ease;
+                        color: #eeeeee;
+                        &:hover, &:focus {
+                            color: rgba(255, 255, 255, 0.5);
+                            text-decoration: none;
+                        }
+                    }
+                    > span {
+                        border-bottom: 1px dotted #fff;
+                        display: block;
+                        margin: 2px 0;
+                        padding-bottom: 5px;
+                        text-transform: capitalize;
+                        transition: opacity .25s ease;
+                        color: #eeeeee;
+                        cursor: pointer;
+                        &:hover, &:focus {
+                            color: rgba(255, 255, 255, 0.5);
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    >.copyright {
+        height: 30px;
+        background: #1F2024;
+        text-align: center;
+        padding-top: 4px;
+        a {
+            font-weight: bold;
+            text-transform: capitalize;
+            transition: opacity .25s ease;
+            color: rgba(255, 255, 255, 0.5);
+            &:hover, &:focus {
+                color: #ffffff;
+                text-decoration: none;
+            }
+        }
+    }
+}
+.scroll-top-wrapper {
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1000;
+    background-color: #22bb66;
+    color: #eeeeee;
+    width: 50px;
+    height: 48px;
+    line-height: 48px;
+    right: 30px;
+    bottom: 50px;
+    padding-top: 2px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        background-color: #36da7f;
+    }
+    &.show {
+        visibility: visible;
+        cursor: pointer;
+        opacity: 1.0;
+    }
+}

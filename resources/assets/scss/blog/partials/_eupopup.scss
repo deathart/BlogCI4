@@ -1,0 +1,51 @@
+/* ==========================================================================
+Popup cookie
+========================================================================== */
+.eupopup-container {
+    background-color: rgba(25, 25, 25, 0.9);
+    color: #efefef;
+    padding: 5px 20px;
+    font-size: 12px;
+    line-height: 1.2em;
+    text-align: center;
+    display: none;
+    z-index: 9999999;
+    &.eupopup-container-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    > {
+        .eupopup-head {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 7px;
+            color: #fff;
+        }
+        .eupopup-body {
+            color: #a2a2a2;
+        }
+        .eupopup-buttons {
+            padding: 7px 0 5px;
+            > .eupopup-button {
+                margin: 0 10px;
+                &.eupopup-button_1 {
+                    color: #f6a21d;
+                    font-weight: bold;
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+                &.eupopup-button_2 {
+                    color: #f6a21d;
+                    font-weight: normal;
+                    font-size: 12px;
+                }
+                &:focus, &:hover {
+                    text-decoration: underline;
+                    color: #f6a21d;
+                }
+            }
+        }
+    }
+}

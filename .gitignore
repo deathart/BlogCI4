@@ -10,3 +10,4 @@ application/.php_cs.cache
 node_modules/
 /data/
 .env
+/public/assets/
