@@ -16,7 +16,6 @@
         "url": "https://github.com/deathart/BlogCI4/issues"
     },
     "homepage": "https://github.com/deathart/BlogCI4#README",
-    "dependencies": {},
     "devDependencies": {
         "autoprefixer": "^8.4.1",
         "gulp": "^3.9.1",
@@ -24,6 +23,7 @@
         "gulp-clean-css": "^3.9.2",
         "gulp-cli": "^2.0.1",
         "gulp-image": "^4.3.0",
+        "gulp-notify": "^3.2.0",
         "gulp-plumber": "^1.2.0",
         "gulp-postcss": "^7.0.1",
         "gulp-rev": "^8.1.1",

@@ -12,6 +12,7 @@ const revdel = require('gulp-rev-delete-original');
 const postcss = require('gulp-postcss');
 const image = require('gulp-image');
 const override=require('gulp-rev-css-url');
+const notify = require("gulp-notify");
 
 const config = {
     entry: path.join(__dirname, '/resources/assets/'),
@@ -24,7 +25,7 @@ const config = {
 
 gulp.task('scss', function(){
     return gulp.src(config.entry + "/scss/**/*.scss")
-        .pipe(plumber())
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(sass(config.sassoptions).on('error', sass.logError))
         .pipe(postcss([autoprefixer({browsers: ['last 1 version']})]))
         .pipe(gulp.dest(config.output + "/css"));
@@ -32,7 +33,7 @@ gulp.task('scss', function(){
 
 gulp.task('js', function(){
     return gulp.src(config.entry + "/js/**/*.js")
-        .pipe(plumber())
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(gulp.dest(config.output + "/js"));
 });
 
@@ -54,9 +55,8 @@ gulp.task('cleancss', function(){
 });
 
 gulp.task('cleanjs', function(){
-
     return gulp.src(config.output + "/js/**/*.js")
-        .pipe(plumber())
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(uglify())
         .pipe(gulp.dest(config.output + "/js"));
 });
@@ -78,6 +78,12 @@ gulp.task('revisioning', function() {
         .pipe(gulp.dest(config.output))
         .pipe(revdel())
         .pipe(rev.manifest())
+        .pipe(notify({
+            title : "Blog CI4",
+            subtitle: "Gulp task",
+            message : "All tasks have been compiled",
+            sound: false
+        }))
         .pipe(gulp.dest(config.output));
 });
 
