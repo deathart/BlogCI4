@@ -5,6 +5,7 @@ use App\Models\Blog\ArticleModel;
 use App\Models\Blog\CatModel;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\PagesModel;
+use Cocur\Slugify\Slugify;
 use Config\App;
 use Config\Services;
 
@@ -83,16 +84,16 @@ class General
 
     /**
      * @param string $tags
-     *
-     * @return string
+     * @param mixed $list
+     * @return array
      */
-    public function TradTags(string $tags): string
+    public function TradTags(string $tags, $list = false): array
     {
         $tags = preg_replace('/\s+/', '', $tags);
-        $arr = '';
+        $arr = [];
         $piece = explode(',', $tags);
         foreach ($piece as $data) {
-            $arr .= "<a href='" . base_url('tags/' . $data) . "'>" . $data . '</a>';
+            $arr[] = ['title' => $data, 'slug' => $this->slugify($data)];
         }
 
         return $arr;
@@ -158,5 +159,16 @@ class General
     public function getavatar():string
     {
         return $this->Auth_model->GetAvatar($this->session->get('Account_id'));
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function slugify($data)
+    {
+        $slugify = new Slugify();
+
+        return $slugify->slugify($data);
     }
 }

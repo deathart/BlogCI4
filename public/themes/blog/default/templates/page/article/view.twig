@@ -23,7 +23,11 @@
             </div>
             <div class="tags mt-3">
                 <h1>{{ trans('article.article_tags') }}</h1>
-                {{ general('TradTags', get_info_article.keyword) }}
+                <ul class="tags__list">
+                    {% for key, data_tags in general('TradTags', get_info_article.keyword) %}
+                        <li class="tags__list__puce"><a href="{{ ('tags/' ~ data_tags.slug)|base_url }}">{{ data_tags.title }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="commentaire mt-3">
                 {% if get_coms %}
