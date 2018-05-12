@@ -13,6 +13,11 @@
 			"CodeIgniter\\": "system/"
 		}
 	},
+	"extra": {
+		"grumphp": {
+			"config-default-path": "./grumphp.yml"
+		}
+	},
 	"require": {
 		"php": ">=7.1",
 		"zendframework/zend-escaper": "^2.5",
