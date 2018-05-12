@@ -8,8 +8,10 @@ Then execute the following commands :
 
 ```shell
 composer install
+npm install
 php spark migrate:latest
 php spark db:seed DatabaseSeeder
+npm run theme:build
 php spark serve -host 127.0.0.1
 ```
 Go to [http://127.0.0.1:8080](http://127.0.0.1:8080)
