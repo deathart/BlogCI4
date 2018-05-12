@@ -4,8 +4,7 @@
     "description": "Asset Manager for BlogCI4",
     "main": "index.js",
     "scripts": {
-        "theme:build": "node_modules/.bin/gulp --gulpfile ./gulpfile.js build",
-        "theme:watch": "node_modules/.bin/gulp --gulpfile ./gulpfile.js watch"
+        "theme:build": "node_modules/.bin/gulp --gulpfile ./gulpfile.js build"
     },
     "repository": {
         "type": "git",

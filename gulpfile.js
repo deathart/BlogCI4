@@ -81,21 +81,5 @@ gulp.task('revisioning', function() {
         .pipe(gulp.dest(config.output));
 });
 
-gulp.task('watch', function(){
-    gulp.watch(config.entry + "/scss/**/*.scss").on('change', function(path) {
-        console.log('File ' + path.path + ' was changed');
-        gulpSequence('clean', ['scss', 'js'], ['cleancss', 'cleanjs'], 'revisioning')(function (err) {
-            if (err) console.log(err)
-        })
-    });
-
-    gulp.watch(config.entry + "/js/**/*.js").on('change', function(path) {
-        console.log('File ' + path.path + ' was changed');
-        gulpSequence('clean', ['scss', 'js'], ['cleancss', 'cleanjs'], 'revisioning')(function (err) {
-            if (err) console.log(err)
-        })
-    });
-});
-
 gulp.task('build', gulpSequence('clean', ['scss', 'js', 'image', 'fonts'], ['cleancss', 'cleanjs'], 'revisioning'));
 gulp.task('default', ['scss', 'js' ]);
