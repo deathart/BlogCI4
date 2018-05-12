@@ -23,7 +23,6 @@ return PhpCsFixer\Config::create()
         'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
-        'no_unused_imports' => true,
         'ordered_imports' => true,
         'single_quote' => true,
         'blank_line_after_namespace' => true,
