@@ -1,5 +1,13 @@
 <?php
 
+$header = "/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ *
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ */";
+
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/application')
 ;
@@ -35,6 +43,8 @@ return PhpCsFixer\Config::create()
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
         'whitespace_after_comma_in_array' => true,
-        'phpdoc_add_missing_param_annotation' => true
+        'phpdoc_add_missing_param_annotation' => true,
+        'header_comment' => ['header' => $header, 'commentType' => 'PHPDoc'],
+        'heredoc_to_nowdoc' => true
     ])
     ->setFinder($finder);
