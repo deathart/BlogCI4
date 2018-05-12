@@ -11,7 +11,6 @@ use Config\Services;
 
 /**
  * Class General
- *
  * @package App\Libraries
  */
 class General
@@ -63,7 +62,6 @@ class General
     /**
      * @param string $cat
      * @param string $separator
-     *
      * @return string
      */
     public function TradCat(string $cat, string $separator = null): string
@@ -117,7 +115,6 @@ class General
 
     /**
      * @param int $id post ID
-     *
      * @return int
      */
     public function CountCom(int $id): int
@@ -127,7 +124,6 @@ class General
 
     /**
      * @param int $cat car id
-     *
      * @return int
      */
     public function CountArticle(int $cat): int
@@ -137,7 +133,6 @@ class General
 
     /**
      * @param int $post post ID
-     *
      * @return int
      */
     public function CountView(int $post): int
@@ -163,12 +158,10 @@ class General
 
     /**
      * @param $data
-     * @return mixed
+     * @return string
      */
-    public function slugify($data)
+    public function slugify($data): string
     {
-        $slugify = new Slugify();
-
-        return $slugify->slugify($data);
+        return (new Slugify())->slugify($data);
     }
 }
