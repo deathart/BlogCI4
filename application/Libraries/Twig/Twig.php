@@ -1,10 +1,10 @@
 <?php namespace App\Libraries\Twig;
 
 use App\Models\Admin\ConfigModel;
-use CodeIgniter\Files\Exceptions\FileNotFoundException;
-use Codeigniter\UnknownFileException;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use Twig_Environment;
 use Twig_Error_Loader;
+use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
 
 /**
@@ -42,11 +42,19 @@ class Twig
             $dataconfig['auto_reload'] = true;
         }
 
+        if ($config_model->GetConfig('debug') === '1') {
+            $dataconfig['debug'] = true;
+        }
+
         $dataconfig['autoescape'] = false;
 
         $this->environment = new Twig_Environment($loader, $dataconfig);
 
         $this->environment->addExtension(new TwigExtentions($templateFolder));
+
+        if ($config_model->GetConfig('debug') === '1') {
+            $this->environment->addExtension(new Twig_Extension_Debug());
+        }
     }
 
     /**
@@ -54,8 +62,6 @@ class Twig
      * @param array $array
      *
      * @return string
-     * @throws \Codeigniter\UnknownFileException
-     * @throws \CodeIgniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
@@ -64,9 +70,7 @@ class Twig
         try {
             $template = $this->environment->load('page/' . $file . $this->ext);
         } catch (Twig_Error_Loader $error_Loader) {
-            throw new UnknownFileException($error_Loader);
-
-            throw new FileNotFoundException($error_Loader);
+            throw new PageNotFoundException($error_Loader);
         }
 
         return $template->render($array);
