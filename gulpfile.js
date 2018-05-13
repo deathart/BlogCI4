@@ -66,6 +66,7 @@ gulp.task('clean', function() {
         config.output + "/css/**/*.css",
         config.output + "/js/**/*.js",
         config.output + "/images/**/*.*",
+        config.output + "/fonts/**/*.*",
         config.output + "/rev-manifest.json"
     ]).pipe(clean({force: true}));
 });
