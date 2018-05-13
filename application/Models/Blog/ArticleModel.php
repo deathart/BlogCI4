@@ -78,13 +78,13 @@ class ArticleModel extends Model
      *
      * @return array
      */
-    public function GetArticleByCat(int $cat_id, int $per_page, int $page): array
+    public function GetArticleByCategories(int $cat_id, int $per_page, int $page): array
     {
         $offset = ($page-1)*$per_page;
 
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
         $this->article_table->where('published', '1');
-        $this->article_table->like('cat', $cat_id);
+        $this->article_table->like('categories', $cat_id);
         $this->article_table->orderBy('id', 'DESC');
         $this->article_table->limit($per_page, $offset);
 
@@ -96,12 +96,12 @@ class ArticleModel extends Model
      *
      * @return int
      */
-    public function nb_articleByCat(int $cat):int
+    public function nb_articleByCategories(int $cat):int
     {
         $this->article_table->select('COUNT(id) as id');
         $this->article_table->where('published', '1');
         $this->article_table->where('corriged', '1');
-        $this->article_table->like('cat', $cat);
+        $this->article_table->like('categories', $cat);
 
         return $this->article_table->get()->getRow()->id;
     }

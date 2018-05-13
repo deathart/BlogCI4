@@ -79,8 +79,8 @@ $routes->add('home', 'Home::index', ['namespace' => 'App\Controllers\Blog']);
 /*
  * Route for catégorie
  */
-$routes->add('cat', 'Cat::index', ['namespace' => 'App\Controllers\Blog']);
-$routes->add('cat/(:any)', 'Cat::View/$1', ['namespace' => 'App\Controllers\Blog']);
+$routes->add('categories', 'Categories::index', ['namespace' => 'App\Controllers\Blog']);
+$routes->add('categories/(:any)', 'Categories::View/$1', ['namespace' => 'App\Controllers\Blog']);
 
 /*
  * Route for Pages
@@ -146,8 +146,8 @@ $routes->group('admin', function ($routes) {
         $routes->add('list/(:num)', 'Article::list/$1', ['namespace' => 'App\Controllers\Admin']);
     });
 
-    $routes->group('cat', function ($routes) {
-        $routes->add('/', 'Cat::index', ['namespace' => 'App\Controllers\Admin']);
+    $routes->group('categories', function ($routes) {
+        $routes->add('/', 'Categories::index', ['namespace' => 'App\Controllers\Admin']);
     });
 
     $routes->group('page', function ($routes) {
@@ -196,10 +196,10 @@ $routes->group('admin', function ($routes) {
             $routes->post('edit', 'Article::edit', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
-        $routes->group('cat', function ($routes) {
-            $routes->post('updatetitle', 'Cat::UpdateTitle', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->post('updatecontent', 'Cat::UpdateContent', ['namespace' => 'App\Controllers\Admin\Ajax']);
-            $routes->post('add', 'Cat::Add', ['namespace' => 'App\Controllers\Admin\Ajax']);
+        $routes->group('categories', function ($routes) {
+            $routes->post('updatetitle', 'Categories::UpdateTitle', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('updatecontent', 'Categories::UpdateContent', ['namespace' => 'App\Controllers\Admin\Ajax']);
+            $routes->post('add', 'Categories::Add', ['namespace' => 'App\Controllers\Admin\Ajax']);
         });
 
         $routes->group('page', function ($routes) {

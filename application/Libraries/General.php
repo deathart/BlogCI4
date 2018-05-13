@@ -2,7 +2,7 @@
 
 use App\Models\Admin\AuthModel;
 use App\Models\Blog\ArticleModel;
-use App\Models\Blog\CatModel;
+use App\Models\Blog\CategoriesModel;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\PagesModel;
 use Cocur\Slugify\Slugify;
@@ -15,16 +15,15 @@ use Config\Services;
  */
 class General
 {
-
     /**
      * @var \CodeIgniter\Session\Session
      */
     private $session;
 
     /**
-     * @var \App\Models\Blog\CatModel
+     * @var \App\Models\Blog\CategoriesModel
      */
-    private $cat_model;
+    private $categories_model;
 
     /**
      * @var \App\Models\Blog\ArticleModel
@@ -52,7 +51,7 @@ class General
     public function __construct()
     {
         $this->session      = Services::session(new App());
-        $this->cat_model = new CatModel();
+        $this->categories_model = new CategoriesModel();
         $this->article_model = new ArticleModel();
         $this->comments_model = new CommentsModel();
         $this->pages_model = new PagesModel();
@@ -60,19 +59,21 @@ class General
     }
 
     /**
-     * @param string $cat
+     * @param string $categories
      * @param string $separator
      * @return string
      */
-    public function TradCat(string $cat, string $separator = null): string
+    public function TradCat(string $categories, string $separator = null): string
     {
         $arr = '';
-        $piece = explode(';', $cat);
+        $piece = explode(';', $categories);
         $lastKey = \count($piece) - 1;
+
         foreach ($piece as $k =>$data) {
-            $tt = $this->cat_model->GetCatNameAndLink($data);
-            $arr .= "<a href='" . base_url('cat/' . $tt->slug) . "'>" . $tt->title . '</a>';
-            if ($separator && $k != $lastKey) {
+            $tt = $this->categories_model->GetCategoriesNameAndLink($data);
+            $arr .= "<a href='" . base_url('categories/' . $tt->slug) . "'>" . $tt->title . '</a>';
+
+            if ($separator && $k !== $lastKey) {
                 $arr .= '&nbsp;' . $separator . '&nbsp;';
             }
         }
@@ -102,7 +103,7 @@ class General
      */
     public function GetCat()
     {
-        return $this->cat_model->GetCat();
+        return $this->categories_model->GetCategories();
     }
 
     /**
@@ -128,7 +129,7 @@ class General
      */
     public function CountArticle(int $cat): int
     {
-        return $this->article_model->nb_articleByCat($cat);
+        return $this->article_model->nb_articleByCategories($cat);
     }
 
     /**

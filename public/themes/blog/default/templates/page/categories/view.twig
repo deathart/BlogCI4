@@ -10,7 +10,7 @@
                                 <div class="images">
                                     <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 250px;" src="{{ data.picture_one|base_url }}" /></a>
                                     <div class="tags_art_bloc">
-                                        {{ general('TradCat', data.cat) }}
+                                        {{ general('TradCat', data.categories) }}
                                     </div>
                                 </div>
                                 <div class="info">
@@ -26,14 +26,14 @@
                                     {{ parse(data.content|slice(0, 600), true) ~ '...' }}
                                 </div>
                                 <div class="read_more">
-                                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('cat.view_more') }}</a>
+                                    <a href="{{ ('article/' ~ data.link)|base_url }}">{{ trans('categories.view_more') }}</a>
                                 </div>
                             </div>
                         </div>
                     {% else %}
                         <div class="col-12">
                             <div class="nopost">
-                                {{ trans('cat.no_article') }}
+                                {{ trans('categories.no_article') }}
                             </div>
                         </div>
                     {% endfor %}
@@ -44,16 +44,16 @@
             <div class="menu_right home">
                 <div class="bloc">
                     <div class="title">
-                        <h1>{{ info_cat.title }}</h1>
+                        <h1>{{ info_categories.title }}</h1>
                     </div>
                     <div class="content">
-                        {{ info_cat.description }}
+                        {{ info_categories.description }}
                     </div>
                 </div>
                 {% if 'pub_active'|config == 1 %}
                     <div class="bloc" id="pub">
                         <div class="title">
-                            <h1>{{ trans('cat.menu_right_pub') }}</h1>
+                            <h1>{{ trans('categories.menu_right_pub') }}</h1>
                         </div>
                         <div class="content">
                         </div>

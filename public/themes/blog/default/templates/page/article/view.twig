@@ -10,7 +10,7 @@
                         {% if get_info_article.date_update %}
                             <li><strong><i class="far fa-clock" aria-hidden="true"></i> {{ trans('article.article_info_update') }} : </strong><span>{{ get_info_article.date_update }}</span></li>
                         {% endif %}
-                        <li><strong><i class="fas fa-list" aria-hidden="true"></i> {{ trans('article.article_info_cat') }} : </strong><span>{{ general('TradCat', get_info_article.cat, '/') }}</span></li>
+                        <li><strong><i class="fas fa-list" aria-hidden="true"></i> {{ trans('article.article_info_cat') }} : </strong><span>{{ general('TradCat', get_info_article.categories, '/') }}</span></li>
                         <li><strong><i class="fas fa-eye"></i> {{ trans('article.article_info_view') }} : </strong> <span>{{ general('CountView', get_info_article.id) }}</span></li>
                     </ul>
                 </div>

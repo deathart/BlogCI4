@@ -127,8 +127,8 @@ class Application extends Controller
                 $this->set_js($this->asset_path('js/admin/comments.js'));
             } elseif ($this->request->uri->getSegment(2) == 'config') {
                 $this->set_js($this->asset_path('js/admin/config.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'cat') {
-                $this->set_js($this->asset_path('js/admin/cat.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'categories') {
+                $this->set_js($this->asset_path('js/admin/categories.js'));
             } elseif ($this->request->uri->getSegment(2) == 'contact') {
                 $this->set_js($this->asset_path('js/admin/contact.js'));
             } elseif ($this->request->uri->getSegment(2) == 'page') {

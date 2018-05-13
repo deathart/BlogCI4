@@ -1,20 +1,20 @@
 <?php namespace App\Controllers\Admin\Ajax;
 
-use App\Models\Admin\CatModel;
+use App\Models\Admin\CategoriesModel;
 use CodeIgniter\HTTP\Response;
 
 /**
- * Class Cat
+ * Class Categories
  *
  * @package App\Controllers\Admin\Ajax
  */
-class Cat extends Ajax
+class Categories extends Ajax
 {
 
     /**
-     * @var \App\Models\Admin\CatModel
+     * @var \App\Models\Admin\CategoriesModel
      */
-    protected $cat_model;
+    protected $categories_model;
 
     /**
      * Article constructor.
@@ -25,7 +25,7 @@ class Cat extends Ajax
     public function __construct(...$params)
     {
         parent::__construct(...$params);
-        $this->cat_model = new CatModel();
+        $this->categories_model = new CategoriesModel();
     }
 
     /**
@@ -33,7 +33,7 @@ class Cat extends Ajax
      */
     public function UpdateTitle():Response
     {
-        $this->cat_model->UpdateCat($_POST['id'], 'title', $_POST['title']);
+        $this->categories_model->UpdateCategories($_POST['id'], 'title', $_POST['title']);
 
         return $this->Responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
     }
@@ -43,7 +43,7 @@ class Cat extends Ajax
      */
     public function UpdateContent():Response
     {
-        $this->cat_model->UpdateCat($_POST['id'], 'description', $_POST['content']);
+        $this->categories_model->UpdateCategories($_POST['id'], 'description', $_POST['content']);
 
         return $this->Responded(['code' => 1, 'title' => 'Catégorie modifier', 'message' => 'La catégories à bien été modifier']);
     }
@@ -53,7 +53,7 @@ class Cat extends Ajax
      */
     public function Add():Response
     {
-        $this->cat_model->AddCat($_POST['title'], $_POST['content'], $_POST['slug'], $_POST['icon']);
+        $this->categories_model->AddCategories($_POST['title'], $_POST['content'], $_POST['slug'], $_POST['icon']);
 
         return $this->Responded(['code' => 1, 'title' => "Ajout d'une catégorie", 'message' => 'La catégories à bien été ajouter, rechargemen tde la page']);
     }

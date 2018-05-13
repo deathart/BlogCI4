@@ -10,7 +10,7 @@
                                 <div class="images">
                                     <a href="{{ ('article/' ~ data.link)|base_url }}"><img style="height: 250px;" src="{{ data.picture_one|base_url }}" /></a>
                                     <div class="tags_art_bloc">
-                                        {{ general('TradCat', data.cat) }}
+                                        {{ general('TradCat', data.categories) }}
                                     </div>
                                 </div>
                                 <div class="info">
@@ -53,7 +53,7 @@
                 {% if 'pub_active'|config == 1 %}
                     <div class="bloc" id="pub">
                         <div class="title">
-                            <h1>{{ trans('cat.menu_right_pub') }}</h1>
+                            <h1>{{ trans('categories.menu_right_pub') }}</h1>
                         </div>
                         <div class="content">
                         </div>

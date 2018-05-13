@@ -1,7 +1,7 @@
 <?php namespace App\Controllers\Admin;
 
 use App\Models\Admin\ArticleModel;
-use App\Models\Admin\CatModel;
+use App\Models\Admin\CategoriesModel;
 
 /**
  * Class Article
@@ -16,9 +16,9 @@ class Article extends Application
     private $article_model;
 
     /**
-     * @var \App\Models\Admin\CatModel
+     * @var \App\Models\Admin\CategoriesModel
      */
-    private $cat_model;
+    private $categories_model;
 
     /**
      * Article constructor.
@@ -31,7 +31,7 @@ class Article extends Application
     {
         parent::__construct(...$params);
         $this->article_model    = new ArticleModel();
-        $this->cat_model    = new CatModel();
+        $this->categories_model    = new CategoriesModel();
         $this->stitle        = 'Articles';
     }
 
@@ -63,7 +63,7 @@ class Article extends Application
     public function add(): self
     {
         $this->tpage = "Ajout d'un article";
-        $this->data['getcat'] = $this->cat_model->getlist();
+        $this->data['getcat'] = $this->categories_model->getlist();
 
         return $this->render('article/add', 'Ajouter un article');
     }
@@ -81,7 +81,7 @@ class Article extends Application
     {
         $this->tpage = "Modification d'article";
         $this->data['get_article'] = $this->article_model->GetArticle('id', $id);
-        $this->data['getcat'] = $this->cat_model->getlist();
+        $this->data['getcat'] = $this->categories_model->getlist();
         $this->data['type'] = $type;
 
         return $this->render('article/edit', 'Modification de l\'article');

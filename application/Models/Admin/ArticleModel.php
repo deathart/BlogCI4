@@ -108,13 +108,13 @@ class ArticleModel extends Model
      * @param string $link
      * @param string $content
      * @param string $wordkey
-     * @param string $cat
+     * @param string $categories
      * @param string $pic
      * @param int $important
      *
      * @return int (Return id)
      */
-    public function Add(string $title, string $link, string $content, string $wordkey, string $cat, string $pic, int $important):int
+    public function Add(string $title, string $link, string $content, string $wordkey, string $categories, string $pic, int $important):int
     {
         $data = [
             'title'          => $title,
@@ -123,7 +123,7 @@ class ArticleModel extends Model
             'important'      => $important,
             'link'           => $link,
             'picture_one'    => $pic,
-            'cat'            => $cat,
+            'categories'     => $categories,
             'keyword'        => $wordkey
         ];
         $this->article_table->insert($data);
@@ -137,14 +137,14 @@ class ArticleModel extends Model
      * @param string $link
      * @param string $content
      * @param string $wordkey
-     * @param string $cat
+     * @param string $categories
      * @param string $pic
      * @param int $important
      * @param int $type
      *
      * @return bool
      */
-    public function Edit(int $id, string $title, string $link, string $content, string $wordkey, string $cat, string $pic, int $important, int $type): bool
+    public function Edit(int $id, string $title, string $link, string $content, string $wordkey, string $categories, string $pic, int $important, int $type): bool
     {
         $data = [
             'title'          => $title,
@@ -154,7 +154,7 @@ class ArticleModel extends Model
             'important'      => $important,
             'link'           => $link,
             'picture_one'    => $pic,
-            'cat'            => $cat,
+            'categories'     => $categories,
             'keyword'        => $wordkey
         ];
 

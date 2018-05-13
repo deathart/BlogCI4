@@ -1,4 +1,4 @@
-var Cat = (function() {
+var Categories = (function() {
 
     var that = {};
 
@@ -44,7 +44,7 @@ var Cat = (function() {
                 }
             },
             method: "POST",
-            url: App.GetBaseUrl() + "admin/ajax/cat/updatetitle",
+            url: App.GetBaseUrl() + "admin/ajax/categories/updatetitle",
             data: {
                 'id': catid,
                 'title': data_t
@@ -74,7 +74,7 @@ var Cat = (function() {
                 }
             },
             method: "POST",
-            url: App.GetBaseUrl() + "admin/ajax/cat/updatecontent",
+            url: App.GetBaseUrl() + "admin/ajax/categories/updatecontent",
             data: {
                 'id': catid,
                 'content': data_c
@@ -132,7 +132,7 @@ var Cat = (function() {
                     }
                 },
                 method: "POST",
-                url: App.GetBaseUrl() + "admin/ajax/cat/add",
+                url: App.GetBaseUrl() + "admin/ajax/categories/add",
                 data: {
                     'title': title,
                     'content': content,
@@ -183,5 +183,5 @@ var Cat = (function() {
 })();
 
 $(document).ready(function() {
-    Cat.init();
+    Categories.init();
 });

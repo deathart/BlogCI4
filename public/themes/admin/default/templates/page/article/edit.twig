@@ -80,7 +80,7 @@
                             <div class="col-sm-9">
                                 <select class="form-control" id="cat" multiple>
                                     {% for data in getcat %}
-                                        <option value="{{ data.id }}" {% if  ';' ~ data.id in get_article.cat or data.id ~ ';' in get_article.cat or get_article.cat == data.id %}selected{% endif %}>{{ data.title }}</option>
+                                        <option value="{{ data.id }}" {% if  ';' ~ data.id in get_article.categories or data.id ~ ';' in get_article.categories or get_article.categories == data.id %}selected{% endif %}>{{ data.title }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

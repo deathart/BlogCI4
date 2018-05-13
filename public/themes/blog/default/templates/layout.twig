@@ -21,11 +21,11 @@
                         </li>
                         {% if (general('GetCat')) %}
                             <li class="menu-item menu-item-has-children">
-                                <a href="{{ 'cat'|base_url }}" {% if '1'|uri_segment == "cat" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
+                                <a href="{{ 'categories'|base_url }}" {% if '1'|uri_segment == "categories" %}class="active"{% endif %}>{{ trans('layout.menu_cat') }}</a>
                                 <ul class="sub-menu">
                                     {% for data in general('GetCat') %}
                                         <li id="menu-item-131" class="menu-item">
-                                            <a href="{{ ('cat/' ~ data.slug)|base_url }}">{{ data.title }}</a>
+                                            <a href="{{ ('categories/' ~ data.slug)|base_url }}">{{ data.title }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>

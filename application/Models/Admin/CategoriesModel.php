@@ -8,13 +8,13 @@ use Config\Database;
  *
  * @package App\Models
  */
-class CatModel extends Model
+class CategoriesModel extends Model
 {
 
     /**
      * @var \CodeIgniter\Database\BaseBuilder
      */
-    private $cat_table;
+    private $categories_table;
 
     /**
      * Site constructor.
@@ -27,7 +27,7 @@ class CatModel extends Model
     {
         parent::__construct(...$params);
         $this->db = Database::connect();
-        $this->cat_table = $this->db->table('cat');
+        $this->categories_table = $this->db->table('categories');
     }
 
     /**
@@ -35,11 +35,11 @@ class CatModel extends Model
      */
     public function getlist():array
     {
-        $this->cat_table->select();
-        $this->cat_table->where('parent', '0');
-        $this->cat_table->orderBy('id', 'ASC');
+        $this->categories_table->select();
+        $this->categories_table->where('parent', '0');
+        $this->categories_table->orderBy('id', 'ASC');
 
-        return $this->cat_table->get()->getResult('array');
+        return $this->categories_table->get()->getResult('array');
     }
 
     /**
@@ -49,11 +49,11 @@ class CatModel extends Model
      *
      * @return bool
      */
-    public function UpdateCat(int $id, string $column, string $data):bool
+    public function UpdateCategories(int $id, string $column, string $data):bool
     {
-        $this->cat_table->set($column, $data);
-        $this->cat_table->where('id', $id);
-        $this->cat_table->update();
+        $this->categories_table->set($column, $data);
+        $this->categories_table->where('id', $id);
+        $this->categories_table->update();
 
         return true;
     }
@@ -64,7 +64,7 @@ class CatModel extends Model
      * @param string $slug
      * @param string $icon
      */
-    public function AddCat(string $title, string $content, string $slug, string $icon)
+    public function AddCategories(string $title, string $content, string $slug, string $icon)
     {
         $data = [
             'title'       => $title,
@@ -72,6 +72,6 @@ class CatModel extends Model
             'slug'        => $slug,
             'icon'        => $icon
         ];
-        $this->cat_table->insert($data);
+        $this->categories_table->insert($data);
     }
 }

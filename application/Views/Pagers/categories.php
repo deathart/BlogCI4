@@ -15,7 +15,7 @@ if ($pager->hasPrevious() || $pager->hasNext()) :
 					</a>
 				</li>
 				<li>
-					<a href="<?= base_url('cat/' . $request->uri->getSegment(2) . '/?page=' . $page_previous) ?>" aria-label="<?= lang('Pager.previous') ?>">
+					<a href="<?= base_url('categories/' . $request->uri->getSegment(2) . '/?page=' . $page_previous) ?>" aria-label="<?= lang('Pager.previous') ?>">
 						<i class="fa fa-chevron-left"></i>
 					</a>
 				</li>
@@ -31,7 +31,7 @@ if ($pager->hasPrevious() || $pager->hasNext()) :
 
 			<?php if ($pager->hasNext()) : ?>
 				<li>
-					<a href="<?= base_url('cat/' . $request->uri->getSegment(2) . '/?page=' . $page_next) ?>" aria-label="<?= lang('Pager.next') ?>">
+					<a href="<?= base_url('categories/' . $request->uri->getSegment(2) . '/?page=' . $page_next) ?>" aria-label="<?= lang('Pager.next') ?>">
 						<i class="fa fa-chevron-right"></i>
 					</a>
 				</li>

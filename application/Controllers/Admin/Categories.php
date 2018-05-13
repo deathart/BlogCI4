@@ -1,22 +1,22 @@
 <?php namespace App\Controllers\Admin;
 
-use App\Models\Admin\CatModel;
+use App\Models\Admin\CategoriesModel;
 
 /**
- * Class Cat
+ * Class Categories
  *
  * @package App\Controllers\Admin
  */
-class Cat extends Application
+class Categories extends Application
 {
 
     /**
-     * @var \App\Models\Admin\CatModel
+     * @var \App\Models\Admin\CategoriesModel
      */
-    private $cat_model;
+    private $categories_model;
 
     /**
-     * Cat constructor.
+     * Categories constructor.
      *
      * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
@@ -24,12 +24,12 @@ class Cat extends Application
     public function __construct(...$params)
     {
         parent::__construct(...$params);
-        $this->cat_model = new CatModel();
+        $this->categories_model = new CategoriesModel();
         $this->stitle = 'Categories';
     }
 
     /**
-     * @return \App\Controllers\Admin\Cat|string
+     * @return \App\Controllers\Admin\Categories|string
      * @throws \Codeigniter\UnknownFileException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -37,8 +37,8 @@ class Cat extends Application
     public function index(): self
     {
         $this->tpage = 'Liste des categories';
-        $this->data['get_cat'] = $this->cat_model->getlist();
+        $this->data['get_cat'] = $this->categories_model->getlist();
 
-        return $this->render('cat/list');
+        return $this->render('categories/list');
     }
 }

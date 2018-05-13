@@ -1,15 +1,15 @@
 <?php namespace App\Controllers\Blog;
 
 use App\Models\Blog\ArticleModel;
-use App\Models\Blog\CatModel;
+use App\Models\Blog\CategoriesModel;
 use Config\Services;
 
 /**
- * Class Cat
+ * Class Categories
  *
  * @package App\Controllers\Blog
  */
-class Cat extends Application
+class Categories extends Application
 {
 
     /**
@@ -17,12 +17,12 @@ class Cat extends Application
      */
     protected $article_model;
     /**
-     * @var \App\Models\Blog\CatModel
+     * @var \App\Models\Blog\CategoriesModel
      */
-    protected $cat_model;
+    protected $categories_model;
 
     /**
-     * Cat constructor.
+     * Categories constructor.
      *
      * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
@@ -32,26 +32,26 @@ class Cat extends Application
         parent::__construct(...$params);
         $this->stitle = 'Article';
         $this->article_model = new ArticleModel();
-        $this->cat_model  = new CatModel();
+        $this->categories_model  = new CategoriesModel();
     }
 
     /**
-     * @return \App\Controllers\Blog\Cat|string
+     * @return \App\Controllers\Blog\Categories|string
      * @throws \Codeigniter\UnknownFileException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
     public function index(): self
     {
-        $this->data['get_cat'] = $this->cat_model->GetCat();
+        $this->data['get_cat'] = $this->categories_model->GetCategories();
 
-        return $this->render('cat/home');
+        return $this->render('categories/home');
     }
 
     /**
      * @param string $slug
      *
-     * @return \App\Controllers\Blog\Cat|string
+     * @return \App\Controllers\Blog\Categories|string
      * @throws \Codeigniter\UnknownFileException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -59,19 +59,19 @@ class Cat extends Application
     public function View(string $slug): self
     {
         $pager = Services::pager();
-        $CatID = $this->cat_model->GetCatByLink($slug);
+        $CatID = $this->categories_model->GetCategoriesBySlug($slug);
         $this->data['info_cat'] = $CatID;
 
-        $total_row = $this->article_model->nb_articleByCat($CatID->id);
+        $total_row = $this->article_model->nb_articleByCategories($CatID->id);
 
         $perPage = 8;
 
         $page = (!empty($_GET['page']) ? $_GET['page'] : 1);
 
-        $this->data['get_all'] = $this->article_model->GetArticleByCat($CatID->id, $perPage, $page);
+        $this->data['get_all'] = $this->article_model->GetArticleByCategories($CatID->id, $perPage, $page);
 
-        $this->data['pager'] = $pager->makeLinks($page, $perPage, $total_row, 'cat');
+        $this->data['pager'] = $pager->makeLinks($page, $perPage, $total_row, 'categories');
 
-        return $this->render('cat/view');
+        return $this->render('categories/view');
     }
 }

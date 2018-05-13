@@ -26,7 +26,7 @@ class Migration_AddTableArticle extends Migration
                 'important' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
                 'link' => ['type' => 'TEXT'],
                 'picture_one' => ['type' => 'TEXT'],
-                'cat' => ['type' => 'CHAR', 'constraint' => 50],
+                'categories' => ['type' => 'CHAR', 'constraint' => 50],
                 'published' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
                 'corriged' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
                 'keyword' => ['type' => 'TEXT'],

@@ -3,11 +3,11 @@
 use CodeIgniter\Database\Migration;
 
 /**
- * Class Migration_AddTableCat
+ * Class Migration_AddTableCategories
  *
  * @package App\Database\Migrations
  */
-class Migration_AddTableCat extends Migration
+class Migration_AddTableCategories extends Migration
 {
     public function up()
     {
@@ -22,13 +22,13 @@ class Migration_AddTableCat extends Migration
 
         $this->forge->addPrimaryKey('id');
 
-        $this->forge->createTable('cat');
+        $this->forge->createTable('categories');
     }
 
     //--------------------------------------------------------------------
 
     public function down()
     {
-        $this->forge->dropTable('cat');
+        $this->forge->dropTable('categories');
     }
 }
