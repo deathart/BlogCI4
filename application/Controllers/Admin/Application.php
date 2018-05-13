@@ -4,6 +4,7 @@ use App\Libraries\CSRFToken;
 use App\Libraries\Twig\Twig;
 use App\Models\Admin\ConfigModel;
 use CodeIgniter\Controller;
+use CodeIgniter\Files\Exceptions\FileNotFoundException;
 use CodeIgniter\HTTP\Response;
 use Config\App;
 use Config\Services;
@@ -252,7 +253,7 @@ class Application extends Controller
         if (file_exists($manifest_path)) {
             $manifest = json_decode(file_get_contents($manifest_path), true);
         } else {
-            $manifest = [];
+            throw new FileNotFoundException('File "' . FCPATH . 'assets\rev-manifest.json" is not found');
         }
 
         if (array_key_exists($filename, $manifest)) {
