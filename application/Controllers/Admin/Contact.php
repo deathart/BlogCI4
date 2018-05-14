@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin;
 
 use App\Models\Admin\ContactModel;
 
@@ -9,7 +18,6 @@ use App\Models\Admin\ContactModel;
  */
 class Contact extends Application
 {
-
     /**
      * @var \App\Models\Admin\ContactModel
      */
@@ -29,10 +37,10 @@ class Contact extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Contact|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function index(): self
     {
@@ -42,10 +50,10 @@ class Contact extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Contact|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function new(): self
     {
@@ -56,10 +64,10 @@ class Contact extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Contact|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function finish(): self
     {
@@ -72,10 +80,10 @@ class Contact extends Application
     /**
      * @param int $id
      *
-     * @return \App\Controllers\Admin\Contact|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Contact|string
      */
     public function rep(int $id): self
     {

@@ -1,4 +1,13 @@
-<?php namespace App\Libraries\Twig;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Libraries\Twig;
 
 use App\Models\Admin\ConfigModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -14,7 +23,6 @@ use Twig_Loader_Filesystem;
  */
 class Twig
 {
-
     /**
      * @var \Twig_Environment
      */
@@ -61,9 +69,9 @@ class Twig
      * @param string $file
      * @param array $array
      *
-     * @return string
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return string
      */
     public function Rendered(string $file, array $array): string
     {

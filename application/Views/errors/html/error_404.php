@@ -76,10 +76,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		<p>
 			<?php if (!empty($message) && $message != '(null)') : ?>
-				<?= esc($message) ?>
+				<?php echo esc($message); ?>
 			<?php else : ?>
 				Sorry! Cannot seem to find the page you were looking for.
-			<?php endif ?>
+			<?php endif; ?>
 		</p>
 	</div>
 </body>

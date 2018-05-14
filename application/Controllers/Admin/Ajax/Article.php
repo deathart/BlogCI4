@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin\Ajax;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin\Ajax;
 
 use App\Models\Admin\ArticleModel;
 use CodeIgniter\HTTP\Response;
@@ -48,11 +57,14 @@ class Article extends Ajax
         $this->article_model->Edit($_POST['postid'], $_POST['title'], $_POST['link'], $_POST['content'], $_POST['wordkey'], $_POST['cat'], $_POST['pic'], $_POST['important'], $_POST['type']);
         if ($_POST['type'] === 0) {
             return $this->Responded(['code' => 1, 'title' => "Edition d'article", 'message' => 'Article modifié']);
-        } elseif ($_POST['type'] === 1) {
+        }
+        if ($_POST['type'] === 1) {
             return $this->Responded(['code' => 1, 'title' => "Edition d'article", 'message' => 'Article corrigé, il est maintenant publié']);
-        } elseif ($_POST['type'] === 2) {
+        }
+        if ($_POST['type'] === 2) {
             return $this->Responded(['code' => 1, 'title' => "Edition d'article", 'message' => 'Article corrigé, il est en attente de correction']);
-        } elseif ($_POST['type'] === 3) {
+        }
+        if ($_POST['type'] === 3) {
             return $this->Responded(['code' => 1, 'title' => "Edition d'article", 'message' => 'Article corrigé, il est en attente de publication']);
         }
 

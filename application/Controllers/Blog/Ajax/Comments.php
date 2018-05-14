@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Blog\Ajax;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Blog\Ajax;
 
 use App\Libraries\Captcha;
 use App\Models\Blog\CommentsModel;
@@ -11,16 +20,15 @@ use CodeIgniter\HTTP\Response;
  */
 class Comments extends Ajax
 {
+    /**
+     * @var \App\Libraries\Captcha
+     */
+    protected $captcha;
 
     /**
      * @var \App\Models\Blog\CommentsModel
      */
     private $comments_model;
-
-    /**
-     * @var \App\Libraries\Captcha
-     */
-    protected $captcha;
 
     /**
      * Comments constructor.

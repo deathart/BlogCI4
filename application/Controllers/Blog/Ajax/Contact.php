@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Blog\Ajax;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Blog\Ajax;
 
 use App\Models\Blog\ContactModel;
 use CodeIgniter\HTTP\Response;
@@ -10,7 +19,6 @@ use CodeIgniter\HTTP\Response;
  */
 class Contact extends Ajax
 {
-
     /**
      * @var \App\Models\Blog\ContactModel
      */

@@ -1,4 +1,13 @@
-<?php namespace App\Database\Migrations;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 

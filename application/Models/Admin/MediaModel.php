@@ -1,4 +1,13 @@
-<?php namespace App\Models\Admin;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Models\Admin;
 
 use CodeIgniter\Model;
 use Config\Database;
@@ -10,7 +19,6 @@ use Config\Database;
  */
 class MediaModel extends Model
 {
-
     /**
      * @var \CodeIgniter\Database\BaseBuilder
      */
@@ -76,8 +84,8 @@ class MediaModel extends Model
     /**
      * @param int $id
      *
-     * @return bool
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     * @return bool
      */
     public function removeMedia(int $id): bool
     {

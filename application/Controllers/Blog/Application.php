@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Blog;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Blog;
 
 use App\Libraries\CSRFToken;
 use App\Libraries\Twig\Twig;
@@ -14,7 +23,6 @@ use Config\Services;
  */
 class Application extends Controller
 {
-
     /**
      * @var \CodeIgniter\Session\Session
      */
@@ -92,40 +100,6 @@ class Application extends Controller
         $this->response->setHeader('X-Frame-Options', 'DENY');
         // prevent mime based attacks
         $this->response->setHeader('X-Content-Type-Options', 'nosniff');
-    }
-
-    /**
-     * Set js & css file
-     *
-     * @return string $this
-     */
-    private function base_template()
-    {
-        //Set css file
-        $this->set_css($this->asset_path('css/blog/style.css'));
-        $this->set_css($this->asset_path('css/vendor/fontawesome.css'));
-        $this->set_css('//fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:100,300');
-        $this->set_css($this->asset_path('css/vendor/bootstrap.css'));
-
-        //Set JS
-        $this->set_js($this->asset_path('js/vendor/jquery.min.js'));
-        $this->set_js($this->asset_path('js/vendor/bootstrap.bundle.js'));
-        $this->set_js($this->asset_path('js/vendor/cookie.min.js'));
-        $this->set_js($this->asset_path('js/blog/app.js'));
-
-        //Set by page
-        if ($this->request->uri->getSegment(1) == 'article') {
-            $this->set_js($this->asset_path('js/blog/article.js'));
-            $this->set_css($this->asset_path('css/vendor/prism.css'));
-            $this->set_js($this->asset_path('js/vendor/prism.min.js'));
-        } elseif ($this->request->uri->getSegment(1) == 'contact') {
-            $this->set_js($this->asset_path('js/blog/contact.js'));
-        } elseif ($this->request->uri->getSegment(1) == 'page') {
-            $this->set_css($this->asset_path('css/vendor/prism.css'));
-            $this->set_js($this->asset_path('js/vendor/prism.min.js'));
-        }
-
-        return $this;
     }
 
     /**
@@ -207,12 +181,12 @@ class Application extends Controller
     /**
      * @param string $page set page
      * @param string $title set title page
-     * @param string|null $keyword
+     * @param null|string $keyword
      *
-     * @return string $this
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return string $this
      */
     public function render(string $page, string $title = null, string $keyword = null)
     {
@@ -232,6 +206,40 @@ class Application extends Controller
 
         $this->response->setBody($this->twig->Rendered($page, $this->data));
         $this->response->send();
+
+        return $this;
+    }
+
+    /**
+     * Set js & css file
+     *
+     * @return string $this
+     */
+    private function base_template()
+    {
+        //Set css file
+        $this->set_css($this->asset_path('css/blog/style.css'));
+        $this->set_css($this->asset_path('css/vendor/fontawesome.css'));
+        $this->set_css('//fonts.googleapis.com/css?family=Roboto:100,300,400|Roboto+Condensed:100,300');
+        $this->set_css($this->asset_path('css/vendor/bootstrap.css'));
+
+        //Set JS
+        $this->set_js($this->asset_path('js/vendor/jquery.min.js'));
+        $this->set_js($this->asset_path('js/vendor/bootstrap.bundle.js'));
+        $this->set_js($this->asset_path('js/vendor/cookie.min.js'));
+        $this->set_js($this->asset_path('js/blog/app.js'));
+
+        //Set by page
+        if ($this->request->uri->getSegment(1) == 'article') {
+            $this->set_js($this->asset_path('js/blog/article.js'));
+            $this->set_css($this->asset_path('css/vendor/prism.css'));
+            $this->set_js($this->asset_path('js/vendor/prism.min.js'));
+        } elseif ($this->request->uri->getSegment(1) == 'contact') {
+            $this->set_js($this->asset_path('js/blog/contact.js'));
+        } elseif ($this->request->uri->getSegment(1) == 'page') {
+            $this->set_css($this->asset_path('css/vendor/prism.css'));
+            $this->set_js($this->asset_path('js/vendor/prism.min.js'));
+        }
 
         return $this;
     }

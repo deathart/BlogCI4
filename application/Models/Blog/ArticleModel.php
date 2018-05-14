@@ -1,4 +1,13 @@
-<?php namespace App\Models\Blog;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Models\Blog;
 
 use CodeIgniter\Model;
 use Config\Database;
@@ -10,7 +19,6 @@ use Config\Database;
  */
 class ArticleModel extends Model
 {
-
     /**
      * @var \CodeIgniter\Database\BaseBuilder
      */
@@ -51,7 +59,7 @@ class ArticleModel extends Model
     }
 
     /**
-     * @param int|NULL $limit
+     * @param NULL|int $limit
      * @param bool $important
      *
      * @return array
@@ -167,7 +175,7 @@ class ArticleModel extends Model
         $this->article_table->orderBy('id', 'DESC');
 
         $arr_r = $this->article_table->get()->getResult('array');
-        $keys_r = array_keys(array_column($arr_r, 'id'), $id);
+        $keys_r = array_keys(array_column($arr_r, 'id'), $id, true);
 
         unset($arr_r[$keys_r[0]]);
 
@@ -177,7 +185,7 @@ class ArticleModel extends Model
     /**
      * @param string $keyword
      * @param int $per_page
-     * @param int|NULL $page
+     * @param NULL|int $page
      *
      * @return array|mixed
      */

@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin;
 
 use App\Models\Admin\AuthModel;
 use CodeIgniter\HTTP\Response;
@@ -39,10 +48,10 @@ class Auth extends Application
     }
 
     /**
-     * @return Application|Auth
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return Application|Auth
      */
     public function index()
     {
@@ -50,10 +59,10 @@ class Auth extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Auth|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Auth|string
      */
     public function Login(): self
     {
@@ -61,10 +70,10 @@ class Auth extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Auth|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Auth|string
      */
     public function Logout(): self
     {

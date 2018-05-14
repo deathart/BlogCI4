@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin;
 
 use App\Libraries\CSRFToken;
 use App\Libraries\Twig\Twig;
@@ -14,7 +23,6 @@ use Config\Services;
  */
 class Application extends Controller
 {
-
     /**
      * @var \CodeIgniter\Session\Session
      */
@@ -94,57 +102,6 @@ class Application extends Controller
     }
 
     /**
-     * Set js & css file
-     *
-     * @return \App\Controllers\Admin\Application $this
-     */
-    private function base_template(): self
-    {
-
-        //Set css file
-        $this->set_css($this->asset_path('css/vendor/fontawesome.css'));
-        $this->set_css('//fonts.googleapis.com/css?family=RobotoDraft:300,400,500');
-        $this->set_css($this->asset_path('css/vendor/bootstrap.css'));
-
-        //Set JS
-        $this->set_js($this->asset_path('js/vendor/jquery.min.js'));
-        $this->set_js($this->asset_path('js/vendor/bootstrap.bundle.js'));
-        $this->set_js($this->asset_path('js/vendor/cookie.min.js'));
-        $this->set_js($this->asset_path('js/vendor/jquery.toast.js'));
-
-        //Set by page
-        if ($this->request->uri->getSegment(2) == 'auth') {
-            $this->set_css($this->asset_path('css/admin/auth.css'));
-            $this->set_js($this->asset_path('js/admin/auth.js'));
-        } else {
-            $this->set_css($this->asset_path('css/admin/style.css'));
-            $this->set_js($this->asset_path('js/admin/app.js'));
-
-            if ($this->request->uri->getSegment(2) == 'article') {
-                $this->set_js($this->asset_path('js/vendor/spectrum.js'));
-                $this->set_js($this->asset_path('js/admin/bbcode.js'));
-                $this->set_js($this->asset_path('js/admin/article.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'comments') {
-                $this->set_js($this->asset_path('js/admin/comments.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'config') {
-                $this->set_js($this->asset_path('js/admin/config.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'categories') {
-                $this->set_js($this->asset_path('js/admin/categories.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'contact') {
-                $this->set_js($this->asset_path('js/admin/contact.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'page') {
-                $this->set_js($this->asset_path('js/vendor/spectrum.js'));
-                $this->set_js($this->asset_path('js/admin/bbcode.js'));
-                $this->set_js($this->asset_path('js/admin/page.js'));
-            } elseif ($this->request->uri->getSegment(2) == 'media') {
-                $this->set_js($this->asset_path('js/admin/media.js'));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @param string $file link
      *
      * @return \App\Controllers\Admin\Application $this
@@ -191,10 +148,10 @@ class Application extends Controller
      * @param string $page set page
      * @param string $title set title page
      *
-     * @return \App\Controllers\Admin\Application $this
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Application $this
      */
     public function render(string $page, string $title = null): self
     {
@@ -240,6 +197,56 @@ class Application extends Controller
         $bread .= '</div>';
 
         return $bread;
+    }
+
+    /**
+     * Set js & css file
+     *
+     * @return \App\Controllers\Admin\Application $this
+     */
+    private function base_template(): self
+    {
+        //Set css file
+        $this->set_css($this->asset_path('css/vendor/fontawesome.css'));
+        $this->set_css('//fonts.googleapis.com/css?family=RobotoDraft:300,400,500');
+        $this->set_css($this->asset_path('css/vendor/bootstrap.css'));
+
+        //Set JS
+        $this->set_js($this->asset_path('js/vendor/jquery.min.js'));
+        $this->set_js($this->asset_path('js/vendor/bootstrap.bundle.js'));
+        $this->set_js($this->asset_path('js/vendor/cookie.min.js'));
+        $this->set_js($this->asset_path('js/vendor/jquery.toast.js'));
+
+        //Set by page
+        if ($this->request->uri->getSegment(2) == 'auth') {
+            $this->set_css($this->asset_path('css/admin/auth.css'));
+            $this->set_js($this->asset_path('js/admin/auth.js'));
+        } else {
+            $this->set_css($this->asset_path('css/admin/style.css'));
+            $this->set_js($this->asset_path('js/admin/app.js'));
+
+            if ($this->request->uri->getSegment(2) == 'article') {
+                $this->set_js($this->asset_path('js/vendor/spectrum.js'));
+                $this->set_js($this->asset_path('js/admin/bbcode.js'));
+                $this->set_js($this->asset_path('js/admin/article.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'comments') {
+                $this->set_js($this->asset_path('js/admin/comments.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'config') {
+                $this->set_js($this->asset_path('js/admin/config.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'categories') {
+                $this->set_js($this->asset_path('js/admin/categories.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'contact') {
+                $this->set_js($this->asset_path('js/admin/contact.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'page') {
+                $this->set_js($this->asset_path('js/vendor/spectrum.js'));
+                $this->set_js($this->asset_path('js/admin/bbcode.js'));
+                $this->set_js($this->asset_path('js/admin/page.js'));
+            } elseif ($this->request->uri->getSegment(2) == 'media') {
+                $this->set_js($this->asset_path('js/admin/media.js'));
+            }
+        }
+
+        return $this;
     }
 
     /**

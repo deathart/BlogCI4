@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin\Ajax;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin\Ajax;
 
 use App\Libraries\CSRFToken;
 use App\Libraries\General;
@@ -14,7 +23,6 @@ use Config\Services;
  */
 class Ajax extends Controller
 {
-
     /**
      * @var \Config\App
      */

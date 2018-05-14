@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin\Ajax;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin\Ajax;
 
 use App\Libraries\Twig\Twig;
 use App\Models\Admin\MediaModel;
@@ -11,16 +20,15 @@ use CodeIgniter\HTTP\Response;
  */
 class Media extends Ajax
 {
+    /**
+     * @var \App\Libraries\Twig\Twig
+     */
+    protected $twig;
 
     /**
      * @var \App\Models\Admin\MediaModel
      */
     private $media_model;
-
-    /**
-     * @var \App\Libraries\Twig\Twig
-     */
-    protected $twig;
 
     /**
      * Media constructor.
@@ -37,10 +45,10 @@ class Media extends Ajax
     }
 
     /**
-     * @return Response
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return Response
      */
     public function modal():Response
     {
@@ -79,8 +87,8 @@ class Media extends Ajax
     }
 
     /**
-     * @return Response
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     * @return Response
      */
     public function remove_media():Response
     {

@@ -6,6 +6,7 @@ BlogCI4 - Blog write with Codeigniter v4dev
 @copyright Copyright (c) 2018 Deathart
 @license https://opensource.org/licenses/MIT MIT License
 EOF;
+
 $config = PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
@@ -45,10 +46,10 @@ $config = PhpCsFixer\Config::create()
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
+            ->notPath('Config')
             ->in(__DIR__ . '/application')
-    )
-;
-// special handling of fabbot.io service if it's using too old PHP CS Fixer version
+    );
+
 try {
     PhpCsFixer\FixerFactory::create()
         ->registerBuiltInFixers()

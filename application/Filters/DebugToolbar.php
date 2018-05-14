@@ -1,4 +1,13 @@
-<?php namespace App\Filters;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Filters;
 
 use App\Models\Admin\ConfigModel;
 use CodeIgniter\Filters\FilterInterface;
@@ -17,7 +26,7 @@ class DebugToolbar implements FilterInterface
     /**
      * We don't need to do anything here.
      *
-     * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
+     * @param \CodeIgniter\HTTP\IncomingRequest|RequestInterface $request
      *
      * @return mixed
      */
@@ -31,11 +40,11 @@ class DebugToolbar implements FilterInterface
      * If the debug flag is set (CI_DEBUG) then collect performance
      * and debug information and display it in a toolbar.
      *
-     * @param RequestInterface|\CodeIgniter\HTTP\IncomingRequest $request
-     * @param ResponseInterface|\CodeIgniter\HTTP\Response $response
+     * @param \CodeIgniter\HTTP\IncomingRequest|RequestInterface $request
+     * @param \CodeIgniter\HTTP\Response|ResponseInterface $response
      *
-     * @return mixed
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     * @return mixed
      */
     public function after(RequestInterface $request, ResponseInterface $response)
     {

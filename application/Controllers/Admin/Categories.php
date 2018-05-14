@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin;
 
 use App\Models\Admin\CategoriesModel;
 
@@ -9,7 +18,6 @@ use App\Models\Admin\CategoriesModel;
  */
 class Categories extends Application
 {
-
     /**
      * @var \App\Models\Admin\CategoriesModel
      */
@@ -29,10 +37,10 @@ class Categories extends Application
     }
 
     /**
-     * @return \App\Controllers\Admin\Categories|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Admin\Categories|string
      */
     public function index(): self
     {

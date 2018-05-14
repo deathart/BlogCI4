@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Blog;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Blog;
 
 use App\Models\Blog\ArticleModel;
 use App\Models\Blog\CategoriesModel;
@@ -11,7 +20,6 @@ use Config\Services;
  */
 class Categories extends Application
 {
-
     /**
      * @var \App\Models\Blog\ArticleModel
      */
@@ -36,10 +44,10 @@ class Categories extends Application
     }
 
     /**
-     * @return \App\Controllers\Blog\Categories|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Blog\Categories|string
      */
     public function index(): self
     {
@@ -51,10 +59,10 @@ class Categories extends Application
     /**
      * @param string $slug
      *
-     * @return \App\Controllers\Blog\Categories|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @return \App\Controllers\Blog\Categories|string
      */
     public function View(string $slug): self
     {

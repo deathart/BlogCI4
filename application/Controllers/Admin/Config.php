@@ -21,7 +21,7 @@ class Config extends Application
 
     /**
      * @return \App\Controllers\Admin\Config|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
@@ -32,7 +32,7 @@ class Config extends Application
 
     /**
      * @return \App\Controllers\Admin\Config|string
-     * @throws \Codeigniter\UnknownFileException
+     * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */

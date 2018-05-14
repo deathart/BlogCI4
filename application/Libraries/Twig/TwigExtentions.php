@@ -1,4 +1,13 @@
-<?php namespace App\Libraries\Twig;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Libraries\Twig;
 
 use App\Libraries\General;
 use App\Libraries\ParseArticle;
@@ -15,7 +24,6 @@ use Twig_Function;
  */
 class TwigExtentions extends Twig_Extension
 {
-
     /**
      * @var \CodeIgniter\HTTP\IncomingRequest
      */
@@ -106,8 +114,8 @@ class TwigExtentions extends Twig_Extension
      * @param $content
      * @param bool $noparse
      *
-     * @return mixed|string
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     * @return mixed|string
      */
     public function parseBbcode($content, $noparse = false): string
     {

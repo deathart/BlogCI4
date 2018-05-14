@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
 namespace App\Libraries;
 
 use \App\Models\Blog\MediaModel;
@@ -10,6 +18,10 @@ use \App\Models\Blog\MediaModel;
  */
 class ParseArticle
 {
+    /**
+     * @var string
+     */
+    public $content;
 
     /**
      * @var \App\Models\Blog\MediaModel
@@ -24,11 +36,6 @@ class ParseArticle
      * @var array
      */
     private $replace = ['<strong>$1</strong>', '<em>$1</em>', '<u>$1</u>', '<del>$1</del>', '<ul>$1</ul>', '<li>$1</li>', '<blockquote>$1</blockquote>'];
-
-    /**
-     * @var string
-     */
-    public $content;
     /**
      * @var bool
      */
