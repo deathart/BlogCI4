@@ -39,7 +39,7 @@ gulp.task('js', function(){
 
 gulp.task('image', function () {
     gulp.src(config.entry + "/images/**/*.*")
-        .pipe(image())
+        //.pipe(image())
         .pipe(gulp.dest(config.output + "/images"));
 });
 

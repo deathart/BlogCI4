@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ./:/var/www/
-      - "./docker/nginx.conf:/etc/nginx/conf.d/default.conf:rw"
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
     restart: always
     depends_on:
       - php
@@ -20,7 +20,7 @@ services:
     volumes:
       - ./:/var/www/
   mysqldb:
-    image: mysql:latest
+    image: mysql:5.7
     container_name: ${DOCKER_MYSQL_HOST}
     restart: always
     env_file:
@@ -34,4 +34,4 @@ services:
     ports:
       - "${DOCKER_MYSQL_PORT}:3306"
     volumes:
-      - "./data/db/mysql:/var/lib/mysql"
+      - ./shared/db:/var/lib/mysql

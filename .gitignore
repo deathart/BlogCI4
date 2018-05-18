@@ -8,6 +8,6 @@ writable/debugbar
 public/uploads
 application/.php_cs.cache
 node_modules/
-/data/
+/shared/
 .env
 /public/assets/
