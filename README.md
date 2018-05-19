@@ -45,10 +45,10 @@ For any problems or suggestions created a new issue (By checking that this issue
 Don't hesitate to help this project, to improve it to make it grow, even constructive criticism helps.
 
 # TODO (Open to all suggestions)
-- [ ] Add theme management
+- [ ] Add theme management (And move folder template)
 - [ ] Add Users management
 - [ ] Add translation in admin
-- [ ] Add Tags manager (Or not ?)
+- [ ] Add Tags manager (WIP)
 - [ ] Add installer (and automatic update system)
 - [ ] Add feed system
 - [ ] Update configuration admin
@@ -57,3 +57,4 @@ Don't hesitate to help this project, to improve it to make it grow, even constru
 - [ ] Clean rewriting of the css/js
 - [ ] Create Docs
 - [ ] Create demo
+- [ ] Move translate folder template (Use gettext for translation ?)
