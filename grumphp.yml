@@ -12,4 +12,3 @@ parameters:
       diff: false
       triggered_by: ['php']
     phplint: ~
-    phpstan: ~
