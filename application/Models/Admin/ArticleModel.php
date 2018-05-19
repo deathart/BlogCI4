@@ -115,14 +115,14 @@ class ArticleModel extends Model
      * @param string $title
      * @param string $link
      * @param string $content
-     * @param string $wordkey
+     * @param string $tags
      * @param string $categories
      * @param string $pic
      * @param int $important
      *
      * @return int (Return id)
      */
-    public function Add(string $title, string $link, string $content, string $wordkey, string $categories, string $pic, int $important):int
+    public function Add(string $title, string $link, string $content, string $tags, string $categories, string $pic, int $important):int
     {
         $data = [
             'title'          => $title,
@@ -132,7 +132,7 @@ class ArticleModel extends Model
             'link'           => $link,
             'picture_one'    => $pic,
             'categories'     => $categories,
-            'keyword'        => $wordkey
+            'tags'           => $tags
         ];
         $this->article_table->insert($data);
 
@@ -144,7 +144,7 @@ class ArticleModel extends Model
      * @param string $title
      * @param string $link
      * @param string $content
-     * @param string $wordkey
+     * @param string $tags
      * @param string $categories
      * @param string $pic
      * @param int $important
@@ -152,7 +152,7 @@ class ArticleModel extends Model
      *
      * @return bool
      */
-    public function Edit(int $id, string $title, string $link, string $content, string $wordkey, string $categories, string $pic, int $important, int $type): bool
+    public function Edit(int $id, string $title, string $link, string $content, string $tags, string $categories, string $pic, int $important, int $type): bool
     {
         $data = [
             'title'          => $title,
@@ -163,7 +163,7 @@ class ArticleModel extends Model
             'link'           => $link,
             'picture_one'    => $pic,
             'categories'     => $categories,
-            'keyword'        => $wordkey
+            'tags'           => $tagsy
         ];
 
         if ($type == 1) {

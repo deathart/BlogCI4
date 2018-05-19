@@ -38,7 +38,7 @@ class Migration_AddTableArticle extends Migration
                 'categories' => ['type' => 'CHAR', 'constraint' => 50],
                 'published' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
                 'corriged' => ['type' => 'INT', 'constraint' => 11, 'default' => '0'],
-                'keyword' => ['type' => 'TEXT'],
+                'tags' => ['type' => 'TEXT'],
                 'brouillon' => ['type' => 'INT', 'constraint' => 11, 'default' => '0']
         ]);
 

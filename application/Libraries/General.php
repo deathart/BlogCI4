@@ -14,6 +14,7 @@ use App\Models\Blog\ArticleModel;
 use App\Models\Blog\CategoriesModel;
 use App\Models\Blog\CommentsModel;
 use App\Models\Blog\PagesModel;
+use App\Models\Blog\TagsModel;
 use Cocur\Slugify\Slugify;
 use Config\App;
 use Config\Services;
@@ -55,6 +56,11 @@ class General
     private $Auth_model;
 
     /**
+     * @var \App\Models\Blog\TagsModel
+     */
+    private $Tags_model;
+
+    /**
      * General constructor.
      */
     public function __construct()
@@ -65,6 +71,7 @@ class General
         $this->comments_model = new CommentsModel();
         $this->pages_model = new PagesModel();
         $this->Auth_model   = new AuthModel();
+        $this->Tags_model = new TagsModel();
     }
 
     /**
@@ -92,16 +99,16 @@ class General
 
     /**
      * @param string $tags
-     * @param mixed $list
      * @return array
      */
-    public function TradTags(string $tags, $list = false): array
+    public function TradTags(string $tags): array
     {
         $tags = preg_replace('/\s+/', '', $tags);
         $arr = [];
         $piece = explode(',', $tags);
         foreach ($piece as $data) {
-            $arr[] = ['title' => $data, 'slug' => $this->slugify($data)];
+            $tagsdb = $this->Tags_model->GetById($data);
+            $arr[] = ['title' => $tagsdb->title, 'slug' => $tagsdb->slug];
         }
 
         return $arr;

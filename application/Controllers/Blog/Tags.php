@@ -10,6 +10,7 @@
 namespace App\Controllers\Blog;
 
 use App\Models\Blog\ArticleModel;
+use App\Models\Blog\TagsModel;
 use Config\Services;
 
 /**
@@ -25,6 +26,11 @@ class Tags extends Application
     protected $article_model;
 
     /**
+     * @var TagsModel
+     */
+    protected $tags_model;
+
+    /**
      * About constructor.
      *
      * @param array ...$params
@@ -35,6 +41,7 @@ class Tags extends Application
         parent::__construct(...$params);
         $this->stitle = 'Tags';
         $this->article_model = new ArticleModel();
+        $this->tags_model    = new TagsModel();
     }
 
     /**
@@ -43,18 +50,26 @@ class Tags extends Application
      * @throws \Codeigniter\Files\Exceptions\FileNotFoundException
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     * @return \App\Controllers\Blog\Tags|string
+     * @return \App\Controllers\Blog\Errors|\App\Controllers\Blog\Tags
+     * @todo Add Error if tags is not found
      */
-    public function index(string $tags): self
+    public function index(string $tags)
     {
         $pager = Services::pager();
         $perPage = 8;
         $page = (!empty($_GET['page']) ? $_GET['page'] : 1);
-        $total_row = $this->article_model->GetArticleByTags($tags);
 
-        $this->data['get_all'] = $this->article_model->GetArticleByTags($tags, $perPage, $page);
-        $this->data['tags_name'] = $tags;
-        $this->data['pager'] = $pager->makeLinks($page, $perPage, $total_row, 'cat');
+        $tags = $this->tags_model->GetBySlug($tags);
+
+        if(!$tags) {
+            return redirect(base_url() . 'Errors/404');
+        }
+
+        $total_row = $this->article_model->GetArticleByTags($tags->id);
+
+        $this->data['get_all'] = $this->article_model->GetArticleByTags($tags->id, $perPage, $page);
+        $this->data['tags_name'] = $tags->title;
+        $this->data['pager'] = $pager->makeLinks($page, $perPage, $total_row, 'categories');
 
         return $this->render('tags/view');
     }

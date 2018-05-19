@@ -154,47 +154,47 @@ class ArticleModel extends Model
 
     /**
      * @param int $id
-     * @param string $keyword
+     * @param string $tags
+     * @param mixed $limit
      *
      * @return array|mixed
      */
-    public function GetRelated(int $id, string $keyword):array
+    public function GetRelated(int $id, string $tags, $limit):array
     {
-        $keys = explode(',', $keyword);
+        $keys = explode(',', $tags);
 
         $this->article_table->select();
-        $this->article_table->like('keyword', $keys[0]);
+        
+        $this->article_table->where([
+            'id !='     => $id,
+            'published' => 1
+        ]);
 
-        foreach ($keys as $key=>$key_data) {
-            if ($key != 0) {
-                $this->article_table->orLike('keyword', $key_data);
-            }
+        foreach ($keys as $key => $key_data) {
+            $this->article_table->like('tags', $key_data);
         }
 
-        $this->article_table->limit('5');
-        $this->article_table->orderBy('id', 'DESC');
+        $this->article_table->limit($limit);
+        $this->article_table->orderBy('date_created', 'DESC');
 
         $arr_r = $this->article_table->get()->getResult('array');
-        $keys_r = array_keys(array_column($arr_r, 'id'), $id, true);
-
-        unset($arr_r[$keys_r[0]]);
 
         return $arr_r;
     }
 
     /**
-     * @param string $keyword
+     * @param string $tags
      * @param int $per_page
      * @param NULL|int $page
      *
      * @return array|mixed
      */
-    public function GetArticleByTags(string $keyword, int $per_page = 8, int $page = null)
+    public function GetArticleByTags(string $tags, int $per_page = 8, int $page = null)
     {
-        if ($page == null) {
+        if ($page === null) {
             $this->article_table->select('COUNT(id) as id');
             $this->article_table->where('published', '1');
-            $this->article_table->like('keyword', $keyword);
+            $this->article_table->like('tags', $tags);
 
             return $this->article_table->get()->getRow()->id;
         }
@@ -202,7 +202,7 @@ class ArticleModel extends Model
 
         $this->article_table->select("*, DATE_FORMAT(`date_created`,'Le %d-%m-%Y à %H:%i:%s') AS `date_created`, DATE_FORMAT(`date_update`,'Le %d-%m-%Y à %H:%i:%s') AS `date_update`");
         $this->article_table->where('published', '1');
-        $this->article_table->like('keyword', $keyword);
+        $this->article_table->like('tags', $tags);
         $this->article_table->orderBy('id', 'DESC');
         $this->article_table->limit($per_page, $offset);
 
