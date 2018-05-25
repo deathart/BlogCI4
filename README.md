@@ -4,16 +4,29 @@ I created this blog system with the help of codeigniter v4, thank you for being 
 # Installation (An automatic installation will come later on)
 First of all, configure the file `.env` to the root of the folder.
 
-Then execute the following commands : 
+## Then execute the following commands : 
 
-```shell
-composer install
-npm install
-php spark migrate:latest
-php spark db:seed DatabaseSeeder
-npm run theme:build
-php spark serve -host 127.0.0.1
-```
+- PHP
+    - Normal
+        - ```shell
+            composer install
+            php spark migrate:latest
+            php spark db:seed DatabaseSeeder
+            php spark serve -host 127.0.0.1
+            ```
+    - Docker
+        - ```shell
+            ./docker/composer install
+            ./docker/console spark migrate:latest
+            ./docker/console spark db:seed DatabaseSeeder
+            ./docker/console spark serve -host 127.0.0.1
+            ```
+- Theme
+    - ```shell
+        npm install
+        npm run theme:build
+        ```
+
 Go to [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
 # Admin access

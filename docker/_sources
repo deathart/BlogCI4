@@ -1,0 +1,17 @@
+#!/bin/bash
+
+IMAGE_NAME="blogci4_php_1"
+
+runCommand()
+{
+    if id -nG $USER | grep -qw "docker"; then
+        eval $@
+    elif [ "$(uname)" == "Darwin" ]; then
+        eval $@
+    else
+        echo -e "\033[41m$0:Please, add yourself to the \033[1mdocker\033[21m group! \033[4mCommand:\033[24m \033[1msudo usermod -aG docker $USER\033[21m and then \033[1mreboot\033[0m"
+
+        eval sudo $@
+    fi
+}
+
