@@ -55,6 +55,9 @@ RUN pecl install apcu-5.1.11 \
     && echo "apc.ttl = 7200" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini \
     && echo "apc.serializer = php" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
+RUN echo "log_errors = 0;" > /usr/local/etc/php/conf.d/php.ini
+RUN echo "error_log = /dev/stderr;" > /usr/local/etc/php/conf.d/php.ini
+
 RUN usermod -u 1000 www-data
 
 CMD php-fpm -F

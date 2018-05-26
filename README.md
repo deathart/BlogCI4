@@ -16,10 +16,10 @@ First of all, configure the file `.env` to the root of the folder.
             ```
     - Docker
         - ```shell
+            docker-compose build && docker-compose up -d
             ./docker/composer install
             ./docker/console spark migrate:latest
             ./docker/console spark db:seed DatabaseSeeder
-            ./docker/console spark serve -host 127.0.0.1
             ```
 - Theme
     - ```shell

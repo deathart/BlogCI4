@@ -10,7 +10,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"CodeIgniter\\": "system/"
+			"CodeIgniter\\": "system/",
+			"Psr\\Log\\": "system/ThirdParty/PSR/Log/"
 		}
 	},
 	"extra": {
@@ -23,9 +24,9 @@
 		"zendframework/zend-escaper": "^2.5",
 		"paragonie/sodium_compat": "^1.6",
 		"twig/twig": "^2.4",
-		"larapack/dd": "1.*",
 		"cocur/slugify": "^3.1",
-		"jakub-onderka/php-parallel-lint": "^1.0"
+		"jakub-onderka/php-parallel-lint": "^1.0",
+		"kint-php/kint": "^2.2"
 	},
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^2.9",
