@@ -30,7 +30,7 @@ RUN "date"
 
 # Run docker-php-ext-install for available extensions
 RUN docker-php-ext-configure intl \
-    && docker-php-ext-install pdo pdo_mysql opcache intl
+    && docker-php-ext-install pdo pdo_mysql intl
 
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
