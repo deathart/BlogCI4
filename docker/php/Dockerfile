@@ -47,14 +47,6 @@ RUN docker-php-ext-enable xdebug \
 
 RUN echo "realpath_cache_size = 4096k; realpath_cache_ttl = 7200;" > /usr/local/etc/php/conf.d/php.ini
 
-RUN pecl install apcu-5.1.11 \
-    && docker-php-ext-enable apcu \
-    && echo "apc.enable_cli = On" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini \
-    && echo "apc.enabled = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini \
-    && echo "apc.shm_size = 32M" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini \
-    && echo "apc.ttl = 7200" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini \
-    && echo "apc.serializer = php" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
-
 RUN echo "log_errors = 0;" > /usr/local/etc/php/conf.d/php.ini
 RUN echo "error_log = /dev/stderr;" > /usr/local/etc/php/conf.d/php.ini
 
