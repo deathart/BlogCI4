@@ -607,7 +607,7 @@ class IncomingRequest extends Request
 		{
 			$protocol = 'REQUEST_URI';
 		}
-		
+
 		switch ($protocol)
 		{
 			case 'REQUEST_URI':
@@ -621,7 +621,7 @@ class IncomingRequest extends Request
 				$path = $this->fetchGlobal('server', $protocol) ?? $this->parseRequestURI();
 				break;
 		}
-		
+
 		return $path;
 	}
 

@@ -19,7 +19,7 @@ class Paths
      * Include the path if the folder is not in the same directory
      * as this file.
      */
-    public $systemDirectory = '../system';
+    public $systemDirectory = 'system';
 
     /*
      *---------------------------------------------------------------
@@ -34,7 +34,7 @@ class Paths
      *
      * NO TRAILING SLASH!
      */
-    public $applicationDirectory = '../application';
+    public $applicationDirectory = 'application';
 
     /*
      * ---------------------------------------------------------------
@@ -47,7 +47,7 @@ class Paths
      * for maximum security, keeping it out of the application and/or
      * system directories.
      */
-    public $writableDirectory = '../writable';
+    public $writableDirectory = 'writable';
 
     /*
      * ---------------------------------------------------------------
@@ -60,7 +60,7 @@ class Paths
      * for maximum security, keeping it out of the application and/or
      * system directories.
      */
-    public $testsDirectory = '../tests';
+    public $testsDirectory = 'tests';
 
     /*
      * ---------------------------------------------------------------
