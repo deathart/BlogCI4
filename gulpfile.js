@@ -76,10 +76,10 @@ gulp.task('revisioning', function() {
     return gulp.src(config.output + "/**")
         .pipe(gulp.dest(config.output))
         .pipe(rev())
-        .pipe(override())
         .pipe(revFormat({
             suffix: '-' + randomString(5),
         }))
+        .pipe(override())
         .pipe(gulp.dest(config.output))
         .pipe(revdel())
         .pipe(rev.manifest())
