@@ -29,6 +29,7 @@
         "gulp-rev": "^8.1.1",
         "gulp-rev-css-url": "^0.1.0",
         "gulp-rev-delete-original": "^0.2.3",
+        "gulp-rev-format": "^1.0.4",
         "gulp-sass": "^4.0.1",
         "gulp-sequence": "^1.0.0",
         "gulp-uglify": "^3.0.0",

@@ -8,6 +8,7 @@ const uglify = require('gulp-uglify');
 const gulpSequence = require('gulp-sequence');
 const path = require('path');
 const rev = require('gulp-rev');
+const revFormat = require('gulp-rev-format');
 const revdel = require('gulp-rev-delete-original');
 const postcss = require('gulp-postcss');
 const image = require('gulp-image');
@@ -76,6 +77,9 @@ gulp.task('revisioning', function() {
         .pipe(gulp.dest(config.output))
         .pipe(rev())
         .pipe(override())
+        .pipe(revFormat({
+            suffix: '-' + randomString(5),
+        }))
         .pipe(gulp.dest(config.output))
         .pipe(revdel())
         .pipe(rev.manifest())
@@ -90,3 +94,14 @@ gulp.task('revisioning', function() {
 
 gulp.task('build', gulpSequence('clean', ['scss', 'js', 'image', 'fonts'], ['cleancss', 'cleanjs'], 'revisioning'));
 gulp.task('default', ['scss', 'js' ]);
+
+
+function randomString(len, charSet) {
+    charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var randomString = '';
+    for (var i = 0; i < len; i++) {
+        var randomPoz = Math.floor(Math.random() * charSet.length);
+        randomString += charSet.substring(randomPoz,randomPoz+1);
+    }
+    return randomString;
+}
