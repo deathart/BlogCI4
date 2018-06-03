@@ -37,8 +37,8 @@ password
 ```
 
 # Themes and languages
-- Themes : To modify or add a new theme, this can be found in the folder: `public/themes/` (Provisional).
-- Language : To modify or add a new language, this can be found in the folder: `application/Languages/` (Provisional).
+- Themes : To modify or add a new theme, this can be found in the folder: `resources/themes/` & `resources/assets/`.
+- Language : To modify or add a new language, this can be found in the folder: `resources/Languages/`.
 
 # Server Requirements
 [PHP](http://php.net) version 7.1 or newer is required, with the *intl* extension installed. [Why 7.1](https://gophp71.org/)?
@@ -70,4 +70,4 @@ Don't hesitate to help this project, to improve it to make it grow, even constru
 - [ ] Clean rewriting of the css/js
 - [ ] Create Docs
 - [ ] Create demo
-- [ ] Move translate folder template (Use gettext for translation ?)
+- [x] Move translate folder template
