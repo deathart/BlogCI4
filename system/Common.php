@@ -85,6 +85,24 @@ if ( ! function_exists('cache'))
 
 //--------------------------------------------------------------------
 
+if ( ! function_exists('config'))
+{
+	/**
+	 * More simple way of getting config instances
+	 *
+	 * @param string $name
+	 * @param bool   $getShared
+	 *
+	 * @return mixed
+	 */
+	function config(string $name, bool $getShared = true)
+	{
+		return \CodeIgniter\Config\Config::get($name, $getShared);
+	}
+}
+
+//--------------------------------------------------------------------
+
 if ( ! function_exists('view'))
 {
 
@@ -670,8 +688,10 @@ if ( ! function_exists('force_https'))
 	 *                                    Defaults to 1 year.
 	 * @param RequestInterface  $request
 	 * @param ResponseInterface $response
-	 * 
+	 *
 	 * Not testable, as it will exit!
+	 *
+	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @codeCoverageIgnore
 	 */
 	function force_https(int $duration = 31536000, RequestInterface $request = null, ResponseInterface $response = null)
@@ -685,7 +705,7 @@ if ( ! function_exists('force_https'))
 			$response = Services::response(null, true);
 		}
 
-		if ($request->isSecure())
+		if (is_cli() || $request->isSecure())
 		{
 			return;
 		}
@@ -842,7 +862,7 @@ if ( ! function_exists('is_really_writable'))
 	 * @param   string $file
 	 *
 	 * @return  bool
-	 * 
+	 *
 	 * @codeCoverageIgnore	Not practical to test, as travis runs on linux
 	 */
 	function is_really_writable($file)
@@ -938,7 +958,7 @@ if ( ! function_exists('function_usable'))
 	 * @param	string	$function_name	Function to check for
 	 * @return	bool	TRUE if the function exists and is safe to call,
 	 * 			FALSE otherwise.
-	 * 
+	 *
 	 * @codeCoverageIgnore	This is too exotic
 	 */
 	function function_usable($function_name)
@@ -968,7 +988,7 @@ if (! function_exists('dd'))
 	 * Prints a Kint debug report and exits.
 	 *
 	 * @param array ...$vars
-	 * 
+	 *
 	 * @codeCoverageIgnore	Can't be tested ... exits
 	 */
 	function dd(...$vars)
