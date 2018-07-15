@@ -674,7 +674,6 @@ class Response extends Message implements ResponseInterface
 	 */
 	public function sendBody()
 	{
-		//dd($this->getHeaders());
 		echo $this->body;
 
 		return $this;

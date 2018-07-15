@@ -1,5 +1,15 @@
-<?php namespace CodeIgniter\HTTP\Files;
+<?php
 
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP\Files;
+
+use CodeIgniter\Files\File;
 /**
  * CodeIgniter
  *
@@ -35,8 +45,8 @@
  * @since	Version 3.0.0
  * @filesource
  */
-use CodeIgniter\Files\File;
 use CodeIgniter\Files\FileException;
+use CodeIgniter\HTTP\Exceptions\HTTPException;
 
 /**
  * Value object representing a single file uploaded through an
@@ -49,7 +59,6 @@ use CodeIgniter\Files\FileException;
  */
 class UploadedFile extends File implements UploadedFileInterface
 {
-
 	/**
 	 * The path to the temporary file.
 	 *
@@ -106,12 +115,12 @@ class UploadedFile extends File implements UploadedFileInterface
 	 */
 	public function __construct(string $path, string $originalName, string $mimeType = null, int $size = null, int $error = null)
 	{
-		$this->path = $path;
-		$this->name = $originalName;
-		$this->originalName = $originalName;
-		$this->originalMimeType = $mimeType;
-		$this->size = $size;
-		$this->error = $error;
+		$this->path				 = $path;
+		$this->name				 = $originalName;
+		$this->originalName		 = $originalName;
+		$this->originalMimeType	 = $mimeType;
+		$this->size				 = $size;
+		$this->error			 = $error;
 
 		parent::__construct($path, false);
 	}
@@ -145,11 +154,11 @@ class UploadedFile extends File implements UploadedFileInterface
 	 * @param bool   $overwrite  State for indicating whether to overwrite the previously generated file with the same
 	 *                           name or not.
 	 *
-	 * @return bool
-	 *
 	 * @throws \InvalidArgumentException if the $path specified is invalid.
 	 * @throws \RuntimeException on any error during the move operation.
 	 * @throws \RuntimeException on the second or subsequent call to the method.
+	 * @return bool
+	 *
 	 */
 	public function move(string $targetPath, string $name = null, bool $overwrite = false)
 	{
@@ -157,56 +166,38 @@ class UploadedFile extends File implements UploadedFileInterface
 
 		if ($this->hasMoved)
 		{
-			throw new FileException('The file has already been moved.');
+			throw HTTPException::forAlreadyMoved();
 		}
 
 		if ( ! $this->isValid())
 		{
-			throw new FileException('The original file is not a valid file.');
+			throw HTTPException::forInvalidFile();
 		}
 
-		$targetPath = rtrim($targetPath, '/') . '/';
-		$name = is_null($name) ? $this->getName() : $name;
+		$targetPath	 = rtrim($targetPath, '/') . '/';
+		$name		 = null === $name ? $this->getName() : $name;
 		$destination = $overwrite ? $targetPath . $name : $this->getDestination($targetPath . $name);
 
-		if ( ! @move_uploaded_file($this->path, $destination))
+		try
+		{
+			@move_uploaded_file($this->path, $destination);
+		}
+		catch (\Exception $e)
 		{
 			$error = error_get_last();
-			throw new \RuntimeException(sprintf('Could not move file %s to %s (%s)', basename($this->path), $targetPath, strip_tags($error['message'])));
+
+			throw HTTPException::forMoveFailed(basename($this->path), $targetPath, strip_tags($error['message']));
 		}
 
 		@chmod($targetPath, 0777 & ~umask());
 
 		// Success, so store our new information
-		$this->path = $targetPath;
-		$this->name = basename($destination);
-		$this->hasMoved = true;
+		$this->path		 = $targetPath;
+		$this->name		 = basename($destination);
+		$this->hasMoved	 = true;
 
 		return true;
 	}
-
-	/**
-	 * create file target path if
-	 * the set path does not exist
-	 *
-	 * @param string $path
-	 *
-	 * @return string The path set or created.
-	 */
-   	protected function setPath($path)
-   	{
-     		if (!is_dir($path))
-     		{
-         		mkdir($path, 0777, true);
-         		//create the index.html file
-         		if (!file_exists($path.'index.html'))
-         		{
-            			$file = fopen($path.'index.html', 'x+');
-            			fclose($file);
-         		}
-     		}
-     		return $path;
- 	}
 
 	//--------------------------------------------------------------------
 
@@ -240,7 +231,7 @@ class UploadedFile extends File implements UploadedFileInterface
 	 */
 	public function getError(): int
 	{
-		if (is_null($this->error))
+		if (null === $this->error)
 		{
 			return UPLOAD_ERR_OK;
 		}
@@ -260,6 +251,7 @@ class UploadedFile extends File implements UploadedFileInterface
 	public function getErrorString()
 	{
 		static $errors = [
+			UPLOAD_ERR_OK			 => 'The file uploaded with success.',
 			UPLOAD_ERR_INI_SIZE		 => 'The file "%s" exceeds your upload_max_filesize ini directive.',
 			UPLOAD_ERR_FORM_SIZE	 => 'The file "%s" exceeds the upload limit defined in your form.',
 			UPLOAD_ERR_PARTIAL		 => 'The file "%s" was only partially uploaded.',
@@ -269,7 +261,7 @@ class UploadedFile extends File implements UploadedFileInterface
 			UPLOAD_ERR_EXTENSION	 => 'File upload was stopped by a PHP extension.',
 		];
 
-		$error = is_null($this->error) ? UPLOAD_ERR_OK : $this->error;
+		$error = null === $this->error ? UPLOAD_ERR_OK : $this->error;
 
 		return sprintf($errors[$error] ?? 'The file "%s" was not uploaded due to an unknown error.', $this->getName());
 	}
@@ -281,7 +273,7 @@ class UploadedFile extends File implements UploadedFileInterface
 	 * This is NOT a trusted value.
 	 * For a trusted version, use getMimeType() instead.
 	 *
-	 * @return string|null The media type sent by the client or null if none
+	 * @return null|string The media type sent by the client or null if none
 	 *                     was provided.
 	 */
 	public function getClientMimeType(): string
@@ -296,7 +288,7 @@ class UploadedFile extends File implements UploadedFileInterface
 	 * by the client, and should not be trusted. If the file has been
 	 * moved, this will return the final name of the moved file.
 	 *
-	 * @return string|null The filename sent by the client or null if none
+	 * @return null|string The filename sent by the client or null if none
 	 *     was provided.
 	 */
 	public function getName(): string
@@ -347,7 +339,7 @@ class UploadedFile extends File implements UploadedFileInterface
 	 * was uploaded. This is NOT a trusted source.
 	 * For a trusted version, use guessExtension() instead.
 	 *
-	 * @return string|null
+	 * @return null|string
 	 */
 	public function getClientExtension(): string
 	{
@@ -365,6 +357,30 @@ class UploadedFile extends File implements UploadedFileInterface
 	public function isValid(): bool
 	{
 		return is_uploaded_file($this->path) && $this->error === UPLOAD_ERR_OK;
+	}
+
+	/**
+	 * create file target path if
+	 * the set path does not exist
+	 *
+	 * @param string $path
+	 *
+	 * @return string The path set or created.
+	 */
+	protected function setPath($path)
+	{
+		if ( ! is_dir($path))
+		{
+			mkdir($path, 0777, true);
+			//create the index.html file
+			if ( ! file_exists($path . 'index.html'))
+			{
+				$file = fopen($path . 'index.html', 'x+');
+				fclose($file);
+			}
+		}
+
+		return $path;
 	}
 
 	//--------------------------------------------------------------------

@@ -1,18 +1,12 @@
 <?php
 
-/**
- * HTTP language strings.
- *
- * @package      CodeIgniter
- * @author       CodeIgniter Dev Team
- * @copyright    2014-2018 British Columbia Institute of Technology (https://bcit.ca/)
- * @license      https://opensource.org/licenses/MIT	MIT License
- * @link         https://codeigniter.com
- * @since        Version 3.0.0
- * @filesource
- * 
- * @codeCoverageIgnore
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
  */
+
 return [
 	// CurlRequest
 	'missingCurl'                => 'CURL must be enabled to use the CURLRequest class.',
@@ -51,4 +45,9 @@ return [
 
 	// CSRF
 	'disallowedAction'           => 'The action you requested is not allowed.',
+	
+	// Uploaded file moving
+	'alreadyMoved'				 => 'The uploaded file has already been moved.',
+	'invalidFile'				 => 'The original file is not a valid file.',
+	'moveFailed'				 => 'Could not move file {0} to {1} ({2})',
 ];
