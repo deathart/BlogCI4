@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Config;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Config;
 
 /**
  * CodeIgniter
@@ -60,7 +69,7 @@ class Config
 	 * @param string  $name      Configuration name
 	 * @param boolean $getShared Use shared instance
 	 *
-	 * @return mixed|null
+	 * @return null|mixed
 	 */
 	public static function get(string $name, bool $getShared = true)
 	{
@@ -69,8 +78,6 @@ class Config
 		{
 			$class = substr($name, $pos + 1);
 		}
-
-		$class = strtolower($class);
 
 		if (! $getShared)
 		{
@@ -81,6 +88,7 @@ class Config
 		{
 			self::$instances[$class] = self::createClass($name);
 		}
+
 		return self::$instances[$class];
 	}
 
@@ -91,7 +99,7 @@ class Config
 	 *
 	 * @param string $name Classname
 	 *
-	 * @return mixed|null
+	 * @return null|mixed
 	 */
 	private static function createClass(string $name)
 	{

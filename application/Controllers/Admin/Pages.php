@@ -26,12 +26,11 @@ class Pages extends Application
     /**
      * Pages constructor.
      *
-     * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
+        parent::__construct();
         $this->pages_model = new PagesModel();
         $this->stitle = 'Pages';
     }

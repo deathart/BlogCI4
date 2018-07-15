@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter;
 
 /**
  * CodeIgniter
@@ -39,6 +48,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Log\Logger;
 use CodeIgniter\Validation\Validation;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Controller
@@ -47,7 +57,6 @@ use CodeIgniter\Validation\Validation;
  */
 class Controller
 {
-
 	/**
 	 * An array of helpers to be automatically loaded
 	 * upon class instantiation.
@@ -99,18 +108,17 @@ class Controller
 	/**
 	 * Constructor.
 	 *
-	 * @param RequestInterface $request
-	 * @param ResponseInterface $response
-	 * @param Logger $logger
+	 * @param RequestInterface         $request
+	 * @param ResponseInterface        $response
+	 * @param \Psr\Log\LoggerInterface $logger
+	 *
+	 * @throws \CodeIgniter\HTTP\RedirectException
 	 */
-	public function __construct(RequestInterface $request, ResponseInterface $response, Logger $logger = null)
+	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 	{
 		$this->request = $request;
-
 		$this->response = $response;
-
-		$this->logger = is_null($logger) ? Services::logger(true) : $logger;
-
+		$this->logger = $logger;
 		$this->logger->info('Controller "' . get_class($this) . '" loaded.');
 
 		if ($this->forceHTTPS > 0)
@@ -132,6 +140,8 @@ class Controller
 	 * @param int $duration The number of seconds this link should be
 	 *                      considered secure for. Only with HSTS header.
 	 *                      Default value is 1 year.
+	 *
+	 * @throws \CodeIgniter\HTTP\RedirectException
 	 */
 	public function forceHTTPS(int $duration = 31536000)
 	{
@@ -154,22 +164,6 @@ class Controller
 	//--------------------------------------------------------------------
 
 	/**
-	 * Handles "auto-loading" helper files.
-	 */
-	protected function loadHelpers()
-	{
-		if (empty($this->helpers))
-			return;
-
-		foreach ($this->helpers as $helper)
-		{
-			helper($helper);
-		}
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * A shortcut to performing validation on input data. If validation
 	 * is not successful, a $errors property will be set on this class.
 	 *
@@ -182,11 +176,27 @@ class Controller
 	{
 		$this->validator = Services::validation();
 
-		$success = $this->validator->withRequest($this->request)
-				->setRules($rules, $messages)
-				->run();
+		$success = $this->validator
+			->withRequest($this->request)
+			->setRules($rules, $messages)
+			->run();
 
 		return $success;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Handles "auto-loading" helper files.
+	 */
+	protected function loadHelpers()
+	{
+		if (empty($this->helpers))
+			return;
+		foreach ($this->helpers as $helper)
+		{
+			helper($helper);
+		}
 	}
 
 	//--------------------------------------------------------------------

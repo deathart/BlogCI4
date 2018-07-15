@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Filters;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Filters;
 
 /**
  * CodeIgniter
@@ -36,13 +45,12 @@
  * @filesource
  */
 use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Filters\Exceptions\FilterException;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Filters\Exceptions\FilterException;
 
 class Filters
 {
-
 	/**
 	 * The processed filters that will
 	 * be used to check against.
@@ -96,8 +104,8 @@ class Filters
 	 * @param string $uri
 	 * @param string $position
 	 *
-	 * @return \CodeIgniter\HTTP\RequestInterface|\CodeIgniter\HTTP\ResponseInterface|mixed
 	 * @throws \CodeIgniter\Filters\Exceptions\FilterException
+	 * @return \CodeIgniter\HTTP\RequestInterface|\CodeIgniter\HTTP\ResponseInterface|mixed
 	 */
 	public function run(string $uri, $position = 'before')
 	{
@@ -129,6 +137,7 @@ class Filters
 				if ($result instanceof RequestInterface)
 				{
 					$this->request = $result;
+
 					continue;
 				}
 
@@ -148,13 +157,14 @@ class Filters
 
 				return $result;
 			}
-			elseif ($position == 'after')
+			if ($position == 'after')
 			{
 				$result = $class->after($this->request, $this->response);
 
 				if ($result instanceof ResponseInterface)
 				{
 					$this->response = $result;
+
 					continue;
 				}
 			}
@@ -253,6 +263,7 @@ class Filters
 					}
 
 					unset($this->config->globals['before'][$alias]);
+
 					break;
 				}
 			}
@@ -291,6 +302,7 @@ class Filters
 					}
 
 					unset($this->config->globals['after'][$alias]);
+
 					break;
 				}
 			}
@@ -314,6 +326,7 @@ class Filters
 		if (array_key_exists($method, $this->config->methods))
 		{
 			$this->filters['before'] = array_merge($this->filters['before'], $this->config->methods[$method]);
+
 			return;
 		}
 	}
@@ -322,7 +335,7 @@ class Filters
 
 	protected function processFilters(string $uri = null)
 	{
-		if ( ! isset($this->config->filters) || ! count($this->config->filters))
+		if ( ! isset($this->config->filters) || ! $this->config->filters)
 		{
 			return;
 		}

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter;
 
 /**
  * CodeIgniter
@@ -35,17 +44,15 @@
  * @since        Version 3.0.0
  * @filesource
  */
-use CodeIgniter\Database\Exceptions\DatabaseException;
-use Config\App;
-use Config\Database;
-use CodeIgniter\I18n\Time;
-use CodeIgniter\Pager\Pager;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\ConnectionInterface;
-use CodeIgniter\Validation\ValidationInterface;
 use CodeIgniter\Database\Exceptions\DataException;
+use CodeIgniter\I18n\Time;
+use CodeIgniter\Pager\Pager;
+use CodeIgniter\Validation\ValidationInterface;
+use Config\Database;
 
 /**
  * Class Model
@@ -67,7 +74,6 @@ use CodeIgniter\Database\Exceptions\DataException;
  */
 class Model
 {
-
 	/**
 	 * Pager instance.
 	 * Populated after calling $this->paginate()
@@ -166,10 +172,10 @@ class Model
 	protected $tempUseSoftDeletes;
 
     /**
-	 * The column used to save soft delete state
-	 *
-	 * @var string
-	 */
+     * The column used to save soft delete state
+     *
+     * @var string
+     */
 	protected $deletedField = 'deleted';
 
 	/**
@@ -272,9 +278,9 @@ class Model
 			$this->db = Database::connect($this->DBGroup);
 		}
 
-		if (is_null($config) || ! isset($config->salt))
+		if (null === $config || ! isset($config->salt))
 		{
-			$config = new App();
+			$config = config(\Config\App::class);
 		}
 
 		$this->salt = $config->salt ?: '';
@@ -283,12 +289,78 @@ class Model
 		$this->tempReturnType = $this->returnType;
 		$this->tempUseSoftDeletes = $this->useSoftDeletes;
 
-		if (is_null($validation))
+		if (null === $validation)
 		{
 			$validation = \Config\Services::validation(null, false);
 		}
 
 		$this->validation = $validation;
+	}
+
+	//--------------------------------------------------------------------
+
+	//--------------------------------------------------------------------
+	// Magic
+	//--------------------------------------------------------------------
+
+	/**
+	 * Provides/instantiates the builder/db connection.
+	 *
+	 * @param string $name
+	 *
+	 * @return null
+	 */
+	public function __get(string $name)
+	{
+		if (isset($this->db->$name))
+		{
+			return $this->db->$name;
+		}
+		if (isset($this->builder()->$name))
+		{
+			return $this->builder()->$name;
+		}
+
+		return null;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Provides direct access to method in the builder (if available)
+	 * and the database connection.
+	 *
+	 * @param string $name
+	 * @param array  $params
+	 *
+	 * @return null|Model
+	 */
+	public function __call($name, array $params)
+	{
+		$result = null;
+
+		if (method_exists($this->db, $name))
+		{
+			$result = $this->db->$name(...$params);
+		}
+		elseif (method_exists($builder = $this->builder(), $name))
+		{
+			$result = $builder->$name(...$params);
+		}
+
+		// Don't return the builder object unless specifically requested
+		//, since that will interrupt the usability flow
+		// and break intermingling of model and builder methods.
+		if ($name !== 'builder' && empty($result))
+		{
+			return $result;
+		}
+		if ($name !== 'builder' && ! $result instanceof BaseBuilder)
+		{
+			return $result;
+		}
+
+		return $this;
 	}
 
 	//--------------------------------------------------------------------
@@ -300,9 +372,9 @@ class Model
 	 * Fetches the row of database from $this->table with a primary key
 	 * matching $id.
 	 *
-	 * @param mixed|array $id One primary key or an array of primary keys
+	 * @param array|mixed $id One primary key or an array of primary keys
 	 *
-	 * @return array|object|null    The resulting row of data, or null.
+	 * @return null|array|object    The resulting row of data, or null.
 	 */
 	public function find($id)
 	{
@@ -340,10 +412,10 @@ class Model
 	/**
 	 * Extract a subset of data
 	 *
-	 * @param string|array $key
-	 * @param string|null  $value
+	 * @param array|string $key
+	 * @param null|string  $value
 	 *
-	 * @return array|null The rows of data.
+	 * @return null|array The rows of data.
 	 */
 	public function findWhere($key, $value = null)
 	{
@@ -376,7 +448,7 @@ class Model
 	 * @param int $limit
 	 * @param int $offset
 	 *
-	 * @return array|null
+	 * @return null|array
 	 */
 	public function findAll(int $limit = 0, int $offset = 0)
 	{
@@ -406,7 +478,7 @@ class Model
 	 * Returns the first row of the result set. Will take any previous
 	 * Query Builder calls into account when determing the result set.
 	 *
-	 * @return array|object|null
+	 * @return null|array|object
 	 */
 	public function first()
 	{
@@ -483,7 +555,7 @@ class Model
 	 * Takes a class an returns an array of it's public and protected
 	 * properties as an array suitable for use in creates and updates.
 	 *
-	 * @param string|object $data
+	 * @param object|string $data
 	 * @param string $dateFormat
 	 *
 	 * @return array
@@ -513,12 +585,15 @@ class Model
 				{
 					case 'datetime':
 						$converted = $properties[$propName]->format('Y-m-d H:i:s');
+
 						break;
 					case 'date':
 						$converted = $properties[$propName]->format('Y-m-d');
+
 						break;
 					case 'int':
 						$converted = $properties[$propName]->getTimestamp();
+
 						break;
 				}
 
@@ -538,7 +613,7 @@ class Model
 	 * @param array|object $data
 	 * @param bool         $returnID Whether insert ID should be returned or not.
 	 *
-	 * @return int|string|bool
+	 * @return bool|int|string
 	 */
 	public function insert($data, bool $returnID = true)
 	{
@@ -686,8 +761,8 @@ class Model
 	 * @param mixed $id    The rows primary key
 	 * @param bool  $purge Allows overriding the soft deletes setting.
 	 *
-	 * @return mixed
 	 * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+	 * @return mixed
 	 */
 	public function delete($id, $purge = false)
 	{
@@ -724,12 +799,12 @@ class Model
 	 * Deletes multiple records from $this->table where the specified
 	 * key/value matches.
 	 *
-	 * @param string|array $key
-	 * @param string|null  $value
+	 * @param array|string $key
+	 * @param null|string  $value
 	 * @param bool         $purge Allows overriding the soft deletes setting.
 	 *
-	 * @return mixed
 	 * @throws \CodeIgniter\Database\Exceptions\DataException
+	 * @return mixed
 	 */
 	public function deleteWhere($key, $value = null, $purge = false)
 	{
@@ -869,7 +944,7 @@ class Model
 	 *
 	 * @throws \CodeIgniter\Database\Exceptions\DataException
 	 */
-	public function chunk($size = 100, \Closure $userFunc)
+	public function chunk($size, \Closure $userFunc)
 	{
 		$total = $this->builder()
 				->countAllResults(false);
@@ -917,7 +992,7 @@ class Model
 	 * @param string $group    Will be used by the pagination library
 	 *                         to identify a unique pagination set.
 	 *
-	 * @return array|null
+	 * @return null|array
 	 */
 	public function paginate(int $perPage = 20, string $group = 'default')
 	{
@@ -956,107 +1031,6 @@ class Model
 	//--------------------------------------------------------------------
 
 	/**
-	 * Provides a shared instance of the Query Builder.
-	 *
-	 * @param string $table
-	 *
-	 * @return BaseBuilder
-	 */
-	protected function builder(string $table = null)
-	{
-		if ($this->builder instanceof BaseBuilder)
-		{
-			return $this->builder;
-		}
-
-		$table = empty($table) ? $this->table : $table;
-
-		// Ensure we have a good db connection
-		if ( ! $this->db instanceof BaseConnection)
-		{
-			$this->db = Database::connect($this->DBGroup);
-		}
-
-		$this->builder = $this->db->table($table);
-
-		return $this->builder;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Ensures that only the fields that are allowed to be updated
-	 * are in the data array.
-	 *
-	 * Used by insert() and update() to protect against mass assignment
-	 * vulnerabilities.
-	 *
-	 * @param array $data
-	 *
-	 * @return array
-	 * @throws \CodeIgniter\Database\Exceptions\DataException
-	 */
-	protected function doProtectFields($data)
-	{
-		if ($this->protectFields === false)
-		{
-			return $data;
-		}
-
-		if (empty($this->allowedFields))
-		{
-			throw DataException::forInvalidAllowedFields(get_class($this));
-		}
-
-		foreach ($data as $key => $val)
-		{
-			if ( ! in_array($key, $this->allowedFields))
-			{
-				unset($data[$key]);
-			}
-		}
-
-		return $data;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * A utility function to allow child models to use the type of
-	 * date/time format that they prefer. This is primarily used for
-	 * setting created_at and updated_at values, but can be used
-	 * by inheriting classes.
-	 *
-	 * The available time formats are:
-	 *  - 'int'      - Stores the date as an integer timestamp
-	 *  - 'datetime' - Stores the data in the SQL datetime format
-	 *  - 'date'     - Stores the date (only) in the SQL date format.
-	 *
-	 * @param int $userData An optional PHP timestamp to be converted.
-	 *
-	 * @return mixed
-	 */
-	protected function setDate($userData = null)
-	{
-		$currentDate = is_numeric($userData) ? (int) $userData : time();
-
-		switch ($this->dateFormat)
-		{
-			case 'int':
-				return $currentDate;
-				break;
-			case 'datetime':
-				return date('Y-m-d H:i:s', $currentDate);
-				break;
-			case 'date':
-				return date('Y-m-d', $currentDate);
-				break;
-		}
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Specify the table associated with a model
 	 *
 	 * @param string $table
@@ -1079,7 +1053,7 @@ class Model
 	 *
 	 * @param bool $forceDB Always grab the db error, not validation
 	 *
-	 * @return array|null
+	 * @return null|array
 	 */
 	public function errors(bool $forceDB = false)
 	{
@@ -1165,6 +1139,147 @@ class Model
 	//--------------------------------------------------------------------
 
 	/**
+	 * Returns the model's defined validation rules so that they
+	 * can be used elsewhere, if needed.
+	 *
+	 * @return array
+	 */
+	public function getValidationRules(array $options=[])
+	{
+		$rules = $this->validationRules;
+
+		if (isset($options['except']))
+		{
+			$rules = array_diff_key($rules, array_flip($options['except']));
+		}
+		elseif (isset($options['only']))
+		{
+			$rules = array_intersect_key($rules, array_flip($options['only']));
+		}
+
+		return $rules;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Returns the model's define validation messages so they
+	 * can be used elsewhere, if needed.
+	 *
+	 * @return array
+	 */
+	public function getValidationMessages()
+	{
+		return $this->validationMessages;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Provides a shared instance of the Query Builder.
+	 *
+	 * @param string $table
+	 *
+	 * @return BaseBuilder
+	 */
+	protected function builder(string $table = null)
+	{
+		if ($this->builder instanceof BaseBuilder)
+		{
+			return $this->builder;
+		}
+
+		$table = empty($table) ? $this->table : $table;
+
+		// Ensure we have a good db connection
+		if ( ! $this->db instanceof BaseConnection)
+		{
+			$this->db = Database::connect($this->DBGroup);
+		}
+
+		$this->builder = $this->db->table($table);
+
+		return $this->builder;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Ensures that only the fields that are allowed to be updated
+	 * are in the data array.
+	 *
+	 * Used by insert() and update() to protect against mass assignment
+	 * vulnerabilities.
+	 *
+	 * @param array $data
+	 *
+	 * @throws \CodeIgniter\Database\Exceptions\DataException
+	 * @return array
+	 */
+	protected function doProtectFields($data)
+	{
+		if ($this->protectFields === false)
+		{
+			return $data;
+		}
+
+		if (empty($this->allowedFields))
+		{
+			throw DataException::forInvalidAllowedFields(get_class($this));
+		}
+
+		foreach ($data as $key => $val)
+		{
+			if ( ! in_array($key, $this->allowedFields, true))
+			{
+				unset($data[$key]);
+			}
+		}
+
+		return $data;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * A utility function to allow child models to use the type of
+	 * date/time format that they prefer. This is primarily used for
+	 * setting created_at and updated_at values, but can be used
+	 * by inheriting classes.
+	 *
+	 * The available time formats are:
+	 *  - 'int'      - Stores the date as an integer timestamp
+	 *  - 'datetime' - Stores the data in the SQL datetime format
+	 *  - 'date'     - Stores the date (only) in the SQL date format.
+	 *
+	 * @param int $userData An optional PHP timestamp to be converted.
+	 *
+	 * @return mixed
+	 */
+	protected function setDate($userData = null)
+	{
+		$currentDate = is_numeric($userData) ? (int) $userData : time();
+
+		switch ($this->dateFormat)
+		{
+			case 'int':
+				return $currentDate;
+
+				break;
+			case 'datetime':
+				return date('Y-m-d H:i:s', $currentDate);
+
+				break;
+			case 'date':
+				return date('Y-m-d', $currentDate);
+
+				break;
+		}
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Replace any placeholders within the rules with the values that
 	 * match the 'key' of any properties being set. For example, if
 	 * we had the following $data array:
@@ -1203,6 +1318,7 @@ class Model
 					{
 						$row = strtr($row, $replacements);
 					}
+
 					continue;
 				}
 
@@ -1211,43 +1327,6 @@ class Model
 		}
 
 		return $rules;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Returns the model's defined validation rules so that they
-	 * can be used elsewhere, if needed.
-	 *
-	 * @return array
-	 */
-	public function getValidationRules(array $options=[])
-	{
-		$rules = $this->validationRules;
-
-		if (isset($options['except']))
-		{
-			$rules = array_diff_key($rules, array_flip($options['except']));
-		}
-		elseif (isset($options['only']))
-		{
-			$rules = array_intersect_key($rules, array_flip($options['only']));
-		}
-
-		return $rules;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Returns the model's define validation messages so they
-	 * can be used elsewhere, if needed.
-	 *
-	 * @return array
-	 */
-	public function getValidationMessages()
-	{
-		return $this->validationMessages;
 	}
 
 	//--------------------------------------------------------------------
@@ -1268,8 +1347,8 @@ class Model
 	 * @param string $event
 	 * @param array  $data
 	 *
-	 * @return mixed
 	 * @throws \CodeIgniter\Database\Exceptions\DataException
+	 * @return mixed
 	 */
 	protected function trigger(string $event, array $data)
 	{
@@ -1290,72 +1369,6 @@ class Model
 		}
 
 		return $data;
-	}
-
-	//--------------------------------------------------------------------
-
-	//--------------------------------------------------------------------
-	// Magic
-	//--------------------------------------------------------------------
-
-	/**
-	 * Provides/instantiates the builder/db connection.
-	 *
-	 * @param string $name
-	 *
-	 * @return null
-	 */
-	public function __get(string $name)
-	{
-		if (isset($this->db->$name))
-		{
-			return $this->db->$name;
-		}
-		elseif (isset($this->builder()->$name))
-		{
-			return $this->builder()->$name;
-		}
-
-		return null;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Provides direct access to method in the builder (if available)
-	 * and the database connection.
-	 *
-	 * @param string $name
-	 * @param array  $params
-	 *
-	 * @return Model|null
-	 */
-	public function __call($name, array $params)
-	{
-		$result = null;
-
-		if (method_exists($this->db, $name))
-		{
-			$result = $this->db->$name(...$params);
-		}
-		elseif (method_exists($builder = $this->builder(), $name))
-		{
-			$result = $builder->$name(...$params);
-		}
-
-		// Don't return the builder object unless specifically requested
-		//, since that will interrupt the usability flow
-		// and break intermingling of model and builder methods.
-		if ($name !== 'builder' && empty($result))
-		{
-			return $result;
-		}
-		if ($name !== 'builder' && ! $result instanceof BaseBuilder)
-		{
-			return $result;
-		}
-
-		return $this;
 	}
 
 	//--------------------------------------------------------------------

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Router;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Router;
 
 /**
  * CodeIgniter
@@ -47,7 +56,6 @@ use CodeIgniter\Router\Exceptions\RouterException;
  */
 class RouteCollection implements RouteCollectionInterface
 {
-
 	/**
 	 * The namespace to be added to any Controllers.
 	 * Defaults to the global namespaces (\)
@@ -107,7 +115,7 @@ class RouteCollection implements RouteCollectionInterface
 	 * A callable that will be shown
 	 * when the route cannot be matched.
 	 *
-	 * @var string|\Closure
+	 * @var \Closure|string
 	 */
 	protected $override404;
 
@@ -171,21 +179,21 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @var string
 	 */
-	protected $group = null;
+	protected $group;
 
 	/**
 	 * The current subdomain.
 	 *
 	 * @var string
 	 */
-	protected $currentSubdomain = null;
+	protected $currentSubdomain;
 
 	/**
 	 * Stores copy of current options being
 	 * applied during creation.
 	 * @var null
 	 */
-	protected $currentOptions = null;
+	protected $currentOptions;
 
 	/**
 	 * Determines whether locally specified, PSR4
@@ -228,7 +236,7 @@ class RouteCollection implements RouteCollectionInterface
 	 * You can pass an associative array as $placeholder, and have
 	 * multiple placeholders added at once.
 	 *
-	 * @param string|array $placeholder
+	 * @param array|string $placeholder
 	 * @param string       $pattern
 	 *
 	 * @return mixed
@@ -347,7 +355,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * This setting is passed to the Router class and handled there.
 	 *
-	 * @param callable|null $callable
+	 * @param null|callable $callable
 	 *
 	 * @return RouteCollectionInterface
 	 */
@@ -364,7 +372,7 @@ class RouteCollection implements RouteCollectionInterface
 	 * Returns the 404 Override setting, which can be null, a closure
 	 * or the controller/string.
 	 *
-	 * @return string|\Closure|null
+	 * @return null|\Closure|string
 	 */
 	public function get404Override()
 	{
@@ -387,46 +395,6 @@ class RouteCollection implements RouteCollectionInterface
 		$this->discoverLocal = $discover;
 
 		return $this;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Will attempt to discover any additional routes, either through
-	 * the local PSR4 namespaces, or through selected Composer packages.
-	 * (Composer coming soon...)
-	 */
-	protected function discoverRoutes()
-	{
-		if ($this->didDiscover)
-			return;
-
-		// We need this var in local scope
-		// so route files can access it.
-		$routes = $this;
-
-		/*
-		 * Discover Local Files
-		 */
-		if ($this->discoverLocal === true)
-		{
-			$files = $this->fileLocator->search('Config/Routes.php');
-
-			foreach ($files as $file)
-			{
-				// Don't include our main file again...
-				if ($file == APPPATH . 'Config/Routes.php')
-					continue;
-
-				include $file;
-			}
-		}
-
-		/*
-		 * Discover Composer files (coming soon)
-		 */
-
-		$this->didDiscover = true;
 	}
 
 	//--------------------------------------------------------------------
@@ -718,7 +686,7 @@ class RouteCollection implements RouteCollectionInterface
 
 		$callback = array_pop($params);
 
-		if (count($params) && is_array($params[0]))
+		if ($params && is_array($params[0]))
 		{
 			$this->currentOptions = array_shift($params);
 		}
@@ -811,35 +779,35 @@ class RouteCollection implements RouteCollectionInterface
 			$c = count($methods);
 			for($i = 0; $i < $c; $i++)
 			{
-				if(in_array($methods[$i], $options['except']))
+				if(in_array($methods[$i], $options['except'], true))
 				{
 					unset($methods[$i]);
 				}
 			}
 		}
 
-		if (in_array('index', $methods))
+		if (in_array('index', $methods, true))
 			$this->get($name, $new_name . '::index', $options);
-		if (in_array('new', $methods))
+		if (in_array('new', $methods, true))
 			$this->get($name. '/new', $new_name . '::new', $options);
-		if (in_array('edit', $methods))
+		if (in_array('edit', $methods, true))
 			$this->get($name . '/' . $id. '/edit', $new_name . '::edit/$1', $options);
-		if (in_array('show', $methods))
+		if (in_array('show', $methods, true))
 			$this->get($name . '/' . $id, $new_name . '::show/$1', $options);
-		if (in_array('create', $methods))
+		if (in_array('create', $methods, true))
 			$this->post($name, $new_name . '::create', $options);
-		if (in_array('update', $methods))
+		if (in_array('update', $methods, true))
 			$this->put($name . '/' . $id, $new_name . '::update/$1', $options);
 			$this->patch($name . '/' . $id, $new_name . '::update/$1', $options);
-		if (in_array('delete', $methods))
+		if (in_array('delete', $methods, true))
 			$this->delete($name . '/' . $id, $new_name . '::delete/$1', $options);
 
 		// Web Safe?
 		if (isset($options['websafe']))
 		{
-			if (in_array('update', $methods))
+			if (in_array('update', $methods, true))
 				$this->post($name . '/' . $id, $new_name . '::update/$1', $options);
-			if (in_array('delete', $methods))
+			if (in_array('delete', $methods, true))
 				$this->post($name . '/' . $id . '/delete', $new_name . '::delete/$1', $options);
 		}
 
@@ -861,7 +829,7 @@ class RouteCollection implements RouteCollectionInterface
 	 *
 	 * @return \CodeIgniter\Router\RouteCollectionInterface
 	 */
-	public function match(array $verbs = [], string $from, $to, array $options = null): RouteCollectionInterface
+	public function match(array $verbs, string $from, $to, array $options = null): RouteCollectionInterface
 	{
 		foreach ($verbs as $verb)
 		{
@@ -1055,7 +1023,7 @@ class RouteCollection implements RouteCollectionInterface
 	 * @param string $search
 	 * @param array  ...$params
 	 *
-	 * @return string|false
+	 * @return false|string
 	 */
 	public function reverseRoute(string $search, ...$params)
 	{
@@ -1107,10 +1075,44 @@ class RouteCollection implements RouteCollectionInterface
 	//--------------------------------------------------------------------
 
 	/**
+	 * Will attempt to discover any additional routes, either through
+	 * the local PSR4 namespaces, or through selected Composer packages.
+	 * (Composer coming soon...)
+	 */
+	protected function discoverRoutes()
+	{
+		if ($this->didDiscover)
+			return;
+		// We need this var in local scope
+		// so route files can access it.
+		$routes = $this;
+
+		// Discover Local Files
+		if ($this->discoverLocal === true)
+		{
+			$files = $this->fileLocator->search('Config/Routes.php');
+
+			foreach ($files as $file)
+			{
+				// Don't include our main file again...
+				if ($file == APPPATH . 'Config/Routes.php')
+					continue;
+				include $file;
+			}
+		}
+
+		// Discover Composer files (coming soon)
+
+		$this->didDiscover = true;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Given a
 	 *
 	 * @param string     $from
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
 	 * @return string
 	 */
@@ -1155,11 +1157,11 @@ class RouteCollection implements RouteCollectionInterface
 	 * @param string     $verb
 	 * @param string     $from
 	 * @param            $to
-	 * @param array|null $options
+	 * @param null|array $options
 	 */
 	protected function create(string $verb, string $from, $to, array $options = null)
 	{
-		$prefix = is_null($this->group) ? '' : $this->group . '/';
+		$prefix = null === $this->group ? '' : $this->group . '/';
 
 		$from = filter_var($prefix . $from, FILTER_SANITIZE_STRING);
 
@@ -1204,9 +1206,12 @@ class RouteCollection implements RouteCollectionInterface
 			for ($i = (int) $options['offset'] + 1; $i < (int) $options['offset'] + 7; $i ++ )
 			{
 				$to = preg_replace_callback(
-						'/\$X/', function ($m) use ($i) {
+						'/\$X/',
+				    function ($m) use ($i) {
 					return '$' . $i;
-				}, $to, 1
+				},
+				    $to,
+				    1
 				);
 			}
 		}
@@ -1259,7 +1264,7 @@ class RouteCollection implements RouteCollectionInterface
 	 */
 	private function checkSubdomains($subdomains)
 	{
-		if (is_null($this->currentSubdomain))
+		if (null === $this->currentSubdomain)
 		{
 			$this->currentSubdomain = $this->determineCurrentSubdomain();
 		}
@@ -1271,7 +1276,7 @@ class RouteCollection implements RouteCollectionInterface
 
 		// Routes can be limited to any sub-domain. In that case, though,
 		// it does require a sub-domain to be present.
-		if ( ! empty($this->currentSubdomain) && in_array('*', $subdomains))
+		if ( ! empty($this->currentSubdomain) && in_array('*', $subdomains, true))
 		{
 			return true;
 		}
@@ -1312,11 +1317,10 @@ class RouteCollection implements RouteCollectionInterface
 		$host = explode('.', $parsedUrl['host']);
 
 		if ($host[0] == 'www')
-			unset($host[0]);
+			unset($host[0], $host[count($host)]);
 
 		// Get rid of any domains, which will be the last
-		unset($host[count($host)]);
-
+		
 		// Account for .co.uk, .co.nz, etc. domains
 		if (end($host) == 'co')
 			$host = array_slice($host, 0, -1);

@@ -1,39 +1,12 @@
 <?php
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP
- *
- * This content is released under the MIT License (MIT)
- *
- * Copyright (c) 2014-2018 British Columbia Institute of Technology
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @package    CodeIgniter
- * @author     CodeIgniter Dev Team
- * @copyright  2014-2018 British Columbia Institute of Technology (https://bcit.ca/)
- * @license    https://opensource.org/licenses/MIT    MIT License
- * @link       https://codeigniter.com
- * @since      Version 3.0.0
- * @filesource
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
  */
+
 // --------------------------------------------------------------------
 
 /**
@@ -47,7 +20,6 @@
  */
 if ( ! function_exists('singular'))
 {
-
 	/**
 	 * Singular
 	 *
@@ -58,9 +30,9 @@ if ( ! function_exists('singular'))
 	 */
 	function singular(string $string): string
 	{
-		$result = strval($string);
+		$result = (string) $string;
 
-		if ( ! is_countable($result))
+		if ( ! is_pluralizable($result))
 		{
 			return $result;
 		}
@@ -102,20 +74,19 @@ if ( ! function_exists('singular'))
 			if (preg_match($rule, $result))
 			{
 				$result = preg_replace($rule, $replacement, $result);
+
 				break;
 			}
 		}
 
 		return $result;
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('plural'))
 {
-
 	/**
 	 * Plural
 	 *
@@ -126,9 +97,9 @@ if ( ! function_exists('plural'))
 	 */
 	function plural(string $string): string
 	{
-		$result = strval($string);
+		$result = (string) $string;
 
-		if ( ! is_countable($result))
+		if ( ! is_pluralizable($result))
 		{
 			return $result;
 		}
@@ -161,20 +132,19 @@ if ( ! function_exists('plural'))
 			if (preg_match($rule, $result))
 			{
 				$result = preg_replace($rule, $replacement, $result);
+
 				break;
 			}
 		}
 
 		return $result;
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('camelize'))
 {
-
 	/**
 	 * Camelize
 	 *
@@ -188,13 +158,11 @@ if ( ! function_exists('camelize'))
 	{
 		return lcfirst(str_replace(' ', '', ucwords(preg_replace('/[\s_]+/', ' ', $string))));
 	}
-
 }
 //--------------------------------------------------------------------
 
 if ( ! function_exists('underscore'))
 {
-
 	/**
 	 * Underscore
 	 *
@@ -209,14 +177,12 @@ if ( ! function_exists('underscore'))
 
 		return preg_replace('/[\s]+/', '_', $replacement);
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('humanize'))
 {
-
 	/**
 	 * Humanize
 	 *
@@ -237,25 +203,24 @@ if ( ! function_exists('humanize'))
 
 		return $upperCased;
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('is_countable'))
+if ( ! function_exists('is_pluralizable'))
 {
-
 	/**
 	 * Checks if the given word has a plural version.
 	 *
 	 * @param	string	$word	Word to check
 	 * @return	bool
 	 */
-	function is_countable($word): bool
+	function is_pluralizable($word): bool
 	{
 		$uncountables = in_array
 				(
-				strtolower($word), [
+				strtolower($word),
+				    [
 			'advice',
 			'bravery',
 			'butter',
@@ -297,19 +262,17 @@ if ( ! function_exists('is_countable'))
 			'weather',
 			'wisdom',
 			'work'
-				]
+				], true
 		);
 
 		return ! $uncountables;
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('dasherize'))
 {
-
 	/**
 	 * Replaces underscores with dashes in the string.
 	 *
@@ -320,14 +283,12 @@ if ( ! function_exists('dasherize'))
 	{
 		return str_replace('_', '-', $string);
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('ordinal'))
 {
-
 	/**
 	 * Returns the suffix that should be added to a 
 	 * number to denote the position in an ordered 
@@ -354,14 +315,12 @@ if ( ! function_exists('ordinal'))
 
 		return $integer % 100 >= 11 && $integer % 100 <= 13 ? 'th' : $suffixes[$integer % 10];
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('ordinalize'))
 {
-
 	/**
 	 * Turns a number into an ordinal string used 
 	 * to denote the position in an ordered sequence 
@@ -374,5 +333,4 @@ if ( ! function_exists('ordinalize'))
 	{
 		return $integer . ordinal($integer);
 	}
-
 }

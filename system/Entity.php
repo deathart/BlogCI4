@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter;
 
 use CodeIgniter\I18n\Time;
 
@@ -52,9 +61,7 @@ class Entity
 		 */
 		'datamap' => [],
 
-		/*
-		 * Define properties that are automatically converted to Time instances.
-		 */
+		// Define properties that are automatically converted to Time instances.
 		'dates' => ['created_at', 'updated_at', 'deleted_at'],
 
 		/*
@@ -67,37 +74,13 @@ class Entity
 	/**
 	 * Allows filling in Entity parameters during construction.
 	 *
-	 * @param array|null $data
+	 * @param null|array $data
 	 */
 	public function __construct(array $data = null)
 	{
 		if (is_array($data))
 		{
 			$this->fill($data);
-		}
-	}
-
-	/**
-	 * Takes an array of key/value pairs and sets them as
-	 * class properties, using any `setCamelCasedProperty()` methods
-	 * that may or may not exist.
-	 *
-	 * @param array $data
-	 */
-	public function fill(array $data)
-	{
-		foreach ($data as $key => $value)
-		{
-			$method = 'set' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $key)));
-
-			if (method_exists($this, $method))
-			{
-				$this->$method($value);
-			}
-			elseif (property_exists($this, $key))
-			{
-				$this->$key = $value;
-			}
 		}
 	}
 
@@ -139,7 +122,7 @@ class Entity
 		}
 
 		// Do we need to mutate this into a date?
-		if (in_array($key, $this->_options['dates']))
+		if (in_array($key, $this->_options['dates'], true))
 		{
 			$result = $this->mutateDate($result);
 		}
@@ -173,7 +156,7 @@ class Entity
 		$key = $this->mapProperty($key);
 
 		// Check if the field should be mutated into a date
-		if (in_array($key, $this->_options['dates']))
+		if (in_array($key, $this->_options['dates'], true))
 		{
 			$value = $this->mutateDate($value);
 		}
@@ -222,7 +205,6 @@ class Entity
 		// before we confuse our data mapping.
 		if ( ! property_exists($this, $key))
 			return;
-
 		$this->$key = null;
 
 		// Get the class' original default value for this property
@@ -252,7 +234,31 @@ class Entity
 		// we confuse the data mapping.
 		$value = property_exists($this, $key) ? $this->$key : null;
 
-		return ! is_null($value);
+		return null !== $value;
+	}
+
+	/**
+	 * Takes an array of key/value pairs and sets them as
+	 * class properties, using any `setCamelCasedProperty()` methods
+	 * that may or may not exist.
+	 *
+	 * @param array $data
+	 */
+	public function fill(array $data)
+	{
+		foreach ($data as $key => $value)
+		{
+			$method = 'set' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $key)));
+
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+			elseif (property_exists($this, $key))
+			{
+				$this->$key = $value;
+			}
+		}
 	}
 
 	//--------------------------------------------------------------------
@@ -331,35 +337,44 @@ class Entity
 		{
 			case 'integer':
 				$value = (int)$value;
+
 				break;
 			case 'float':
 				$value = (float)$value;
+
 				break;
 			case 'double':
 				$value = (double)$value;
+
 				break;
 			case 'string':
 				$value = (string)$value;
+
 				break;
 			case 'boolean':
 				$value = (bool)$value;
+
 				break;
 			case 'object':
 				$value = (object)$value;
+
 				break;
 			case 'array':
-				if (is_string($value) && (substr($value, 0, 2) === 'a:' || substr($value, 0, 2) === 's:'))
+				if (is_string($value) && (strpos($value, 'a:') === 0 || strpos($value, 's:') === 0))
 				{
 					$value = unserialize($value);
 				}
 
 				$value = (array)$value;
+
 				break;
 			case 'datetime':
 				return new \DateTime($value);
+
 				break;
 			case 'timestamp':
 				return strtotime($value);
+
 				break;
 		}
 

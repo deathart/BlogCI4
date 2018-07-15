@@ -1,4 +1,13 @@
-<?php namespace Config;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
@@ -9,7 +18,6 @@ use CodeIgniter\Config\BaseConfig;
  */
 class App extends BaseConfig
 {
-
     /*
     |--------------------------------------------------------------------------
     | Base Site URL
@@ -245,11 +253,13 @@ class App extends BaseConfig
     | CSRFCookieName  = The cookie name
     | CSRFExpire      = The number in seconds the token should expire.
     | CSRFRegenerate  = Regenerate token on every submission
+    | CSRFRedirect    = Redirect to previous page with error on failure
     */
     public $CSRFTokenName   = 'csrf_test_name';
     public $CSRFCookieName  = 'csrf_cookie_name';
     public $CSRFExpire      = 7200;
     public $CSRFRegenerate  = true;
+    public $CSRFRedirect    = true;
 
     /*
     |--------------------------------------------------------------------------

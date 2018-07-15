@@ -46,13 +46,9 @@ class Ajax extends Controller
 
     /**
      * Ajax constructor.
-     *
-     * @param array ...$params
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
-
         //Declare class
         $this->config       = new App();
         $this->session      = Services::session($this->config);

@@ -14,9 +14,12 @@ use App\Libraries\Twig\Twig;
 use App\Models\Blog\ConfigModel;
 use CodeIgniter\Controller;
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
+use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\Response;
+use CodeIgniter\HTTP\ResponseInterface;
 use Config\App;
 use Config\Services;
+use Psr\Log\LoggerInterface;
 
 /**
  * Our base controller.
@@ -28,8 +31,6 @@ class Application extends Controller
      */
     protected $session;
     /**
-     * @var \CodeIgniter\HTTP\IncomingRequest
-     * /**
      * @var array
      */
     protected $helpers = ['cookie', 'text'];
@@ -69,13 +70,11 @@ class Application extends Controller
     /**
      * Application constructor.
      *
-     * @param array ...$params
      * @throws \InvalidArgumentException
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
         //Declare class
         $config        = new App();
         $this->session = Services::session($config);
@@ -89,8 +88,9 @@ class Application extends Controller
         $this->twig         = new Twig('blog');
         $this->csrf         = new CSRFToken();
         $this->config_model = new ConfigModel();
+
         //Set header
-        $this->response->setStatusCode(200);
+        $this->response->setStatusCode(Response::HTTP_OK);
         $this->response->setHeader('Content-type', 'text/html');
         $this->response->noCache();
         // Prevent some security threats, per Kevin
@@ -153,7 +153,7 @@ class Application extends Controller
         $h .= '<meta name="Description" content="' . $this->config_model->GetConfig('site_description') . '">';
         $h .= '<meta name="apple-mobile-web-app-capable" content="yes">';
         $h .= '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">';
-        $h .= '<meta name="Robots" content="noindex, follow">';
+        $h .= '<meta name="Robots" content="noindex, nofollow">';
         if ($keyword != null) {
             $h .= '<meta name="news_keywords" content="' . $keyword . '" />';
             $h .= '<meta name="Keywords" content="' . $keyword . '">';

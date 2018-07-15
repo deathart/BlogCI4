@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Config;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Config;
 
 /**
  * CodeIgniter
@@ -37,7 +46,6 @@
  */
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Database\MigrationRunner;
-use CodeIgniter\HTTP\URI;
 use CodeIgniter\View\RendererInterface;
 use Config\App;
 
@@ -124,7 +132,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		return new \CodeIgniter\HTTP\CLIRequest($config);
@@ -143,12 +151,7 @@ class Services extends BaseService
 	 *
 	 * @return \CodeIgniter\HTTP\CURLRequest
 	 */
-	public static function curlrequest(
-		array $options = [],
-		$response = null,
-		\Config\App $config = null,
-		$getShared = true
-	) {
+	public static function curlrequest(array $options = [], $response = null, \Config\App $config = null, $getShared = true) {
 		if ($getShared === true)
 		{
 			return self::getSharedInstance('curlrequest', $options, $response, $config);
@@ -156,7 +159,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		if (! is_object($response))
@@ -294,7 +297,7 @@ class Services extends BaseService
 			$config = new \Config\Images();
 		}
 
-		$handler = is_null($handler) ? $config->defaultHandler : $handler;
+		$handler = null === $handler ? $config->defaultHandler : $handler;
 
 		$class = $config->handlers[$handler];
 
@@ -429,7 +432,7 @@ class Services extends BaseService
 			return self::getSharedInstance('negotiator', $request);
 		}
 
-		if (is_null($request))
+		if (null === $request)
 		{
 			$request = self::request();
 		}
@@ -438,7 +441,6 @@ class Services extends BaseService
 	}
 
 	//--------------------------------------------------------------------
-
 
 	/**
 	 * @param mixed                               $config
@@ -485,7 +487,7 @@ class Services extends BaseService
 			return self::getSharedInstance('parser', $viewPath, $config);
 		}
 
-		if (is_null($config))
+		if (null === $config)
 		{
 			$config = new \Config\View();
 		}
@@ -513,7 +515,7 @@ class Services extends BaseService
 			return self::getSharedInstance('renderer', $viewPath, $config);
 		}
 
-		if (is_null($config))
+		if (null === $config)
 		{
 			$config = new \Config\View();
 		}
@@ -540,7 +542,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new App();
+			$config = config(App::class);
 		}
 
 		return new \CodeIgniter\HTTP\IncomingRequest(
@@ -570,7 +572,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		return new \CodeIgniter\HTTP\Response($config);
@@ -595,7 +597,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		$response = new \CodeIgniter\HTTP\RedirectResponse($config);
@@ -671,7 +673,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		return new \CodeIgniter\Security\Security($config);
@@ -694,7 +696,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		$logger = self::logger(true);
@@ -766,7 +768,7 @@ class Services extends BaseService
 
 		if (! is_object($config))
 		{
-			$config = new \Config\App();
+			$config = config(App::class);
 		}
 
 		return new \CodeIgniter\Debug\Toolbar($config);
@@ -809,7 +811,7 @@ class Services extends BaseService
 			return self::getSharedInstance('validation', $config);
 		}
 
-		if (is_null($config))
+		if (null === $config)
 		{
 			$config = new \Config\Validation();
 		}
@@ -857,5 +859,4 @@ class Services extends BaseService
 	}
 
 	//--------------------------------------------------------------------
-
 }

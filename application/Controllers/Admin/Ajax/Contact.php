@@ -33,12 +33,11 @@ class Contact extends Ajax
     /**
      * contact constructor.
      *
-     * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
+        parent::__construct();
         $this->contact_model = new ContactModel();
         $this->mailer = new Mailer();
     }

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Debug\Toolbar\Collectors;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Debug\Toolbar\Collectors;
 
 use CodeIgniter\CodeIgniter;
 use Config\App;
@@ -8,12 +17,12 @@ class Config
 {
 	public static function display()
 	{
-		$config = new App();
+		$config = config(App::class);
 
 		return [
 			'ciVersion'   => CodeIgniter::CI_VERSION,
-			'phpVersion'  => phpversion(),
-			'phpSAPI'     => php_sapi_name(),
+			'phpVersion'  => PHP_VERSION,
+			'phpSAPI'     => \PHP_SAPI,
 			'environment' => ENVIRONMENT,
 			'baseURL'     => $config->baseURL,
 			'timezone'    => app_timezone(),

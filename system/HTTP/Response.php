@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\HTTP;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP;
 
 /**
  * CodeIgniter
@@ -36,7 +45,6 @@
  * @filesource
  */
 use CodeIgniter\HTTP\Exceptions\HTTPException;
-use CodeIgniter\Services;
 use Config\App;
 use Config\Format;
 use Config\Mimes;
@@ -47,7 +55,6 @@ use Config\Mimes;
  */
 class RedirectException extends \Exception
 {
-
 }
 
 /**
@@ -65,6 +72,12 @@ class RedirectException extends \Exception
  */
 class Response extends Message implements ResponseInterface
 {
+	/**
+	 * Content security policy handler
+	 *
+	 * @var \CodeIgniter\HTTP\ContentSecurityPolicy
+	 */
+	public $CSP;
 
 	/**
 	 * HTTP status codes
@@ -165,13 +178,6 @@ class Response extends Message implements ResponseInterface
 	 * @var bool
 	 */
 	protected $CSPEnabled = false;
-
-	/**
-	 * Content security policy handler
-	 *
-	 * @var \CodeIgniter\HTTP\ContentSecurityPolicy
-	 */
-	public $CSP;
 
 	/**
 	 * Set a cookie name prefix if you need to avoid collisions
@@ -310,8 +316,8 @@ class Response extends Message implements ResponseInterface
 	 *                             provided status code; if none is provided, will
 	 *                             default to the IANA name.
 	 *
-	 * @return self
 	 * @throws \InvalidArgumentException For invalid status code arguments.
+	 * @return self
 	 */
 	public function setStatusCode(int $code, string $reason = '')
 	{
@@ -438,7 +444,7 @@ class Response extends Message implements ResponseInterface
 
 		if ($this->bodyFormat != 'json')
 		{
-			$config = new Format();
+			$config = config(Format::class);
 			$formatter = $config->getFormatter('application/json');
 
 			$body = $formatter->format($body);
@@ -476,37 +482,8 @@ class Response extends Message implements ResponseInterface
 
 		if ($this->bodyFormat != 'xml')
 		{
-			$config = new Format();
+			$config = config(Format::class);
 			$formatter = $config->getFormatter('application/xml');
-
-			$body = $formatter->format($body);
-		}
-
-		return $body;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Handles conversion of the of the data into the appropriate format,
-	 * and sets the correct Content-Type header for our response.
-	 *
-	 * @param        $body
-	 * @param string $format Valid: json, xml
-	 *
-	 * @return mixed
-	 */
-	protected function formatBody($body, string $format)
-	{
-		$mime = "application/{$format}";
-		$this->setContentType($mime);
-		$this->bodyFormat = $format;
-
-		// Nothing much to do for a string...
-		if (! is_string($body))
-		{
-			$config    = new Format();
-			$formatter = $config->getFormatter($mime);
 
 			$body = $formatter->format($body);
 		}
@@ -660,7 +637,7 @@ class Response extends Message implements ResponseInterface
 	public function sendHeaders()
 	{
 		// Have the headers already been sent?
-		if (headers_sent())
+		if ($this->pretend || headers_sent())
 		{
 			return $this;
 		}
@@ -673,8 +650,11 @@ class Response extends Message implements ResponseInterface
 		}
 
 		// HTTP Status
-		header(sprintf('HTTP/%s %s %s', $this->protocolVersion, $this->statusCode, $this->reason), true,
-			$this->statusCode);
+		header(
+		    sprintf('HTTP/%s %s %s', $this->protocolVersion, $this->statusCode, $this->reason),
+		    true,
+			$this->statusCode
+		);
 
 		// Send all of our headers
 		foreach ($this->getHeaders() as $name => $values)
@@ -694,6 +674,7 @@ class Response extends Message implements ResponseInterface
 	 */
 	public function sendBody()
 	{
+		//dd($this->getHeaders());
 		echo $this->body;
 
 		return $this;
@@ -718,8 +699,8 @@ class Response extends Message implements ResponseInterface
 	 * @param string $method
 	 * @param int    $code The type of redirection, defaults to 302
 	 *
-	 * @return $this
 	 * @throws \CodeIgniter\HTTP\RedirectException
+	 * @return $this
 	 */
 	public function redirect(string $uri, string $method = 'auto', int $code = null)
 	{
@@ -747,9 +728,11 @@ class Response extends Message implements ResponseInterface
 		{
 			case 'refresh':
 				$this->setHeader('Refresh', '0;url='.$uri);
+
 				break;
 			default:
 				$this->setHeader('Location', $uri);
+
 				break;
 		}
 
@@ -768,7 +751,7 @@ class Response extends Message implements ResponseInterface
 	 * Accepts an arbitrary number of binds (up to 7) or an associateive
 	 * array in the first parameter containing all the values.
 	 *
-	 * @param string|array $name     Cookie name or array containing binds
+	 * @param array|string $name     Cookie name or array containing binds
 	 * @param string       $value    Cookie value
 	 * @param string       $expire   Cookie expiration time in seconds
 	 * @param string       $domain   Cookie domain (e.g.: '.yourdomain.com')
@@ -911,25 +894,6 @@ class Response extends Message implements ResponseInterface
 	}
 
 	/**
-	 * Actually sets the cookies.
-	 */
-	protected function sendCookies()
-	{
-		if ($this->pretend)
-		{
-			return;
-		}
-
-		foreach ($this->cookies as $params)
-		{
-			// PHP cannot unpack array with string keys
-			$params = array_values($params);
-
-			setcookie(...$params);
-		}
-	}
-
-	/**
 	 * Force a download.
 	 *
 	 * Generates the headers that force a download to happen. And
@@ -945,7 +909,7 @@ class Response extends Message implements ResponseInterface
 		{
 			return;
 		}
-		elseif ($data === null)
+		if ($data === null)
 		{
 			if (! @is_file($filename) || ($filesize = @filesize($filename)) === false)
 			{
@@ -953,7 +917,7 @@ class Response extends Message implements ResponseInterface
 			}
 
 			$filepath = $filename;
-			$filename = explode('/', str_replace(DIRECTORY_SEPARATOR, '/', $filename));
+			$filename = explode('/', str_replace(\DIRECTORY_SEPARATOR, '/', $filename));
 			$filename = end($filename);
 		}
 		else
@@ -1028,4 +992,51 @@ class Response extends Message implements ResponseInterface
 		exit;
 	}
 
+	//--------------------------------------------------------------------
+
+	/**
+	 * Handles conversion of the of the data into the appropriate format,
+	 * and sets the correct Content-Type header for our response.
+	 *
+	 * @param        $body
+	 * @param string $format Valid: json, xml
+	 *
+	 * @return mixed
+	 */
+	protected function formatBody($body, string $format)
+	{
+		$mime = "application/{$format}";
+		$this->setContentType($mime);
+		$this->bodyFormat = $format;
+
+		// Nothing much to do for a string...
+		if (! is_string($body))
+		{
+			$config    = config(Format::class);
+			$formatter = $config->getFormatter($mime);
+
+			$body = $formatter->format($body);
+		}
+
+		return $body;
+	}
+
+	/**
+	 * Actually sets the cookies.
+	 */
+	protected function sendCookies()
+	{
+		if ($this->pretend)
+		{
+			return;
+		}
+
+		foreach ($this->cookies as $params)
+		{
+			// PHP cannot unpack array with string keys
+			$params = array_values($params);
+
+			setcookie(...$params);
+		}
+	}
 }

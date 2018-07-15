@@ -33,13 +33,12 @@ class Auth extends Application
     /**
      * Auth constructor.
      *
-     * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
-        $config        = new App();
+        parent::__construct();
+        $config             = new App();
         $this->session      = Services::session($config);
         $this->request      = Services::request();
         $this->response     = new Response($config);

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\HTTP;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP;
 
 /**
  * CodeIgniter
@@ -54,7 +63,6 @@ use Config\App;
  */
 class CLIRequest extends Request
 {
-
 	/**
 	 * Stores the segments of our cli "URI" command.
 	 *
@@ -129,7 +137,7 @@ class CLIRequest extends Request
 	 *
 	 * @param string $key
 	 *
-	 * @return string|null
+	 * @return null|string
 	 */
 	public function getOption(string $key)
 	{
@@ -208,12 +216,13 @@ class CLIRequest extends Request
 			if ( ! $options_found && strpos($argv[$i], '-') === false)
 			{
 				$this->segments[] = filter_var($argv[$i], FILTER_SANITIZE_STRING);
+
 				continue;
 			}
 
 			$options_found = true;
 
-			if (substr($argv[$i], 0, 1) != '-')
+			if (strpos($argv[$i], '-') !== 0)
 			{
 				continue;
 			}
@@ -222,7 +231,7 @@ class CLIRequest extends Request
 			$value = null;
 
 			// If the next item starts with a dash it's a value
-			if (isset($argv[$i + 1]) && substr($argv[$i + 1], 0, 1) != '-')
+			if (isset($argv[$i + 1]) && strpos($argv[$i + 1], '-') !== 0)
 			{
 				$value = filter_var($argv[$i + 1], FILTER_SANITIZE_STRING);
 				$i ++;

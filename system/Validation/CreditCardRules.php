@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Validation;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Validation;
 
 /**
  * CodeIgniter
@@ -47,7 +56,6 @@
  */
 class CreditCardRules
 {
-
 	/**
 	 * The cards that we support, with the defining details:
 	 *
@@ -74,7 +82,7 @@ class CreditCardRules
 		'UATP'					 => ['name' => 'uatp', 'length' => '15', 'prefixes' => '1', 'checkdigit' => true],
 		'Verve'					 => ['name' => 'verve', 'length' => '16,19', 'prefixes' => '506,650', 'checkdigit' => true],
 		'Visa'					 => ['name' => 'visa', 'length' => '13,16,19', 'prefixes' => '4', 'checkdigit' => true],
-		// Canadian Cards	
+		// Canadian Cards
 		'BMO ABM Card'				 => ['name' => 'bmoabm', 'length' => '16', 'prefixes' => '500', 'checkdigit' => false],
 		'CIBC Convenience Card'			 => ['name' => 'cibc', 'length' => '16', 'prefixes' => '4506', 'checkdigit' => false],
 		'HSBC Canada Card'			 => ['name' => 'hsbc', 'length' => '16', 'prefixes' => '56', 'checkdigit' => false],
@@ -139,7 +147,7 @@ class CreditCardRules
 		// Make sure it's a valid length for this card
 		$lengths = explode(',', $info['length']);
 
-		if ( ! in_array(mb_strlen($ccNumber), $lengths))
+		if ( ! in_array(mb_strlen($ccNumber), $lengths, true))
 		{
 			return false;
 		}
@@ -151,7 +159,7 @@ class CreditCardRules
 
 		foreach ($prefixes as $prefix)
 		{
-			if ($prefix == mb_substr($ccNumber, 0, mb_strlen($prefix)))
+			if (mb_strpos($ccNumber, $prefix) === 0)
 			{
 				$validPrefix = true;
 			}
@@ -184,7 +192,7 @@ class CreditCardRules
 	 */
 	protected function isValidLuhn(string $number = null): bool
 	{
-		settype($number, 'string');
+		$number = (string) $number;
 
 		$sumTable = [
 			[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],

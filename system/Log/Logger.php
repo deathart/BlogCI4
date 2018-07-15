@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Log;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Log;
 
 /**
  * CodeIgniter
@@ -35,8 +44,8 @@
  * @since	Version 3.0.0
  * @filesource
  */
-use Psr\Log\LoggerInterface;
 use CodeIgniter\Log\Exceptions\LogException;
+use Psr\Log\LoggerInterface;
 
 /**
  * The CodeIgntier Logger
@@ -54,6 +63,12 @@ use CodeIgniter\Log\Exceptions\LogException;
  */
 class Logger implements LoggerInterface
 {
+	/**
+	 * Caches logging calls for debugbar.
+	 *
+	 * @var array
+	 */
+	public $logCache;
 
 	/**
 	 * Path to save log files to.
@@ -127,13 +142,6 @@ class Logger implements LoggerInterface
 	protected $handlerConfig = [];
 
 	/**
-	 * Caches logging calls for debugbar.
-	 *
-	 * @var array
-	 */
-	public $logCache;
-
-	/**
 	 * Should we cache our logged items?
 	 *
 	 * @var bool
@@ -155,12 +163,12 @@ class Logger implements LoggerInterface
 
 		// Now convert loggable levels to strings.
 		// We only use numbers to make the threshold setting convenient for users.
-		if (count($this->loggableLevels))
+		if ($this->loggableLevels)
 		{
 			$temp = [];
 			foreach ($this->loggableLevels as $level)
 			{
-				$temp[] = array_search((int) $level, $this->logLevels);
+				$temp[] = array_search((int) $level, $this->logLevels, true);
 			}
 
 			$this->loggableLevels = $temp;
@@ -331,7 +339,7 @@ class Logger implements LoggerInterface
 	{
 		if (is_numeric($level))
 		{
-			$level = array_search((int) $level, $this->logLevels);
+			$level = array_search((int) $level, $this->logLevels, true);
 		}
 
 		// Is the level a valid level?
@@ -341,7 +349,7 @@ class Logger implements LoggerInterface
 		}
 
 		// Does the app want to log this right now?
-		if ( ! in_array($level, $this->loggableLevels))
+		if ( ! in_array($level, $this->loggableLevels, true))
 		{
 			return false;
 		}
@@ -364,10 +372,14 @@ class Logger implements LoggerInterface
 
 		foreach ($this->handlerConfig as $className => $config)
 		{
+			if ( ! array_key_exists($className, $this->handlers)) {
+				$this->handlers[$className] = new $className($config);
+			}
+			
 			/**
 			 * @var \CodeIgniter\Log\Handlers\HandlerInterface
 			 */
-			$handler = new $className($config);
+			$handler = $this->handlers[$className];
 
 			if ( ! $handler->canHandle($level))
 			{
@@ -383,6 +395,41 @@ class Logger implements LoggerInterface
 		}
 
 		return true;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Determines the current file/line that the log method was called from.
+	 * by analyzing the backtrace.
+	 *
+	 * @return array
+	 */
+	public function determineFile()
+	{
+		// Determine the file and line by finding the first
+		// backtrace that is not part of our logging system.
+		$trace = debug_backtrace();
+		$file = null;
+		$line = null;
+
+		foreach ($trace as $row)
+		{
+			if (in_array($row['function'], ['interpolate', 'determineFile', 'log', 'log_message'], true))
+			{
+				continue;
+			}
+
+			$file = $row['file'] ?? isset($row['object']) ? get_class($row['object']) : 'unknown';
+			$line = $row['line'] ?? $row['function'] ?? 'unknown';
+
+			break;
+		}
+
+		return [
+			$file,
+			$line
+		];
 	}
 
 	//--------------------------------------------------------------------
@@ -408,7 +455,6 @@ class Logger implements LoggerInterface
 	{
 		if ( ! is_string($message))
 			return $message;
-
 		// build a replacement array with braces around the context keys
 		$replace = [];
 
@@ -444,7 +490,7 @@ class Logger implements LoggerInterface
 		{
 			preg_match('/env:[^}]+/', $message, $matches);
 
-			if (count($matches))
+			if ($matches)
 			{
 				foreach ($matches as $str)
 				{
@@ -461,40 +507,6 @@ class Logger implements LoggerInterface
 
 		// interpolate replacement values into the message and return
 		return strtr($message, $replace);
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Determines the current file/line that the log method was called from.
-	 * by analyzing the backtrace.
-	 *
-	 * @return array
-	 */
-	public function determineFile()
-	{
-		// Determine the file and line by finding the first
-		// backtrace that is not part of our logging system.
-		$trace = debug_backtrace();
-		$file = null;
-		$line = null;
-
-		foreach ($trace as $row)
-		{
-			if (in_array($row['function'], ['interpolate', 'determineFile', 'log', 'log_message']))
-			{
-				continue;
-			}
-
-			$file = $row['file'] ?? isset($row['object']) ? get_class($row['object']) : 'unknown';
-			$line = $row['line'] ?? $row['function'] ?? 'unknown';
-			break;
-		}
-
-		return [
-			$file,
-			$line
-		];
 	}
 
 	//--------------------------------------------------------------------

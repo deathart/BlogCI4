@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\CLI;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\CLI;
 
 /**
  * CodeIgniter
@@ -39,7 +48,6 @@ use CodeIgniter\CodeIgniter;
 
 class Console
 {
-
 	/**
 	 * Main CodeIgniter instance.
 	 * @var CodeIgniter
@@ -47,7 +55,6 @@ class Console
 	protected $app;
 
 	//--------------------------------------------------------------------
-
 
 	/**
 	 * Console constructor.
@@ -63,15 +70,20 @@ class Console
 
 	/**
 	 * Runs the current command discovered on the CLI.
+	 *
+	 * @param bool $useSafeOutput
+	 *
+	 * @throws \CodeIgniter\HTTP\RedirectException
+	 * @return \CodeIgniter\HTTP\RequestInterface|\CodeIgniter\HTTP\Response|\CodeIgniter\HTTP\ResponseInterface|mixed
 	 */
-	public function run()
+	public function run(bool $useSafeOutput = false)
 	{
 		$path = CLI::getURI() ?: 'list';
 
 		// Set the path for the application to route to.
 		$this->app->setPath("ci{$path}");
 
-		return $this->app->run();
+		return $this->app->useSafeOutput($useSafeOutput)->run();
 	}
 
 	//--------------------------------------------------------------------

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Database\Postgre;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Database\Postgre;
 
 /**
  * CodeIgniter
@@ -41,14 +50,12 @@
  */
 class Forge extends \CodeIgniter\Database\Forge
 {
-
 	/**
 	 * DROP CONSTRAINT statement
 	 *
 	 * @var    string
 	 */
 	protected $dropConstraintStr = 'ALTER TABLE %s DROP CONSTRAINT %s';
-
 
 	/**
 	 * UNSIGNED support
@@ -77,13 +84,26 @@ class Forge extends \CodeIgniter\Database\Forge
 	//--------------------------------------------------------------------
 
 	/**
+	 * CREATE TABLE attributes
+	 *
+	 * @param	array	$attributes	Associative array of table attributes
+	 * @return	string
+	 */
+	protected function _createTableAttributes($attributes)
+	{
+		return '';
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * ALTER TABLE
 	 *
 	 * @param    string $alter_type ALTER type
 	 * @param    string $table      Table name
 	 * @param    mixed  $field      Column definition
 	 *
-	 * @return    string|array
+	 * @return    array|string
 	 */
 	protected function _alterTable($alter_type, $table, $field)
 	{
@@ -154,7 +174,6 @@ class Forge extends \CodeIgniter\Database\Forge
 				. $field['unique'];
 	}
 
-
 	//--------------------------------------------------------------------
 
 	/**
@@ -179,10 +198,12 @@ class Forge extends \CodeIgniter\Database\Forge
 			case 'TINYINT':
 				$attributes['TYPE'] = 'SMALLINT';
 				$attributes['UNSIGNED'] = false;
+
 				return;
 			case 'MEDIUMINT':
 				$attributes['TYPE'] = 'INTEGER';
 				$attributes['UNSIGNED'] = false;
+
 				return;
 			case 'DATETIME':
 				$attributes['TYPE'] = 'TIMESTAMP';
@@ -235,5 +256,4 @@ class Forge extends \CodeIgniter\Database\Forge
 	}
 
 	//--------------------------------------------------------------------
-
 }

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Validation;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Validation;
 
 /**
  * CodeIgniter
@@ -43,7 +52,6 @@
  */
 class FormatRules
 {
-
 	/**
 	 * Alpha
 	 *
@@ -198,7 +206,7 @@ class FormatRules
 	 */
 	public function regex_match(string $str = null, string $pattern, array $data): bool
 	{
-		if (substr($pattern, 0, 1) != '/')
+		if (strpos($pattern, '/') !== 0)
 		{
 			$pattern = "/{$pattern}/";
 		}
@@ -220,7 +228,7 @@ class FormatRules
 	 */
 	public function timezone(string $str = null): bool
 	{
-		return in_array($str, timezone_identifiers_list());
+		return in_array($str, timezone_identifiers_list(), true);
 	}
 
 	//--------------------------------------------------------------------
@@ -236,7 +244,7 @@ class FormatRules
 	 */
 	public function valid_base64(string $str = null): bool
 	{
-		return (base64_encode(base64_decode($str)) === $str);
+		return (base64_encode(base64_decode($str, true)) === $str);
 	}
 
 	//--------------------------------------------------------------------
@@ -305,12 +313,15 @@ class FormatRules
 		{
 			case 'ipv4':
 				$which = FILTER_FLAG_IPV4;
+
 				break;
 			case 'ipv6':
 				$which = FILTER_FLAG_IPV6;
+
 				break;
 			default:
 				$which = null;
+
 				break;
 		}
 
@@ -332,7 +343,7 @@ class FormatRules
 		{
 			return false;
 		}
-		elseif (preg_match('/^(?:([^:]*)\:)?\/\/(.+)$/', $str, $matches))
+		if (preg_match('/^(?:([^:]*)\:)?\/\/(.+)$/', $str, $matches))
 		{
 			if ( ! in_array($matches[1], ['http', 'https'], true))
 			{

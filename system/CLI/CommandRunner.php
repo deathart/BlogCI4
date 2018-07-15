@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\CLI;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\CLI;
 
 /**
  * CodeIgniter
@@ -39,13 +48,17 @@ use CodeIgniter\Controller;
 
 class CommandRunner extends Controller
 {
-
 	/**
 	 * Stores the info about found Commands.
 	 *
 	 * @var array
 	 */
 	protected $commands = [];
+
+	/**
+	 * @var \CodeIgniter\Log\Logger
+	 */
+	protected $logger;
 
 	//--------------------------------------------------------------------
 
@@ -69,7 +82,6 @@ class CommandRunner extends Controller
 
 	//--------------------------------------------------------------------
 
-
 	/**
 	 * @param array $params
 	 *
@@ -81,12 +93,24 @@ class CommandRunner extends Controller
 
 		$this->createCommandList();
 
-		if (is_null($command))
+		if (null === $command)
 		{
 			$command = 'help';
 		}
 
 		return $this->runCommand($command, $params);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Allows access to the current commands that have been found.
+	 *
+	 * @return array
+	 */
+	public function getCommands()
+	{
+		return $this->commands;
 	}
 
 	//--------------------------------------------------------------------
@@ -105,6 +129,7 @@ class CommandRunner extends Controller
 		{
 			CLI::error('Command \'' . $command . '\' not found');
 			CLI::newLine();
+
 			return;
 		}
 
@@ -163,18 +188,6 @@ class CommandRunner extends Controller
 		}
 
 		asort($this->commands);
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Allows access to the current commands that have been found.
-	 *
-	 * @return array
-	 */
-	public function getCommands()
-	{
-		return $this->commands;
 	}
 
 	//--------------------------------------------------------------------

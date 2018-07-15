@@ -1,4 +1,13 @@
-<?php namespace App\Controllers\Admin\Ajax;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace App\Controllers\Admin\Ajax;
 
 use App\Models\Admin\ConfigModel;
 use CodeIgniter\HTTP\Response;
@@ -10,7 +19,6 @@ use CodeIgniter\HTTP\Response;
  */
 class Config extends Ajax
 {
-
     /**
      * @var \App\Models\Admin\ConfigModel
      */
@@ -18,13 +26,12 @@ class Config extends Ajax
 
     /**
      * Config constructor.
-     *
-     * @param array ...$params
+     * 
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
+        parent::__construct();
         $this->config_model = new ConfigModel();
     }
 
@@ -39,8 +46,8 @@ class Config extends Ajax
     }
 
     /**
-     * @return Response
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+     * @return Response
      */
     public function delparams():Response
     {

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\HTTP\Files;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP\Files;
 
 /**
  * CodeIgniter
@@ -45,14 +54,13 @@
  */
 class FileCollection
 {
-
 	/**
 	 * An array of UploadedFile instances for any files
 	 * uploaded as part of this request.
 	 * Populated the first time either files(), file(), or hasFile()
 	 * is called.
 	 *
-	 * @var array|null
+	 * @var null|array
 	 */
 	protected $files;
 
@@ -63,7 +71,7 @@ class FileCollection
 	 * Each element in the array will be an instance of UploadedFile.
 	 * The key of each element will be the client filename.
 	 *
-	 * @return array|null
+	 * @return null|array
 	 */
 	public function all()
 	{
@@ -79,17 +87,14 @@ class FileCollection
 	 *
 	 * @param string $name
 	 *
-	 * @return UploadedFile|null
+	 * @return null|UploadedFile
 	 */
 	public function getFile(string $name)
 	{
 		$this->populateFiles();
 
-		$name = strtolower($name);
-
 		if ($this->hasFile($name))
 		{
-
 			if (strpos($name, '.') !== false)
 			{
 				$name = explode('.', $name);
@@ -215,7 +220,11 @@ class FileCollection
 		}
 
 		return new UploadedFile(
-				$array['tmp_name'] ?? null, $array['name'] ?? null, $array['type'] ?? null, $array['size'] ?? null, $array['error'] ?? null
+				$array['tmp_name'] ?? null,
+		    $array['name'] ?? null,
+		    $array['type'] ?? null,
+		    $array['size'] ?? null,
+		    $array['error'] ?? null
 		);
 	}
 
@@ -247,12 +256,14 @@ class FileCollection
 				if ( ! is_array($value))
 				{
 					$pointer[$field] = $value;
+
 					continue;
 				}
 
 				$stack = [&$pointer];
 				$iterator = new \RecursiveIteratorIterator(
-						new \RecursiveArrayIterator($value), \RecursiveIteratorIterator::SELF_FIRST
+						new \RecursiveArrayIterator($value),
+				    \RecursiveIteratorIterator::SELF_FIRST
 				);
 
 				foreach ($iterator as $key => $value)
@@ -289,8 +300,7 @@ class FileCollection
 		{
 			$current_index = array_shift($index);
 		}
-		if (is_array($index) && count($index) && is_array($value[$current_index]) && count($value[$current_index])
-		)
+		if (is_array($index) && $index && is_array($value[$current_index]) && $value[$current_index])
 		{
 			return $this->getValueDotNotationSyntax($index, $value[$current_index]);
 		}
@@ -302,5 +312,4 @@ class FileCollection
 
 		return null;
 	}
-
 }

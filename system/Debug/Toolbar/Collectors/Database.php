@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Debug\Toolbar\Collectors;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Debug\Toolbar\Collectors;
 
 /**
  * CodeIgniter
@@ -42,7 +51,6 @@ use CodeIgniter\Database\Query;
  */
 class Database extends BaseCollector
 {
-
 	/**
 	 * Whether this collector has timeline data.
 	 *
@@ -114,41 +122,6 @@ class Database extends BaseCollector
 	//--------------------------------------------------------------------
 
 	/**
-	 * Returns timeline data formatted for the toolbar.
-	 *
-	 * @return array The formatted data or an empty array.
-	 */
-	protected function formatTimelineData(): array
-	{
-		$data = [];
-
-		foreach ($this->connections as $alias => $connection)
-		{
-			// Connection Time
-			$data[] = [
-				'name'		 => 'Connecting to Database: "' . $alias . '"',
-				'component'	 => 'Database',
-				'start'		 => $connection->getConnectStart(),
-				'duration'	 => $connection->getConnectDuration()
-			];
-		}
-
-		foreach (static::$queries as $query)
-		{
-			$data[] = [
-				'name'		 => 'Query',
-				'component'	 => 'Database',
-				'start'		 => $query->getStartTime(true),
-				'duration'	 => $query->getDuration()
-			];
-		}
-
-		return $data;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Returns the data of this collector to be formatted in the toolbar
 	 *
 	 * @return array
@@ -204,8 +177,8 @@ class Database extends BaseCollector
 	 */
 	public function getTitleDetails(): string
 	{
-		return '(' . count(static::$queries) . ' Queries across ' . count($this->connections) . ' Connection' .
-				(count($this->connections) > 1 ? 's' : '') . ')';
+		return '(' . count(static::$queries) . ' Queries across ' . ($countConnection = count($this->connections)) . ' Connection' .
+				($countConnection > 1 ? 's' : '') . ')';
 	}
 
 	//--------------------------------------------------------------------
@@ -232,7 +205,40 @@ class Database extends BaseCollector
 	public function icon(): string
 	{
 		return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADMSURBVEhLY6A3YExLSwsA4nIycQDIDIhRWEBqamo/UNF/SjDQjF6ocZgAKPkRiFeEhoYyQ4WIBiA9QAuWAPEHqBAmgLqgHcolGQD1V4DMgHIxwbCxYD+QBqcKINseKo6eWrBioPrtQBq/BcgY5ht0cUIYbBg2AJKkRxCNWkDQgtFUNJwtABr+F6igE8olGQD114HMgHIxAVDyAhA/AlpSA8RYUwoeXAPVex5qHCbIyMgwBCkAuQJIY00huDBUz/mUlBQDqHGjgBjAwAAACexpph6oHSQAAAAASUVORK5CYII=';
-
 	}
 
+	//--------------------------------------------------------------------
+
+	/**
+	 * Returns timeline data formatted for the toolbar.
+	 *
+	 * @return array The formatted data or an empty array.
+	 */
+	protected function formatTimelineData(): array
+	{
+		$data = [];
+
+		foreach ($this->connections as $alias => $connection)
+		{
+			// Connection Time
+			$data[] = [
+				'name'		 => 'Connecting to Database: "' . $alias . '"',
+				'component'	 => 'Database',
+				'start'		 => $connection->getConnectStart(),
+				'duration'	 => $connection->getConnectDuration()
+			];
+		}
+
+		foreach (static::$queries as $query)
+		{
+			$data[] = [
+				'name'		 => 'Query',
+				'component'	 => 'Database',
+				'start'		 => $query->getStartTime(true),
+				'duration'	 => $query->getDuration()
+			];
+		}
+
+		return $data;
+	}
 }

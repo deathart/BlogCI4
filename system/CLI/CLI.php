@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\CLI;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\CLI;
 
 /**
  * CodeIgniter
@@ -50,19 +59,18 @@ use CodeIgniter\CLI\Exceptions\CLIException;
  * Some of the code in this class is Windows-specific, and not
  * possible to test using travis-ci. It has been phpunit-annotated
  * to prevent messing up code coverage.
- * 
+ *
  * Some of the methods require keyboard input, and are not unit-testable
  * as a result: input() and prompt().
  * validate() is internal, and not testable if prompt() isn't.
  * The wait() method is mostly testable, as long as you don't give it
- * an argument of "0". 
+ * an argument of "0".
  * These have been flagged to ignore for code coverage purposes.
- * 
+ *
  * @package CodeIgniter\HTTP
  */
 class CLI
 {
-
 	/**
 	 * Is the readline library on the system?
 	 *
@@ -165,7 +173,7 @@ class CLI
 	 *
 	 * @param    string $prefix
 	 * @return    string
-	 * 
+	 *
 	 * @codeCoverageIgnore
 	 */
 	public static function input(string $prefix = null): string
@@ -200,7 +208,7 @@ class CLI
 	 * $email = CLI::prompt('What is your email?', null, 'required|valid_email');
 	 *
 	 * @param  string       $field      Output "field" question
-	 * @param  string|array $options    String to a defaul value, array to a list of options (the first option will be the default value)
+	 * @param  array|string $options    String to a defaul value, array to a list of options (the first option will be the default value)
 	 * @param  string       $validation Validation rules
 	 *
 	 * @return string                   The user input
@@ -217,7 +225,7 @@ class CLI
 			$default = $options;
 		}
 
-		if (is_array($options) && count($options))
+		if (is_array($options) && $options)
 		{
 			$opts = $options;
 			$extra_output_default = static::color($opts[0], 'white');
@@ -257,34 +265,6 @@ class CLI
 	//--------------------------------------------------------------------
 
 	/**
-	 * Validate one prompt "field" at a time
-	 *
-	 * @param  string $field Prompt "field" output
-	 * @param  string $value Input value
-	 * @param  string $rules Validation rules
-	 *
-	 * @return boolean
-	 * @codeCoverageIgnore
-	 */
-	protected static function validate($field, $value, $rules)
-	{
-		$validation = \Config\Services::validation(null, false);
-		$validation->setRule($field, null, $rules);
-		$validation->run([$field => $value]);
-
-		if ($validation->hasError($field))
-		{
-			static::error($validation->getError($field));
-
-			return false;
-		}
-
-		return true;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Outputs a string to the cli.
 	 *
 	 * @param string $text          The text to output
@@ -306,7 +286,7 @@ class CLI
 	/**
 	 * Outputs an error to the CLI using STDERR instead of STDOUT
 	 *
-	 * @param    string|array $text The text to output, or array of errors
+	 * @param    array|string $text The text to output, or array of errors
 	 * @param string          $foreground
 	 * @param string          $background
 	 */
@@ -379,7 +359,7 @@ class CLI
 	 */
 	public static function isWindows()
 	{
-		return 'win' === strtolower(substr(php_uname("s"), 0, 3));
+               return stripos(PHP_OS, 'WIN') === 0;
 	}
 
 	//--------------------------------------------------------------------
@@ -540,7 +520,7 @@ class CLI
 			$thisStep = abs($thisStep);
 			$totalSteps = $totalSteps < 1 ? 1 : $totalSteps;
 
-			$percent = intval(($thisStep / $totalSteps) * 100);
+			$percent = (int) (($thisStep / $totalSteps) * 100);
 			$step = (int) round($percent / 10);
 
 			// Write the progress bar
@@ -580,12 +560,12 @@ class CLI
 
 		if ($max == 0)
 		{
-			$max = CLI::getWidth();
+			$max = self::getWidth();
 		}
 
-		if (CLI::getWidth() < $max)
+		if (self::getWidth() < $max)
 		{
-			$max = CLI::getWidth();
+			$max = self::getWidth();
 		}
 
 		$max = $max - $pad_left;
@@ -616,57 +596,6 @@ class CLI
 	}
 
 	//--------------------------------------------------------------------
-	//--------------------------------------------------------------------
-	// Command-Line 'URI' support
-	//--------------------------------------------------------------------
-
-	/**
-	 * Parses the command line it was called from and collects all
-	 * options and valid segments.
-	 *
-	 * I tried to use getopt but had it fail occassionally to find any
-	 * options but argc has always had our back. We don't have all of the power
-	 * of getopt but this does us just fine.
-	 */
-	protected static function parseCommandLine()
-	{
-		$optionsFound = false;
-
-		// start picking segments off from #1, ignoring the invoking program
-		for ($i = 1; $i < $_SERVER['argc']; $i ++)
-		{
-			// If there's no '-' at the beginning of the argument
-			// then add it to our segments.
-			if ( ! $optionsFound && mb_strpos($_SERVER['argv'][$i], '-') === false)
-			{
-				static::$segments[] = $_SERVER['argv'][$i];
-				continue;
-			}
-
-			// We set $optionsFound here so that we know to
-			// skip the next argument since it's likely the
-			// value belonging to this option.
-			$optionsFound = true;
-
-			$arg = str_replace('-', '', $_SERVER['argv'][$i]);
-			$value = null;
-
-			// if there is a following segment, and it doesn't start with a dash, it's a value.
-			if (isset($_SERVER['argv'][$i + 1]) && mb_substr($_SERVER['argv'][$i + 1], 0, 1) != '-')
-			{
-				$value = $_SERVER['argv'][$i + 1];
-				$i ++;
-			}
-
-			static::$options[$arg] = $value;
-
-			// Reset $optionsFound so it can collect segments
-			// past any options.
-			$optionsFound = false;
-		}
-	}
-
-	//--------------------------------------------------------------------
 
 	/**
 	 * Returns the command line string portions of the arguments, minus
@@ -693,7 +622,7 @@ class CLI
 	 *
 	 * @param int $index
 	 *
-	 * @return mixed|null
+	 * @return null|mixed
 	 */
 	public static function getSegment(int $index)
 	{
@@ -725,7 +654,7 @@ class CLI
 	 *
 	 * @param string $name
 	 *
-	 * @return bool|mixed|null
+	 * @return null|bool|mixed
 	 */
 	public static function getOption(string $name)
 	{
@@ -887,6 +816,86 @@ class CLI
 		}
 
 		fwrite(STDOUT, $table);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Validate one prompt "field" at a time
+	 *
+	 * @param  string $field Prompt "field" output
+	 * @param  string $value Input value
+	 * @param  string $rules Validation rules
+	 *
+	 * @return boolean
+	 * @codeCoverageIgnore
+	 */
+	protected static function validate($field, $value, $rules)
+	{
+		$validation = \Config\Services::validation(null, false);
+		$validation->setRule($field, null, $rules);
+		$validation->run([$field => $value]);
+
+		if ($validation->hasError($field))
+		{
+			static::error($validation->getError($field));
+
+			return false;
+		}
+
+		return true;
+	}
+
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	// Command-Line 'URI' support
+	//--------------------------------------------------------------------
+
+	/**
+	 * Parses the command line it was called from and collects all
+	 * options and valid segments.
+	 *
+	 * I tried to use getopt but had it fail occassionally to find any
+	 * options but argc has always had our back. We don't have all of the power
+	 * of getopt but this does us just fine.
+	 */
+	protected static function parseCommandLine()
+	{
+		$optionsFound = false;
+
+		// start picking segments off from #1, ignoring the invoking program
+		for ($i = 1; $i < $_SERVER['argc']; $i ++)
+		{
+			// If there's no '-' at the beginning of the argument
+			// then add it to our segments.
+			if ( ! $optionsFound && mb_strpos($_SERVER['argv'][$i], '-') === false)
+			{
+				static::$segments[] = $_SERVER['argv'][$i];
+
+				continue;
+			}
+
+			// We set $optionsFound here so that we know to
+			// skip the next argument since it's likely the
+			// value belonging to this option.
+			$optionsFound = true;
+
+			$arg = str_replace('-', '', $_SERVER['argv'][$i]);
+			$value = null;
+
+			// if there is a following segment, and it doesn't start with a dash, it's a value.
+			if (isset($_SERVER['argv'][$i + 1]) && mb_strpos($_SERVER['argv'][$i + 1], '-') !== 0)
+			{
+				$value = $_SERVER['argv'][$i + 1];
+				$i ++;
+			}
+
+			static::$options[$arg] = $value;
+
+			// Reset $optionsFound so it can collect segments
+			// past any options.
+			$optionsFound = false;
+		}
 	}
 
 	//--------------------------------------------------------------------

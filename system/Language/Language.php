@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Language;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Language;
 
 /**
  * CodeIgniter
@@ -37,7 +46,6 @@
  */
 class Language
 {
-
 	/**
 	 * Stores the retrieved language lines
 	 * from files for faster retrieval on
@@ -93,7 +101,7 @@ class Language
 	 */
 	public function setLocale(string $locale = null)
 	{
-		if ( ! is_null($locale))
+		if ( null !== $locale)
 		{
 			$this->locale = $locale;
 		}
@@ -122,6 +130,7 @@ class Language
 		{
 			$output = $this->formatMessage($output, $args);
 		}
+
 		return $output;
 	}
 
@@ -167,14 +176,14 @@ class Language
 	/**
 	 * Advanced message formatting.
 	 *
-	 * @param string|array $message Message.
+	 * @param array|string $message Message.
 	 * @param array	       $args    Arguments.
 	 *
-	 * @return string|array Returns formatted message.
+	 * @return array|string Returns formatted message.
 	 */
 	protected function formatMessage($message, array $args = [])
 	{
-		if ( ! $this->intlSupport || ! count($args))
+		if ( ! $this->intlSupport || ! $args)
 		{
 			return $message;
 		}
@@ -185,6 +194,7 @@ class Language
 			{
 				$message[$index] = $this->formatMessage($value, $args);
 			}
+
 			return $message;
 		}
 
@@ -202,7 +212,7 @@ class Language
 	 * @param string $locale
 	 * @param bool   $return
 	 *
-	 * @return array|null
+	 * @return null|array
 	 */
 	protected function load(string $file, string $locale, bool $return = false)
 	{
@@ -211,7 +221,7 @@ class Language
 			$this->loadedFiles[$locale] = [];
 		}
 
-		if (in_array($file, $this->loadedFiles[$locale]))
+		if (in_array($file, $this->loadedFiles[$locale], true))
 		{
 			// Don't load it more than once.
 			return [];

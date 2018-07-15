@@ -19,12 +19,11 @@ class Errors extends Application
     /**
      * Errors constructor.
      *
-     * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
+        parent::__construct();
         $this->stitle = 'Erreurs';
     }
 

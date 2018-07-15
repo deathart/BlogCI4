@@ -1,48 +1,20 @@
 <?php
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP
- *
- * This content is released under the MIT License (MIT)
- *
- * Copyright (c) 2014-2018 British Columbia Institute of Technology
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @package    CodeIgniter
- * @author     CodeIgniter Dev Team
- * @copyright  2014-2018 British Columbia Institute of Technology (https://bcit.ca/)
- * @license    https://opensource.org/licenses/MIT    MIT License
- * @link       https://codeigniter.com
- * @since      Version 3.0.0
- * @filesource
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
  */
+
 if ( ! function_exists('site_url'))
 {
-
 	/**
 	 * Return a site URL to use in views
 	 *
-	 * @param string|array     $path
-	 * @param string|null      $scheme
-	 * @param \Config\App|null $altConfig Alternate configuration to use
+	 * @param array|string     $path
+	 * @param null|string      $scheme
+	 * @param null|\Config\App $altConfig Alternate configuration to use
 	 *
 	 * @return string
 	 */
@@ -55,7 +27,7 @@ if ( ! function_exists('site_url'))
 		}
 
 		// use alternate config if provided, else default one
-		$config = empty($altConfig) ? new \Config\App() : $altConfig;
+		$config = empty($altConfig) ? config(\Config\App::class) : $altConfig;
 
 		$base = base_url();
 
@@ -79,18 +51,16 @@ if ( ! function_exists('site_url'))
 
 		return (string) $url;
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('base_url'))
 {
-
 	/**
 	 * Return the base URL to use in views
 	 *
-	 * @param  string|array $path
+	 * @param  array|string $path
 	 * @param  string       $scheme
 	 * @return string
 	 */
@@ -102,21 +72,11 @@ if ( ! function_exists('base_url'))
 			$path = implode('/', $path);
 		}
 
-		// We should be using the set baseURL the user set
-		// otherwise get rid of the path because we have
+		// We should be using the configured baseURL that the user set;
+		// otherwise get rid of the path, because we have
 		// no way of knowing the intent...
 		$config = \CodeIgniter\Config\Services::request()->config;
-
-		if ( ! empty($config->baseURL))
-		{
-			$url = new \CodeIgniter\HTTP\URI($config->baseURL);
-		}
-		else
-		{
-			$url = \CodeIgniter\Config\Services::request($config, false)->uri;
-			$url->setPath('/');
-		}
-
+		$url = new \CodeIgniter\HTTP\URI($config->baseURL);
 		unset($config);
 
 		// Merge in the path set by the user, if any
@@ -139,14 +99,12 @@ if ( ! function_exists('base_url'))
 
 		return (string) $url;
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('current_url'))
 {
-
 	/**
 	 * Current URL
 	 *
@@ -155,20 +113,18 @@ if ( ! function_exists('current_url'))
 	 *
 	 * @param boolean $returnObject True to return an object instead of a strong
 	 *
-	 * @return string|\CodeIgniter\HTTP\URI
+	 * @return \CodeIgniter\HTTP\URI|string
 	 */
 	function current_url(bool $returnObject = false)
 	{
 		return $returnObject === true ? \CodeIgniter\Config\Services::request()->uri : (string) \CodeIgniter\Config\Services::request()->uri;
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('previous_url'))
 {
-
 	/**
 	 * Returns the previous URL the current visitor was on. For security reasons
 	 * we first check in a saved session variable, if it exists, and use that.
@@ -190,14 +146,12 @@ if ( ! function_exists('previous_url'))
 
 		return $returnObject ? new \CodeIgniter\HTTP\URI($referer) : $referer;
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('uri_string'))
 {
-
 	/**
 	 * URL String
 	 *
@@ -209,37 +163,33 @@ if ( ! function_exists('uri_string'))
 	{
 		return \CodeIgniter\Config\Services::request()->uri->getPath();
 	}
-
 }
 
 //--------------------------------------------------------------------
 
 if ( ! function_exists('index_page'))
 {
-
 	/**
 	 * Index page
 	 *
 	 * Returns the "index_page" from your config file
 	 *
-	 * @param  \Config\App|null $altConfig Alternate configuration to use
+	 * @param  null|\Config\App $altConfig Alternate configuration to use
 	 * @return string
 	 */
 	function index_page(\Config\App $altConfig = null): string
 	{
 		// use alternate config if provided, else default one
-		$config = empty($altConfig) ? new \Config\App() : $altConfig;
+		$config = empty($altConfig) ? config(\Config\App::class) : $altConfig;
 
 		return $config->indexPage;
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('anchor'))
 {
-
 	/**
 	 * Anchor Link
 	 *
@@ -248,14 +198,14 @@ if ( ! function_exists('anchor'))
 	 * @param  string           $uri        The URL
 	 * @param  string           $title      The link title
 	 * @param  mixed            $attributes Any attributes
-	 * @param  \Config\App|null $altConfig  Alternate configuration to use
+	 * @param  null|\Config\App $altConfig  Alternate configuration to use
 	 *
 	 * @return string
 	 */
 	function anchor($uri = '', $title = '', $attributes = '', \Config\App $altConfig = null): string
 	{
 		// use alternate config if provided, else default one
-		$config = empty($altConfig) ? new \Config\App() : $altConfig;
+		$config = empty($altConfig) ? config(\Config\App::class) : $altConfig;
 
 		$title = (string) $title;
 
@@ -275,14 +225,12 @@ if ( ! function_exists('anchor'))
 
 		return '<a href="' . $site_url . '"' . $attributes . '>' . $title . '</a>';
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('anchor_popup'))
 {
-
 	/**
 	 * Anchor Link - Pop-up version
 	 *
@@ -292,14 +240,14 @@ if ( ! function_exists('anchor_popup'))
 	 * @param  string           $uri        the URL
 	 * @param  string           $title      the link title
 	 * @param  mixed            $attributes any attributes
-	 * @param  \Config\App|null $altConfig  Alternate configuration to use
+	 * @param  null|\Config\App $altConfig  Alternate configuration to use
 	 *
 	 * @return string
 	 */
 	function anchor_popup($uri = '', $title = '', $attributes = false, \Config\App $altConfig = null): string
 	{
 		// use alternate config if provided, else default one
-		$config = empty($altConfig) ? new \Config\App() : $altConfig;
+		$config = empty($altConfig) ? config(\Config\App::class) : $altConfig;
 
 		$title = (string) $title;
 		$site_url = preg_match('#^(\w+:)?//#i', $uri) ? $uri : site_url($uri, '', $config);
@@ -344,14 +292,12 @@ if ( ! function_exists('anchor_popup'))
 				. '" onclick="window.open(\'' . $site_url . "', '" . $window_name . "', '" . stringify_attributes($atts, true) . "'); return false;\""
 				. $attributes . '>' . $title . '</a>';
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('mailto'))
 {
-
 	/**
 	 * Mailto Link
 	 *
@@ -372,14 +318,12 @@ if ( ! function_exists('mailto'))
 
 		return '<a href="mailto:' . $email . '"' . stringify_attributes($attributes) . '>' . $title . '</a>';
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('safe_mailto'))
 {
-
 	/**
 	 * Encoded Mailto Link
 	 *
@@ -402,7 +346,7 @@ if ( ! function_exists('safe_mailto'))
 
 		$x = str_split('<a href="mailto:', 1);
 
-		for ($i = 0, $l = strlen($email); $i < $l; $i ++)
+		for ($i = 0, $l = strlen($email); $i < $l; $i ++ )
 		{
 			$x[] = '|' . ord($email[$i]);
 		}
@@ -416,7 +360,7 @@ if ( ! function_exists('safe_mailto'))
 				foreach ($attributes as $key => $val)
 				{
 					$x[] = ' ' . $key . '="';
-					for ($i = 0, $l = strlen($val); $i < $l; $i ++)
+					for ($i = 0, $l = strlen($val); $i < $l; $i ++ )
 					{
 						$x[] = '|' . ord($val[$i]);
 					}
@@ -425,7 +369,7 @@ if ( ! function_exists('safe_mailto'))
 			}
 			else
 			{
-				for ($i = 0, $l = strlen($attributes); $i < $l; $i ++)
+				for ($i = 0, $l = strlen($attributes); $i < $l; $i ++ )
 				{
 					$x[] = $attributes[$i];
 				}
@@ -435,7 +379,7 @@ if ( ! function_exists('safe_mailto'))
 		$x[] = '>';
 
 		$temp = [];
-		for ($i = 0, $l = strlen($title); $i < $l; $i ++)
+		for ($i = 0, $l = strlen($title); $i < $l; $i ++ )
 		{
 			$ordinal = ord($title[$i]);
 
@@ -473,7 +417,7 @@ if ( ! function_exists('safe_mailto'))
 				. "//<![CDATA["
 				. "var l=new Array();";
 
-		for ($i = 0, $c = count($x); $i < $c; $i ++)
+		for ($i = 0, $c = count($x); $i < $c; $i ++ )
 		{
 			$output .= "l[" . $i . "] = '" . $x[$i] . "';";
 		}
@@ -487,14 +431,12 @@ if ( ! function_exists('safe_mailto'))
 
 		return $output;
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('auto_link'))
 {
-
 	/**
 	 * Auto-linker
 	 *
@@ -546,14 +488,12 @@ if ( ! function_exists('auto_link'))
 
 		return $str;
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('prep_url'))
 {
-
 	/**
 	 * Prep URL - Simply adds the http:// part if no scheme is included.
 	 *
@@ -561,6 +501,7 @@ if ( ! function_exists('prep_url'))
 	 * the scheme.
 	 *
 	 * @param  string    the URL
+	 * @param mixed $str
 	 * @return string
 	 */
 	function prep_url($str = ''): string
@@ -579,14 +520,12 @@ if ( ! function_exists('prep_url'))
 
 		return $str;
 	}
-
 }
 
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('url_title'))
 {
-
 	/**
 	 * Create URL Title
 	 *
@@ -605,10 +544,10 @@ if ( ! function_exists('url_title'))
 		$q_separator = preg_quote($separator, '#');
 
 		$trans = [
-			'&.+?;'					 => '',
-			'[^\w\d _-]'			 => '',
-			'\s+'					 => $separator,
-			'(' . $q_separator . ')+'	 => $separator
+			'&.+?;' => '',
+			'[^\w\d _-]' => '',
+			'\s+' => $separator,
+			'(' . $q_separator . ')+' => $separator
 		];
 
 		$str = strip_tags($str);
@@ -625,7 +564,6 @@ if ( ! function_exists('url_title'))
 
 		return trim(trim($str, $separator));
 	}
-
 }
 
 //--------------------------------------------------------------------

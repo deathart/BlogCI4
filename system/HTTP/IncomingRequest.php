@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\HTTP;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP;
 
 /**
  * CodeIgniter
@@ -68,6 +77,17 @@ use CodeIgniter\Services;
  */
 class IncomingRequest extends Request
 {
+	/**
+	 * A \CodeIgniter\HTTPLite\URI instance.
+	 *
+	 * @var URI
+	 */
+	public $uri;
+
+	/**
+	 * @var \Config\App
+	 */
+	public $config;
 
 	/**
 	 * Enable CSRF flag
@@ -78,13 +98,6 @@ class IncomingRequest extends Request
 	 * @var bool
 	 */
 	protected $enableCSRF = false;
-
-	/**
-	 * A \CodeIgniter\HTTPLite\URI instance.
-	 *
-	 * @var URI
-	 */
-	public $uri;
 
 	/**
 	 * File collection
@@ -124,11 +137,6 @@ class IncomingRequest extends Request
 	protected $validLocales = [];
 
 	/**
-	 * @var \Config\App
-	 */
-	public $config;
-
-	/**
 	 * Holds the old data from a redirect.
 	 * @var array
 	 */
@@ -149,7 +157,7 @@ class IncomingRequest extends Request
 	 * @param string                      $body
 	 * @param \CodeIgniter\HTTP\UserAgent $userAgent
 	 */
-	public function __construct($config, $uri = null, $body = 'php://input', UserAgent $userAgent)
+	public function __construct($config, $uri, $body, UserAgent $userAgent)
 	{
 		// Get our body from php://input
 		if ($body == 'php://input')
@@ -232,7 +240,7 @@ class IncomingRequest extends Request
 	{
 		// If it's not a valid locale, set it
 		// to the default locale for the site.
-		if ( ! in_array($locale, $this->validLocales))
+		if ( ! in_array($locale, $this->validLocales, true))
 		{
 			$locale = $this->defaultLocale;
 		}
@@ -250,7 +258,6 @@ class IncomingRequest extends Request
 			}
 		} catch (\Exception $e)
 		{
-
 		}
 
 		return $this;
@@ -265,7 +272,7 @@ class IncomingRequest extends Request
 	 */
 	public function isCLI(): bool
 	{
-		return (PHP_SAPI === 'cli' || defined('STDIN'));
+		return (\PHP_SAPI === 'cli' || defined('STDIN'));
 	}
 
 	//--------------------------------------------------------------------
@@ -295,11 +302,11 @@ class IncomingRequest extends Request
 		{
 			return true;
 		}
-		elseif (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
 		{
 			return true;
 		}
-		elseif ( ! empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
+		if ( ! empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
 		{
 			return true;
 		}
@@ -500,7 +507,7 @@ class IncomingRequest extends Request
 		if (isset($_SESSION['_ci_old_input']['post']))
 		{
 			$value = dot_array_search($key, $_SESSION['_ci_old_input']['post']);
-			if ( ! is_null($value))
+			if ( null !== $value)
 			{
 				return $value;
 			}
@@ -510,7 +517,7 @@ class IncomingRequest extends Request
 		if (isset($_SESSION['_ci_old_input']['get']))
 		{
 			$value = dot_array_search($key, $_SESSION['_ci_old_input']['get']);
-			if ( ! is_null($value))
+			if ( null !== $value)
 			{
 				return $value;
 			}
@@ -525,14 +532,13 @@ class IncomingRequest extends Request
 	 */
 	public function getFiles()
 	{
-		if (is_null($this->files))
+		if (null === $this->files)
 		{
 			$this->files = new FileCollection();
 		}
 
 		return $this->files->all(); // return all files
 	}
-
 
 	//--------------------------------------------------------------------
 
@@ -542,16 +548,95 @@ class IncomingRequest extends Request
 	 *
 	 * @param string $fileID
 	 *
-	 * @return UploadedFile|null
+	 * @return null|UploadedFile
 	 */
 	public function getFile(string $fileID)
 	{
-		if (is_null($this->files))
+		if (null === $this->files)
 		{
 			$this->files = new FileCollection();
 		}
 
 		return $this->files->getFile($fileID);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Based on the URIProtocol Config setting, will attempt to
+	 * detect the path portion of the current URI.
+	 *
+	 * @param string $protocol
+	 *
+	 * @return string
+	 */
+	public function detectPath($protocol)
+	{
+		if (empty($protocol))
+		{
+			$protocol = 'REQUEST_URI';
+		}
+
+		switch ($protocol)
+		{
+			case 'REQUEST_URI':
+				$path = $this->parseRequestURI();
+
+				break;
+			case 'QUERY_STRING':
+				$path = $this->parseQueryString();
+
+				break;
+			case 'PATH_INFO':
+			default:
+				$path = $this->fetchGlobal('server', $protocol) ?? $this->parseRequestURI();
+
+				break;
+		}
+
+		return $path;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Provides a convenient way to work with the Negotiate class
+	 * for content negotiation.
+	 *
+	 * @param string $type
+	 * @param array  $supported
+	 * @param bool   $strictMatch
+	 *
+	 * @return string
+	 */
+	public function negotiate(string $type, array $supported, bool $strictMatch = false)
+	{
+		if (null === $this->negotiate)
+		{
+			$this->negotiate = Services::negotiator($this, true);
+		}
+
+		switch (strtolower($type))
+		{
+			case 'media':
+				return $this->negotiate->media($supported, $strictMatch);
+
+				break;
+			case 'charset':
+				return $this->negotiate->charset($supported);
+
+				break;
+			case 'encoding':
+				return $this->negotiate->encoding($supported);
+
+				break;
+			case 'language':
+				return $this->negotiate->language($supported);
+
+				break;
+		}
+
+		throw HTTPException::forInvalidNegotiationType($type);
 	}
 
 	//--------------------------------------------------------------------
@@ -587,80 +672,11 @@ class IncomingRequest extends Request
 		}
 		else
 		{
-			throw FrameworkException::forEmptyBaseURL();
+			if(! is_cli())
+			{
+				throw FrameworkException::forEmptyBaseURL();
+			}
 		}
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Based on the URIProtocol Config setting, will attempt to
-	 * detect the path portion of the current URI.
-	 *
-	 * @param string $protocol
-	 *
-	 * @return string
-	 */
-	public function detectPath($protocol)
-	{
-		if (empty($protocol))
-		{
-			$protocol = 'REQUEST_URI';
-		}
-
-		switch ($protocol)
-		{
-			case 'REQUEST_URI':
-				$path = $this->parseRequestURI();
-				break;
-			case 'QUERY_STRING':
-				$path = $this->parseQueryString();
-				break;
-			case 'PATH_INFO':
-			default:
-				$path = $this->fetchGlobal('server', $protocol) ?? $this->parseRequestURI();
-				break;
-		}
-
-		return $path;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Provides a convenient way to work with the Negotiate class
-	 * for content negotiation.
-	 *
-	 * @param string $type
-	 * @param array  $supported
-	 * @param bool   $strictMatch
-	 *
-	 * @return string
-	 */
-	public function negotiate(string $type, array $supported, bool $strictMatch = false)
-	{
-		if (is_null($this->negotiate))
-		{
-			$this->negotiate = Services::negotiator($this, true);
-		}
-
-		switch (strtolower($type))
-		{
-			case 'media':
-				return $this->negotiate->media($supported, $strictMatch);
-				break;
-			case 'charset':
-				return $this->negotiate->charset($supported);
-				break;
-			case 'encoding':
-				return $this->negotiate->encoding($supported);
-				break;
-			case 'language':
-				return $this->negotiate->language($supported);
-				break;
-		}
-
-		throw HTTPException::forInvalidNegotiationType($type);
 	}
 
 	//--------------------------------------------------------------------
@@ -736,7 +752,7 @@ class IncomingRequest extends Request
 		{
 			return '';
 		}
-		elseif (strncmp($uri, '/', 1) === 0)
+		if (strncmp($uri, '/', 1) === 0)
 		{
 			$uri = explode('?', $uri, 2);
 			$_SERVER['QUERY_STRING'] = $uri[1] ?? '';

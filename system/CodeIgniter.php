@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter;
 
 /**
  * CodeIgniter
@@ -35,17 +44,18 @@
  * @since	Version 3.0.0
  * @filesource
  */
-use CodeIgniter\HTTP\RedirectResponse;
-use CodeIgniter\HTTP\Request;
-use Config\Services;
-use Config\Cache;
-use CodeIgniter\HTTP\URI;
 use CodeIgniter\Debug\Timer;
 use CodeIgniter\Events\Events;
-use CodeIgniter\HTTP\Response;
-use CodeIgniter\HTTP\CLIRequest;
-use CodeIgniter\Router\RouteCollectionInterface;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\CLIRequest;
+use CodeIgniter\HTTP\RedirectResponse;
+use CodeIgniter\HTTP\Request;
+use CodeIgniter\HTTP\Response;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\HTTP\URI;
+use CodeIgniter\Router\RouteCollectionInterface;
+use Config\Cache;
+use Config\Services;
 
 /**
  * This class is the core of the framework, and will analyse the
@@ -54,7 +64,6 @@ use CodeIgniter\Exceptions\PageNotFoundException;
  */
 class CodeIgniter
 {
-
 	/**
 	 * The current version of CodeIgniter Framework
 	 */
@@ -65,12 +74,6 @@ class CodeIgniter
 	 * @var mixed
 	 */
 	protected $startTime;
-
-	/**
-	 * Amount of memory at app start.
-	 * @var int
-	 */
-	protected $startMemory;
 
 	/**
 	 * Total app execution time
@@ -92,7 +95,7 @@ class CodeIgniter
 
 	/**
 	 * Current request.
-	 * @var HTTP\Request|HTTP\IncomingRequest|CLIRequest
+	 * @var CLIRequest|HTTP\IncomingRequest|HTTP\Request
 	 */
 	protected $request;
 
@@ -110,7 +113,7 @@ class CodeIgniter
 
 	/**
 	 * Controller to use.
-	 * @var string|\Closure
+	 * @var \Closure|string
 	 */
 	protected $controller;
 
@@ -138,12 +141,18 @@ class CodeIgniter
 	 */
 	protected $path;
 
+	/**
+	 * Should the Response instance "pretend"
+	 * to keep from setting headers/cookies/etc
+	 * @var bool
+	 */
+	protected $useSafeOutput = false;
+
 	//--------------------------------------------------------------------
 
 	public function __construct($config)
 	{
 		$this->startTime = microtime(true);
-		$this->startMemory = memory_get_usage(true);
 		$this->config = $config;
 	}
 
@@ -202,12 +211,23 @@ class CodeIgniter
 		// Check for a cached page. Execution will stop
 		// if the page has been cached.
 		$cacheConfig = new Cache();
-		$this->displayCache($cacheConfig);
+		$response = $this->displayCache($cacheConfig);
+		if ($response instanceof ResponseInterface)
+		{
+			if ($returnResponse)
+			{
+				return $response;
+			}
+
+			$this->response->pretend($this->useSafeOutput)->send();
+			$this->callExit(EXIT_SUCCESS);
+		}
 
 		try
 		{
 			return $this->handleRequest($routes, $cacheConfig, $returnResponse);
-		} catch (Router\RedirectException $e)
+		}
+		catch (Router\RedirectException $e)
 		{
 			$logger = Services::logger();
 			$logger->info('REDIRECTED ROUTE at ' . $e->getMessage());
@@ -226,6 +246,222 @@ class CodeIgniter
 	//--------------------------------------------------------------------
 
 	/**
+	 * Set our Response instance to "pretend" mode so that things like
+	 * cookies and headers are not actually sent, allowing PHP 7.2+ to
+	 * not complain when ini_set() function is used.
+	 *
+	 * @param bool $safe
+	 *
+	 * @return $this
+	 */
+	public function useSafeOutput(bool $safe = true)
+	{
+		$this->useSafeOutput = $safe;
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Sets a Request object to be used for this request.
+	 * Used when running certain tests.
+	 *
+	 * @param \CodeIgniter\HTTP\Request $request
+	 *
+	 * @return \CodeIgniter\CodeIgniter
+	 */
+	public function setRequest(Request $request)
+	{
+		$this->request = $request;
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Determines if a response has been cached for the given URI.
+	 *
+	 * @param \Config\Cache $config
+	 *
+	 * @throws \Exception
+	 *
+	 * @return bool
+	 */
+	public function displayCache($config)
+	{
+		if ($cachedResponse = cache()->get($this->generateCacheName($config)))
+		{
+			$cachedResponse = unserialize($cachedResponse);
+			if ( ! is_array($cachedResponse) || ! isset($cachedResponse['output']) || ! isset($cachedResponse['headers']))
+			{
+				throw new \Exception("Error unserializing page cache");
+			}
+
+			$headers = $cachedResponse['headers'];
+			$output = $cachedResponse['output'];
+
+			// Clear all default headers
+			foreach ($this->response->getHeaders() as $key => $val)
+			{
+				$this->response->removeHeader($key);
+			}
+
+			// Set cached headers
+			foreach ($headers as $name => $value)
+			{
+				$this->response->setHeader($name, $value);
+			}
+
+			$output = $this->displayPerformanceMetrics($output);
+			$this->response->setBody($output);
+
+			return $this->response;
+		};
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Tells the app that the final output should be cached.
+	 *
+	 * @param int $time
+	 *
+	 * @return $this
+	 */
+	public static function cache(int $time)
+	{
+		self::$cacheTTL = (int) $time;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Caches the full response from the current request. Used for
+	 * full-page caching for very high performance.
+	 *
+	 * @param \Config\Cache $config
+	 *
+	 * @return mixed
+	 */
+	public function cachePage(Cache $config)
+	{
+		$headers = [];
+		foreach ($this->response->getHeaders() as $header)
+		{
+			$headers[$header->getName()] = $header->getValueLine();
+		}
+
+		return cache()->save(
+						$this->generateCacheName($config),
+		    serialize(['headers' => $headers, 'output' => $this->output]),
+		    self::$cacheTTL
+		);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Returns an array with our basic performance stats collected.
+	 *
+	 * @return array
+	 */
+	public function getPerformanceStats()
+	{
+		return [
+			'startTime'		 => $this->startTime,
+			'totalTime'		 => $this->totalTime,
+		];
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Replaces the memory_usage and elapsed_time tags.
+	 *
+	 * @param string $output
+	 *
+	 * @return string
+	 */
+	public function displayPerformanceMetrics(string $output): string
+	{
+		$this->totalTime = $this->benchmark->getElapsedTime('total_execution');
+
+		$output = str_replace('{elapsed_time}', $this->totalTime, $output);
+
+		return $output;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Allows the request path to be set from outside the class,
+	 * instead of relying on CLIRequest or IncomingRequest for the path.
+	 *
+	 * This is primarily used by the Console.
+	 *
+	 * @param string $path
+	 *
+	 * @return $this
+	 */
+	public function setPath(string $path)
+	{
+		$this->path = $path;
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * If we have a session object to use, store the current URI
+	 * as the previous URI. This is called just prior to sending the
+	 * response to the client, and will make it available next request.
+	 *
+	 * This helps provider safer, more reliable previous_url() detection.
+	 *
+	 * @param \CodeIgniter\HTTP\URI $uri
+	 */
+	public function storePreviousURL($uri)
+	{
+		// This is mainly needed during testing...
+		if (is_string($uri))
+		{
+			$uri = new URI($uri);
+		}
+
+		if (isset($_SESSION))
+		{
+			$_SESSION['_ci_previous_url'] = (string) $uri;
+		}
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Modifies the Request Object to use a different method if a POST
+	 * variable called _method is found.
+	 *
+	 * Does not work on CLI commands.
+	 */
+	public function spoofRequestMethod()
+	{
+		if (is_cli())
+			return;
+		// Only works with POSTED forms
+		if ($this->request->getMethod() !== 'post')
+			return;
+		$method = $this->request->getPost('_method');
+
+		if (empty($method))
+			return;
+		$this->request = $this->request->setMethod($method);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Handles the main request logic and fires the controller.
 	 *
 	 * @param \CodeIgniter\Router\RouteCollectionInterface $routes
@@ -233,6 +469,7 @@ class CodeIgniter
 	 * @param bool                                         $returnResponse
 	 *
 	 * @throws \CodeIgniter\Filters\Exceptions\FilterException
+	 * @return \CodeIgniter\HTTP\RequestInterface|\CodeIgniter\HTTP\Response|\CodeIgniter\HTTP\ResponseInterface|mixed
 	 */
 	protected function handleRequest(RouteCollectionInterface $routes = null, $cacheConfig, bool $returnResponse = false)
 	{
@@ -242,7 +479,11 @@ class CodeIgniter
 		$filters = Services::filters();
 		$uri = $this->request instanceof CLIRequest ? $this->request->getPath() : $this->request->uri->getPath();
 
-		$filters->run($uri, 'before');
+		$possibleRedirect = $filters->run($uri, 'before');
+		if($possibleRedirect instanceof RedirectResponse)
+		{
+			return $possibleRedirect;
+		}
 
 		$returned = $this->startController();
 
@@ -377,23 +618,6 @@ class CodeIgniter
 	//--------------------------------------------------------------------
 
 	/**
-	 * Sets a Request object to be used for this request.
-	 * Used when running certain tests.
-	 *
-	 * @param \CodeIgniter\HTTP\Request $request
-	 *
-	 * @return \CodeIgniter\CodeIgniter
-	 */
-	public function setRequest(Request $request)
-	{
-		$this->request = $request;
-
-		return $this;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Get our Request object, (either IncomingRequest or CLIRequest)
 	 * and set the server protocol based on the information provided
 	 * by the server.
@@ -461,101 +685,6 @@ class CodeIgniter
 	//--------------------------------------------------------------------
 
 	/**
-	 * Determines if a response has been cached for the given URI.
-	 *
-	 * @param \Config\Cache $config
-	 *
-	 * @throws \Exception
-	 *
-	 * @return bool
-	 */
-	public function displayCache($config)
-	{
-		if ($cachedResponse = cache()->get($this->generateCacheName($config)))
-		{
-			$cachedResponse = unserialize($cachedResponse);
-			if ( ! is_array($cachedResponse) || ! isset($cachedResponse['output']) || ! isset($cachedResponse['headers']))
-			{
-				throw new \Exception("Error unserializing page cache");
-			}
-
-			$headers = $cachedResponse['headers'];
-			$output = $cachedResponse['output'];
-
-			// Clear all default headers
-			foreach ($this->response->getHeaders() as $key => $val)
-			{
-				$this->response->removeHeader($key);
-			}
-
-			// Set cached headers
-			foreach ($headers as $name => $value)
-			{
-				$this->response->setHeader($name, $value);
-			}
-
-			$output = $this->displayPerformanceMetrics($output);
-			$this->response->setBody($output)->send();
-			$this->callExit(EXIT_SUCCESS);
-		};
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Tells the app that the final output should be cached.
-	 *
-	 * @param int $time
-	 *
-	 * @return $this
-	 */
-	public static function cache(int $time)
-	{
-		self::$cacheTTL = (int) $time;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Caches the full response from the current request. Used for
-	 * full-page caching for very high performance.
-	 *
-	 * @param \Config\Cache $config
-	 *
-	 * @return mixed
-	 */
-	public function cachePage(Cache $config)
-	{
-		$headers = [];
-		foreach ($this->response->getHeaders() as $header)
-		{
-			$headers[$header->getName()] = $header->getValueLine();
-		}
-
-		return cache()->save(
-						$this->generateCacheName($config), serialize(['headers' => $headers, 'output' => $this->output]), self::$cacheTTL
-		);
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Returns an array with our basic performance stats collected.
-	 *
-	 * @return array
-	 */
-	public function getPerformanceStats()
-	{
-		return [
-			'startTime'		 => $this->startTime,
-			'totalTime'		 => $this->totalTime,
-			'startMemory'	 => $this->startMemory
-		];
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Generates the cache name to use for our full-page caching.
 	 *
 	 * @param $config
@@ -574,35 +703,22 @@ class CodeIgniter
 		if ($config->cacheQueryString)
 		{
 			$name = URI::createURIString(
-							$uri->getScheme(), $uri->getAuthority(), $uri->getPath(), $uri->getQuery()
+							$uri->getScheme(),
+			    $uri->getAuthority(),
+			    $uri->getPath(),
+			    $uri->getQuery()
 			);
 		}
 		else
 		{
 			$name = URI::createURIString(
-							$uri->getScheme(), $uri->getAuthority(), $uri->getPath()
+							$uri->getScheme(),
+			    $uri->getAuthority(),
+			    $uri->getPath()
 			);
 		}
 
 		return md5($name);
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Replaces the memory_usage and elapsed_time tags.
-	 *
-	 * @param string $output
-	 *
-	 * @return string
-	 */
-	public function displayPerformanceMetrics(string $output): string
-	{
-		$this->totalTime = $this->benchmark->getElapsedTime('total_execution');
-
-		$output = str_replace('{elapsed_time}', $this->totalTime, $output);
-
-		return $output;
 	}
 
 	//--------------------------------------------------------------------
@@ -664,25 +780,6 @@ class CodeIgniter
 	//--------------------------------------------------------------------
 
 	/**
-	 * Allows the request path to be set from outside the class,
-	 * instead of relying on CLIRequest or IncomingRequest for the path.
-	 *
-	 * This is primarily used by the Console.
-	 *
-	 * @param string $path
-	 *
-	 * @return $this
-	 */
-	public function setPath(string $path)
-	{
-		$this->path = $path;
-
-		return $this;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Now that everything has been setup, this method attempts to run the
 	 * controller method and make the script go. If it's not able to, will
 	 * show the appropriate Page Not Found error.
@@ -696,6 +793,7 @@ class CodeIgniter
 		if (is_object($this->controller) && (get_class($this->controller) == 'Closure'))
 		{
 			$controller = $this->controller;
+
 			return $controller(...$this->router->params());
 		}
 
@@ -710,7 +808,7 @@ class CodeIgniter
 		{
 			throw PageNotFoundException::forControllerNotFound($this->controller, $this->method);
 		}
-		else if ( ! method_exists($this->controller, '_remap') &&
+		 if ( ! method_exists($this->controller, '_remap') &&
 				! is_callable([$this->controller, $this->method], false)
 		)
 		{
@@ -727,7 +825,8 @@ class CodeIgniter
 	 */
 	protected function createController()
 	{
-		$class = new $this->controller($this->request, $this->response);
+		$class = new $this->controller();
+		$class->initController($this->request, $this->response, Services::logger());
 
 		$this->benchmark->stop('controller_constructor');
 
@@ -861,63 +960,13 @@ class CodeIgniter
 		$this->response->setBody($this->output);
 	}
 
-	//--------------------------------------------------------------------
-
-	/**
-	 * If we have a session object to use, store the current URI
-	 * as the previous URI. This is called just prior to sending the
-	 * response to the client, and will make it available next request.
-	 *
-	 * This helps provider safer, more reliable previous_url() detection.
-	 *
-	 * @param \CodeIgniter\HTTP\URI $uri
-	 */
-	public function storePreviousURL($uri)
-	{
-		// This is mainly needed during testing...
-		if (is_string($uri))
-		{
-			$uri = new URI($uri);
-		}
-
-		if (isset($_SESSION))
-		{
-			$_SESSION['_ci_previous_url'] = (string) $uri;
-		}
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Modifies the Request Object to use a different method if a POST
-	 * variable called _method is found.
-	 *
-	 * Does not work on CLI commands.
-	 */
-	public function spoofRequestMethod()
-	{
-		if (is_cli())
-			return;
-
-		// Only works with POSTED forms
-		if ($this->request->getMethod() !== 'post')
-			return;
-
-		$method = $this->request->getPost('_method');
-
-		if (empty($method))
-			return;
-
-		$this->request = $this->request->setMethod($method);
-	}
-
 	/**
 	 * Sends the output of this request back to the client.
 	 * This is what they've been waiting for!
 	 */
 	protected function sendResponse()
 	{
-		$this->response->send();
+		$this->response->pretend($this->useSafeOutput)->send();
 	}
 
 	//--------------------------------------------------------------------

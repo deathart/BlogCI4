@@ -1,10 +1,20 @@
-<?php namespace CodeIgniter\Test;
+<?php
 
-use CodeIgniter\HTTP\URI;
-use CodeIgniter\HTTP\Request;
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Test;
+
 use CodeIgniter\Events\Events;
-use CodeIgniter\HTTP\UserAgent;
 use CodeIgniter\HTTP\IncomingRequest;
+use CodeIgniter\HTTP\Request;
+use CodeIgniter\HTTP\URI;
+use CodeIgniter\HTTP\UserAgent;
+use Config\App;
 
 /**
  * Class FeatureTestCase
@@ -13,6 +23,7 @@ use CodeIgniter\HTTP\IncomingRequest;
  * against your application.
  *
  * @package CodeIgniter\Test
+ * @coversNothing
  */
 class FeatureTestCase extends CIDatabaseTestCase
 {
@@ -29,31 +40,6 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * @var array
 	 */
 	protected $session = [];
-
-	/**
-	 * Sets a RouteCollection that will override
-	 * the application's route collection.
-	 *
-	 * @param array $routes
-	 *
-	 * @return $this
-	 */
-	protected function withRoutes(array $routes = null)
-	{
-		$collection = \Config\Services::routes();
-
-		if (count($routes))
-		{
-			foreach ($routes as $route)
-			{
-				$collection->{$route[0]}($route[1], $route[2]);
-			}
-		}
-
-		$this->routes = $collection;
-
-		return $this;
-	}
 
 	/**
 	 * Sets any values that should exist during this session.
@@ -87,11 +73,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 *
 	 * @param string     $method
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function call(string $method, string $path, array $params = null)
 	{
@@ -115,11 +101,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * Performs a GET request.
 	 *
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function get(string $path, array $params = null)
 	{
@@ -130,11 +116,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * Performs a POST request.
 	 *
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function post(string $path, array $params = null)
 	{
@@ -145,11 +131,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * Performs a PUT request
 	 *
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function put(string $path, array $params = null)
 	{
@@ -160,11 +146,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * Performss a PATCH request
 	 *
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function patch(string $path, array $params = null)
 	{
@@ -175,11 +161,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * Performs a DELETE request.
 	 *
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function delete(string $path, array $params = null)
 	{
@@ -190,11 +176,11 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 * Performs an OPTIONS request.
 	 *
 	 * @param string     $path
-	 * @param array|null $params
+	 * @param null|array $params
 	 *
-	 * @return \CodeIgniter\Test\FeatureResponse
 	 * @throws \CodeIgniter\HTTP\RedirectException
 	 * @throws \Exception
+	 * @return \CodeIgniter\Test\FeatureResponse
 	 */
 	public function options(string $path, array $params = null)
 	{
@@ -202,17 +188,43 @@ class FeatureTestCase extends CIDatabaseTestCase
 	}
 
 	/**
+	 * Sets a RouteCollection that will override
+	 * the application's route collection.
+	 *
+	 * @param array $routes
+	 *
+	 * @return $this
+	 */
+	protected function withRoutes(array $routes = null)
+	{
+		$collection = \Config\Services::routes();
+
+		if ($routes)
+		{
+			foreach ($routes as $route)
+			{
+				$collection->{$route[0]}($route[1], $route[2]);
+			}
+		}
+
+		$this->routes = $collection;
+
+		return $this;
+	}
+
+	/**
 	 * Setup a Request object to use so that CodeIgniter
 	 * won't try to auto-populate some of the items.
 	 *
 	 * @param string      $method
-	 * @param string|null $path
+	 * @param null|string $path
+	 * @param null|mixed $params
 	 *
 	 * @return \CodeIgniter\HTTP\IncomingRequest
 	 */
 	protected function setupRequest(string $method, string $path=null, $params = null)
 	{
-		$config = new \Config\App();
+		$config = config(App::class);
 		$uri    = new URI($config->baseURL .'/'. trim($path, '/ '));
 
 		$request = new IncomingRequest($config, clone($uri), $params, new UserAgent());
@@ -232,7 +244,7 @@ class FeatureTestCase extends CIDatabaseTestCase
 	 *
 	 * @param string                    $method
 	 * @param \CodeIgniter\HTTP\Request $request
-	 * @param array|null                $params
+	 * @param null|array                $params
 	 *
 	 * @return \CodeIgniter\HTTP\Request
 	 */

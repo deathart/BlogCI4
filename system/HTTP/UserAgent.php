@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\HTTP;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP;
 
 use Config\UserAgents;
 
@@ -9,7 +18,7 @@ class UserAgent
 	 *
 	 * @var string
 	 */
-	protected $agent = null;
+	protected $agent;
 
 	/**
 	 * Flag for if the user-agent belongs to a browser
@@ -92,7 +101,7 @@ class UserAgent
 	 */
 	public function __construct($config = null)
 	{
-		if (is_null($config))
+		if (null === $config)
 		{
 			$this->config = new UserAgents();
 		}
@@ -102,6 +111,18 @@ class UserAgent
 			$this->agent = trim($_SERVER['HTTP_USER_AGENT']);
 			$this->compileData();
 		}
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Outputs the original Agent String when cast as a string.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->getAgentString();
 	}
 
 	//--------------------------------------------------------------------
@@ -349,7 +370,7 @@ class UserAgent
 	 */
 	protected function setPlatform()
 	{
-		if (is_array($this->config->platforms) && count($this->config->platforms) > 0)
+		if (is_array($this->config->platforms) && $this->config->platforms)
 		{
 			foreach ($this->config->platforms as $key => $val)
 			{
@@ -376,7 +397,7 @@ class UserAgent
 	 */
 	protected function setBrowser()
 	{
-		if (is_array($this->config->browsers) && count($this->config->browsers) > 0)
+		if (is_array($this->config->browsers) && $this->config->browsers)
 		{
 			foreach ($this->config->browsers as $key => $val)
 			{
@@ -404,7 +425,7 @@ class UserAgent
 	 */
 	protected function setRobot()
 	{
-		if (is_array($this->config->robots) && count($this->config->robots) > 0)
+		if (is_array($this->config->robots) && $this->config->robots)
 		{
 			foreach ($this->config->robots as $key => $val)
 			{
@@ -431,7 +452,7 @@ class UserAgent
 	 */
 	protected function setMobile()
 	{
-		if (is_array($this->config->mobiles) && count($this->config->mobiles) > 0)
+		if (is_array($this->config->mobiles) && $this->config->mobiles)
 		{
 			foreach ($this->config->mobiles as $key => $val)
 			{
@@ -447,17 +468,4 @@ class UserAgent
 
 		return false;
 	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Outputs the original Agent String when cast as a string.
-	 *
-	 * @return string
-	 */
-	public function __toString()
-	{
-		return $this->getAgentString();
-	}
-
 }

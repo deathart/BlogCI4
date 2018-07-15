@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Debug;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Debug;
 
 /**
  * CodeIgniter
@@ -36,8 +45,9 @@
  * @filesource
  */
 use CodeIgniter\Config\BaseConfig;
-use Config\Services;
 use CodeIgniter\Format\XMLFormatter;
+use Config\App;
+use Config\Services;
 
 /**
  * Debug Toolbar
@@ -50,7 +60,6 @@ use CodeIgniter\Format\XMLFormatter;
  */
 class Toolbar
 {
-
 	/**
 	 * Collectors to be used and displayed.
 	 *
@@ -93,13 +102,12 @@ class Toolbar
 	 *
 	 * @param float                               $startTime   App start time
 	 * @param float                               $totalTime
-	 * @param float                               $startMemory
 	 * @param \CodeIgniter\HTTP\RequestInterface  $request
 	 * @param \CodeIgniter\HTTP\ResponseInterface $response
 	 *
 	 * @return string JSON encoded data
 	 */
-	public function run($startTime, $totalTime, $startMemory, $request, $response): string
+	public function run($startTime, $totalTime, $request, $response): string
 	{
 		// Data items used within the view.
 		$data['url']             = current_url();
@@ -107,7 +115,7 @@ class Toolbar
 		$data['isAJAX']          = $request->isAJAX();
 		$data['startTime']       = $startTime;
 		$data['totalTime']       = $totalTime*1000;
-		$data['totalMemory']     = number_format((memory_get_peak_usage()-$startMemory)/1048576, 3);
+		$data['totalMemory']     = number_format((memory_get_peak_usage())/1024/1024, 3);
 		$data['segmentDuration'] = $this->roundTo($data['totalTime']/7, 5);
 		$data['segmentCount']    = (int)ceil($data['totalTime']/$data['segmentDuration']);
 		$data['CI_VERSION']      = \CodeIgniter\CodeIgniter::CI_VERSION;
@@ -202,6 +210,65 @@ class Toolbar
 	//--------------------------------------------------------------------
 
 	/**
+	 *
+	 */
+	public static function eventHandler()
+	{
+		self::$request = Services::request();
+
+		if(ENVIRONMENT == 'testing')
+		{
+			return;
+		}
+
+		// If the request contains '?debugbar then we're
+		// simply returning the loading script
+		if (self::$request->getGet('debugbar') !== null)
+		{
+			// Let the browser know that we are sending javascript
+			header('Content-Type: application/javascript');
+
+			ob_start();
+			include(BASEPATH.'Debug/Toolbar/toolbarloader.js.php');
+			$output = ob_get_contents();
+			@ob_end_clean();
+
+			exit($output);
+		}
+
+		// Otherwise, if it includes ?debugbar_time, then
+		// we should return the entire debugbar.
+		if (self::$request->getGet('debugbar_time'))
+		{
+			helper('security');
+
+			// Negotiate the content-type to format the output
+			$format = self::$request->negotiate('media', [
+				'text/html',
+				'application/json',
+				'application/xml'
+			]);
+			$format = explode('/', $format)[1];
+
+			$file     = sanitize_filename('debugbar_'.self::$request->getGet('debugbar_time'));
+			$filename = WRITEPATH.'debugbar/'.$file;
+
+			// Show the toolbar
+			if (file_exists($filename))
+			{
+				$contents = self::format(file_get_contents($filename), $format);
+				exit($contents);
+			}
+
+			// File was not written or do not exists
+			http_response_code(404);
+			exit(); // Exit here is needed to avoid load the index page
+		}
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Format output
 	 *
 	 * @param  string $data   JSON encoded Toolbar data
@@ -221,7 +288,7 @@ class Toolbar
 		$files = [];
 
 		$current = self::$request->getGet('debugbar_time');
-		$app     = new \Config\App;
+		$app     = config(App::class);
 
 		for ($i = 0; $i < $total; $i++)
 		{
@@ -249,6 +316,7 @@ class Toolbar
 			if ($app->toolbarMaxHistory >= 0 && $i >= $app->toolbarMaxHistory)
 			{
 				unlink($filenames[$i]);
+
 				continue;
 			}
 		}
@@ -274,20 +342,23 @@ class Toolbar
 		{
 			case 'html':
 				extract($data);
-				$parser = Services::parser(BASEPATH . 'Debug/Toolbar/Views/', null,false);
+				$parser = Services::parser(BASEPATH . 'Debug/Toolbar/Views/', null, false);
 				ob_start();
 				include(__DIR__.'/Toolbar/Views/toolbar.tpl.php');
 				$output = ob_get_contents();
 				ob_end_clean();
+
 				break;
 			case 'json':
 				$output = json_encode($data);
+
 				break;
 			case 'json':
 				$output = json_encode($data);
 			case 'xml':
 				$formatter = new XMLFormatter;
 				$output    = $formatter->format($data);
+
 				break;
 		}
 
@@ -323,8 +394,10 @@ class Toolbar
 			$offset = ((($row['start']-$startTime)*1000)/$displayTime)*100;
 			$length = (($row['duration']*1000)/$displayTime)*100;
 
-			$output .= "<span class='timer' style='left: {$offset}%; width: {$length}%;' title='".number_format($length,
-					2)."%'></span>";
+			$output .= "<span class='timer' style='left: {$offset}%; width: {$length}%;' title='".number_format(
+			    $length,
+					2
+			)."%'></span>";
 			$output .= "</td>";
 			$output .= "</tr>";
 		}
@@ -337,6 +410,7 @@ class Toolbar
 	/**
 	 * Returns a sorted array of timeline data arrays from the collectors.
 	 *
+	 * @param mixed $collectors
 	 * @return array
 	 */
 	protected static function collectTimelineData($collectors): array
@@ -399,64 +473,5 @@ class Toolbar
 		$increments = 1/$increments;
 
 		return (ceil($number*$increments)/$increments);
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 *
-	 */
-	public static function eventHandler()
-	{
-		self::$request = Services::request();
-
-		if(ENVIRONMENT == 'testing')
-		{
-			return;
-		}
-
-		// If the request contains '?debugbar then we're
-		// simply returning the loading script
-		if (self::$request->getGet('debugbar') !== null)
-		{
-			// Let the browser know that we are sending javascript
-			header('Content-Type: application/javascript');
-
-			ob_start();
-			include(BASEPATH.'Debug/Toolbar/toolbarloader.js.php');
-			$output = ob_get_contents();
-			@ob_end_clean();
-
-			exit($output);
-		}
-
-		// Otherwise, if it includes ?debugbar_time, then
-		// we should return the entire debugbar.
-		if (self::$request->getGet('debugbar_time'))
-		{
-			helper('security');
-
-			// Negotiate the content-type to format the output
-			$format = self::$request->negotiate('media', [
-				'text/html',
-				'application/json',
-				'application/xml'
-			]);
-			$format = explode('/', $format)[1];
-
-			$file     = sanitize_filename('debugbar_'.self::$request->getGet('debugbar_time'));
-			$filename = WRITEPATH.'debugbar/'.$file;
-
-			// Show the toolbar
-			if (file_exists($filename))
-			{
-				$contents = self::format(file_get_contents($filename), $format);
-				exit($contents);
-			}
-
-			// File was not written or do not exists
-			http_response_code(404);
-			exit(); // Exit here is needed to avoid load the index page
-		}
 	}
 }

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Cache\Handlers;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Cache\Handlers;
 
 /**
  * CodeIgniter
@@ -39,7 +48,6 @@ use CodeIgniter\Cache\CacheInterface;
 
 class MemcachedHandler implements CacheInterface
 {
-
 	/**
 	 * Prefixed to all cache names.
 	 *
@@ -50,7 +58,7 @@ class MemcachedHandler implements CacheInterface
 	/**
 	 * The memcached object
 	 *
-	 * @var \Memcached|\Memcache
+	 * @var \Memcache|\Memcached
 	 */
 	protected $memcached;
 
@@ -122,14 +130,19 @@ class MemcachedHandler implements CacheInterface
 		if ($this->memcached instanceof \Memcached)
 		{
 			$this->memcached->addServer(
-					$this->config['host'], $this->config['port'], $this->config['weight']
+					$this->config['host'],
+			    $this->config['port'],
+			    $this->config['weight']
 			);
 		}
 		elseif ($this->memcached instanceof \Memcache)
 		{
 			// Third parameter is persistance and defaults to TRUE.
 			$this->memcached->addServer(
-					$this->config['host'], $this->config['port'], true, $this->config['weight']
+					$this->config['host'],
+			    $this->config['port'],
+			    true,
+			    $this->config['weight']
 			);
 		}
 	}
@@ -176,7 +189,7 @@ class MemcachedHandler implements CacheInterface
 		{
 			return $this->memcached->set($key, $value, $ttl);
 		}
-		elseif ($this->memcached instanceof \Memcache)
+		if ($this->memcached instanceof \Memcache)
 		{
 			return $this->memcached->set($key, $value, 0, $ttl);
 		}
@@ -287,7 +300,8 @@ class MemcachedHandler implements CacheInterface
 
 		$stored = $this->memcached->get($key);
 
-		if (count($stored) !== 3)
+        // if not an array, don't try to count for PHP7.2
+		if (! is_array($stored) || count($stored) !== 3)
 		{
 			return FALSE;
 		}
@@ -312,5 +326,4 @@ class MemcachedHandler implements CacheInterface
 	{
 		return (extension_loaded('memcached') || extension_loaded('memcache'));
 	}
-
 }

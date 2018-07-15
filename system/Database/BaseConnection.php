@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Database;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Database;
 
 /**
  * CodeIgniter
@@ -35,14 +44,77 @@
  * @since	Version 3.0.0
  * @filesource
  */
-use CodeIgniter\Events\Events;
 use CodeIgniter\Database\Exceptions\DatabaseException;
+use CodeIgniter\Events\Events;
 
 /**
  * Class BaseConnection
  */
 abstract class BaseConnection implements ConnectionInterface
 {
+	/**
+	 * Connection ID
+	 *
+	 * @var    object|resource
+	 */
+	public $connID = false;
+
+	/**
+	 * Result ID
+	 *
+	 * @var    object|resource
+	 */
+	public $resultID = false;
+
+	/**
+	 * Protect identifiers flag
+	 *
+	 * @var    bool
+	 */
+	public $protectIdentifiers = true;
+
+	/**
+	 * Identifier escape character
+	 *
+	 * @var    string
+	 */
+	public $escapeChar = '"';
+
+	/**
+	 * ESCAPE statement string
+	 *
+	 * @var    string
+	 */
+	public $likeEscapeStr = " ESCAPE '%s' ";
+
+	/**
+	 * ESCAPE character
+	 *
+	 * @var    string
+	 */
+	public $likeEscapeChar = '!';
+
+	/**
+	 * Holds previously looked up data
+	 * for performance reasons.
+	 *
+	 * @var array
+	 */
+	public $dataCache = [];
+
+	/**
+	 * Transaction enabled flag
+	 *
+	 * @var	bool
+	 */
+	public $transEnabled = true;
+
+	/**
+	 * Strict transaction mode flag
+	 *
+	 * @var	bool
+	 */
+	public $transStrict = true;
 
 	/**
 	 * Data Source Name / Connect string
@@ -200,27 +272,6 @@ abstract class BaseConnection implements ConnectionInterface
 	protected $lastQuery;
 
 	/**
-	 * Connection ID
-	 *
-	 * @var    object|resource
-	 */
-	public $connID = false;
-
-	/**
-	 * Result ID
-	 *
-	 * @var    object|resource
-	 */
-	public $resultID = false;
-
-	/**
-	 * Protect identifiers flag
-	 *
-	 * @var    bool
-	 */
-	public $protectIdentifiers = true;
-
-	/**
 	 * List of reserved identifiers
 	 *
 	 * Identifiers that must NOT be escaped.
@@ -228,35 +279,6 @@ abstract class BaseConnection implements ConnectionInterface
 	 * @var    array
 	 */
 	protected $reservedIdentifiers = ['*'];
-
-	/**
-	 * Identifier escape character
-	 *
-	 * @var    string
-	 */
-	public $escapeChar = '"';
-
-	/**
-	 * ESCAPE statement string
-	 *
-	 * @var    string
-	 */
-	public $likeEscapeStr = " ESCAPE '%s' ";
-
-	/**
-	 * ESCAPE character
-	 *
-	 * @var    string
-	 */
-	public $likeEscapeChar = '!';
-
-	/**
-	 * Holds previously looked up data
-	 * for performance reasons.
-	 *
-	 * @var array
-	 */
-	public $dataCache = [];
 
 	/**
 	 * Microtime when connection was made
@@ -278,20 +300,6 @@ abstract class BaseConnection implements ConnectionInterface
 	 * @var bool
 	 */
 	protected $pretend = false;
-
-	/**
-	 * Transaction enabled flag
-	 *
-	 * @var	bool
-	 */
-	public $transEnabled = true;
-
-	/**
-	 * Strict transaction mode flag
-	 *
-	 * @var	bool
-	 */
-	public $transStrict = true;
 
 	/**
 	 * Transaction depth level
@@ -342,11 +350,21 @@ abstract class BaseConnection implements ConnectionInterface
 
 	//--------------------------------------------------------------------
 
+	public function __get($key)
+	{
+		if (property_exists($this, $key))
+		{
+			return $this->$key;
+		}
+	}
+
+	//--------------------------------------------------------------------
+
 	/**
 	 * Initializes the database connection/settings.
 	 *
-	 * @return mixed
 	 * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+	 * @return mixed
 	 */
 	public function initialize()
 	{
@@ -431,15 +449,6 @@ abstract class BaseConnection implements ConnectionInterface
 	//--------------------------------------------------------------------
 
 	/**
-	 * Platform dependent way method for closing the connection.
-	 *
-	 * @return mixed
-	 */
-	abstract protected function _close();
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Create a persistent database connection.
 	 *
 	 * @return mixed
@@ -467,7 +476,7 @@ abstract class BaseConnection implements ConnectionInterface
 	 * get that connection. If you pass either alias in and only a single
 	 * connection is present, it must return the sole connection.
 	 *
-	 * @param string|null $alias
+	 * @param null|string $alias
 	 *
 	 * @return mixed
 	 */
@@ -509,7 +518,6 @@ abstract class BaseConnection implements ConnectionInterface
 	 */
 	public function getError()
 	{
-
 	}
 
 	//--------------------------------------------------------------------
@@ -562,23 +570,13 @@ abstract class BaseConnection implements ConnectionInterface
 	 */
 	public function addTableAlias(string $table)
 	{
-		if ( ! in_array($table, $this->aliasedTables))
+		if ( ! in_array($table, $this->aliasedTables, true))
 		{
 			$this->aliasedTables[] = $table;
 		}
 
 		return $this;
 	}
-
-
-	/**
-	 * Executes the query against the database.
-	 *
-	 * @param $sql
-	 *
-	 * @return mixed
-	 */
-	abstract protected function execute($sql);
 
 	//--------------------------------------------------------------------
 
@@ -593,7 +591,7 @@ abstract class BaseConnection implements ConnectionInterface
 	 * @param string $sql
 	 * @param array  ...$binds
 	 * @param string $queryClass
-	 * @return BaseResult|Query|false
+	 * @return BaseResult|false|Query
 	 */
 	public function query(string $sql, $binds = null, $queryClass = 'CodeIgniter\\Database\\Query')
 	{
@@ -818,9 +816,10 @@ abstract class BaseConnection implements ConnectionInterface
 			return false;
 		}
 		// When transactions are nested we only begin/commit/rollback the outermost ones
-		elseif ($this->transDepth > 0)
+		if ($this->transDepth > 0)
 		{
 			$this->transDepth ++;
+
 			return true;
 		}
 
@@ -837,6 +836,7 @@ abstract class BaseConnection implements ConnectionInterface
 		if ($this->_transBegin())
 		{
 			$this->transDepth ++;
+
 			return true;
 		}
 
@@ -857,9 +857,10 @@ abstract class BaseConnection implements ConnectionInterface
 			return false;
 		}
 		// When transactions are nested we only begin/commit/rollback the outermost ones
-		elseif ($this->transDepth > 1 || $this->_transCommit())
+		if ($this->transDepth > 1 || $this->_transCommit())
 		{
 			$this->transDepth --;
+
 			return true;
 		}
 
@@ -880,9 +881,10 @@ abstract class BaseConnection implements ConnectionInterface
 			return false;
 		}
 		// When transactions are nested we only begin/commit/rollback the outermost ones
-		elseif ($this->transDepth > 1 || $this->_transRollback())
+		if ($this->transDepth > 1 || $this->_transRollback())
 		{
 			$this->transDepth --;
+
 			return true;
 		}
 
@@ -892,39 +894,12 @@ abstract class BaseConnection implements ConnectionInterface
 	//--------------------------------------------------------------------
 
 	/**
-	 * Begin Transaction
-	 *
-	 * @return	bool
-	 */
-	abstract protected function _transBegin(): bool;
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Commit Transaction
-	 *
-	 * @return	bool
-	 */
-	abstract protected function _transCommit(): bool;
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Rollback Transaction
-	 *
-	 * @return	bool
-	 */
-	abstract protected function _transRollback(): bool;
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Returns an instance of the query builder for this connection.
 	 *
 	 * @param string $tableName
 	 *
-	 * @return BaseBuilder
 	 * @throws DatabaseException
+	 * @return BaseBuilder
 	 */
 	public function table($tableName)
 	{
@@ -957,7 +932,7 @@ abstract class BaseConnection implements ConnectionInterface
 	 * @param \Closure $func
 	 * @param array    $options  Passed to the prepare() method
 	 *
-	 * @return BasePreparedQuery|null
+	 * @return null|BasePreparedQuery
 	 */
 	public function prepare(\Closure $func, array $options = [])
 	{
@@ -1059,12 +1034,16 @@ abstract class BaseConnection implements ConnectionInterface
 	 * insert the table prefix (if it exists) in the proper position, and escape only
 	 * the correct identifiers.
 	 *
-	 * @param    string|array
+	 * @param    array|string
 	 * @param    bool
 	 * @param    mixed
 	 * @param    bool
+	 * @param mixed $item
+	 * @param mixed $prefixSingle
+	 * @param null|mixed $protectIdentifiers
+	 * @param mixed $fieldExists
 	 *
-	 * @return    string|array
+	 * @return    array|string
 	 */
 	public function protectIdentifiers($item, $prefixSingle = false, $protectIdentifiers = null, $fieldExists = true)
 	{
@@ -1129,13 +1108,13 @@ abstract class BaseConnection implements ConnectionInterface
 			//
 			// NOTE: The ! empty() condition prevents this method
 			//       from breaking when QB isn't enabled.
-			if ( ! empty($this->aliasedTables) && in_array($parts[0], $this->aliasedTables))
+			if ( ! empty($this->aliasedTables) && in_array($parts[0], $this->aliasedTables, true))
 			{
 				if ($protectIdentifiers === true)
 				{
 					foreach ($parts as $key => $val)
 					{
-						if ( ! in_array($val, $this->reservedIdentifiers))
+						if ( ! in_array($val, $this->reservedIdentifiers, true))
 						{
 							$parts[$key] = $this->escapeIdentifiers($val);
 						}
@@ -1220,7 +1199,7 @@ abstract class BaseConnection implements ConnectionInterface
 			}
 		}
 
-		if ($protectIdentifiers === true && ! in_array($item, $this->reservedIdentifiers))
+		if ($protectIdentifiers === true && ! in_array($item, $this->reservedIdentifiers, true))
 		{
 			$item = $this->escapeIdentifiers($item);
 		}
@@ -1236,16 +1215,17 @@ abstract class BaseConnection implements ConnectionInterface
 	 * This function escapes column and table names
 	 *
 	 * @param    mixed
+	 * @param mixed $item
 	 *
 	 * @return    mixed
 	 */
 	public function escapeIdentifiers($item)
 	{
-		if ($this->escapeChar === '' || empty($item) || in_array($item, $this->reservedIdentifiers))
+		if ($this->escapeChar === '' || empty($item) || in_array($item, $this->reservedIdentifiers, true))
 		{
 			return $item;
 		}
-		elseif (is_array($item))
+		if (is_array($item))
 		{
 			foreach ($item as $key => $value)
 			{
@@ -1255,7 +1235,7 @@ abstract class BaseConnection implements ConnectionInterface
 			return $item;
 		}
 		// Avoid breaking functions and literal values inside queries
-		elseif (ctype_digit($item) || $item[0] === "'" OR ( $this->escapeChar !== '"' && $item[0] === '"') OR
+		if (ctype_digit($item) || $item[0] === "'" OR ( $this->escapeChar !== '"' && $item[0] === '"') OR
 				strpos($item, '(') !== false
 		)
 		{
@@ -1302,8 +1282,8 @@ abstract class BaseConnection implements ConnectionInterface
 	 *
 	 * @param string $table the table
 	 *
-	 * @return string
 	 * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+	 * @return string
 	 */
 	public function prefixTable($table = '')
 	{
@@ -1360,19 +1340,19 @@ abstract class BaseConnection implements ConnectionInterface
 
 			return $str;
 		}
-		else if (is_string($str) || ( is_object($str) && method_exists($str, '__toString')))
+		 if (is_string($str) || ( is_object($str) && method_exists($str, '__toString')))
 		{
 			return "'" . $this->escapeString($str) . "'";
 		}
-		else if (is_bool($str))
+		 if (is_bool($str))
 		{
 			return ($str === false) ? 0 : 1;
 		}
-		else if (is_numeric($str) && $str < 0)
+		 if (is_numeric($str) && $str < 0)
 		{
 			return "'{$str}'";
 		}
-		else if ($str === null)
+		 if ($str === null)
 		{
 			return 'NULL';
 		}
@@ -1407,7 +1387,9 @@ abstract class BaseConnection implements ConnectionInterface
 		if ($like === true)
 		{
 			return str_replace(
-					[$this->likeEscapeChar, '%', '_'], [$this->likeEscapeChar . $this->likeEscapeChar, $this->likeEscapeChar . '%', $this->likeEscapeChar . '_'], $str
+					[$this->likeEscapeChar, '%', '_'],
+			    [$this->likeEscapeChar . $this->likeEscapeChar, $this->likeEscapeChar . '%', $this->likeEscapeChar . '_'],
+			    $str
 			);
 		}
 
@@ -1423,27 +1405,12 @@ abstract class BaseConnection implements ConnectionInterface
 	 * specific escaping for LIKE conditions
 	 *
 	 * @param	string|string[]
+	 * @param mixed $str
 	 * @return	mixed
 	 */
 	public function escapeLikeString($str)
 	{
 		return $this->escapeString($str, TRUE);
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Platform independent string escape.
-	 *
-	 * Will likely be overridden in child classes.
-	 *
-	 * @param string $str
-	 *
-	 * @return string
-	 */
-	protected function _escapeString(string $str): string
-	{
-		return str_replace("'", "''", remove_invisible_characters($str, false));
 	}
 
 	//--------------------------------------------------------------------
@@ -1455,8 +1422,8 @@ abstract class BaseConnection implements ConnectionInterface
 	 * @param string $functionName
 	 * @param array  ...$params
 	 *
-	 * @return bool
 	 * @throws DatabaseException
+	 * @return bool
 	 */
 	public function callFunction(string $functionName, ...$params)
 	{
@@ -1489,13 +1456,13 @@ abstract class BaseConnection implements ConnectionInterface
 	 * Returns an array of table names
 	 *
 	 * @param	bool	$constrain_by_prefix = FALSE
-	 * @return	bool|array
 	 * @throws \CodeIgniter\Database\Exceptions\DatabaseException
+	 * @return	array|bool
 	 */
 	public function listTables($constrain_by_prefix = FALSE)
 	{
 		// Is there a cached result?
-		if (isset($this->dataCache['table_names']) && count($this->dataCache['table_names']))
+		if (isset($this->dataCache['table_names']) && $this->dataCache['table_names'])
 		{
 			return $this->dataCache['table_names'];
 		}
@@ -1506,6 +1473,7 @@ abstract class BaseConnection implements ConnectionInterface
 			{
 				throw new DatabaseException('This feature is not available for the database you are using.');
 			}
+
 			return false;
 		}
 
@@ -1553,7 +1521,7 @@ abstract class BaseConnection implements ConnectionInterface
 	 */
 	public function tableExists($table_name)
 	{
-		return in_array($this->protectIdentifiers($table_name, TRUE, FALSE, FALSE), $this->listTables());
+		return in_array($this->protectIdentifiers($table_name, TRUE, FALSE, FALSE), $this->listTables(), true);
 	}
 
 	//--------------------------------------------------------------------
@@ -1563,8 +1531,8 @@ abstract class BaseConnection implements ConnectionInterface
 	 *
 	 * @param    string $table Table name
 	 *
-	 * @return array|false
 	 * @throws DatabaseException
+	 * @return array|false
 	 */
 	public function getFieldNames($table)
 	{
@@ -1585,6 +1553,7 @@ abstract class BaseConnection implements ConnectionInterface
 			{
 				throw new DatabaseException('This feature is not available for the database you are using.');
 			}
+
 			return false;
 		}
 
@@ -1624,11 +1593,13 @@ abstract class BaseConnection implements ConnectionInterface
 	 *
 	 * @param	string
 	 * @param	string
+	 * @param mixed $fieldName
+	 * @param mixed $tableName
 	 * @return	bool
 	 */
 	public function fieldExists($fieldName, $tableName)
 	{
-		return in_array($fieldName, $this->getFieldNames($tableName));
+		return in_array($fieldName, $this->getFieldNames($tableName), true);
 	}
 
 	//--------------------------------------------------------------------
@@ -1720,6 +1691,67 @@ abstract class BaseConnection implements ConnectionInterface
 	//--------------------------------------------------------------------
 
 	/**
+	 * Platform dependent way method for closing the connection.
+	 *
+	 * @return mixed
+	 */
+	abstract protected function _close();
+
+	/**
+	 * Executes the query against the database.
+	 *
+	 * @param $sql
+	 *
+	 * @return mixed
+	 */
+	abstract protected function execute($sql);
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Begin Transaction
+	 *
+	 * @return	bool
+	 */
+	abstract protected function _transBegin(): bool;
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Commit Transaction
+	 *
+	 * @return	bool
+	 */
+	abstract protected function _transCommit(): bool;
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Rollback Transaction
+	 *
+	 * @return	bool
+	 */
+	abstract protected function _transRollback(): bool;
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Platform independent string escape.
+	 *
+	 * Will likely be overridden in child classes.
+	 *
+	 * @param string $str
+	 *
+	 * @return string
+	 */
+	protected function _escapeString(string $str): string
+	{
+		return str_replace("'", "''", remove_invisible_characters($str, false));
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Generates the SQL for listing tables in a platform-dependent manner.
 	 *
 	 * @param bool $constrainByPrefix
@@ -1740,15 +1772,4 @@ abstract class BaseConnection implements ConnectionInterface
 	abstract protected function _listColumns(string $table = ''): string;
 
 	//--------------------------------------------------------------------
-
-	public function __get($key)
-	{
-		if (property_exists($this, $key))
-		{
-			return $this->$key;
-		}
-	}
-
-	//--------------------------------------------------------------------
-
 }

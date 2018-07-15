@@ -33,12 +33,11 @@ class Tags extends Application
     /**
      * About constructor.
      *
-     * @param array ...$params
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
+        parent::__construct();
         $this->stitle = 'Tags';
         $this->article_model = new ArticleModel();
         $this->tags_model    = new TagsModel();

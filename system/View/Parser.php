@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\View;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\View;
 
 /**
  * CodeIgniter
@@ -52,7 +61,6 @@ use CodeIgniter\View\Exceptions\ViewException;
  */
 class Parser extends View
 {
-
 	/**
 	 * Left delimiter character for pseudo vars
 	 *
@@ -124,7 +132,7 @@ class Parser extends View
 	public function render(string $view, array $options = null, $saveData = null): string
 	{
 		$start = microtime(true);
-		if (is_null($saveData))
+		if (null === $saveData)
 		{
 			$saveData = $this->config->saveData;
 		}
@@ -139,6 +147,7 @@ class Parser extends View
 			if ($output = cache($cacheName))
 			{
 				$this->logPerformance($start, microtime(true), $view);
+
 				return $output;
 			}
 		}
@@ -190,7 +199,7 @@ class Parser extends View
 	public function renderString(string $template, array $options = null, $saveData = null): string
 	{
 		$start = microtime(true);
-		if (is_null($saveData))
+		if (null === $saveData)
 		{
 			$saveData = $this->config->saveData;
 		}
@@ -203,6 +212,7 @@ class Parser extends View
 		{
 			$this->data = [];
 		}
+
 		return $output;
 	}
 
@@ -231,6 +241,119 @@ class Parser extends View
 		}
 
 		$this->data = array_merge($this->data, $data);
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Re-inserts the noparsed contents back into the template.
+	 *
+	 * @param string $template
+	 *
+	 * @return string
+	 */
+	public function insertNoparse(string $template): string
+	{
+		foreach ($this->noparseBlocks as $hash => $replace)
+		{
+			$template = str_replace("noparse_{$hash}", $replace, $template);
+			unset($this->noparseBlocks[$hash]);
+		}
+
+		return $template;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Over-ride the substitution field delimiters.
+	 *
+	 * @param	string $leftDelimiter
+	 * @param	string $rightDelimiter
+	 * @return	RendererInterface
+	 */
+	public function setDelimiters($leftDelimiter = '{', $rightDelimiter = '}'): RendererInterface
+	{
+		$this->leftDelimiter = $leftDelimiter;
+		$this->rightDelimiter = $rightDelimiter;
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Checks the placeholder the view provided to see if we need to provide any autoescaping.
+	 *
+	 * @param string $key
+	 *
+	 * @return false|html
+	 */
+	public function shouldAddEscaping(string $key)
+	{
+		$escape = false;
+
+		$key = trim(str_replace(['{', '}'], '', $key));
+
+		// If the key has a context stored (from setData)
+		// we need to respect that.
+		if (array_key_exists($key, $this->dataContexts))
+		{
+			if ($this->dataContexts[$key] !== 'raw')
+			{
+				return $this->dataContexts[$key];
+			}
+		}
+		// No pipes, then we know we need to escape
+		elseif (strpos($key, '|') === false)
+		{
+			$escape = 'html';
+		}
+		// If there's a `noescape` then we're definitely false.
+		elseif (strpos($key, 'noescape') !== false)
+		{
+			$escape = false;
+		}
+		// If no `esc` filter is found, then we'll need to add one.
+		elseif ( ! preg_match('/\s+esc/', $key))
+		{
+			$escape = 'html';
+		}
+
+		return $escape;
+	}
+
+	/**
+	 * Makes a new plugin available during the parsing of the template.
+	 *
+	 * @param string   $alias
+	 * @param callable $callback
+	 *
+	 * @param bool     $isPair
+	 *
+	 * @return $this
+	 */
+	public function addPlugin(string $alias, callable $callback, bool $isPair = false)
+	{
+		$this->plugins[$alias] = $isPair ? [$callback] : $callback;
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Removes a plugin from the available plugins.
+	 *
+	 * @param string $alias
+	 *
+	 * @return $this
+	 */
+	public function removePlugin(string $alias)
+	{
+		unset($this->plugins[$alias]);
 
 		return $this;
 	}
@@ -297,13 +420,13 @@ class Parser extends View
 	}
 
 	//--------------------------------------------------------------------
-//FIXME the following method does not appear to be used anywhere, so commented out	
+//FIXME the following method does not appear to be used anywhere, so commented out
 //	protected function is_assoc($arr)
 //	{
 //		return array_keys($arr) !== range(0, count($arr) - 1);
 //	}
 	//--------------------------------------------------------------------
-//FIXME the following method does not appear to be used anywhere, so commented out	
+//FIXME the following method does not appear to be used anywhere, so commented out
 //	function strpos_all($haystack, $needle)
 //	{
 //		$offset = 0;
@@ -353,7 +476,10 @@ class Parser extends View
 		// have something to loop over.
 		preg_match_all(
 				'#' . $this->leftDelimiter . '\s*' . preg_quote($variable) . '\s*' . $this->rightDelimiter . '(.+?)' .
-				$this->leftDelimiter . '\s*' . '/' . preg_quote($variable) . '\s*' . $this->rightDelimiter . '#s', $template, $matches, PREG_SET_ORDER
+				$this->leftDelimiter . '\s*' . '/' . preg_quote($variable) . '\s*' . $this->rightDelimiter . '#s',
+		    $template,
+		    $matches,
+		    PREG_SET_ORDER
 		);
 
 		/*
@@ -384,7 +510,7 @@ class Parser extends View
 
 						continue;
 					}
-					else if (is_object($val))
+					 if (is_object($val))
 					{
 						$val = 'Class: ' . get_class($val);
 					}
@@ -462,26 +588,6 @@ class Parser extends View
 	//--------------------------------------------------------------------
 
 	/**
-	 * Re-inserts the noparsed contents back into the template.
-	 *
-	 * @param string $template
-	 *
-	 * @return string
-	 */
-	public function insertNoparse(string $template): string
-	{
-		foreach ($this->noparseBlocks as $hash => $replace)
-		{
-			$template = str_replace("noparse_{$hash}", $replace, $template);
-			unset($this->noparseBlocks[$hash]);
-		}
-
-		return $template;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Parses any conditionals in the code, removing blocks that don't
 	 * pass so we don't try to parse it later.
 	 *
@@ -522,31 +628,18 @@ class Parser extends View
 		// Parse the PHP itself, or insert an error so they can debug
 		ob_start();
 		extract($this->data);
+
 		try
 		{
 			$result = eval('?>' . $template . '<?php ');
 		} catch (\ParseError $e)
 		{
 			ob_end_clean();
+
 			throw ViewException::forTagSyntaxError(str_replace(['?>', '<?php '], '', $template));
 		}
+
 		return ob_get_clean();
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Over-ride the substitution field delimiters.
-	 *
-	 * @param	string $leftDelimiter
-	 * @param	string $rightDelimiter
-	 * @return	RendererInterface
-	 */
-	public function setDelimiters($leftDelimiter = '{', $rightDelimiter = '}'): RendererInterface
-	{
-		$this->leftDelimiter = $leftDelimiter;
-		$this->rightDelimiter = $rightDelimiter;
-		return $this;
 	}
 
 	//--------------------------------------------------------------------
@@ -569,9 +662,8 @@ class Parser extends View
 
 		// Replace the content in the template
 		$template = preg_replace_callback($pattern, function ($matches) use ($content, $escape) {
-
 			// Check for {! !} syntax to not-escape this one.
-			if (substr($matches[0], 0, 2) == '{!' && substr($matches[0], -2) == '!}')
+			if (strpos($matches[0], '{!') === 0 && substr($matches[0], -2) == '!}')
 			{
 				$escape = false;
 			}
@@ -617,49 +709,6 @@ class Parser extends View
 	//--------------------------------------------------------------------
 
 	/**
-	 * Checks the placeholder the view provided to see if we need to provide any autoescaping.
-	 *
-	 * @param string $key
-	 *
-	 * @return false|html
-	 */
-	public function shouldAddEscaping(string $key)
-	{
-		$escape = false;
-
-		$key = trim(str_replace(['{', '}'], '', $key));
-
-		// If the key has a context stored (from setData)
-		// we need to respect that.
-		if (array_key_exists($key, $this->dataContexts))
-		{
-			if ($this->dataContexts[$key] !== 'raw')
-			{
-				return $this->dataContexts[$key];
-			}
-		}
-		// No pipes, then we know we need to escape
-		elseif (strpos($key, '|') === false)
-		{
-			$escape = 'html';
-		}
-		// If there's a `noescape` then we're definitely false.
-		elseif (strpos($key, 'noescape') !== false)
-		{
-			$escape = false;
-		}
-		// If no `esc` filter is found, then we'll need to add one.
-		elseif ( ! preg_match('/\s+esc/', $key))
-		{
-			$escape = 'html';
-		}
-
-		return $escape;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Given a set of filters, will apply each of the filters in turn
 	 * to $replace, and return the modified string.
 	 *
@@ -700,7 +749,6 @@ class Parser extends View
 
 			if ( ! array_key_exists($filter, $this->config->filters))
 				continue;
-
 			// Filter it....
 			$replace = $this->config->filters[$filter]($replace, ...$param);
 		}
@@ -759,7 +807,6 @@ class Parser extends View
 				{
 					if (empty($part))
 						continue;
-
 					if (strpos($part, '=') !== false)
 					{
 						list($a, $b) = explode('=', $part);
@@ -777,39 +824,6 @@ class Parser extends View
 		}
 
 		return $template;
-	}
-
-	/**
-	 * Makes a new plugin available during the parsing of the template.
-	 *
-	 * @param string   $alias
-	 * @param callable $callback
-	 *
-	 * @param bool     $isPair
-	 *
-	 * @return $this
-	 */
-	public function addPlugin(string $alias, callable $callback, bool $isPair = false)
-	{
-		$this->plugins[$alias] = $isPair ? [$callback] : $callback;
-
-		return $this;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Removes a plugin from the available plugins.
-	 *
-	 * @param string $alias
-	 *
-	 * @return $this
-	 */
-	public function removePlugin(string $alias)
-	{
-		unset($this->plugins[$alias]);
-
-		return $this;
 	}
 
 	//--------------------------------------------------------------------

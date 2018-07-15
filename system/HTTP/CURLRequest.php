@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\HTTP;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\HTTP;
 
 /**
  * CodeIgniter
@@ -50,7 +59,6 @@ use Config\App;
  */
 class CURLRequest extends Request
 {
-
 	/**
 	 * The response object associated with this request
 	 *
@@ -258,69 +266,6 @@ class CURLRequest extends Request
 	//--------------------------------------------------------------------
 
 	/**
-	 * Sets the correct settings based on the options array
-	 * passed in.
-	 *
-	 * @param array $options
-	 */
-	protected function parseOptions(array $options)
-	{
-		if (array_key_exists('baseURI', $options))
-		{
-			$this->baseURI = $this->baseURI->setURI($options['baseURI']);
-			unset($options['baseURI']);
-		}
-
-		if (array_key_exists('headers', $options) && is_array($options['headers']))
-		{
-			foreach ($options['headers'] as $name => $value)
-			{
-				$this->setHeader($name, $value);
-			}
-
-			unset($options['headers']);
-		}
-
-		if (array_key_exists('delay', $options))
-		{
-			// Convert from the milliseconds passed in
-			// to the seconds that sleep requires.
-			$this->delay = (float) $options['delay'] / 1000;
-			unset($options['delay']);
-		}
-
-		foreach ($options as $key => $value)
-		{
-			$this->config[$key] = $value;
-		}
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * If the $url is a relative URL, will attempt to create
-	 * a full URL by prepending $this->baseURI to it.
-	 *
-	 * @param string $url
-	 *
-	 * @return string
-	 */
-	protected function prepareURL(string $url): string
-	{
-		// If it's a full URI, then we have nothing to do here...
-		if (strpos($url, '://') !== false)
-		{
-			return $url;
-		}
-
-		$uri = $this->baseURI->resolveRelativeURI($url);
-
-		return (string) $uri;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Get the request method. Overrides the Request class' method
 	 * since users expect a different answer here.
 	 *
@@ -407,6 +352,69 @@ class CURLRequest extends Request
 	//--------------------------------------------------------------------
 
 	/**
+	 * Sets the correct settings based on the options array
+	 * passed in.
+	 *
+	 * @param array $options
+	 */
+	protected function parseOptions(array $options)
+	{
+		if (array_key_exists('baseURI', $options))
+		{
+			$this->baseURI = $this->baseURI->setURI($options['baseURI']);
+			unset($options['baseURI']);
+		}
+
+		if (array_key_exists('headers', $options) && is_array($options['headers']))
+		{
+			foreach ($options['headers'] as $name => $value)
+			{
+				$this->setHeader($name, $value);
+			}
+
+			unset($options['headers']);
+		}
+
+		if (array_key_exists('delay', $options))
+		{
+			// Convert from the milliseconds passed in
+			// to the seconds that sleep requires.
+			$this->delay = (float) $options['delay'] / 1000;
+			unset($options['delay']);
+		}
+
+		foreach ($options as $key => $value)
+		{
+			$this->config[$key] = $value;
+		}
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * If the $url is a relative URL, will attempt to create
+	 * a full URL by prepending $this->baseURI to it.
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	protected function prepareURL(string $url): string
+	{
+		// If it's a full URI, then we have nothing to do here...
+		if (strpos($url, '://') !== false)
+		{
+			return $url;
+		}
+
+		$uri = $this->baseURI->resolveRelativeURI($url);
+
+		return (string) $uri;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Takes all headers current part of this request and adds them
 	 * to the cURL request.
 	 *
@@ -465,7 +473,7 @@ class CURLRequest extends Request
 		if ($method == 'PUT' || $method == 'POST')
 		{
 			// See http://tools.ietf.org/html/rfc7230#section-3.3.2
-			if (is_null($this->getHeader('content-length')))
+			if (null === $this->getHeader('content-length'))
 			{
 				$this->setHeader('Content-Length', 0);
 			}
@@ -516,7 +524,7 @@ class CURLRequest extends Request
 
 				$this->response->setHeader($title, $value);
 			}
-			else if (substr($header, 0, 4) == 'HTTP')
+			else if (strpos($header, 'HTTP') === 0)
 			{
 				preg_match('#^HTTP\/([12]\.[01]) ([0-9]+) (.+)#', $header, $matches);
 
@@ -540,8 +548,8 @@ class CURLRequest extends Request
 	 *
 	 * @param array $curl_options
 	 * @param array $config
-	 * @return array
 	 * @throws \InvalidArgumentException
+	 * @return array
 	 */
 	protected function setCURLOptions(array $curl_options = [], array $config = [])
 	{

@@ -69,14 +69,11 @@ class Application extends Controller
     /**
      * Application constructor.
      *
-     * @param array ...$params
-     *
      * @throws \InvalidArgumentException
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
         //Declare class
         $config        = new App();
         $this->session        = Services::session($config);

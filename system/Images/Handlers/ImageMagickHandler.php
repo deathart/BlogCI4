@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Images\Handlers;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Images\Handlers;
 
 /**
  * CodeIgniter
@@ -44,16 +53,15 @@ use CodeIgniter\Images\Image;
  * To make this library as compatible as possible with the broadest
  * number of installations, we do not use the Imagick extension,
  * but simply use the command line version.
- * 
+ *
  * hmm - the width & height accessors at the end use the imagick extension.
- * 
+ *
  * FIXME - This needs conversion & unit testing, to use the imagick extension
  *
  * @package CodeIgniter\Images\Handlers
  */
 class ImageMagickHandler extends BaseHandler
 {
-
 	public $version;
 
 	/**
@@ -87,7 +95,7 @@ class ImageMagickHandler extends BaseHandler
 		//todo FIX THIS HANDLER PROPERLY
 
 		$escape = "\\";
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+		if (stripos(PHP_OS, 'WIN') === 0)
 		{
 			$escape = "";
 		}
@@ -121,30 +129,6 @@ class ImageMagickHandler extends BaseHandler
 	//--------------------------------------------------------------------
 
 	/**
-	 * Handles the rotation of an image resource.
-	 * Doesn't save the image, but replaces the current resource.
-	 *
-	 * @param int $angle
-	 *
-	 * @return $this
-	 */
-	protected function _rotate(int $angle)
-	{
-		$angle = '-rotate ' . $angle;
-
-		$source = ! empty($this->resource) ? $this->resource : $this->image->getPathname();
-		$destination = $this->getResourcePath();
-
-		$action = ' ' . $angle . ' "' . $source . '" "' . $destination . '"';
-
-		$this->process($action);
-
-		return $this;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Flattens transparencies, default white background
 	 *
 	 * @param int $red
@@ -155,7 +139,6 @@ class ImageMagickHandler extends BaseHandler
 	 */
 	public function _flatten(int $red = 255, int $green = 255, int $blue = 255)
 	{
-
 		$flatten = "-background RGB({$red},{$green},{$blue}) -flatten";
 
 		$source = ! empty($this->resource) ? $this->resource : $this->image->getPathname();
@@ -211,12 +194,91 @@ class ImageMagickHandler extends BaseHandler
 	//--------------------------------------------------------------------
 
 	/**
+	 * Saves any changes that have been made to file. If no new filename is
+	 * provided, the existing image is overwritten, otherwise a copy of the
+	 * file is made at $target.
+	 *
+	 * Example:
+	 *    $image->resize(100, 200, true)
+	 *          ->save();
+	 *
+	 * @param null|string $target
+	 * @param int         $quality
+	 *
+	 * @return bool
+	 */
+	public function save(string $target = null, int $quality = 90)
+	{
+		$target = empty($target) ? $this->image : $target;
+
+		// If no new resource has been created, then we're
+		// simply copy the existing one.
+		if (empty($this->resource))
+		{
+			$name = basename($target);
+			$path = pathinfo($target, PATHINFO_DIRNAME);
+
+			return $this->image->copy($path, $name);
+		}
+
+		// Copy the file through ImageMagick so that it has
+		// a chance to convert file format.
+		$action = '"' . $this->resource . '" "' . $target . '"';
+
+		$result = $this->process($action, $quality);
+
+		unlink($this->resource);
+
+		return $result;
+	}
+
+	//--------------------------------------------------------------------
+
+		//--------------------------------------------------------------------
+
+	public function _getWidth()
+	{
+		return imagesx($this->resource);
+	}
+
+	public function _getHeight()
+	{
+		return imagesy($this->resource);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Handles the rotation of an image resource.
+	 * Doesn't save the image, but replaces the current resource.
+	 *
+	 * @param int $angle
+	 *
+	 * @return $this
+	 */
+	protected function _rotate(int $angle)
+	{
+		$angle = '-rotate ' . $angle;
+
+		$source = ! empty($this->resource) ? $this->resource : $this->image->getPathname();
+		$destination = $this->getResourcePath();
+
+		$action = ' ' . $angle . ' "' . $source . '" "' . $destination . '"';
+
+		$this->process($action);
+
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Handles all of the grunt work of resizing, etc.
 	 *
 	 * @param string $action
 	 * @param int    $quality
 	 *
-	 * @return ImageMagickHandler|bool
+	 * @return bool|ImageMagickHandler
 	 */
 	protected function process(string $action, int $quality = 100)
 	{
@@ -253,47 +315,6 @@ class ImageMagickHandler extends BaseHandler
 	//--------------------------------------------------------------------
 
 	/**
-	 * Saves any changes that have been made to file. If no new filename is
-	 * provided, the existing image is overwritten, otherwise a copy of the
-	 * file is made at $target.
-	 *
-	 * Example:
-	 *    $image->resize(100, 200, true)
-	 *          ->save();
-	 *
-	 * @param string|null $target
-	 * @param int         $quality
-	 *
-	 * @return bool
-	 */
-	public function save(string $target = null, int $quality = 90)
-	{
-		$target = empty($target) ? $this->image : $target;
-
-		// If no new resource has been created, then we're
-		// simply copy the existing one.
-		if (empty($this->resource))
-		{
-			$name = basename($target);
-			$path = pathinfo($target, PATHINFO_DIRNAME);
-
-			return $this->image->copy($path, $name);
-		}
-
-		// Copy the file through ImageMagick so that it has
-		// a chance to convert file format.
-		$action = '"' . $this->resource . '" "' . $target . '"';
-
-		$result = $this->process($action, $quality);
-
-		unlink($this->resource);
-
-		return $result;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
 	 * Get Image Resource
 	 *
 	 * This simply creates an image resource handle
@@ -305,11 +326,11 @@ class ImageMagickHandler extends BaseHandler
 	 * To ensure we can use all features, like transparency,
 	 * during the process, we'll use a PNG as the temp file type.
 	 *
-	 * @return    resource|bool
+	 * @return    bool|resource
 	 */
 	protected function getResourcePath()
 	{
-		if ( ! is_null($this->resource))
+		if ( null !== $this->resource)
 		{
 			return $this->resource;
 		}
@@ -366,6 +387,7 @@ class ImageMagickHandler extends BaseHandler
 						$gravity = 'SouthWest';
 						$yAxis = $options['vOffset'] - $options['padding'];
 					}
+
 					break;
 				case 'center':
 					$xAxis = $options['hOffset'] + $options['padding'];
@@ -376,6 +398,7 @@ class ImageMagickHandler extends BaseHandler
 						$yAxis = $options['vOffset'] - $options['padding'];
 						$gravity = 'South';
 					}
+
 					break;
 				case 'right':
 					$xAxis = $options['hOffset'] - $options['padding'];
@@ -386,6 +409,7 @@ class ImageMagickHandler extends BaseHandler
 						$gravity = 'SouthEast';
 						$yAxis = $options['vOffset'] - $options['padding'];
 					}
+
 					break;
 			}
 
@@ -419,20 +443,4 @@ class ImageMagickHandler extends BaseHandler
 
 		$this->process($cmd);
 	}
-
-	//--------------------------------------------------------------------
-	
-		//--------------------------------------------------------------------
-
-	public function _getWidth()
-	{
-		return imagesx($this->resource);
-	}
-
-	public function _getHeight()
-	{
-		return imagesy($this->resource);
-	}
-
-
 }

@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Database\MySQLi;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Database\MySQLi;
 
 /**
  * CodeIgniter
@@ -41,7 +50,6 @@
  */
 class Forge extends \CodeIgniter\Database\Forge
 {
-
 	/**
 	 * CREATE DATABASE statement
 	 *
@@ -109,18 +117,18 @@ class Forge extends \CodeIgniter\Database\Forge
 		{
 			if (is_string($key))
 			{
-				$sql .= ' ' . strtoupper($key) . ' = ' . $attributes[$key];
+				$sql .= ' ' . strtoupper($key) . ' = ' . $this->db->escape($attributes[$key]);
 			}
 		}
 
 		if ( ! empty($this->db->charset) && ! strpos($sql, 'CHARACTER SET') && ! strpos($sql, 'CHARSET'))
 		{
-			$sql .= ' DEFAULT CHARACTER SET = ' . $this->db->charset;
+			$sql .= ' DEFAULT CHARACTER SET = ' . $this->db->escape($this->db->charset);
 		}
 
 		if ( ! empty($this->db->DBCollat) && ! strpos($sql, 'COLLATE'))
 		{
-			$sql .= ' COLLATE = ' . $this->db->DBCollat;
+			$sql .= ' COLLATE = ' . $this->db->escape($this->db->DBCollat);
 		}
 
 		return $sql;
@@ -218,6 +226,7 @@ class Forge extends \CodeIgniter\Database\Forge
 					if ( ! isset($this->fields[$this->keys[$i][$i2]]))
 					{
 						unset($this->keys[$i][$i2]);
+
 						continue;
 					}
 				}
@@ -225,12 +234,13 @@ class Forge extends \CodeIgniter\Database\Forge
 			elseif ( ! isset($this->fields[$this->keys[$i]]))
 			{
 				unset($this->keys[$i]);
+
 				continue;
 			}
 
 			is_array($this->keys[$i]) || $this->keys[$i] = [$this->keys[$i]];
 
-			$unique = in_array($i, $this->uniqueKeys) ? 'UNIQUE ' : '';
+			$unique = in_array($i, $this->uniqueKeys, true) ? 'UNIQUE ' : '';
 
 			$sql .= ",\n\t{$unique}KEY " . $this->db->escapeIdentifiers(implode('_', $this->keys[$i]))
 					. ' (' . implode(', ', $this->db->escapeIdentifiers($this->keys[$i])) . ')';

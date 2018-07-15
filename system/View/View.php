@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\View;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\View;
 
 /**
  * CodeIgniter
@@ -35,9 +44,9 @@
  * @since	Version 3.0.0
  * @filesource
  */
+use CodeIgniter\Log\Logger;
 use CodeIgniter\View\Exceptions\ViewException;
 use Config\Services;
-use CodeIgniter\Log\Logger;
 
 /**
  * Class View
@@ -46,7 +55,6 @@ use CodeIgniter\Log\Logger;
  */
 class View implements RendererInterface
 {
-
 	/**
 	 * Data that is made available to the Views.
 	 *
@@ -133,9 +141,9 @@ class View implements RendererInterface
 	{
 		$this->config = $config;
 		$this->viewPath = rtrim($viewPath, '/ ') . '/';
-		$this->loader = is_null($loader) ? Services::locator() : $loader;
-		$this->logger = is_null($logger) ? Services::logger() : $logger;
-		$this->debug = is_null($debug) ? CI_DEBUG : $debug;
+		$this->loader = null === $loader ? Services::locator() : $loader;
+		$this->logger = null === $logger ? Services::logger() : $logger;
+		$this->debug = null === $debug ? CI_DEBUG : $debug;
 		$this->saveData = $config->saveData ?? null;
 	}
 
@@ -178,6 +186,7 @@ class View implements RendererInterface
 			if ($output = cache($this->renderVars['cacheName']))
 			{
 				$this->logPerformance($this->renderVars['start'], microtime(true), $this->renderVars['view']);
+
 				return $output;
 			}
 		}
@@ -213,10 +222,10 @@ class View implements RendererInterface
 		if (CI_DEBUG && (! isset($options['debug']) || $options['debug'] === true))
 		{
 			$after = (new \Config\Filters())->globals['after'];
-			if (in_array('toolbar', $after) || array_key_exists('toolbar', $after))
+			if (in_array('toolbar', $after, true) || array_key_exists('toolbar', $after))
 			{
-				$toolbarCollectors =  (new \Config\App())->toolbarCollectors;
-				if (in_array('CodeIgniter\Debug\Toolbar\Collectors\Views', $toolbarCollectors) || array_key_exists('CodeIgniter\Debug\Toolbar\Collectors\Views', $toolbarCollectors))
+				$toolbarCollectors =  (config(\Config\App::class))->toolbarCollectors;
+				if (in_array('CodeIgniter\Debug\Toolbar\Collectors\Views', $toolbarCollectors, true) || array_key_exists('CodeIgniter\Debug\Toolbar\Collectors\Views', $toolbarCollectors))
 				{
 					// Clean up our path names to make them a little cleaner
 					foreach (['APPPATH', 'BASEPATH', 'ROOTPATH'] as $path)
@@ -263,7 +272,7 @@ class View implements RendererInterface
 	public function renderString(string $view, array $options = null, $saveData = null): string
 	{
 		$start = microtime(true);
-		if (is_null($saveData))
+		if (null === $saveData)
 		{
 			$saveData = $this->config->saveData;
 		}
@@ -399,7 +408,6 @@ class View implements RendererInterface
 	{
 		if ( ! $this->debug)
 			return;
-
 		$this->performanceData[] = [
 			'start'	 => $start,
 			'end'	 => $end,

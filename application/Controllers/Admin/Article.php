@@ -32,13 +32,11 @@ class Article extends Application
     /**
      * Article constructor.
      *
-     * @param array ...$params
-     *
      * @throws \CodeIgniter\Database\Exceptions\DatabaseException
      */
-    public function __construct(...$params)
+    public function __construct()
     {
-        parent::__construct(...$params);
+        parent::__construct();
         $this->article_model    = new ArticleModel();
         $this->categories_model    = new CategoriesModel();
         $this->stitle        = 'Articles';

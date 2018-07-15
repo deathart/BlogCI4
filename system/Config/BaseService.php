@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Config;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Config;
 
 /**
  * CodeIgniter
@@ -57,7 +66,6 @@ use CodeIgniter\Autoloader\FileLocator;
  */
 class BaseService
 {
-
 	/**
 	 * Cache for instance of any services that
 	 * have been requested as a "shared" instance.
@@ -86,37 +94,6 @@ class BaseService
 	 * @var array
 	 */
 	static protected $services = [];
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Returns a shared instance of any of the class' services.
-	 *
-	 * $key must be a name matching a service.
-	 *
-	 * @param string $key
-	 * @param array  ...$params
-	 *
-	 * @return mixed
-	 */
-	protected static function getSharedInstance(string $key, ...$params)
-	{
-		// Returns mock if exists
-		if (isset(static::$mocks[$key]))
-		{
-			return static::$mocks[$key];
-		}
-
-		if (! isset(static::$instances[$key]))
-		{
-			// Make sure $getShared is false
-			array_push($params, false);
-
-			static::$instances[$key] = static::$key(...$params);
-		}
-
-		return static::$instances[$key];
-	}
 
 	//--------------------------------------------------------------------
 
@@ -170,6 +147,37 @@ class BaseService
 	//--------------------------------------------------------------------
 
 	/**
+	 * Returns a shared instance of any of the class' services.
+	 *
+	 * $key must be a name matching a service.
+	 *
+	 * @param string $key
+	 * @param array  ...$params
+	 *
+	 * @return mixed
+	 */
+	protected static function getSharedInstance(string $key, ...$params)
+	{
+		// Returns mock if exists
+		if (isset(static::$mocks[$key]))
+		{
+			return static::$mocks[$key];
+		}
+
+		if (! isset(static::$instances[$key]))
+		{
+			// Make sure $getShared is false
+			array_push($params, false);
+
+			static::$instances[$key] = static::$key(...$params);
+		}
+
+		return static::$instances[$key];
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * Will scan all psr4 namespaces registered with system to look
 	 * for new Config\Services files. Caches a copy of each one, then
 	 * looks for the service method in each, returning an instance of
@@ -195,14 +203,14 @@ class BaseService
 			{
 				$classname = $locator->getClassname($file);
 
-				if (! in_array($classname, ['Config\\Services', 'CodeIgniter\\Config\\Services']))
+				if (! in_array($classname, ['Config\\Services', 'CodeIgniter\\Config\\Services'], true))
 				{
 					static::$services[] = new $classname();
 				}
 			}
 		}
 
-		if (! count(static::$services))
+		if (! static::$services)
 		{
 			return;
 		}

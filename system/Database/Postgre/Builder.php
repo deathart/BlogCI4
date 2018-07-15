@@ -1,4 +1,13 @@
-<?php namespace CodeIgniter\Database\Postgre;
+<?php
+
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
+namespace CodeIgniter\Database\Postgre;
 
 /**
  * CodeIgniter
@@ -35,15 +44,14 @@
  * @since	Version 3.0.0
  * @filesource
  */
-use CodeIgniter\Database\BaseBuilder;
 use \CodeIgniter\Database\Exceptions\DatabaseException;
+use CodeIgniter\Database\BaseBuilder;
 
 /**
  * Builder for Postgre
  */
 class Builder extends BaseBuilder
 {
-
 	/**
 	 * ORDER BY random keyword
 	 *
@@ -136,8 +144,8 @@ class Builder extends BaseBuilder
 	 * @param      array  $set   An associative array of insert values
 	 * @param bool $returnSQL
 	 *
-	 * @return bool TRUE on success, FALSE on failure
 	 * @throws DatabaseException
+	 * @return bool TRUE on success, FALSE on failure
 	 * @internal param true $bool returns the generated SQL, false executes the query.
 	 *
 	 */
@@ -148,12 +156,13 @@ class Builder extends BaseBuilder
 			$this->set($set);
 		}
 
-		if (count($this->QBSet) === 0)
+		if (! $this->QBSet)
 		{
 			if (CI_DEBUG)
 			{
 				throw new DatabaseException('You must use the "set" method to update an entry.');
 			}
+
 			return false;
 		}
 
@@ -194,8 +203,8 @@ class Builder extends BaseBuilder
 	 * @param bool   $reset_data
 	 * @param bool   $returnSQL
 	 *
-	 * @return mixed
 	 * @throws DatabaseException
+	 * @return mixed
 	 * @internal param the $mixed where clause
 	 * @internal param the $mixed limit clause
 	 * @internal param $bool
@@ -209,6 +218,31 @@ class Builder extends BaseBuilder
 		}
 
 		return parent::delete($where, $limit, $reset_data, $returnSQL);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Platform independent LIKE statement builder.
+	 *
+	 * In PostgreSQL, the ILIKE operator will perform case insensitive
+	 * searches according to the current locale.
+	 *
+	 * @see https://www.postgresql.org/docs/9.2/static/functions-matching.html
+	 *
+	 * @param null|string $prefix
+	 * @param string      $column
+	 * @param null|string $not
+	 * @param string      $bind
+	 * @param bool        $insensitiveSearch
+	 *
+	 * @return string     $like_statement
+	 */
+	public function _like_statement(string $prefix = null, string $column, string $not = null, string $bind, bool $insensitiveSearch = false): string
+	{
+		$op = $insensitiveSearch === true ? 'ILIKE' : 'LIKE';
+
+		return "{$prefix} {$column} {$not} {$op} :{$bind}:";
 	}
 
 	//--------------------------------------------------------------------
@@ -237,8 +271,8 @@ class Builder extends BaseBuilder
 	 * @param string $table
 	 * @param array  $values
 	 *
-	 * @return string
 	 * @throws DatabaseException
+	 * @return string
 	 * @internal param the $string table name
 	 * @internal param the $array update data
 	 *
@@ -251,6 +285,7 @@ class Builder extends BaseBuilder
 		}
 
 		$this->QBOrderBy = [];
+
 		return parent::_update($table, $values);
 	}
 
@@ -310,6 +345,7 @@ class Builder extends BaseBuilder
 	protected function _delete($table)
 	{
 		$this->QBLimit = false;
+
 		return parent::_delete($table);
 	}
 
@@ -330,31 +366,6 @@ class Builder extends BaseBuilder
 	protected function _truncate($table)
 	{
 		return 'TRUNCATE ' . $table . ' RESTART IDENTITY';
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Platform independent LIKE statement builder.
-	 *
-	 * In PostgreSQL, the ILIKE operator will perform case insensitive
-	 * searches according to the current locale.
-	 *
-	 * @see https://www.postgresql.org/docs/9.2/static/functions-matching.html
-	 *
-	 * @param string|null $prefix
-	 * @param string      $column
-	 * @param string|null $not
-	 * @param string      $bind
-	 * @param bool        $insensitiveSearch
-	 *
-	 * @return string     $like_statement
-	 */
-	public function _like_statement(string $prefix = null, string $column, string $not = null, string $bind, bool $insensitiveSearch = false): string
-	{
-		$op = $insensitiveSearch === true ? 'ILIKE' : 'LIKE';
-
-		return "{$prefix} {$column} {$not} {$op} :{$bind}:";
 	}
 
 	//--------------------------------------------------------------------

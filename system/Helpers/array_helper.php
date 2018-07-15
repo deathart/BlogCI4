@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
+ */
+
 if (! function_exists('array_value_dot'))
 {
 	/**
@@ -9,7 +16,7 @@ if (! function_exists('array_value_dot'))
 	 * @param string $index
 	 * @param array  $array
 	 *
-	 * @return mixed|null
+	 * @return null|mixed
 	 */
 	function dot_array_search(string $index, array $array)
 	{
@@ -28,12 +35,12 @@ if (! function_exists('array_search_dot'))
 	 * @param array $indexes
 	 * @param array $array
 	 *
-	 * @return mixed|null
+	 * @return null|mixed
 	 */
 	function _array_search_dot(array $indexes, array $array)
 	{
 		// Grab the current index
-		$currentIndex = count($indexes)
+		$currentIndex = $indexes
 			? array_shift($indexes)
 			: null;
 
@@ -71,7 +78,7 @@ if (! function_exists('array_search_dot'))
 		}
 
 		// Do we need to recursively search this value?
-		if (is_array($array[$currentIndex]) && count($array[$currentIndex]))
+		if (is_array($array[$currentIndex]) && $array[$currentIndex])
 		{
 			return _array_search_dot($indexes, $array[$currentIndex]);
 		}
@@ -80,5 +87,4 @@ if (! function_exists('array_search_dot'))
 		return $array[$currentIndex];
 	}
 }
-
 

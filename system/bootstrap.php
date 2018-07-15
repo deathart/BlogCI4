@@ -1,39 +1,10 @@
 <?php
 
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP
- *
- * This content is released under the MIT License (MIT)
- *
- * Copyright (c) 2014-2018 British Columbia Institute of Technology
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @package	CodeIgniter
- * @author	CodeIgniter Dev Team
- * @copyright	2014-2018 British Columbia Institute of Technology (https://bcit.ca/)
- * @license	https://opensource.org/licenses/MIT	MIT License
- * @link	https://codeigniter.com
- * @since	Version 3.0.0
- * @filesource
+/*
+ * BlogCI4 - Blog write with Codeigniter v4dev
+ * @author Deathart <contact@deathart.fr>
+ * @copyright Copyright (c) 2018 Deathart
+ * @license https://opensource.org/licenses/MIT MIT License
  */
 
 /*
@@ -48,14 +19,14 @@
 
 $public = trim($paths->publicDirectory, '/');
 
-$pos = strrpos(FCPATH, $public.DIRECTORY_SEPARATOR);
+$pos = strrpos(FCPATH, $public.\DIRECTORY_SEPARATOR);
 
 /**
  * The path to the main application directory. Just above public.
  */
 if (! defined('ROOTPATH'))
 {
-	define('ROOTPATH', substr_replace(FCPATH, '', $pos, strlen($public.DIRECTORY_SEPARATOR)));
+	define('ROOTPATH', substr_replace(FCPATH, '', $pos, strlen($public.\DIRECTORY_SEPARATOR)));
 }
 
 /**
@@ -63,7 +34,7 @@ if (! defined('ROOTPATH'))
  */
 if (! defined('APPPATH'))
 {
-	define('APPPATH', realpath(ROOTPATH . $paths->applicationDirectory).DIRECTORY_SEPARATOR);
+	define('APPPATH', realpath(ROOTPATH . $paths->applicationDirectory).\DIRECTORY_SEPARATOR);
 }
 
 /**
@@ -71,7 +42,7 @@ if (! defined('APPPATH'))
  */
 if (! defined('BASEPATH'))
 {
-	define('BASEPATH', realpath(ROOTPATH . $paths->systemDirectory).DIRECTORY_SEPARATOR);
+	define('BASEPATH', realpath(ROOTPATH . $paths->systemDirectory).\DIRECTORY_SEPARATOR);
 }
 
 /**
@@ -79,7 +50,7 @@ if (! defined('BASEPATH'))
  */
 if (! defined('WRITEPATH'))
 {
-	define('WRITEPATH', realpath(ROOTPATH . $paths->writableDirectory).DIRECTORY_SEPARATOR);
+	define('WRITEPATH', realpath(ROOTPATH . $paths->writableDirectory).\DIRECTORY_SEPARATOR);
 }
 
 /**
@@ -87,7 +58,7 @@ if (! defined('WRITEPATH'))
  */
 if (! defined('TESTPATH'))
 {
-	define('TESTPATH', realpath(ROOTPATH . $paths->testsDirectory).DIRECTORY_SEPARATOR);
+	define('TESTPATH', realpath(ROOTPATH . $paths->testsDirectory).\DIRECTORY_SEPARATOR);
 }
 
 /*
@@ -151,7 +122,8 @@ helper('url');
  * the pieces all working together.
  */
 
-$app = new \CodeIgniter\CodeIgniter(new \Config\App());
+$appConfig = config(\Config\App::class);
+$app = new \CodeIgniter\CodeIgniter($appConfig);
 $app->initialize();
 
 return $app;
